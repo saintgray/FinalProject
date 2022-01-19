@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<!-- Root Context: defines shared resources visible to all other web components -->
+	<!-- 다른 web component 들에게 공유할 수 있는 bean 들을 생성 (DB 관련) -->
+	
+	<!-- HikariCP Bean -->
+	<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource" 
+		p:driverClassName="com.mysql.cj.jdbc.Driver"
+		p:jdbcUrl="jdbc:mysql://localhost:3306/project?serverTimezone=UTC"
+		p:username="bit"
+		p:password="bitclass123"
+		>
+	</bean>
+	
+	
+	
+	
+	
+	<!-- Mybatis -->
+	<!-- <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean"
+		p:dataSource-ref="dataSource"
+		p:mapperLocations="classpath:com/bitcamp/op/mapper/*.xml"
+		>
+	</bean>
+	
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg ref="sqlSessionFactory"/>
+	</bean>
+	 -->
+	
+</beans>
