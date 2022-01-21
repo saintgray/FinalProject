@@ -33,7 +33,7 @@ public class HomeController {
 		
 		String formattedDate = dateFormat.format(date);
 		
-		model.addAttribute("serverTime", formattedDate );
+		
 		// develop branch 생성 후 리턴 값을 바꾸어 보겠음 
 		// return "home";
 		return null;
