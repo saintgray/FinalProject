@@ -31,23 +31,14 @@ public class HomeController {
 		Date date = new Date();
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
 		
-		String formattedDate = dateFormat.format(date);
+	
+		// develop branch 생성 후 리턴 값을 바꾸어 보겠음 
+		// return "home";
 		
-		model.addAttribute("serverTime", formattedDate );
-		
-		return "home";//지원
-		// 오현
-		//추가
-		//ㅇㄹㅇㄹ
-		
-		//123
-		//45555
-		//123123123123
-		
-		//ㄴㅇ라ㅓㄴ아ㅣ러나ㅣㅇ러
+		//fgfgfgf
+		return null;
 		
 		
-		// pull request
 
 	}
 
