@@ -5,4 +5,8 @@ public class TEst {
 	
 	String test;
 	
+	
+	public void getTest() {
+		//???
+	}
 }
