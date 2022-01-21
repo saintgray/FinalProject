@@ -25,17 +25,8 @@ public class HomeController {
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
-
-		logger.info("Welcome home! The client locale is {}.", locale);
+//fgfgf
 		
-		Date date = new Date();
-		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
-		
-	
-		// develop branch 생성 후 리턴 값을 바꾸어 보겠음 
-		// return "home";
-		
-		//fgfgfgf
 		return null;
 		
 		
