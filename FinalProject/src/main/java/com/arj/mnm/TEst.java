@@ -5,8 +5,23 @@ public class TEst {
 	
 	String test;
 	
-	
-	public void getTest() {
-		//???
+
+	public TEst() {
+		
 	}
+	
+	
+	
+	public TEst(String test) {
+	
+		this.test = "테스트";
+	}
+
+
+
+	public void printTest() {
+		System.out.println(test);
+	}
+	
+
 }
