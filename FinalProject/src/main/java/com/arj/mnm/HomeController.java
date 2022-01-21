@@ -31,9 +31,7 @@ public class HomeController {
 		Date date = new Date();
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
 		
-		String formattedDate = dateFormat.format(date);
-		
-		
+	
 		// develop branch 생성 후 리턴 값을 바꾸어 보겠음 
 		// return "home";
 		return null;
