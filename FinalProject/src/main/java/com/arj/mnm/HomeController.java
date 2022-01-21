@@ -34,20 +34,11 @@ public class HomeController {
 		String formattedDate = dateFormat.format(date);
 		
 		model.addAttribute("serverTime", formattedDate );
-		
-		return "home";//지원
-		// 오현
-		//추가
-		//ㅇㄹㅇㄹ
-		
-		//123
-		//45555
-		//123123123123
-		
-		//ㄴㅇ라ㅓㄴ아ㅣ러나ㅣㅇ러
+		// develop branch 생성 후 리턴 값을 바꾸어 보겠음 
+		// return "home";
+		return null;
 		
 		
-		// pull request
 
 	}
 
