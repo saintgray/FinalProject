@@ -36,6 +36,7 @@ public class HomeController {
 		return "home";//지원
 		// 오현
 		//추가
+		//ㅇㄹㅇㄹ
 	}
 	
 }
