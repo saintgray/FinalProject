@@ -15,7 +15,7 @@
 	<!-- Handling Exception of HTTP GET request "/resources/**" URL-pattern-->
 	<resources mapping="/resources/**" location="/resources/" />
 	
-	<!-- Set ViewResolver -->
+	<!-- Set Spring ViewResolver -->
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<beans:property name="prefix" value="/WEB-INF/views/" />
 		<beans:property name="suffix" value=".jsp" />

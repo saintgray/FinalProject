@@ -2,10 +2,10 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:p="http://www.springframework.org/schema/p"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
 
-	<!-- Root Context: defines shared resources visible to all other web components -->
-	<!-- 다른 web component 들에게 공유할 수 있는 bean 들을 생성 (DB 관련) -->
 
 	<!-- HikariCP Bean -->
 	<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource"
@@ -15,20 +15,22 @@
 	</bean>
 
 
-
-
 	<!-- Mybatis -->
-
 	<bean id="sqlSessionFactory"
 		class="org.mybatis.spring.SqlSessionFactoryBean"
 		p:dataSource-ref="dataSource"
 		p:mapperLocations="WEB-INF/sqlmapper/*.xml">
 	</bean>
-
+	
+	<!-- sqlSessionTemplate -->
 	<bean id="sqlSession"
 		class="org.mybatis.spring.SqlSessionTemplate">
 		<constructor-arg ref="sqlSessionFactory" />
 	</bean>
+	
+	
+	
+	
 
 
 </beans>
