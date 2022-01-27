@@ -14,14 +14,14 @@
   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/home/home.css">
   <!-- <script src ="~~~~"></script> -->
   
-  
+
   <title>HOME</title>
 </head>
 
 <body>
   
   <div id="globalwrap">
-    <ul id="container" class="d-flex">
+    <ul class="container d-flex">
       
       <li id="first" class="mr-auto p-2 d-flex flex-wrap">
         <img src="${pageContext.request.contextPath}/resources/files/server/icons/icon_sidemenu.svg" data-bs-toggle="offcanvas" data-bs-target="#sidemenu"
@@ -78,7 +78,13 @@
     </div>
     <!-- end of offcanvas area -->
 
+
+
+
+
   </div>
+  <!-- end of globalwrap div -->
+
   
   
 </body>
