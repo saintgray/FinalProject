@@ -12,9 +12,8 @@
   
   <!-- 자신이 만든 보조 커스텀 소스들 -->
   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/home/home.css">
-  <!-- <script src ="~~~~"></script> -->
+  <%@include file="/WEB-INF/views/home/pageset/homepageset.jsp"%>
   
-
   <title>HOME</title>
 </head>
 
@@ -81,6 +80,18 @@
 
 
 
+    <!-- banner area -->
+    
+     <div class="d-flex flex-row" id="bannerarea" >
+    	  
+	      <img src="${pageContext.request.contextPath}/resources/files/server/bannerimg/banner1.png">
+	      <img src="${pageContext.request.contextPath}/resources/files/server/bannerimg/banner2.png">
+	      <img src="${pageContext.request.contextPath}/resources/files/server/bannerimg/banner3.png">
+	      <img src="${pageContext.request.contextPath}/resources/files/server/bannerimg/banner4.png">
+
+    </div>
+
+   
 
   </div>
   <!-- end of globalwrap div -->

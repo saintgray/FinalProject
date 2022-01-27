@@ -10,3 +10,37 @@
     <link rel="stylesheet" href="~~~~"/>
     
     -->
+    
+    
+    
+    <script>
+    
+	    setInterval(() => {
+	    	
+	        rolling();
+	
+	
+	               setTimeout(function () {
+	            	  $('#bannerarea img').css('left', '0px');
+	                  $('#bannerarea img').first().clone().appendTo('#bannerarea');
+	                  $('#bannerarea img').first().remove();
+	              }, 700) 
+	
+	
+	
+	         }, 5000);
+	
+	
+	
+	
+	          var rolling = function (bannerarea_width) {
+	        	  var bannerarea_width=$('#bannerarea').first('img').width();
+	          	console.log(bannerarea_width);
+	              $('#bannerarea img').animate({ left: -bannerarea_width });
+	              $('#bannerarea img').css({'width':'100%', 'height':'100%'})
+	              
+	
+	          }  
+
+    
+    </script>
