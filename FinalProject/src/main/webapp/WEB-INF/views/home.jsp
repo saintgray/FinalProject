@@ -29,12 +29,12 @@
         <a href="#"><img src="${pageContext.request.contextPath}/resources/files/server/bannerimg/logo.svg" id="logo"></a>
         
         <!--이 아이콘을 누르면 searchbar 로 focusing 되게 하세요-->
-        <img src="img_searchicon.svg" class="sub" id="searchfocusbtn">
+        <img src="${pageContext.request.contextPath}/resources/files/server/icons/img_searchicon.svg" class="sub" id="searchfocusbtn">
         
 
         <div class="input-group inner" id="search">
           <div class="input-group-prepend">
-            <img class="input-group-text" style="height: 100%;" src="${pageContext.request.contextPath}/resources/files/server/icons/img_searchicon.svg">
+            <img class="input-group-text" style="height: 100%" src="${pageContext.request.contextPath}/resources/files/server/icons/img_searchicon.svg">
           </div>
           <input id="searchbar" style="border-left: 0;" type="text" class="form-control" aria-label="Amount (to the nearest dollar)"
             placeholder="어떤 서비스가 필요하세요?">
