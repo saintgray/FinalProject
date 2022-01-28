@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -96,6 +97,11 @@
   </div>
   <!-- end of globalwrap div -->
 
+<h1><sec:authorize access="hasRole('ROLE_ADMIN')">ROLE_ADMIN 관리자입니다.</sec:authorize>	 </h1>
+<h1><sec:authorize access="hasRole('ADMIN')">ADMIN관리자입니다.</sec:authorize>	 </h1>
+<h1><sec:authorize access="isAnonymous()">비회원입니다.</sec:authorize>	 </h1>
+<h1><sec:authorize access="hasRole('GENERAL')">회원입니다.</sec:authorize>	 </h1>
+<h1><sec:authorize access="isAuthenticated()">인증은 되었습니다.</sec:authorize> </h1>
   
   
 </body>

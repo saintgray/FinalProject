@@ -11,6 +11,7 @@ public class AdminPageController {
 	
 	@GetMapping
 	public String showadminpage() {
+		System.out.println("called showadminpage()");
 		return "adminpage";
 	}
 }

@@ -6,12 +6,12 @@
  
  <mapper namespace="mytestmembermapper">
  	
-	<select id="selectbyusername" resultType="securityTest.AccountVO">
-		select m_email, as email m_password as password, role from dream.member where m_email=#{username}
+	<select id="selectbyusername" resultType="securityTest.MemberVO">
+		select * from dream.member where m_email=#{username}
 	</select>
 	
-	<select id="selectbyadminname" resultType="securityTest.AccountVO">
-		select admin_nm as email, admin_password as password, role from dream.admin where admin_nm=#{username}
+	<select id="selectbyadminname" resultType="securityTest.AdminVO">
+		select* from dream.admin where admin_email=#{username}
 	</select>
  	
  </mapper>
