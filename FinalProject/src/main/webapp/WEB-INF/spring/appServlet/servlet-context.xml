@@ -10,7 +10,18 @@
 	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
 	
 	<!-- Enables the Spring MVC @Controller programming model -->
-	<annotation-driven />
+	<annotation-driven>
+		<message-converters>
+				<beans:bean class="org.springframework.http.converter.StringHttpMessageConverter">
+					<beans:property name="supportedMediaTypes">
+						<beans:list>
+							<beans:value>text/html; charset=utf-8</beans:value>
+						</beans:list>
+					</beans:property>
+				</beans:bean>
+		</message-converters>
+	</annotation-driven>
+	
 
 	<!-- Handling Exception of HTTP GET request "/resources/**" URL-pattern-->
 	<resources mapping="/resources/**" location="/resources/" />

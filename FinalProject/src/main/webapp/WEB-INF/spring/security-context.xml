@@ -10,8 +10,10 @@
 	<bean id="accountservice" class="securityTest.AccountService"></bean>
 	
 	<security:http>
+	 	<security:csrf disabled="true"/>	
 	
 		<security:intercept-url pattern="/member/login" access="permitAll"/> <!-- 익명사용자(인증되지 않은 사용자)도 접근할 수 있는 url -->
+		<security:intercept-url pattern="/chk_email" access="permitAll"/> 
 		<security:intercept-url pattern="/admin/manage" access="hasRole('ADMIN')"/> <!--  >> 권한컬럼 role 의 값이 ROLE_ADMIN 인 사람만이 들어갈 수 있다. -->
 		<security:form-login  />
 		<security:logout logout-url="/member/logout" />

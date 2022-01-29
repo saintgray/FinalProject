@@ -102,6 +102,8 @@
 <h1><sec:authorize access="isAnonymous()">비회원입니다.</sec:authorize>	 </h1>
 <h1><sec:authorize access="hasRole('GENERAL')">회원입니다.</sec:authorize>	 </h1>
 <h1><sec:authorize access="isAuthenticated()">인증은 되었습니다.</sec:authorize> </h1>
+
+
   
   
 </body>
