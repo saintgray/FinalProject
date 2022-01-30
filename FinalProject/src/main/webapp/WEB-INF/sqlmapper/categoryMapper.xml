@@ -12,5 +12,9 @@
 	        #{cat_idx}
 	    </foreach>
 	</select>
+	
+	<select id="getCategoryIdxByName" resultType="String">
+		select cat_idx FROM category WHERE cat_nm=#{arg0} 
+	</select>
  </mapper>
  

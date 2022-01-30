@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alj.dream.category.domain.CategoryRequested;
 import com.alj.dream.category.domain.ChildCategory;
+import com.alj.dream.category.service.CategoryIdxService;
 import com.alj.dream.category.service.CategoryListService;
 
 @Controller
@@ -19,16 +20,22 @@ public class CategoryController {
 	
 	
 	private CategoryListService listService;
+	private CategoryIdxService idxService;
 	
 	public CategoryController() {
 		
 	}
 	
+	
+
 	@Autowired
-	public CategoryController(CategoryListService listService) {
+	public CategoryController(CategoryListService listService, CategoryIdxService idxService) {
 		
 		this.listService = listService;
+		this.idxService = idxService;
 	}
+
+
 
 
 	@GetMapping("/list")
@@ -40,7 +47,7 @@ public class CategoryController {
 		System.out.println(cat_request.getInterest());
 		if(cat_request.getInterest()==null) {
 			List<String> interest= new ArrayList<String>();
-			interest.add("30");
+			interest.add(idxService.getCategoryIdxByName("취미"));
 			cat_request=new CategoryRequested(interest);
 		}
 		List<ChildCategory> result=null;
