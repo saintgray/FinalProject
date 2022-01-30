@@ -23,8 +23,9 @@ public class RegisterService {
 	public int insertMember(RegisterInfo info) throws MemberExistException {
 		
 		int insertResult=0;
+		String m_email=info.getEmail().getM_email_prefix().concat(info.getEmail().getM_email_suffix());
 		
-		if(sqt.getMapper(MemberDao.class).selectByEmail(info.getM_email())!=null) {
+		if(sqt.getMapper(MemberDao.class).selectByEmail(m_email)!=null) {
 			insertResult=sqt.getMapper(MemberDao.class).insertMember(info);
 		}else {
 			throw new MemberExistException();

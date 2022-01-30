@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.alj.dream.member.dao.MemberDao;
+import com.alj.dream.member.domain.Emailinfos;
 
 
 @Service
@@ -21,7 +22,9 @@ public class RegisterCheckDuplicatedEmailService {
 
 
 	public String selectByEMail(String m_email) {
+		
 		String result=sqt.getMapper(MemberDao.class).selectByEmail(m_email);
+		System.out.println("selectByEMail Result>>>>" + result);
 		
 		return result;	
 	}
