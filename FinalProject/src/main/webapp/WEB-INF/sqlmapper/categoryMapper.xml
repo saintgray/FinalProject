@@ -3,10 +3,10 @@
  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  
- <mapper namespace="com.alj.dream.member.dao.MemberDao">
+ <mapper namespace="com.alj.dream.category.dao.CategoryDao">
  
  
- 	<select id="getChildCategory" resultType="ChildCategory">
+ 	<select id="getChildCategory" resultType="com.alj.dream.category.domain.ChildCategory">
 		SELECT child.cat_idx, child.cat_nm FROM category parent JOIN category child ON parent.cat_nm=child.cat_type WHERE parent.cat_idx IN
 	    <foreach collection="list" item="cat_idx" open="(" close=")" separator=",">
 	        #{cat_idx}
