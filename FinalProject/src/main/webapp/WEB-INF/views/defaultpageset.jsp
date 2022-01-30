@@ -21,3 +21,6 @@
 <!-- Bootstrap -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/default/bootstrap.min.css">
 <script src="${pageContext.request.contextPath}/resources/default/bootstrap.bundle.min.js"></script>
+
+<!-- default css -->
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/default/default.css">

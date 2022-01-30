@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alj.dream.member.domain.RegisterInfo;
-import com.alj.dream.member.exception.MemberExistException;
 import com.alj.dream.member.service.RegisterService;
 
 @Controller
@@ -16,6 +15,7 @@ import com.alj.dream.member.service.RegisterService;
 public class RegisterController {
 	
 	private RegisterService service;
+	
 	
 	public RegisterController() {}
 	
@@ -34,35 +34,36 @@ public class RegisterController {
 	
 	@PostMapping
 	@ResponseBody
-	public String registerMember(RegisterInfo info) {
+	public String registerMember(RegisterInfo infos) {
 		
-		System.out.println(info==null);
-		System.out.println(info.getM_email());
-		System.out.println(info.getInterest());
+		System.out.println(infos==null);
+		System.out.println(infos.getM_email());
+		System.out.println(infos.getInterest());
 		
 		String result=null; 
 		
-		try {
-			int insertResult =service.insertMember(info);
-			if(insertResult==1) {
-				// 회원 가입 축하 이메일 전송
-				
-				
-				
-				////////////////////
-				result="회원 가입이 완료되었습니다!!!";
-			}else {
-				result="정상적으로 등록되지 않았습니다. 잠시 후 다시 시도하세요";
-			}
-		} catch (MemberExistException e) {
-			result="이미 존재하는 이메일입니다";
-			e.printStackTrace();
-		} catch(Exception e) {
-			result="오류가 발생했습니다. 잠시 후 다시 시도하세요";
-			e.printStackTrace();
-		}
+//		try {
+//			int insertResult =service.insertMember(info);
+//			if(insertResult==1) {
+//				// 회원 가입 축하 이메일 전송
+//				
+//				
+//				
+//				////////////////////
+//				result="회원 가입이 완료되었습니다!!!";
+//			}else {
+//				result="정상적으로 등록되지 않았습니다. 잠시 후 다시 시도하세요";
+//			}
+			
+//		} catch (MemberExistException e) {
+//			result="이미 존재하는 이메일입니다";
+//			e.printStackTrace();
+//		} catch(Exception e) {
+//			result="오류가 발생했습니다. 잠시 후 다시 시도하세요";
+//			e.printStackTrace();
+//		}
 		
-		return result;
+		return "123";
 	}
 	
 	

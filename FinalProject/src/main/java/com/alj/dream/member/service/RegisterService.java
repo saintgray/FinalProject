@@ -33,5 +33,4 @@ public class RegisterService {
 		return insertResult;
 	}
 	
-
 }
