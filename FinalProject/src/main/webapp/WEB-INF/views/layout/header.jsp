@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/layout/header.css">
+<%@ include file="/WEB-INF/views/layout/pageset/headerpageset.jsp" %>
 
 
 
@@ -8,7 +10,7 @@
 	<ul class="container d-flex">
 	      
 	      <li id="first" class="mr-auto p-2 d-flex flex-wrap">
-	        <img src="${pageContext.request.contextPath}/resources/files/server/icons/icon_sidemenu.svg" data-bs-toggle="offcanvas" data-bs-target="#sidemenu"
+	        <img id="logo" src="${pageContext.request.contextPath}/resources/files/server/icons/icon_sidemenu.svg" data-bs-toggle="offcanvas" data-bs-target="#sidemenu"
 	        aria-controls="sidemenu" class="sub"> 
 	        <a href="#"><img src="${pageContext.request.contextPath}/resources/files/server/bannerimg/logo.svg" id="logo"></a>
 	        
@@ -27,13 +29,14 @@
 	      </li>
 	
 	
-	
+		  
 	      <li id="subnav" class="ml-auto p-2 d-flex">
 	        <span class="inner list">멘토찾기</span>
 	        <span class="inner list">로그인</span>
-	        <span class="inner">회원가입</span>
+	        <span class="inner" id="register">회원가입</span>
 	        <span class="inner" id="reg">멘토가입</span>
 	      </li>
+	      
     </ul>
 	    
 </div>
