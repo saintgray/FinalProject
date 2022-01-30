@@ -20,6 +20,9 @@ label img{
 label span{
 	font-size: 20px;
 }
+.hidden{
+	display: none;
+}
 </style>
 </head>
 <body>
@@ -33,7 +36,7 @@ label span{
 <!-- Register body area -->
 <div id="regGlobalWrap" class="container">	
 
-    <div class="d-flex flex-column">
+    <div class="d-flex flex-column" id="basicInfos">
 
         <div class="input-group my-4">
             <input type="text" name="m_email" class="form-control" placeholder="아이디" aria-label="Username">
@@ -41,15 +44,19 @@ label span{
             <input type="text" name="?????" class="form-control" placeholder=".com" aria-label="Server">
         </div>
         
-        <div class="input-group mt-4 mb-4">
+        <div class="input-group my-4">
             <input type="password" name="m_password" class="form-control" placeholder="비밀번호" aria-label="Password">
         </div>
-        <div class="input-group mt-4 mb-4">
+        <div class="input-group my-4">
             <input type="password" class="form-control" placeholder="비밀번호 확인" aria-label="Password">
         </div>
         
-        <div class="input-group mt-4 mb-4">
+        <div class="input-group my-4">
             <input type="password" name="m_nm" class="form-control" placeholder="닉네임" aria-label="Name">
+        </div>
+        
+        <div class="hidden" id="userinterestselect">
+        	
         </div>
 
       
@@ -57,7 +64,7 @@ label span{
 	
 	
 	
-	<div class="d-flex flex-column">
+	<div class="d-flex flex-column" id="interestInfos">
 	
 	
 		<!-- DB 에서 카테고리를 가져와서 each 문을 사용하여 이 밑의 내용을 출력한다. -->
@@ -96,12 +103,13 @@ label span{
 		
 		
 		$('.interest').on('change',function(){
-			console.log($(this).prop('checked'));
+			
+			var checkbox_img=$(this).siblings('label').children('img');
 			
 			if($(this).prop('checked')){
-				$(this).siblings('label').children('img').attr('src','${pageContext.request.contextPath}/resources/files/server/icons/check_on.svg');
+				$(checkbox_img).attr('src','${pageContext.request.contextPath}/resources/files/server/icons/check_on.svg');
 			}else{
-				$(this).siblings('label').children('img').attr('src','${pageContext.request.contextPath}/resources/files/server/icons/check_off.svg');
+				$(checkbox_img).attr('src','${pageContext.request.contextPath}/resources/files/server/icons/check_off.svg');
 			}
 			
 			
