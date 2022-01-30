@@ -32,8 +32,18 @@ label span{
 	border-radius: 10px;
 }
 #btncontroller{
-	padding: 10px 0;
+    padding: 10px 0;
+    margin-bottom: 100px;
+    margin-top: 20px;
 }
+#loading{
+	width:50px;
+	height:50px;
+}
+#interestInfosWrap{
+	text-align: center;
+}
+
 
 </style>
 </head>
@@ -47,8 +57,11 @@ label span{
 	
 <!-- Register body area -->
 <div id="regGlobalWrap" class="container">
+	<div class="banner">
+		관심분야를 선택하세요!
+	</div>
 
-	<div id="basicInfos">	
+	<div id="basicInfos">
 	
 	    <div class="d-flex flex-column justify-content-center" id="infoswrap">
 	
@@ -188,6 +201,8 @@ label span{
 	function getCategoryList(){
 		var interest=$('#interestInfos input[name=interest]:checked');
 		console.log(interest);
+		$('#interestInfos').after('<img src="${pageContext.request.contextPath}/resources/files/server/icons/loading/loading.svg" id="loading">');
+		
 		$.ajax({
 			url: "${pageContext.request.contextPath}/category/list",
 			type:"GET",
@@ -206,7 +221,7 @@ label span{
 					console.log(items.cat_idx);
 					console.log(items.cat_nm);
 					
-					html+= '<div class="input-group justify-content-center">\r\n';
+					html+= '<div class="input-group justify-content-center my-4">\r\n';
 						html+= '<label for="interest'+items.cat_idx+'">\r\n';
 							html+='<img src="${pageContext.request.contextPath}/resources/files/server/icons/check_off.svg">\r\n';
 							html+='<span class="hidden">'+items.cat_idx+'</span>\r\n';
@@ -221,7 +236,7 @@ label span{
 				})
 				
 					$('#interestInfos').html(html);
-				
+					$('#loading').remove();
 				}
 				
 			},
@@ -233,6 +248,7 @@ label span{
 	}
 	
 	function showBasicInfosForm(){
+		$('#regGlobalWrap .banner').text('기본정보');
 		$('#interestInfosWrap').css('display','none');
 		$('#basicInfos').css('display','block');
 		
