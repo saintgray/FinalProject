@@ -37,7 +37,8 @@ public class RegisterController {
 	public String registerMember(RegisterInfo infos) {
 		
 		System.out.println(infos==null);
-		System.out.println(infos.getM_email());
+		System.out.println(infos.getEmail().getM_email_prefix());
+		System.out.println(infos.getEmail().getM_email_suffix());
 		System.out.println(infos.getInterest());
 		
 		String result=null; 

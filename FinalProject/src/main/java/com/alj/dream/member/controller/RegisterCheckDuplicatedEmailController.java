@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.alj.dream.member.domain.Emailinfos;
 import com.alj.dream.member.service.RegisterCheckDuplicatedEmailService;
 
 
@@ -28,7 +29,10 @@ public class RegisterCheckDuplicatedEmailController {
 	}
 	@PostMapping
 	@ResponseBody
-	public String getExist(String m_email) {
+	public String getExist(Emailinfos info) {
+		
+		String m_email=info.getM_email_prefix().concat("@".concat(info.getM_email_suffix()));
+		
 		
 		System.out.println("사용자가 적은 이메일은?>>>>"+m_email);
 		

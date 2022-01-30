@@ -4,7 +4,7 @@ import java.util.List;
 
 public class RegisterInfo {
 	
-	private String m_email;
+	private Emailinfos email;
     private String m_password;
 	private String m_nm;
 	private String m_adyn;
@@ -16,10 +16,10 @@ public class RegisterInfo {
 		
 	}
 
-	public RegisterInfo(String m_email, String m_password, String m_nm, String m_adyn, String m_photo,
+	public RegisterInfo(Emailinfos email, String m_password, String m_nm, String m_adyn, String m_photo,
 			List<String> interest) {
-		super();
-		this.m_email = m_email;
+		
+		this.email = email;
 		this.m_password = m_password;
 		this.m_nm = m_nm;
 		this.m_adyn = m_adyn;
@@ -27,12 +27,12 @@ public class RegisterInfo {
 		this.interest = interest;
 	}
 
-	public String getM_email() {
-		return m_email;
+	public Emailinfos getEmail() {
+		return email;
 	}
 
-	public void setM_email(String m_email) {
-		this.m_email = m_email;
+	public void setEmail(Emailinfos email) {
+		this.email = email;
 	}
 
 	public String getM_password() {
@@ -74,6 +74,11 @@ public class RegisterInfo {
 	public void setInterest(List<String> interest) {
 		this.interest = interest;
 	}
+	
+	
+	
+	
+
 
 	
 	

@@ -23,8 +23,8 @@ label span{
 .hidden{
 	display: none;
 }
-#infoswrap{
-	
+#basicInfos{
+	display:none;
 }
 
 </style>
@@ -38,34 +38,38 @@ label span{
 	
 	
 <!-- Register body area -->
-<div id="regGlobalWrap" class="container">	
+<div id="regGlobalWrap" class="container">
 
-    <div class="d-flex flex-column" id="infoswrap">
-
-        <div class="input-group my-4">
-            <input type="text" name="m_email" class="form-control" placeholder="아이디" aria-label="Username">
-            <span class="input-group-text">@</span>
-            <input type="text" name="?????" class="form-control" placeholder=".com" aria-label="Server">
-        </div>
-        
-        <div class="input-group my-4">
-            <input type="password" name="m_password" class="form-control" placeholder="비밀번호" aria-label="Password">
-        </div>
-        <div class="input-group my-4">
-            <input type="password" class="form-control" placeholder="비밀번호 확인" aria-label="Password">
-        </div>
-        
-        <div class="input-group my-4">
-            <input type="password" name="m_nm" class="form-control" placeholder="닉네임" aria-label="Name">
-        </div>
-        
-        <div id="userinterestselect">
-        	
-        </div>
-        
-        
-
-      
+	<div id="basicInfos">	
+	
+	    <div class="d-flex flex-column justify-content-center" id="infoswrap">
+	
+	        <div class="input-group my-4">
+	            <input type="text" name="m_email_prefix" class="form-control" placeholder="아이디" aria-label="Username">
+	            <span class="input-group-text">@</span>
+	            <input type="text" name="m_email_suffix" class="form-control" placeholder=".com" aria-label="Server">
+	            <input type="button" id="chk_email" value="이메일 중복 확인">
+	        </div>
+	        
+	        <div class="input-group my-4">
+	            <input type="password" name="m_password" class="form-control" placeholder="비밀번호" aria-label="Password">
+	        </div>
+	        <div class="input-group my-4">
+	            <input type="password" class="form-control" placeholder="비밀번호 확인" aria-label="Password">
+	        </div>
+	        
+	        <div class="input-group my-4">
+	            <input type="password" name="m_nm" class="form-control" placeholder="닉네임" aria-label="Name">
+	        </div>
+	        
+	        <div id="userinterestselect">
+	        	
+	        </div>
+	        
+	        
+	
+	      
+		</div>
 	</div>
 	
 	
@@ -138,34 +142,17 @@ label span{
 			
 		})
 		
-		$('#testregister').on('click',function(){
-			
-			var infos=$('#registerinfos').serialize();
-			console.log(infos);
-			
-			$.ajax({
-				url:"${pageContext.request.contextPath}/register",
-				data: infos,
-				type: 'POST',
-				success: function(data){
-					alert(data);
-				},
-				error: function(data){
-					alert(data);
-				}
-				
-			})
-			
-		})
+	
 		
 		$('#chk_email').on('click',function(){
 			
 			var infos={
-					m_email:$('input[name=m_email]').val() 		
+					m_email_prefix: $('input[name=m_email_prefix]').val(),
+					m_email_suffix: $('input[name=m_email_suffix]').val()
 			}
+			console.log(infos);
 			
-			
-			$.ajax({
+		 	$.ajax({
 				url:"${pageContext.request.contextPath}/chk_email",
 				data : infos,
 				type: 'POST',
@@ -177,7 +164,7 @@ label span{
 					alert(data);
 				}
 				
-			})
+			}) 
 		})
 		
 		
@@ -196,9 +183,9 @@ label span{
 			success: function(data){
 				console.log(data.length);
 				// 더 이상의 자식 노드가 없다면 기본정보 입력란을 보여준다.(아직 작업중)
-				//if(data.length==0){
-				//	showBasicInfosForm();
-				//}
+				if(data.length==0){
+					showBasicInfosForm();
+				}else{
 				//////////////////////////////////////////
 				// 노드가 있다면 추가 선택을 한다.
 				var html="";
@@ -206,7 +193,7 @@ label span{
 					console.log(items.cat_idx);
 					console.log(items.cat_nm);
 					
-					html+= '<div class="input-group">\r\n';
+					html+= '<div class="input-group justify-content-center">\r\n';
 					html+= '<label for="interest'+items.cat_idx+'">\r\n';
 						html+='<img src="${pageContext.request.contextPath}/resources/files/server/icons/check_off.svg">\r\n';
 						html+='<span class="hidden">'+items.cat_idx+'</span>\r\n';
@@ -220,9 +207,9 @@ label span{
 				
 				})
 				
-				$('#interestInfos').html(html);
+					$('#interestInfos').html(html);
 				
-				
+				}
 				
 			},
 			error: function(data){
@@ -233,6 +220,8 @@ label span{
 	}
 	
 	function showBasicInfosForm(){
+		$('#interestInfosWrap').css('display','none');
+		$('#basicInfos').css('display','block');
 		
 		
 	}
