@@ -42,7 +42,7 @@
       #search {
         width: 100%;
         margin-top: 15px;
-        outline: 2px solid rgb(0,199,174);
+        outline: 2px solid #142B6F;
         border-radius: 5px;
       }
 
@@ -79,7 +79,7 @@
     }
 
     #reg {
-      background-color: rgb(0, 199, 174);
+      background-color:  #142B6F;
       border-radius: 5px;
       margin-left: 15px;
       outline: 2px solid rgb(249, 249, 249);
@@ -89,7 +89,7 @@
     }
 
     #reg:hover {
-      background-color: rgb(0, 161, 141);
+      background-color: #051c5a;
     }
 
     #logo,
