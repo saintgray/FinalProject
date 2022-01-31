@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <mapper namespace="com.alj.dream.interest.dao.InterestDao">
+ 	<insert id="registerUserInterest" parameterType="">
+ 		insert into interestcat(m_idx, cat_idx) values(#{m_idx},#{cat_idx})
+ 	</insert>
+ 
+ </mapper>

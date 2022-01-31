@@ -1,8 +1,12 @@
 package com.alj.dream.util.mail;
 
+
 import com.alj.dream.member.domain.Emailinfos;
 
+
 public class EMailUtil {
+	
+	
 	
 	public static String getUserEmail(Emailinfos email) {
 		
@@ -10,6 +14,6 @@ public class EMailUtil {
 		
 	}
 	
-	
+
 
 }

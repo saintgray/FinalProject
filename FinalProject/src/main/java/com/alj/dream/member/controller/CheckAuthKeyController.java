@@ -15,9 +15,8 @@ public class CheckAuthKeyController {
 	
 	
 		private BCryptPasswordEncoder encoder;
-		public CheckAuthKeyController() {
-
-		}
+		
+		public CheckAuthKeyController() {}
 		
 		@Autowired
 		public CheckAuthKeyController(BCryptPasswordEncoder encoder) {
