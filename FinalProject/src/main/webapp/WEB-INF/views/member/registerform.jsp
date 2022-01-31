@@ -67,6 +67,15 @@ padding-top: 12px;
 display:none;
 }
 
+#profilearea #preview{
+	width:150px;
+	height:150px;
+	border-radius: 50%;
+}
+#insertedProfile{
+	line-height:150px;
+}
+
 
 </style>
 </head>
@@ -123,7 +132,7 @@ display:none;
 		        
 		     <div>
 		        <div class="input-group mt-2">
-		            <input type="text" name="m_nm" class="form-control" placeholder="닉네임" aria-label="Name">
+		            <input type="text" name="m_nm" class="form-control" placeholder="닉네임" aria-label="Name" id="m_nm">
 		        </div>
 		        <div class="mb-2 warningmsg" id="w_nick">테스트</div>
 		     </div>
@@ -131,6 +140,17 @@ display:none;
 		        	
 		        </div>
 		        	      
+			</div>
+			
+			<div class="d-flex flex-row justify-content-around" id="profilearea">
+				<img src="${pageContext.request.contextPath}/resources/files/member/defaultprofile.png" id="preview">
+				<div id="insertedProfile">
+					<label for="myprofile" class="btn btn-general">	
+						사진등록
+					</label>
+					<input type="file" id="myprofile">
+					<button type="button" class="btn btn-grey" id="usedefault">기본 이미지 사용</button>
+				</div>
 			</div>
 			
 			<div id="regbtncontroller" class="d-flex flex-row justify-content-around">
@@ -179,6 +199,7 @@ display:none;
 
 </div>
 
+<button id="filetest">파일있는지보기</button>
 
 </body>
 <script>
@@ -200,6 +221,8 @@ display:none;
 		$('#btncontroller').on('click','#skip',function(){
 			showBasicInfosForm();
 		})
+		
+		
 		
 		$('#authemailbtn').on('click',function(){
 			
@@ -260,8 +283,44 @@ display:none;
 		$('input[name=m_email_prefix], input[name=m_email_suffix]').on('focusout',function(){
 			if(emptyValue($(this))){
 				showWarningMsg($(this),'필수 입력사항입니다');
-			}
-		})
+			}else{
+				if(fullWriteEmail($('input[name=m_email_prefix]'),$('input[name=m_email_suffix]'))){
+					
+					var infos={
+							m_email_prefix: $('input[name=m_email_prefix]').val(),
+							m_email_suffix: $('input[name=m_email_suffix]').val()
+					}
+					
+										
+						
+					/////////////////////	
+					 	$.ajax({
+							url:"${pageContext.request.contextPath}/chk_email",
+							data : infos,
+							type: 'POST',
+							success: function(data){
+								
+								if(data!='ABLEREGISTER'){
+									showWarningMsg($('input[name=m_email_prefix]'),data);
+								}else{
+									
+									$('#w_email').css('color','blue');
+									showWarningMsg($('input[name=m_email_prefix]'),'사용가능한 이메일입니다');
+									
+								}	
+								
+							},
+							error: function(data){
+								alert(data);
+							}
+							
+						}) 
+					////////////////////
+					}
+					
+				}
+			})
+		
 		
 		$('#basicInfos').on('focus','input',function(){
 			hideWarningMsg($(this));
@@ -320,28 +379,113 @@ display:none;
 		
 	
 		
-		$('#chk_email').on('click',function(){
+		// PROFILE SCRIPT
+		////////////////////////////////////////
+		
+		// 새 프로필 사진 등록시
+		$('#myprofile').on('change',function(e){
 			
-			var infos={
-					m_email_prefix: $('input[name=m_email_prefix]').val(),
-					m_email_suffix: $('input[name=m_email_suffix]').val()
-			}
-			console.log(infos);
 			
-		 	$.ajax({
-				url:"${pageContext.request.contextPath}/chk_email",
-				data : infos,
-				type: 'POST',
-				success: function(data){
-					alert(data);
-					
-				},
-				error: function(data){
-					alert(data);
-				}
+			console.log(e);
+			// File 의 속성 = name, size, type...
+			// type 이 image/png, image/jpg.. 의 형식임
+			// 따라서 type 이 image/* 형식이 아니면 경고문구 출력
+			var selectedFile=e.target.files[0];
+			
+			
+			if(!(selectedFile.type.match("image/*"))){
+				alert('이미지만 등록하실 수 있습니다.');
+				$('#myprofile').val("");
+				$('#preview').attr('src','${pageContext.request.contextPath}/resources/files/member/defaultprofile.png');
 				
-			}) 
+				 
+				
+			}else{
+				// FileReader() 객체를 생성한다.
+				var reader=new FileReader();
+				// 사용자가 선택한 파일을 URL 타입으로 읽어들인다.
+				reader.readAsDataURL(selectedFile);
+				
+					$(reader).on('load',function(e){
+						// 읽기가 완료되면 미리보기 사진 태그의 src 속성을 그 url로 바꾼다. >> 사진 경로가 Filereader 가 읽기 완료시 URL 타입으로 저장한 경로
+						 $('#preview').attr('src',e.target.result);
+					})
+			}
+			// size 의 값을 지정해서 특정 크기 이하의 파일들만 등록하게 할 수도 있을 것이다.
+			
 		})
+		
+		// 기본 프로필 사용 클릭시
+		$('#usedefault').on('click',function(){
+			
+			// form 안의 input 요소를 초기화하는 reset(); 메소드를 사용한다.
+			// wrap() 을 사용하여 강제로 해당 input =file 태그 요소를 form 으로 감싸고
+			// 그 form 태그 내의 요소 중 0번지 (input=file) 요소를 reset 한다
+			$('#myprofile').val("");
+			//$('#myprofile').wrap('<form>').parent('form').get(0).reset();
+			$('#preview').attr('src','${pageContext.request.contextPath}/resources/files/member/defaultprofile.png');
+			
+			
+		})
+		$('#filetest').on('click',function(){
+			console.log($('#myprofile')[0].files);
+			$('#userinterestselect input[name=interest]').each(function(index,item){
+				console.log(item.defaultValue);	
+			})
+			
+			if($('#myprofile').val()){
+				// 프로필을 사진을 등록했다면 어떠한 임의 문자열에 대한 boolean 값은 true 가 나올 것이다.
+				console.log('파일이 있습니다');
+				// 회원 가입 버튼을 누를 시에 이 조건문을 기준으로 FormData 객체에 추가하면 될 것이다.
+			}
+		})
+		
+		
+		//REGISTER SCRIPT
+		/////////////////////////////////
+		$('#registerbtn').on('click',function(){
+			if(!passwordMatches()){
+				showWarningMsg($('#repw'),'비밀번호가 일치하지 않습니다');
+			}else if(!fullWriteEmail($('input[name=m_email_prefix]'),$('input[name=m_email_suffix]'))){
+				showWarningMas($('input[name=m_email_prefix]'),'이메일을 입력하세요');
+			}else{
+				
+				var formData =new FormData();
+				formData.append('m_email_prefix',$('input[name=m_email_prefix]').val());
+				formData.append('m_email_suffix',$('input[name=m_email_suffix]').val());
+				formData.append('m_password',$('#pw').val());
+				formData.append('m_nm',$('#m_nm').val());
+				$('#userinterestselect input[name=interest]').each(function(index, item){
+					formData.append('interest',item.defaultValue);	
+				})
+				
+				//formData.append('interest',$('#userinterestselect input[name=interest]'));
+				if($('#myprofile').val()){
+					formData.append('photo',$('#myprofile')[0].files[0]);
+				}
+				console.log(formData);
+				
+				$.ajax({
+					url:"${pageContext.request.contextPath}/register",
+					type:"POST",
+					processData:false,
+					contentType:false,
+					cash:false,
+					enctype:'multipart/form-data',
+					data:formData,
+					success:function(data){
+						console.log("회원가입성공!");
+					},
+					error:function(data){
+						console.log("회원가입실패!");
+					}
+				})
+				
+			}
+		})
+		
+		
+		
 		
 		
 		
@@ -426,7 +570,7 @@ display:none;
 		$(dom).parent().siblings('.warningmsg').text(message).css('visibility','visible');
 	}
 	function hideWarningMsg(dom){
-		$(dom).parent().siblings('.warningmsg').css('visibility','hidden');
+		$(dom).parent().siblings('.warningmsg').css({"visibility":"hidden","color":"red"});
 	}
 	function loading(dom){
 		$(dom).after('<img src="${pageContext.request.contextPath}/resources/files/server/icons/loading/loading.svg" id="loading">');
