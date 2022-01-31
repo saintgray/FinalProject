@@ -3,9 +3,7 @@ package com.alj.dream.member.controller;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -16,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.alj.dream.member.domain.Emailinfos;
+import com.alj.dream.util.auth.KeyUtils;
 import com.alj.dream.util.mail.EMailUtil;
 
 @RestController
@@ -56,8 +55,8 @@ public class CreateAuthKeyController {
 			
 			String content=null;
 			content="<h1>인증용 이메일 key</h1>";
-			String authKey=EMailUtil.createEmailAuthKeyCode();
-			content="<h3>".concat(authKey).concat("</h3>");
+			String authKey=KeyUtils.createAuthKey();
+			content+="<h3>".concat(authKey).concat("</h3>");
 			mh.setText(content);
 			
 			mh.setTo(userEmail);
