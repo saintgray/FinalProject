@@ -2,8 +2,8 @@ package com.alj.dream.member.domain;
 
 public class Emailinfos {
 
-	String m_email_prefix;
-	String m_email_suffix;
+	private String m_email_prefix;
+	private String m_email_suffix;
 	
 	public Emailinfos() {
 		
