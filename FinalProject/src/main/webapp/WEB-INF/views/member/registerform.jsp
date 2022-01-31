@@ -43,6 +43,10 @@ label span{
 #interestInfosWrap{
 	text-align: center;
 }
+#msgarea{
+	color:#FFD601;
+	font-weight:light;
+}
 
 
 </style>
@@ -63,34 +67,31 @@ label span{
 
 	<div id="basicInfos">
 	
-	    <div class="d-flex flex-column justify-content-center" id="infoswrap">
-	
-	        <div class="input-group my-4">
-	            <input type="text" name="m_email_prefix" class="form-control" placeholder="이메일" aria-label="Username">
-	            <span class="input-group-text">@</span>
-	            <input type="text" name="m_email_suffix" class="form-control" placeholder="examples.com" aria-label="Server">
-	            <input type="button" id="chk_email" value="이메일 중복 확인">
-	        </div>
-	        
-	        <div class="input-group my-4">
-	            <input type="password" name="m_password" class="form-control" placeholder="비밀번호" aria-label="Password">
-	        </div>
-	        <div class="input-group my-4">
-	            <input type="password" class="form-control" placeholder="비밀번호 확인" aria-label="Password">
-	        </div>
-	        
-	        <div class="input-group my-4">
-	            <input type="password" name="m_nm" class="form-control" placeholder="닉네임" aria-label="Name">
-	        </div>
-	        
-	        <div id="userinterestselect">
-	        	
-	        </div>
-	        
-	        
-	
-	      
-		</div>
+		    <div class="d-flex flex-column justify-content-center" id="infoswrap">
+		
+		        <div class="input-group my-4">
+		            <input type="text" name="m_email_prefix" class="form-control" placeholder="이메일" aria-label="Username">
+		            <span class="input-group-text">@</span>
+		            <input type="text" name="m_email_suffix" class="form-control" placeholder="examples.com" aria-label="Server">
+		            <input type="button" id="chk_email" value="이메일 중복 확인">
+		        </div>
+		        
+		        <div class="input-group my-4">
+		            <input type="password" name="m_password" class="form-control" placeholder="비밀번호" aria-label="Password">
+		        </div>
+		        <div class="input-group my-4">
+		            <input type="password" class="form-control" placeholder="비밀번호 확인" aria-label="Password">
+		        </div>
+		        
+		        <div class="input-group my-4">
+		            <input type="password" name="m_nm" class="form-control" placeholder="닉네임" aria-label="Name">
+		        </div>
+		        
+		        <div id="userinterestselect">
+		        	
+		        </div>
+		        	      
+			</div>
 	</div>
 	
 	
@@ -142,8 +143,14 @@ label span{
 		
 		
 		$('#btncontroller').on('click','#next',function(){
-			getCategoryList();
+			if($('#interestInfos input[name=interest]:checked').length==0){
+				$('#interestInfos').after('<div id="msgarea"><span>1개 이상의 관심분야를 선택해주세요</span></div>');
+			}else{
+				getCategoryList();	
+			}
+			
 		})
+			
 		$('#btncontroller').on('click','#skip',function(){
 			showBasicInfosForm();
 		})
@@ -154,7 +161,7 @@ label span{
 			var checkbox_img=$(this).siblings('label').children('img');
 			
 			if($(this).prop('checked')){
-			
+				$('#msgarea').remove();
 				$(checkbox_img).attr('src','${pageContext.request.contextPath}/resources/files/server/icons/check_on.svg');
 				$('#userinterestselect').append($('<input type="checkbox" name="interest" class="interest" value="'+$(this).val()+'">\r\n'));
 				
@@ -227,7 +234,7 @@ label span{
 							html+='<span class="hidden">'+items.cat_idx+'</span>\r\n';
 							html+='<span>'+items.cat_nm+'</span>\r\n';
 						html+='</label>\r\n';
-						html+='<input type="checkbox" id="interest'+items.cat_idx+'" name="interest" class="interest" value="'+items.cat_idx+'">\r\n';
+						html+='<input type="checkbox" id="interest'+items.cat_idx+'" name="interest" class="interest hidden" value="'+items.cat_idx+'">\r\n';
 					html+='</div>\r\n';
 				
 				
