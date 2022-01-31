@@ -18,5 +18,7 @@
 <!-- User 를 상속받아 만든 허가증에 든 추가 정보들 --> 
 <h3>사진 파일명 : <sec:authentication property="principal.photo"/></h3> 
 <h3>이름 : <sec:authentication property="principal.name"/></h3> 
+<h3>프로필</h3>
+<img src="${pageContext.request.contextPath}/resources/files/member/<sec:authentication property="principal.photo"/>">
 </body>
 </html>
