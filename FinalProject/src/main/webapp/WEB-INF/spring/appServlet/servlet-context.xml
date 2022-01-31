@@ -32,8 +32,38 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
-	<context:component-scan base-package="com.alj.dream" />
 	
+	
+	<!-- MultipartResolver bean for fileupload-->
+	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<beans:property name="defaultEncoding">
+			<beans:value>utf-8</beans:value>
+		</beans:property>
+	</beans:bean>
+	
+	<!-- mail Bean 등록 -->
+	<beans:bean id="mailSender"
+		class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<beans:property name="host" value="smtp.gmail.com" />
+		<beans:property name="port" value="587" /><!-- 465 or 25 -->
+		<beans:property name="username" value="saintgray0@gmail.com" />
+		<beans:property name="password" value="tcaisorwrhvdjhlh" />
+		<beans:property name="defaultEncoding" value="utf-8" />
+		<beans:property name="javaMailProperties">
+			<beans:props>
+				<beans:prop key="mail.transport.protocol">smtp</beans:prop>
+				<beans:prop key="mail.smtp.auth">true</beans:prop>
+				<beans:prop key="mail.smtp.starttls.enable">true</beans:prop>
+				<beans:prop key="mail.debug">true</beans:prop>
+				
+				<!-- 구글 TLS 인증 버전과 톰캣 버전을 일치시킬 것 -->
+				<beans:prop key="mail.smtp.ssl.protocols">TLSv1.2</beans:prop>
+				<beans:prop key="mail.smtp.ssl.trust">smtp.gmail.com</beans:prop>
+			</beans:props>
+		</beans:property>
+	</beans:bean>
+	
+	<context:component-scan base-package="com.alj.dream" />
 	
 	
 </beans:beans>
