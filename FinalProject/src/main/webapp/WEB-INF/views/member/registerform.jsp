@@ -31,7 +31,7 @@ label span{
 	background-color: rgb(245,245,245);
 	border-radius: 10px;
 }
-#btncontroller{
+#btncontroller, #regbtncontroller{
     padding: 10px 0;
     margin-bottom: 100px;
     margin-top: 20px;
@@ -91,6 +91,15 @@ label span{
 		        	
 		        </div>
 		        	      
+			</div>
+			
+			<div id="regbtncontroller" class="d-flex flex-row justify-content-around">
+				<button  type="button" class="btn btn-grey" id="authemailbtn">이메일 인증</button>
+				<button  type="button" class="btn btn-general" id="registerbtn" disabled>회원가입</button>
+			</div>
+			<div id="insertAuthKeyArea" class="d-flex flex-row justify-content-center">
+				<input type="text" class="input-group form-control" id="insertedKey" value="인증번호 입력">
+				<button type="button" class="btn btn-grey" id="checkAuthKey">인증</button>
 			</div>
 	</div>
 	
@@ -153,6 +162,45 @@ label span{
 			
 		$('#btncontroller').on('click','#skip',function(){
 			showBasicInfosForm();
+		})
+		
+		$('#authemailbtn').on('click',function(){
+			
+			var infos={
+					m_email_prefix: $('input[name=m_email_prefix]').val(),
+					m_email_suffix: $('input[name=m_email_suffix]').val()
+			}
+			
+			$.ajax({
+				url: "${pageContext.request.contextPath}/sendAuthKey",
+				data: infos,
+				type: "POST",
+				success:function(data){
+					console.log(data);					
+				},
+				error:function(data){
+					console.log(data);
+				}
+				
+			})
+			
+		})
+		$('#checkAuthKey').on('click',function(){
+			var insertedKey={insertedKey: $('#insertedKey').val()}
+			$.ajax({
+				url:"${pageContext.request.contextPath}/chkAuthKey",
+				type:"POST",
+				data:insertedKey,
+				success:function(data){
+					console.log("통신성공");
+					console.log(data);
+				},
+				error:function(data){
+					console.log("통신실패");
+					console.log(data);
+				}
+			})
+			
 		})
 		
 		
