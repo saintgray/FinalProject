@@ -9,6 +9,9 @@
 	<context:annotation-config/>
 	<bean id="accountservice" class="securityTest.AccountService"></bean>
 	
+	<!-- security - Encoder Class -->
+	<bean id="bcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
+	
 	<security:http>
 	 	<security:csrf disabled="true"/>	
 	
@@ -25,6 +28,9 @@
 		</security:authentication-provider>
 	
 	</security:authentication-manager>
+	
+	
+	
 	
 	
 	
