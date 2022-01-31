@@ -78,7 +78,7 @@
       line-height: 40px;
     }
 
-    #reg {
+    #register {
       background-color:  #142B6F;
       border-radius: 5px;
       margin-left: 15px;
@@ -88,7 +88,7 @@
       width: 90px;
     }
 
-    #reg:hover {
+    #register:hover {
       background-color: #051c5a;
     }
 

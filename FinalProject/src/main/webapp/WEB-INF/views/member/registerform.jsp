@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>회원가입</title>
 <style>
 input{
 display: block;
@@ -27,15 +27,22 @@ label span{
 	display:none;
 	text-align:center;
 }
+
 #interestInfos{
 	min-height: 400px;
 	background-color: rgb(245,245,245);
 	border-radius: 10px;
 }
-#btncontroller, #regbtncontroller{
+#btncontroller{
     padding: 10px 0;
     margin-bottom: 100px;
     margin-top: 20px;
+}
+#regbtncontroller{
+ 	padding: 50px 0;
+    margin-bottom: 100px;
+    margin-top: 50px;
+    border-top:1px solid #FFD601;
 }
 #loading{
 	width:50px;
@@ -60,11 +67,11 @@ label span{
 	width: 150px;
 }
 #autharea{
-width:50%;
-margin-right:0;
-margin-left:auto;
-padding-top: 12px;
-display:none;
+	width:50%;
+	margin-right:0;
+	margin-left:auto;
+	padding-top: 12px;
+	display:none;
 }
 
 #profilearea #preview{
@@ -96,66 +103,67 @@ display:none;
 	<div id="basicInfos">
 	
 		    <div class="d-flex flex-column justify-content-center" id="infoswrap">
-			<div>
-		        <div class="input-group mt-4" id="emailarea">
-		            <input type="text" name="m_email_prefix" class="form-control" placeholder="이메일" aria-label="Username">
-		            <span class="input-group-text">@</span>
-		            <input type="text" name="m_email_suffix" class="form-control" placeholder="examples.com" aria-label="Server">
-		            
-		            <button  type="button" class="btn btn-grey" id="authemailbtn">인증번호 발송</button>
-		            
-		            
-		        </div>
-		        <div class="input-group mt-2" id="autharea">
-		        <!-- 	<input type="text" class="form-control" placeholder="인증번호" aria-label="인증번호" aria-describedby="button-addon2">
-  					<button class="btn btn-grey" type="button" id="button-addon2">인증</button> -->
-		        </div>
-		        <div class="mb-2 warningmsg" id="w_email">테스트</div>
-		     </div>
+				<div>
+			        <div class="input-group mt-4" id="emailarea">
+			            <input type="text" name="m_email_prefix" class="form-control" placeholder="이메일" aria-label="Username">
+			            <span class="input-group-text">@</span>
+			            <input type="text" name="m_email_suffix" class="form-control" placeholder="examples.com" aria-label="Server">
+			            
+			            <button  type="button" class="btn btn-grey" id="authemailbtn">인증번호 발송</button>
+			            
+			            
+			        </div>
+			        <div class="input-group mt-2" id="autharea">
+			        <!-- 	<input type="text" class="form-control" placeholder="인증번호" aria-label="인증번호" aria-describedby="button-addon2">
+	  					<button class="btn btn-grey" type="button" id="button-addon2">인증</button> -->
+			        </div>
+			        <div class="mb-2 warningmsg" id="w_email">테스트</div>
+			     </div>
 		     
-		     <div>
+		     	<div>
 		        
 		        
-		        <div class="input-group mt-2">
-		            <input type="password" name="m_password" class="form-control" placeholder="비밀번호" aria-label="Password" id="pw">
-		        </div>
-		        <div class="mb-2 warningmsg" id="w_pw">테스트</div>
-		     </div>
+			        <div class="input-group mt-2">
+			            <input type="password" name="m_password" class="form-control" placeholder="비밀번호" aria-label="Password" id="pw">
+			        </div>
+			        <div class="mb-2 warningmsg" id="w_pw">테스트</div>
+		    	 </div>
 		     
 		     
-		     <div>
-		        <div class="input-group mt-2">
-		            <input type="password" class="form-control" placeholder="비밀번호 확인" aria-label="Password" id="repw">
-		        </div>
-		        <div class="mb-2 warningmsg" id="w_repw">테스트</div>
-		     </div>
+			     <div>
+			        <div class="input-group mt-2">
+			            <input type="password" class="form-control" placeholder="비밀번호 확인" aria-label="Password" id="repw">
+			        </div>
+			        <div class="mb-2 warningmsg" id="w_repw">테스트</div>
+			     </div>
 		        
-		     <div>
-		        <div class="input-group mt-2">
-		            <input type="text" name="m_nm" class="form-control" placeholder="닉네임" aria-label="Name" id="m_nm">
-		        </div>
-		        <div class="mb-2 warningmsg" id="w_nick">테스트</div>
-		     </div>
-		        <div id="userinterestselect">
+			     <div>
+			        <div class="input-group mt-2">
+			            <input type="text" name="m_nm" class="form-control" placeholder="닉네임" aria-label="Name" id="m_nm">
+			        </div>
+			        <div class="mb-2 warningmsg" id="w_nick">테스트</div>
+			     </div>
+		        <div id="userinterestselect" class="hidden">
 		        	
 		        </div>
 		        	      
-			</div>
 			
-			<div class="d-flex flex-row justify-content-around" id="profilearea">
-				<img src="${pageContext.request.contextPath}/resources/files/member/defaultprofile.png" id="preview">
-				<div id="insertedProfile">
-					<label for="myprofile" class="btn btn-general">	
-						사진등록
-					</label>
-					<input type="file" id="myprofile">
-					<button type="button" class="btn btn-grey" id="usedefault">기본 이미지 사용</button>
+			
+				<div class="d-flex flex-row justify-content-around" id="profilearea">
+					<img src="${pageContext.request.contextPath}/resources/files/member/defaultprofile.png" id="preview">
+					<div id="insertedProfile">
+						<label for="myprofile" class="btn btn-general">	
+							사진등록
+						</label>
+						<input type="file" id="myprofile" class="hidden">
+						<button type="button" class="btn btn-grey" id="usedefault">기본 이미지 사용</button>
+					</div>
 				</div>
-			</div>
 			
-			<div id="regbtncontroller" class="d-flex flex-row justify-content-around">
-				
-				<button  type="button" class="btn btn-general" id="registerbtn" disabled>회원가입</button>
+				<div id="regbtncontroller" class="d-flex flex-row justify-content-around">
+					
+					<button  type="button" class="btn btn-general" id="registerbtn" disabled>회원가입</button>
+				</div>
 			</div>
 			
 	</div>
@@ -232,7 +240,7 @@ display:none;
 				//$('#w_email').text('이메일을 입력해주세요').css('visibility','visible');
 				showWarningMsg($(this),'이메일을 입력해주세요');
 				$('input[name=m_email_prefix], input[name=m_email_suffix]').val("");
-			}else{
+			}else if($('#w_email').text()!='이미 등록된 이메일입니다'){
 				
 				var infos={
 						m_email_prefix: $('input[name=m_email_prefix]').val(),
@@ -344,6 +352,8 @@ display:none;
 						alert('인증되었습니다');
 						$('#autharea').css('display','none');
 						$('#registerbtn').prop('disabled',false);
+					}else{
+						alert(data);
 					}
 				},
 				error:function(data){
