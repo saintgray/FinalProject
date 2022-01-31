@@ -25,6 +25,7 @@ label span{
 }
 #basicInfos{
 	display:none;
+	text-align:center;
 }
 #interestInfos{
 	min-height: 400px;
@@ -47,6 +48,24 @@ label span{
 	color:#FFD601;
 	font-weight:light;
 }
+.warningmsg{
+	font-weight:400;
+	font-size: 14px;
+	padding-left: 10px;
+	padding-top: 3px;
+	color: red;
+	visibility: hidden;
+}
+#insertedKey{
+	width: 150px;
+}
+#autharea{
+width:50%;
+margin-right:0;
+margin-left:auto;
+padding-top: 12px;
+display:none;
+}
 
 
 </style>
@@ -68,25 +87,46 @@ label span{
 	<div id="basicInfos">
 	
 		    <div class="d-flex flex-column justify-content-center" id="infoswrap">
-		
-		        <div class="input-group my-4">
+			<div>
+		        <div class="input-group mt-4" id="emailarea">
 		            <input type="text" name="m_email_prefix" class="form-control" placeholder="이메일" aria-label="Username">
 		            <span class="input-group-text">@</span>
 		            <input type="text" name="m_email_suffix" class="form-control" placeholder="examples.com" aria-label="Server">
-		            <input type="button" id="chk_email" value="이메일 중복 확인">
+		            
+		            <button  type="button" class="btn btn-grey" id="authemailbtn">인증번호 발송</button>
+		            
+		            
 		        </div>
+		        <div class="input-group mt-2" id="autharea">
+		        <!-- 	<input type="text" class="form-control" placeholder="인증번호" aria-label="인증번호" aria-describedby="button-addon2">
+  					<button class="btn btn-grey" type="button" id="button-addon2">인증</button> -->
+		        </div>
+		        <div class="mb-2 warningmsg" id="w_email">테스트</div>
+		     </div>
+		     
+		     <div>
 		        
-		        <div class="input-group my-4">
-		            <input type="password" name="m_password" class="form-control" placeholder="비밀번호" aria-label="Password">
-		        </div>
-		        <div class="input-group my-4">
-		            <input type="password" class="form-control" placeholder="비밀번호 확인" aria-label="Password">
-		        </div>
 		        
-		        <div class="input-group my-4">
-		            <input type="password" name="m_nm" class="form-control" placeholder="닉네임" aria-label="Name">
+		        <div class="input-group mt-2">
+		            <input type="password" name="m_password" class="form-control" placeholder="비밀번호" aria-label="Password" id="pw">
 		        </div>
+		        <div class="mb-2 warningmsg" id="w_pw">테스트</div>
+		     </div>
+		     
+		     
+		     <div>
+		        <div class="input-group mt-2">
+		            <input type="password" class="form-control" placeholder="비밀번호 확인" aria-label="Password" id="repw">
+		        </div>
+		        <div class="mb-2 warningmsg" id="w_repw">테스트</div>
+		     </div>
 		        
+		     <div>
+		        <div class="input-group mt-2">
+		            <input type="text" name="m_nm" class="form-control" placeholder="닉네임" aria-label="Name">
+		        </div>
+		        <div class="mb-2 warningmsg" id="w_nick">테스트</div>
+		     </div>
 		        <div id="userinterestselect">
 		        	
 		        </div>
@@ -94,13 +134,10 @@ label span{
 			</div>
 			
 			<div id="regbtncontroller" class="d-flex flex-row justify-content-around">
-				<button  type="button" class="btn btn-grey" id="authemailbtn">이메일 인증</button>
+				
 				<button  type="button" class="btn btn-general" id="registerbtn" disabled>회원가입</button>
 			</div>
-			<div id="insertAuthKeyArea" class="d-flex flex-row justify-content-center">
-				<input type="text" class="input-group form-control" id="insertedKey" value="인증번호 입력">
-				<button type="button" class="btn btn-grey" id="checkAuthKey">인증</button>
-			</div>
+			
 	</div>
 	
 	
@@ -166,38 +203,96 @@ label span{
 		
 		$('#authemailbtn').on('click',function(){
 			
-			var infos={
-					m_email_prefix: $('input[name=m_email_prefix]').val(),
-					m_email_suffix: $('input[name=m_email_suffix]').val()
-			}
 			
-			$.ajax({
-				url: "${pageContext.request.contextPath}/sendAuthKey",
-				data: infos,
-				type: "POST",
-				success:function(data){
-					console.log(data);					
-				},
-				error:function(data){
-					console.log(data);
+			//if($('input[name=m_email_prefix]').val().trim().length==0 || $('input[name=m_email_suffix]').val().trim().length==0){
+			if(!fullWriteEmail($('input[name=m_email_prefix]'),$('input[name=m_email_suffix]'))){
+				//$('#w_email').text('이메일을 입력해주세요').css('visibility','visible');
+				showWarningMsg($(this),'이메일을 입력해주세요');
+				$('input[name=m_email_prefix], input[name=m_email_suffix]').val("");
+			}else{
+				
+				var infos={
+						m_email_prefix: $('input[name=m_email_prefix]').val(),
+						m_email_suffix: $('input[name=m_email_suffix]').val()
 				}
 				
-			})
+				$.ajax({
+					url: "${pageContext.request.contextPath}/sendAuthKey",
+					data: infos,
+					type: "POST",
+					beforeSend:function(){
+						loading($('#infoswrap'));
+					
+					},
+					success:function(data){
+						console.log(data);
+						$('#autharea').css('display','flex').html('<input type="text" id="insertedKey" class="form-control" placeholder="인증번호" aria-label="인증번호" aria-describedby="button-addon2"><button class="btn btn-grey" type="button" id="checkAuthKey">인증</button>')
+						
+					},
+					error:function(data){
+						console.log(data);
+					
+					},
+					complete:function(){
+						completeLoad();
+					}
+					
+				})
+			}
+			
+			
 			
 		})
-		$('#checkAuthKey').on('click',function(){
+		
+		$('#pw, #repw').on('focusout',function(){
+			console.log($(this).val().indexOf(" "));
+			if(haveWhiteSpaceIn($(this))){
+				showWarningMsg($(this),'공백은 포함할 수 없습니다');
+				removeInserted(this);
+			}else if(emptyValue($(this))){
+				showWarningMsg($(this),'필수 입력사항입니다');
+				removeInserted(this);
+			}
+			
+		})
+		
+		
+		$('input[name=m_email_prefix], input[name=m_email_suffix]').on('focusout',function(){
+			if(emptyValue($(this))){
+				showWarningMsg($(this),'필수 입력사항입니다');
+			}
+		})
+		
+		$('#basicInfos').on('focus','input',function(){
+			hideWarningMsg($(this));
+			
+		})
+		
+		$('#infoswrap').on('click','#checkAuthKey',function(){
 			var insertedKey={insertedKey: $('#insertedKey').val()}
 			$.ajax({
 				url:"${pageContext.request.contextPath}/chkAuthKey",
 				type:"POST",
 				data:insertedKey,
+				beforeSend:function(){
+					loading($('infoswrap'));
+				},
 				success:function(data){
 					console.log("통신성공");
 					console.log(data);
+					if(data=='matched'){
+						
+						alert('인증되었습니다');
+						$('#autharea').css('display','none');
+						$('#registerbtn').prop('disabled',false);
+					}
 				},
 				error:function(data){
 					console.log("통신실패");
 					console.log(data);
+				},
+				complete:function(){
+					completeLoad();
 				}
 			})
 			
@@ -308,6 +403,36 @@ label span{
 		$('#basicInfos').css('display','block');
 		
 		
+	}
+	
+	function passwordMatches(){
+		return $('#pw').val()==$('#repw').val();
+	}
+	function removeInserted(dom){
+		$(dom).val("");
+	}
+	function haveWhiteSpaceIn(dom){
+		return $(dom).val().indexOf(" ")>=0;
+	}
+	function emptyValue(dom){
+		return $(dom).val().trim().length==0;
+	}
+	function fullWriteEmail(prefix,suffix){
+		
+		console.log($(prefix).val().trim().length!=0 && $(suffix).val().trim().length!=0);
+		return $(prefix).val().trim().length!=0 && $(suffix).val().trim().length!=0;
+	}
+	function showWarningMsg(dom, message){
+		$(dom).parent().siblings('.warningmsg').text(message).css('visibility','visible');
+	}
+	function hideWarningMsg(dom){
+		$(dom).parent().siblings('.warningmsg').css('visibility','hidden');
+	}
+	function loading(dom){
+		$(dom).after('<img src="${pageContext.request.contextPath}/resources/files/server/icons/loading/loading.svg" id="loading">');
+	}
+	function completeLoad(){
+		$('#loading').remove();
 	}
 
 </script>
