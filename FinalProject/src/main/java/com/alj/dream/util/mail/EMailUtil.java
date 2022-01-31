@@ -10,8 +10,6 @@ public class EMailUtil {
 		
 	}
 	
-	public static String createEmailAuthKeyCode() {
-		return String.valueOf(System.nanoTime()).substring(0,4);
-	}
+	
 
 }
