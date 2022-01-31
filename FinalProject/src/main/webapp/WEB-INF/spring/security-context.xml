@@ -24,7 +24,7 @@
 	<security:authentication-manager>
 	
 		<security:authentication-provider user-service-ref="accountservice">
-			
+			<security:password-encoder ref="bcryptPasswordEncoder"/>
 		</security:authentication-provider>
 	
 	</security:authentication-manager>
