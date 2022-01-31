@@ -1,4 +1,4 @@
-package securityTest;
+package security;
 
 public class MemberVO {
 	
