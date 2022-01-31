@@ -31,10 +31,14 @@
 	
 		  
 	      <li id="subnav" class="ml-auto p-2 d-flex">
-	        <span class="inner list">멘토찾기</span>
-	        <span class="inner list">로그인</span>
-	        <span class="inner" id="register">회원가입</span>
-	        <span class="inner" id="reg">멘토가입</span>
+		        <span class="inner list">멘토찾기</span>
+		        <sec:authorize access="isAnonymous()"> 
+		        	<span class="inner list">로그인</span>
+		        	<span class="inner" id="register">회원가입</span>
+		        </sec:authorize>
+		        <sec:authorize access="isAuthenticated()">
+		        	<span class="inner" id="logoutbtn">로그아웃</span>
+		        </sec:authorize>
 	      </li>
 	      
     </ul>
