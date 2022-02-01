@@ -4,7 +4,7 @@
 
 	$(document).ready(function(){
 		$('body').on('click','#register',function(){
-			location.href="${pageContext.request.contextPath}/register";
+			location.href="${pageContext.request.contextPath}/member/termsform";
 			
 		})
 		
