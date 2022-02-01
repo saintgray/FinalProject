@@ -24,7 +24,9 @@
 	
 
 	<!-- Handling Exception of HTTP GET request "/resources/**" URL-pattern-->
+	
 	<resources mapping="/resources/**" location="/resources/" />
+
 	
 	<!-- Set Spring ViewResolver -->
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -62,6 +64,8 @@
 			</beans:props>
 		</beans:property>
 	</beans:bean>
+	
+	<beans:bean id="bcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
 	
 	<context:component-scan base-package="com.alj.dream" />
 	
