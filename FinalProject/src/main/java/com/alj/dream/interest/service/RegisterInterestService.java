@@ -34,12 +34,9 @@ public class RegisterInterestService {
 			}
 			
 		}
-		
-		
-		
+			
 		return 0;
 		
-	}
-	
+	}	
 	
 }
