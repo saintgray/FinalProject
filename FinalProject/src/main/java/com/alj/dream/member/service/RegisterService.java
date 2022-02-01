@@ -39,8 +39,10 @@ public class RegisterService {
 		
 		infos.setM_email(EMailUtil.getUserEmail(email));
 		infos.setM_password(pwEncoder.encode(infos.getM_password()));
+		infos.setM_adyn(infos.getM_adyn()!=null?"Y":"N");
 		String m_photo=infos.getPhoto()==null?"defaultprofile.png":String.valueOf(System.nanoTime());
 		infos.setM_photo(m_photo);
+		
 		
 		String savePath=req.getSession().getServletContext().getRealPath("/resources/files/member");
 		File file =new File(savePath, m_photo);
@@ -68,6 +70,7 @@ public class RegisterService {
 		}
 		
 		return insertResult;
+		
 	}
 
 	

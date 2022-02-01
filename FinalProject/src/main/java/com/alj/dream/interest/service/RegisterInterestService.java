@@ -26,14 +26,17 @@ public class RegisterInterestService {
 	
 	public int insertInterest(RegisterInfo infos) {
 		
-		for(String cat_idx: infos.getInterest()) {
-			sst.getMapper(InterestDao.class).registerUserInterest(new Interest(String.valueOf(infos.getM_idx()), cat_idx));
+		
+		if(infos.getInterest()!=null) {
+			
+			for(String cat_idx: infos.getInterest()) {
+				sst.getMapper(InterestDao.class).registerUserInterest(new Interest(String.valueOf(infos.getM_idx()), cat_idx));
+			}
+			
 		}
-		
-		
+			
 		return 0;
 		
-	}
-	
+	}	
 	
 }

@@ -99,6 +99,7 @@ label span{
 	<div class="banner">
 		관심분야를 선택하세요!
 	</div>
+	<h1>${adyn}</h1>
 
 	<div id="basicInfos">
 	
@@ -464,7 +465,10 @@ label span{
 				formData.append('m_email_prefix',$('input[name=m_email_prefix]').val());
 				formData.append('m_email_suffix',$('input[name=m_email_suffix]').val());
 				formData.append('m_password',$('#pw').val());
-				formData.append('m_nm',$('#m_nm').val());
+				formData.append('m_nm',$('#m_nm').val().trim());
+				if(${not empty adyn}){
+					formData.append('m_adyn','Y');
+				}
 				$('#userinterestselect input[name=interest]').each(function(index, item){
 					formData.append('interest',item.defaultValue);	
 				})
@@ -485,6 +489,8 @@ label span{
 					data:formData,
 					success:function(data){
 						console.log("회원가입성공!");
+						alert('회원가입이 완료되었습니다!');
+						location.href='${pageContext.request.contextPath}/'
 					},
 					error:function(data){
 						console.log("회원가입실패!");

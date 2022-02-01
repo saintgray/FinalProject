@@ -10,7 +10,7 @@
 $(document).ready(function() {
 
 	$('#cancel').on('click', function() {
-		window.close();
+		history.go(-1);
 	})
 
 	$('#gotoregister').on('click', function() {
@@ -25,7 +25,7 @@ $(document).ready(function() {
 		console.log(allcheck);
 		if (!allcheck) {
 
-			$('.warning').attr('style', "display: inline");
+			$('.warning').attr('style', "display: block");
 		} else {
 			$('#termsform').submit();
 		}
@@ -71,6 +71,12 @@ $(document).ready(function() {
 <title>이용약관</title>
 </head>
 <body>
+
+<%@ include file="/WEB-INF/views/layout/header.jsp" %>
+<div id="termsGlobalWrap"class="container">
+	
+	<div class="banner">이용약관</div>
+	
 	<div id="regWrap">
 		<%-- <div id="logo">
 			<a href="${pageContext.request.contextPath}/mainOn.do"> <img
@@ -223,29 +229,33 @@ $(document).ready(function() {
 
 				<label for="termsevent"><img
 					src="${pageContext.request.contextPath}/resources/files/server/icons/check_off.svg"></label>
-				<input type="checkbox" name="recieveAD" class="canchoice"
+				<input type="checkbox" name="adyn" class="canchoice"
 					id="termsevent"> <span>광고성 수신 선택 동의(선택)</span>
 				<div id="termsofevent" class="terms">
 					<p>광고성 정보 수신에 동의하시면 알려드림의 여러 정보들을 실시간으로 받아보실 수 있습니다.</p>
 				</div>
-				<div id="userselect">
-					<table>
-						<tr>
-							<td><input type="button" id="cancel" value="취소"></td>
+				<div id="userselect" class="d-flex justify-content-around">
+					
+					
+					<input type="button" id="cancel" class="btn btn-grey" value="취소">
 
 
-							<td><input type="button" id="gotoregister" value="확인"></td>
-						</tr>
-						<tr>
-							<td colspan="2"><span class="warning">* 필수항목에 모두
-									동의하셔야 합니다.</span></td>
-						</tr>
-
-					</table>
+					<input type="button" id="gotoregister" class="btn btn-general" value="확인">
+						
+							
 
 				</div>
+				<div class="warning">
+					<span class="warning">* 필수항목에 모두 동의하셔야 합니다.</span>
+				</div>
+				
 			</div>
+			
 		</form>
+		
 	</div>
+	
+</div>
+
 </body>
 </html>
