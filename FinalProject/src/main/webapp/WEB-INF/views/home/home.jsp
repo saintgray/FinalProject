@@ -9,11 +9,11 @@
   <meta charset="utf-8">
   
   <!-- 기본 소스들 include : JQuery, Bootstrap... -->
-  <%@include file="/WEB-INF/views/defaultpageset.jsp" %>
+  <%@ include file="/WEB-INF/views/defaultpageset.jsp" %>
   
   <!-- 자신이 만든 보조 커스텀 소스들 -->
   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/home/home.css">
-  <%@include file="/WEB-INF/views/home/pageset/homepageset.jsp"%>
+  <%@ include file="/WEB-INF/views/home/pageset/homepageset.jsp"%>
   
   <title>HOME</title>
 </head>
