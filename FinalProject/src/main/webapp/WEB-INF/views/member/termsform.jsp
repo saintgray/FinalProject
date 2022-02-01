@@ -61,7 +61,7 @@ $(document).ready(function() {
 			$('label[for='+$(this).attr('id')+']').children().attr('src','${pageContext.request.contextPath}/resources/files/server/icons/check_off.svg');
 			
 		}else{
-			$('label[for='+$(this).attr('id')+']').children().attr('src','${pageContext.request.contextPath}/resources/files/server/icons/check_on_svg');
+			$('label[for='+$(this).attr('id')+']').children().attr('src','${pageContext.request.contextPath}/resources/files/server/icons/check_on.svg');
 		}
 	})
 

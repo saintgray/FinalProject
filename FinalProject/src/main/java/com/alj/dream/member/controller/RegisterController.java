@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alj.dream.interest.service.RegisterInterestService;
@@ -16,6 +17,7 @@ import com.alj.dream.member.exception.MemberExistException;
 import com.alj.dream.member.service.RegisterService;
 
 @Controller
+@RequestMapping("register")
 public class RegisterController {
 	
 	private RegisterService service;
@@ -36,11 +38,6 @@ public class RegisterController {
 	}
 
 
-
-	@GetMapping("/member/termsform")
-	public String showTermsform() {
-		return "member/termsform";
-	}
 
 
 	@GetMapping("/register")
