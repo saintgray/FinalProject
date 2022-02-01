@@ -39,7 +39,8 @@ public class CreateAuthKeyController {
 
 
 
-
+	// 급하게 만드느라 데이터 처리를 서비스클래스에서 하지 못함
+	// 나중에 mail 패키지 안에 따로 서비스 클래스를 만들어서 처리해야 할 듯 합니다.
 	@PostMapping
 	public String sendAuthKey(HttpServletResponse response, Emailinfos email) {
 		
