@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <%@include file="/WEB-INF/views/defaultpageset.jsp" %>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/member/termsform.css">
 <script>
 $(document).ready(function() {
 
@@ -44,7 +45,7 @@ $(document).ready(function() {
 
 		} else {
 			$(this).siblings().prop('checked', false);
-			$('label').children().attr('src','${pageContext.request.contextPath}/resources/files/server/icons/check_on.svg');
+			$('label').children().attr('src','${pageContext.request.contextPath}/resources/files/server/icons/check_off.svg');
 		}
 
 	})

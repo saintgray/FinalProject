@@ -17,7 +17,7 @@ import com.alj.dream.member.exception.MemberExistException;
 import com.alj.dream.member.service.RegisterService;
 
 @Controller
-@RequestMapping("register")
+@RequestMapping("/register")
 public class RegisterController {
 	
 	private RegisterService service;
@@ -40,7 +40,7 @@ public class RegisterController {
 
 
 
-	@GetMapping("/register")
+	@GetMapping
 	public String showRegisterForm() {
 		return "member/registerform";
 	}
