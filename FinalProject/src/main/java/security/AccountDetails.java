@@ -11,7 +11,20 @@ public class AccountDetails extends User{
 	
 	private String photo;
 	private String name;
+	private String m_type;
 
+	public AccountDetails(String username, String password, boolean enabled, boolean accountNonExpired,
+			boolean credentialsNonExpired, boolean accountNonLocked,
+			Collection<? extends GrantedAuthority> authorities, String photo, String name, String m_type) {
+		
+		
+		super(username, password, enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, authorities);
+		this.photo = photo;
+		this.name=name;
+		this.m_type=m_type;
+		
+	}
+	
 	public AccountDetails(String username, String password, boolean enabled, boolean accountNonExpired,
 			boolean credentialsNonExpired, boolean accountNonLocked,
 			Collection<? extends GrantedAuthority> authorities, String photo, String name) {
@@ -20,9 +33,9 @@ public class AccountDetails extends User{
 		super(username, password, enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, authorities);
 		this.photo = photo;
 		this.name=name;
-		
-		
 	}
+	
+	
 
 	public String getPhoto() {
 		return photo;
@@ -38,6 +51,16 @@ public class AccountDetails extends User{
 
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	
+
+	public String getM_type() {
+		return m_type;
+	}
+
+	public void setM_type(String m_type) {
+		this.m_type = m_type;
 	}
 
 	@Override
