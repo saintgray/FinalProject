@@ -70,7 +70,7 @@ public class AccountService implements UserDetailsService {
 				if(vo==null) {
 					throw new UsernameNotFoundException("회원 정보가 없습니다.");
 				}
-				userDetails=new AccountDetails(vo.getM_email(), vo.getM_password(),true, true,true,true,getRoleList(vo.getRole()),vo.getM_photo(), vo.getM_nm());
+				userDetails=new AccountDetails(vo.getM_email(), vo.getM_password(),true, true,true,true,getRoleList(vo.getRole()),vo.getM_photo(), vo.getM_nm(),"mentee");
 			}
 			}catch(Exception e) {
 				e.printStackTrace();

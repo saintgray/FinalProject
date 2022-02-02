@@ -47,12 +47,42 @@
 		<h1><sec:authorize access="isAnonymous()">비회원입니다.</sec:authorize>	 </h1>
 		<h1><sec:authorize access="hasRole('GENERAL')">회원입니다.</sec:authorize>	 </h1>
 		<h1><sec:authorize access="isAuthenticated()">인증은 되었습니다.</sec:authorize> </h1>
+		<%-- <h1>멘토/멘티 상태 : <sec:authentication property="m_type"/></h1> --%>
 		
 		
 		
 		
-   <!-- end of global wrap div -->
+    <!-- end of global wrap div -->
     </div>
+    
+    <!--  test area -->
+    <div class="container" style="border: 1px solid black">
+    
+    	<!--  인증된 유저 = 로그인에 성공한 유저만 이 메뉴를 볼 수 있다 -->
+    	<sec:authorize access="isAuthenticated()">
+    	
+	    	<!-- 허가증의 m_type 변수명을 type 으로 설정 -->
+	    	<!-- jstl 표현식에서 type 을 사용하여 간편히 처리하기 위함 -->
+	    	<c:set var="type">
+	    		<sec:authentication property="principal.m_type"/>
+	    	</c:set>
+	    	
+	    		<h4>현재 회원님의 상태는 ${type} 입니다</h4>
+	    	
+	    		<c:if test="${type eq 'mentee'}">
+	    			<span class="changeType">멘토로전환</span>
+		    	</c:if>
+		    	
+		    	<c:if test="${type eq 'mentoor'}">
+		    		<span class="changeType">멘티로전환</span>
+		    	</c:if>
+    	
+    	</sec:authorize>
+    	
+    	
+    	
+    </div>
+    <!-- end of test area -->
     
     
     <!-- footer -->
@@ -66,4 +96,5 @@
     
    
 </body>
+
 </html>
