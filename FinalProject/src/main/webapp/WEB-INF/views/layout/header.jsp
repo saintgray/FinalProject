@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/layout/header.css">
 <%@ include file="/WEB-INF/views/layout/pageset/headerpageset.jsp" %>
@@ -31,14 +32,25 @@
 	
 		  
 	      <li id="subnav" class="ml-auto p-2 d-flex">
-		        <span class="inner list">멘토찾기</span>
+	      		<sec:authorize access="isAuthenticated()">
+	      			<c:set var="type">
+	      				<sec:authentication property="principal.m_type"/>
+	      			</c:set>
+	      			<c:if test="${type eq 'mentee'}">
+	      				<span class="inner list">멘토찾기</span>
+	      			</c:if>
+	      			<c:if test="${type eq 'mentoor'}">
+	      				<span class="inner list">멘티찾기</span>
+	      			</c:if>
+	      			
+      				<span class="inner" id="logoutbtn">로그아웃</span>
+	      		</sec:authorize>
+		        
 		        <sec:authorize access="isAnonymous()"> 
 		        	<span class="inner list" id="loginTab">로그인</span>
 		        	<span class="inner" id="register">회원가입</span>
 		        </sec:authorize>
-		        <sec:authorize access="isAuthenticated()">
-		        	<span class="inner" id="logoutbtn">로그아웃</span>
-		        </sec:authorize>
+		       
 	      </li>
 	      
     </ul>
