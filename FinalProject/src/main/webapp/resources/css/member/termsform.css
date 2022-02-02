@@ -51,7 +51,7 @@ label img {
 }
 
 input[type=checkbox] {
-	/* display: none; */
+	 display: none; 
 }
 #userselect{
 	padding:10px;
