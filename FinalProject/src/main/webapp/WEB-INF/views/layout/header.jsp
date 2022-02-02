@@ -33,7 +33,7 @@
 	      <li id="subnav" class="ml-auto p-2 d-flex">
 		        <span class="inner list">멘토찾기</span>
 		        <sec:authorize access="isAnonymous()"> 
-		        	<span class="inner list">로그인</span>
+		        	<span class="inner list" id="loginTab">로그인</span>
 		        	<span class="inner" id="register">회원가입</span>
 		        </sec:authorize>
 		        <sec:authorize access="isAuthenticated()">

@@ -11,6 +11,9 @@
 		$('body').on('click','#logo',function(){
 			location.href="${pageContext.request.contextPath}/";
 		})
+		$('#loginTab').on('click',function(){
+			location.href="${pageContext.request.contextPath}/member/loginform";
+		})
 		
 	})
 

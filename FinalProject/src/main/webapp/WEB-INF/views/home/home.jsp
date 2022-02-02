@@ -38,22 +38,31 @@
 		      <img src="${pageContext.request.contextPath}/resources/files/server/bannerimg/banner4.png">
 	
 	     </div>
-
-   
-
-  
-  <!-- end of globalwrap div -->
-
-		
-
-    </div>
-    
-    
-    <h1><sec:authorize access="hasRole('ROLE_ADMIN')">ROLE_ADMIN 관리자입니다.</sec:authorize>	 </h1>
+	     
+	     
+	     
+	     <!-- test area -->
+		<h1><sec:authorize access="hasRole('ROLE_ADMIN')">ROLE_ADMIN 관리자입니다.</sec:authorize>	 </h1>
 		<h1><sec:authorize access="hasRole('ADMIN')">ADMIN관리자입니다.</sec:authorize>	 </h1>
 		<h1><sec:authorize access="isAnonymous()">비회원입니다.</sec:authorize>	 </h1>
 		<h1><sec:authorize access="hasRole('GENERAL')">회원입니다.</sec:authorize>	 </h1>
 		<h1><sec:authorize access="isAuthenticated()">인증은 되었습니다.</sec:authorize> </h1>
+		
+		
+		
+		
+   <!-- end of global wrap div -->
+    </div>
+    
+    
+    <!-- footer -->
+		<%@include file="/WEB-INF/views/layout/footer.jsp" %>
+    
+    
+    
+		
+		
+	
     
    
 </body>

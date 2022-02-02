@@ -43,11 +43,9 @@ public class RegisterController {
 
 	@GetMapping
 	public String showRegisterForm(String adyn, Model model) {
-		System.out.println(adyn==null);
-		System.out.println(adyn);
-		if(adyn!=null) {
-			model.addAttribute("adyn", 'Y');
-		}
+		
+		model.addAttribute("adyn", adyn==null?'N':'Y');
+		
 		return "member/registerform";
 	}
 	
