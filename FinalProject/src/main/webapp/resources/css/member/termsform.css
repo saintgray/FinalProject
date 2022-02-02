@@ -1,14 +1,9 @@
 @charset "UTF-8";
 
-#logo {
-	text-align: center;
-	margin-top: 20px;
-	margin-bottom: 40px;
-}
 
 #termsGlobalWrap{
 	width: 525px;
-	margin-top: 40px;
+	margin-top: 150px;
 }
 
 .terms {
@@ -56,5 +51,8 @@ label img {
 }
 
 input[type=checkbox] {
-	display: none;
+	/* display: none; */
+}
+#userselect{
+	padding:10px;
 }
