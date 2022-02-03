@@ -27,7 +27,7 @@ public class SwitchTypeController {
 //		System.out.println(logininfo==null);
 //		System.out.println(logininfo.getM_type());
 		
-		logininfo.setM_type(logininfo.getM_type().equals("mentee")?"mentoor":"mentee");
+		logininfo.setM_type(logininfo.getM_type().equals("mentee")?"mentor":"mentee");
 		
 		// 보던 페이지로 리다이렉트
 		resp.sendRedirect(req.getHeader("referer"));
