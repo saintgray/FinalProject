@@ -3,10 +3,20 @@
 <!DOCTYPE mapper
  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
- 
- <mapper namespace="not yet">
- 
- 
- 	
- </mapper>
+
+<mapper namespace="com.alj.dream.review.dao.ReviewDao">
+
+	<!-- 해당 유저의 평균 별점을 반환하는 쿼리 -->
+	<select id="getStars" resultType="String">
+		SELECT avg(stars) FROM 
+		dream.member mem JOIN post JOIN dream.match mat JOIN review rev
+		ON 
+		mem.m_idx=post.m_idx AND mat.match_idx=rev.match_idx AND post.post_idx=mat.post_idx
+		WHERE
+		mat.mentor_idx=#{arg0}
+	</select>
+
+
+
+</mapper>
  
