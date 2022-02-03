@@ -47,11 +47,7 @@
   	         
   	          
   	          
-  	          $('.changeType').on('click',function(){
-  	        	  
-  	        	  location.href="${pageContext.request.contextPath}/member/switchType"
-  	          })
-    	
+  	         
     })
     
 	  

@@ -101,6 +101,10 @@
 
       vertical-align: top;
     }
+    #myPhoto{
+    	width:42px;
+    	height: 42px;
+    }
 
     .inner {
 

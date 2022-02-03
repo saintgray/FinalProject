@@ -2,6 +2,7 @@ package security;
 
 public class MemberVO {
 	
+	private String m_idx;
 	private String m_email;
 	private String m_password;
 	private String m_nm;
@@ -12,13 +13,21 @@ public class MemberVO {
 		
 	}
 
-	public MemberVO(String m_email, String m_password, String m_nm, String role, String m_photo) {
-		
+	public MemberVO(String m_idx, String m_email, String m_password, String m_nm, String role, String m_photo) {
+		this.m_idx = m_idx;
 		this.m_email = m_email;
 		this.m_password = m_password;
 		this.m_nm = m_nm;
 		this.role = role;
 		this.m_photo = m_photo;
+	}
+
+	public String getM_idx() {
+		return m_idx;
+	}
+
+	public void setM_idx(String m_idx) {
+		this.m_idx = m_idx;
 	}
 
 	public String getM_email() {
@@ -61,8 +70,8 @@ public class MemberVO {
 		this.m_photo = m_photo;
 	}
 
-	
-	
+
+
 	
 	
 

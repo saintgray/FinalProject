@@ -36,14 +36,64 @@
 	      			<c:set var="type">
 	      				<sec:authentication property="principal.m_type"/>
 	      			</c:set>
+
 	      			<c:if test="${type eq 'mentee'}">
 	      				<span class="inner list">멘토찾기</span>
 	      			</c:if>
 	      			<c:if test="${type eq 'mentor'}">
 	      				<span class="inner list">멘티찾기</span>
 	      			</c:if>
+
 	      			
-      				<span class="inner" id="logoutbtn">로그아웃</span>
+	      				<span class="inner list" id="mypost">내가 쓴 글</span>
+	      			
+	      				<span class="inner list" id="request">받은 제의</span>
+	      				
+	      				<span class="inner list" id="chat">채팅</span>
+	      				
+	      				
+	      				<img src='${pageContext.request.contextPath}/resources/files/member/<sec:authentication property="principal.photo"/>' id="myPhoto" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expended="false">
+	      				
+	      				<ul class="dropdown-menu" aria-labelledby="myPhoto">
+
+	      					<li>
+	      						<div class="dropdown-item d-flex flex-column">
+	      							<span>
+	      								<sec:authentication property="principal.name"/> 
+	      								<c:if test="${type eq 'mentoor'}">
+	      									멘토님
+	      								</c:if>
+	      								<c:if test="${type eq 'mentee'}">
+	      									멘티님
+	      								</c:if>
+	      							</span>
+	      							<!-- 자신의 별점과 기타정보들 -->
+	      							
+	      							
+	      						</div>
+	      						
+	      						
+	      						<c:if test="${type eq 'mentoor'}">
+      								<span class="dropdown-item" id="manageprofile">프로필 관리</span>
+      							</c:if>
+      							<span class="dropdown-item changeType">
+      								<c:if test="${type eq 'mentoor'}">
+      									멘티로 전환
+      								</c:if>
+      								<c:if test="${type eq 'mentee'}">
+      									멘토로 전환
+      								</c:if>
+      							</span>
+	      							
+	      					</li>	
+	      					
+	      					<li><span class="dropdown-item" id="logoutbtn">로그아웃</span></li>
+	      				</ul>
+	      				
+	      				
+	      			
+	      			
+
 	      		</sec:authorize>
 		        
 		        <sec:authorize access="isAnonymous()"> 

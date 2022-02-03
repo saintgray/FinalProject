@@ -8,31 +8,37 @@ import org.springframework.security.core.userdetails.User;
 @SuppressWarnings("serial")
 public class AccountDetails extends User{
 	
-	
+	private String m_idx;
+	private String admin_idx;
 	private String photo;
 	private String name;
 	private String m_type;
+	
 
 	public AccountDetails(String username, String password, boolean enabled, boolean accountNonExpired,
 			boolean credentialsNonExpired, boolean accountNonLocked,
-			Collection<? extends GrantedAuthority> authorities, String photo, String name, String m_type) {
+			Collection<? extends GrantedAuthority> authorities, String photo, String name, String m_type,String m_idx) {
 		
 		
 		super(username, password, enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, authorities);
 		this.photo = photo;
-		this.name=name;
+		this.name=name==null?username.substring(0,username.indexOf('@')):name;
 		this.m_type=m_type;
+		this.m_idx=m_idx;
+	
 		
 	}
 	
+	// 관리자의 AccountDetails 객체 생성
 	public AccountDetails(String username, String password, boolean enabled, boolean accountNonExpired,
 			boolean credentialsNonExpired, boolean accountNonLocked,
-			Collection<? extends GrantedAuthority> authorities, String photo, String name) {
+			Collection<? extends GrantedAuthority> authorities, String photo, String name, String admin_idx) {
 		
 		
 		super(username, password, enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, authorities);
 		this.photo = photo;
 		this.name=name;
+		this.admin_idx=admin_idx;
 	}
 	
 	
@@ -61,6 +67,24 @@ public class AccountDetails extends User{
 
 	public void setM_type(String m_type) {
 		this.m_type = m_type;
+	}
+	
+	
+
+	public String getM_idx() {
+		return m_idx;
+	}
+
+	public void setM_idx(String m_idx) {
+		this.m_idx = m_idx;
+	}
+
+	public String getAdmin_idx() {
+		return admin_idx;
+	}
+
+	public void setAdmin_idx(String admin_idx) {
+		this.admin_idx = admin_idx;
 	}
 
 	@Override
