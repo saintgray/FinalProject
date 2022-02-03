@@ -14,7 +14,7 @@ public class RequestGroupContorller {
 
 	@Autowired
 	private RequestGroupService groupService;
-	//받은 요청 페이지에 들어갈 그룹을 가져온다.testtest2test2
+	//받은 요청 페이지에 들어갈 그룹을 가져온다.testtest2test2tessdfdsf
 	
 	@RequestMapping("/post/requestgroup")
 	public void getGroupPage(HttpSession session,									// session에 현재 사용자 idx와 m_type을가져온다
