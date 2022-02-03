@@ -19,6 +19,17 @@
   	        	  
   	        	  location.href="${pageContext.request.contextPath}/logout";
   	     })
+  	   	  
+  	   	$('.changeType').on('click',function(){
+       	  
+       	  location.href="${pageContext.request.contextPath}/member/switchType"
+         })
+         
+        $('#manageprofile').on('click',function(){
+        	
+        	location.href="${pageContext.request.contextPath}/member/profile/main"
+        })
+	
 		
 	})
 
