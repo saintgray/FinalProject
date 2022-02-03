@@ -39,6 +39,21 @@
 	
 	     </div>
 	     
+	     <sec:authorize access="isAuthenticated()">
+	     <%-- 	<c:set value="type">
+	     		<sec:authentication property="m_type"/>
+	     	</c:set>
+		      --%>
+		     <div class="d-flex flex-column justify-content-around" id="mnmbtn">
+		     	<button id="postbtn" class="btn btn-general my-2">요청서 작성</button>
+		     	<c:if test="${type eq 'mentoor'}">
+		     		<button id="findmentoorbtn" class="btn btn-general my-2">멘티찾기</button>
+		     	</c:if>
+		     	<c:if test="${type eq 'mentee'}">
+		     		<button id="findmenteebtn" class="btn btn-general my-2">멘토찾기</button>
+		     	</c:if>
+		     </div>
+	     </sec:authorize>
 	     
 	     
 	     <!-- test area -->

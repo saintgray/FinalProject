@@ -9,6 +9,8 @@
 	<context:annotation-config/>
 	<bean id="accountservice" class="security.AccountService"></bean>
 	
+	<bean id="loginsuccesshandler" class="security.LoginSuccessHandler"></bean>
+	
 	<!-- security - Encoder Class -->
 	<bean id="bcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
 	
@@ -22,8 +24,12 @@
 		<security:intercept-url pattern="/chk_email" access="permitAll"/> 
 		<security:intercept-url pattern="/admin/manage" access="hasRole('ADMIN')"/> <!--  >> 권한컬럼 role 의 값이 ROLE_ADMIN 인 사람만이 들어갈 수 있다. -->
 		<security:form-login login-page="/member/loginform"
-							 login-processing-url="/member/login"/>
-		<security:logout logout-url="/logout" />
+							 login-processing-url="/member/login"
+							 authentication-success-handler-ref="loginsuccesshandler"/>
+		<security:logout logout-url="/logout" 
+						 invalidate-session="true"
+						 logout-success-url="/"
+						 delete-cookies="JSESSIONID"/>
 	</security:http>
 	<security:authentication-manager>
 	
