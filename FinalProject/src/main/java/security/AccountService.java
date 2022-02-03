@@ -62,7 +62,7 @@ public class AccountService implements UserDetailsService {
 				if(vo==null) {
 					throw new UsernameNotFoundException("회원 정보가 없습니다.");
 				}
-				userDetails =new AccountDetails(vo.getAdmin_email(), vo.getAdmin_password(), true, true, true, true, getRoleList(vo.getRole()), vo.getPhoto(), vo.getAdmin_nm());
+				userDetails =new AccountDetails(vo.getAdmin_email(), vo.getAdmin_password(), true, true, true, true, getRoleList(vo.getRole()), vo.getPhoto(), vo.getAdmin_nm(), vo.getAdmin_idx());
 				
 				
 			}else {
@@ -70,7 +70,7 @@ public class AccountService implements UserDetailsService {
 				if(vo==null) {
 					throw new UsernameNotFoundException("회원 정보가 없습니다.");
 				}
-				userDetails=new AccountDetails(vo.getM_email(), vo.getM_password(),true, true,true,true,getRoleList(vo.getRole()),vo.getM_photo(), vo.getM_nm(),"mentee");
+				userDetails=new AccountDetails(vo.getM_email(), vo.getM_password(),true, true,true,true,getRoleList(vo.getRole()),vo.getM_photo(), vo.getM_nm(),"mentee", vo.getM_idx());
 			}
 			}catch(Exception e) {
 				e.printStackTrace();
