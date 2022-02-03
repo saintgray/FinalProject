@@ -4,15 +4,9 @@
  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  
- <mapper namespace="com.alj.dream.member.dao.MemberDao">
+ <mapper namespace="not yet">
  
  
- 	<insert id="insertMember" parameterType="com.alj.dream.member.domain.RegisterInfo" useGeneratedKeys="true" keyProperty="m_idx">
- 		insert into member(m_email, m_password, m_nm, m_adyn, m_photo) values(#{m_email}, #{m_password},#{m_nm},#{m_adyn},#{m_photo})
- 	</insert>
  	
- 	<select id="selectByEmail" resultType="String">
- 		select m_email from member where m_email = #{arg0}
- 	</select>
  </mapper>
  
