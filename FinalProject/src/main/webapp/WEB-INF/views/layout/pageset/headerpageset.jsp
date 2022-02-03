@@ -15,6 +15,11 @@
 			location.href="${pageContext.request.contextPath}/member/loginform";
 		})
 		
+		 $('#logoutbtn').on('click',function(){
+  	        	  
+  	        	  location.href="${pageContext.request.contextPath}/logout";
+  	     })
+		
 	})
 
 </script>

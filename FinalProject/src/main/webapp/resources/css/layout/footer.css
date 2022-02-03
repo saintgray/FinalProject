@@ -1,7 +1,5 @@
 @charset "UTF-8";
-  .f-info span{
-            display: block;
-        }
+
         #footerwrap{
             background-color: rgb(240,240,240);
             padding: 10px;
@@ -22,3 +20,17 @@
             font-weight: bold;
             font-size: 16px;
         }
+        
+          @media(max-width: 600px){
+          
+          		#footerwrap #innerfooterwrap{
+          			flex-direction: column !important;
+          		}
+   				.f-list{
+   				
+				   text-align: center;
+				  
+				   margin: 24px auto;
+   				}
+   				
+   		}

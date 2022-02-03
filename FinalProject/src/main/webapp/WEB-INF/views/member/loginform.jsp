@@ -5,25 +5,30 @@
 <head>
 <meta charset="UTF-8">
 <%@include file="/WEB-INF/views/defaultpageset.jsp" %>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/member/loginform.css">
 <script>
 
 	$(document).ready(function(){
 		
 		$('#loginbtn').on('click',function(){
-			var warningchk=false;
+			var invailed=false;
 			if($('#m_email').val().length==0){
-				$('#w_email').text('이메일을 입력하세요');
+				$('#w_email').text('이메일을 입력하세요').css('visibility','visible');
+				invailed=true;
 				
-			}else if($('#m_pw').val().length==0){
-				$('#w_pw').text('비밀번호를 입력하세요');
+			}
+			if($('#m_pw').val().length==0){
+				$('#w_pw').text('비밀번호를 입력하세요').css('visibility','visible');
+				invailed=true;
 			}
 			
-			if($('#w_pw').val() || $('#w_email').val()){
-				$('.warning').css('visibility','visible');
-			}else{
+			
+			
+			
+			if(!invailed){
+				$('#insertarea').append($('<img src="${pageContext.request.contextPath}/resources/files/server/icons/loading/loading.svg" id="loading">'));
 				$('form').submit();
 			}
-			
 		})
 		
 		
@@ -32,6 +37,7 @@
 		})
 	})
 </script>
+
 <title>로그인</title>
 </head>
 <body>
@@ -39,22 +45,28 @@
 <%@include file="/WEB-INF/views/layout/header.jsp" %>
 
 <div class="container" id="loginglobalwrap">
+
+	<div class="banner">로그인</div>
 	
-	<div class="d-flex flex-wrap flex-row">
+	<div class="container d-flex flex-wrap flex-column justify-content-center" id="insertarea">
 	
 		<form action="${pageContext.request.contextPath}/member/login" method="post">
-		<div>
-			<input type="text" placeholder="이메일" name="username" id="m_email">
-			<div id="w_email" class="warning"></div>
-		</div>
-		<div>	
-			<input type="password" placeholder="비밀번호" name="password" id="m_pw">
-			<div id="w_pw" class="warning"></div>
-		</div>
-			<button type="button" class="btn btn-general" id="loginbtn">로그인</button>
 			
+			<div class="my-4">
+				<input type="text" class="form-control" placeholder="이메일" name="username" id="m_email">
+				<div id="w_email" class="warning">
+				</div>
+			</div>
+			<div class="my-4">	
+				<input type="password" class="form-control" placeholder="비밀번호" name="password" id="m_pw">
+				<div id="w_pw" class="warning">
+				</div>
+			</div>
+			<div class="my-2" id="btnarea">
+				<button type="button" class="btn btn-general" id="loginbtn">로그인</button>
+			</div>	
 		</form>
-	
+		
 	</div>
 	
 	
