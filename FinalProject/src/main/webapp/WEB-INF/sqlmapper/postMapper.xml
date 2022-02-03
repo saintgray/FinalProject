@@ -50,6 +50,29 @@
  	</select>
  	
  
-	
+	 	<insert id="insertPost"
+ 			parameterType="com.alj.dream.post.domain.PostWriteRequest"
+			useGeneratedKeys="true"
+			keyProperty="post_idx">
+ 	INSERT INTO post (post_nm, post_content, cat_idx, wanted, m_idx)
+	VALUES (#{post_nm}, #{post_content}, #{cat_idx}, #{wanted}, #{m_idx});
+ 	</insert>
+ 	
+ 	<select id="selectPostByPostIdx"
+ 			resultType="com.alj.dream.post.domain.PostViewRequest">
+ 	SELECT * FROM post WHERE post_idx = #{idx};
+ 	</select>
+ 	
+ 	<select id="selectListByMemberIdx"
+ 			resultType="com.alj.dream.post.domain.PostListRequest"
+ 	>
+ 	select p.post_idx, p.post_nm, c.cat_idx, c.cat_nm
+	from post p, category c
+	where p.m_idx=${m_idx} and p.cat_idx=c.cat_idx and p.post_deldate is null;
+ 	</select>
+ 	
+ 	<select id="selectCountByIdx">
+ 	select count(*) from post where m_idx=#{idx}
+ 	</select>
  
  </mapper>
