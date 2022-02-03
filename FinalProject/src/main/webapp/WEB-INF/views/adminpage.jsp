@@ -9,7 +9,7 @@
 </head>
 <body>
 
-<h1>관리자 페이지에 들어왔습니다!!!!!</h1>
+<h1>관리자 페이지에 들어왔습니다!!!!</h1>
 <h1>일반 회원이 이 페이지를 볼 수 있다면 이 서비스는 망합니다.</h1>
 
 <h3>아이디 : <sec:authentication property="principal.username"/></h3>

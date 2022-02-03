@@ -30,7 +30,7 @@
 	                
 	                <ul class="f-list">
 	                	<li><span class="head">고객센터</span></li>
-	                    <li>공지사항</li>
+	                    <li><a href="${pageContext.request.contextPath}/notice">공지사항</a></li>
 	                    <li>1:1문의</li>
 	                    <li>목차3</li>
 	                    <li>목차4</li>
