@@ -68,6 +68,24 @@ public class AccountDetails extends User{
 	public void setM_type(String m_type) {
 		this.m_type = m_type;
 	}
+	
+	
+
+	public String getM_idx() {
+		return m_idx;
+	}
+
+	public void setM_idx(String m_idx) {
+		this.m_idx = m_idx;
+	}
+
+	public String getAdmin_idx() {
+		return admin_idx;
+	}
+
+	public void setAdmin_idx(String admin_idx) {
+		this.admin_idx = admin_idx;
+	}
 
 	@Override
 	public String toString() {
