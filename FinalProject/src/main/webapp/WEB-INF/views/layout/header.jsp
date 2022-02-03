@@ -39,7 +39,7 @@
 	      			<c:if test="${type eq 'mentee'}">
 	      				<span class="inner list">멘토찾기</span>
 	      			</c:if>
-	      			<c:if test="${type eq 'mentoor'}">
+	      			<c:if test="${type eq 'mentor'}">
 	      				<span class="inner list">멘티찾기</span>
 	      			</c:if>
 	      			
