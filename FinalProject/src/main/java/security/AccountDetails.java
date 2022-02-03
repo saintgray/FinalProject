@@ -22,7 +22,7 @@ public class AccountDetails extends User{
 		
 		super(username, password, enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, authorities);
 		this.photo = photo;
-		this.name=name;
+		this.name=name==null?username.substring(0,username.indexOf('@')):name;
 		this.m_type=m_type;
 		this.m_idx=m_idx;
 	
