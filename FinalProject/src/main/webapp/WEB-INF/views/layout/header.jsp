@@ -36,12 +36,17 @@
 	      			<c:set var="type">
 	      				<sec:authentication property="principal.m_type"/>
 	      			</c:set>
-	      			<c:if test="${type eq 'mentee'}">
-	      				<span class="inner list">멘토찾기</span>
-	      			</c:if>
-	      			<c:if test="${type eq 'mentoor'}">
-	      				<span class="inner list">멘티찾기</span>
-	      			</c:if>
+	      			
+	      				<span class="inner list">내가 쓴 글</span>
+	      			
+	      				<span class="inner list">받은 제의</span>
+	      				
+	      				<span class="inner list">채팅</span>
+	      				
+	      				
+	      				<img src='${pageContext.request.contextPath}/resources/files/member/<sec:authentication property="principal.photo"/>' id="myPhoto">
+	      				
+	      			
 	      			
       				<span class="inner" id="logoutbtn">로그아웃</span>
 	      		</sec:authorize>
