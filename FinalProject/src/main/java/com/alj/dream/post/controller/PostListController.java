@@ -11,6 +11,7 @@ import com.alj.dream.post.service.PostListService;
 @Controller
 @RequestMapping("/post/list")
 public class PostListController {
+	//새로운주석
 
 	@Autowired
 	PostListService listService;
