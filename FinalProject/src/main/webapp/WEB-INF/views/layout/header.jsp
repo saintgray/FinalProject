@@ -60,7 +60,7 @@
 	      						<div class="dropdown-item d-flex flex-column">
 	      							<span>
 	      								<sec:authentication property="principal.name"/> 
-	      								<c:if test="${type eq 'mentoor'}">
+	      								<c:if test="${type eq 'mentor'}">
 	      									멘토님
 	      								</c:if>
 	      								<c:if test="${type eq 'mentee'}">
@@ -73,11 +73,11 @@
 	      						</div>
 	      						
 	      						
-	      						<c:if test="${type eq 'mentoor'}">
+	      						<c:if test="${type eq 'mentor'}">
       								<span class="dropdown-item" id="manageprofile">프로필 관리</span>
       							</c:if>
       							<span class="dropdown-item changeType">
-      								<c:if test="${type eq 'mentoor'}">
+      								<c:if test="${type eq 'mentor'}">
       									멘티로 전환
       								</c:if>
       								<c:if test="${type eq 'mentee'}">
