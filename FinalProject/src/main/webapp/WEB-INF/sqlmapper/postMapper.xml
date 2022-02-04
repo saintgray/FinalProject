@@ -15,7 +15,6 @@
 	</select> 
  
  
- 
  	<select id="selectRequestGroup" 
  		resultType="com.alj.dream.post.domain.RequestGroup">	
  		select distinct 
@@ -29,15 +28,15 @@
 			p.m_idx=#{param1} and p.wanted=#{param2} and m.post_idx=p.post_idx ;
  	</select>
  	
- 	
- 	<select id="selectRequestMember"
+ 
+	<select id="selectRequestMember"
  		resultType="com.alj.dream.post.domain.RequestMember">
  		select 
  			mem.m_photo, mem.m_idx, p.post_idx, mem.m_nm, pr.line, m.match_idx, m.match_yn
 		from 
 			post p, category c, dream.match m, member mem, profile pr
 		where 
-			p.m_idx=#{param1} and p.wanted=#{param2} and p.post_idx=#{param3}
+			p.post_idx=#{idx}
 			and m.post_idx=p.post_idx 
 			and pr.m_idx=mem.m_idx and c.cat_idx=p.cat_idx and
 			
@@ -47,8 +46,8 @@
 			mem.m_idx=m.mentee_idx
 			end 	
 		order by m.match_idx;
- 	</select>
- 	
+ 	</select> 
+ 
  
 	 	<insert id="insertPost"
  			parameterType="com.alj.dream.post.domain.PostWriteRequest"

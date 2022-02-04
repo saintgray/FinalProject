@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <mapper namespace="com.alj.dream.notice.dao.NoticeDao">
+ 
+ 
+ 	<select id="getNoticeList" resultType="com.alj.dream.notice.domain.Notice">
+ 	
+ 		SELECT notice_idx, notice_title, notice_regdate 
+ 		FROM notice limit #{arg0}, #{arg1}
+
+ 	
+ 	</select>
+ 	
+ 	<select id="getTotalNumOfNotice" resultType="String">
+ 	
+ 		select count(*) from notice;
+ 	</select>
+ 
+ 
+ 	
+ </mapper>
+ 
+ 

@@ -19,14 +19,17 @@
 </head>
 
 <body>
-	
-  
-  	<!-- Header -->
+
+	<!-- Header -->
     <%@include file="/WEB-INF/views/layout/header.jsp" %>
+	
+  	<!-- Home body area -->
+	<div id="globalwrap" class="d-flex flex-column gw">
+	
+  	
 
 
-	<!-- Home body area -->
-	<div id="globalwrap">
+	
 
 	    <!-- banner area -->
 	    
@@ -67,9 +70,7 @@
 		
 		
 		
-    <!-- end of global wrap div -->
-    </div>
-    
+   
     <!--  test area -->
     <div class="container" style="border: 1px solid black">
     
@@ -93,16 +94,21 @@
 		    	</c:if>
     	
     	</sec:authorize>
-    	
-    	
-    	
     </div>
-    <!-- end of test area -->
+    	
+    	
+    	
+   
     
+    
+    	
+    
+    
+     </div>
+    <!-- end of test area -->
     
     <!-- footer -->
 		<%@include file="/WEB-INF/views/layout/footer.jsp" %>
-    
     
     
 		

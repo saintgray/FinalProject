@@ -16,6 +16,7 @@ import security.AccountDetails;
 @Controller
 @RequestMapping("/post/list")
 public class PostListController {
+	//새로운주석
 
 	@Autowired
 	PostListService listService;

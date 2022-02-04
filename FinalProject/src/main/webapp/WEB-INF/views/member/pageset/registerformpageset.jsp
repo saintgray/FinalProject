@@ -253,7 +253,7 @@
 			if(!passwordMatches()){
 				showWarningMsg($('#repw'),'비밀번호가 일치하지 않습니다');
 			}else if(!fullWriteEmail($('input[name=m_email_prefix]'),$('input[name=m_email_suffix]'))){
-				showWarningMas($('input[name=m_email_prefix]'),'이메일을 입력하세요');
+				showWarningMsg($('input[name=m_email_prefix]'),'이메일을 입력하세요');
 			}else{
 				
 				var formData =new FormData();

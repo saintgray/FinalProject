@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/layout/footer.css">    
-    
+<footer>
 	<div id="footerwrap">
 	
 	        <div class="d-flex flex-row flex-wrap justify-content-center" id="innerfooterwrap">
@@ -30,7 +30,7 @@
 	                
 	                <ul class="f-list">
 	                	<li><span class="head">고객센터</span></li>
-	                    <li>공지사항</li>
+	                    <li><a href="${pageContext.request.contextPath}/notice">공지사항</a></li>
 	                    <li>1:1문의</li>
 	                    <li>목차3</li>
 	                    <li>목차4</li>
@@ -44,3 +44,4 @@
 	        
 	
 	</div>
+</footer>
