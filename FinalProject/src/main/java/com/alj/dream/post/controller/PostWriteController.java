@@ -9,7 +9,6 @@ import javax.servlet.http.HttpSessionContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,16 +30,20 @@ public class PostWriteController {
 	@PostMapping("/post/write")
 	public String writePost(
 			PostWriteRequest wRequest,
-			HttpServletRequest request,
-			Model model
+			HttpServletRequest request
 			) {
-
-		writeService.insertPost(wRequest, request);
-		model.addAttribute("m_idx", wRequest.getM_idx());
-		model.addAttribute("wanted", wRequest.getWanted());
 		
-		return "redirect:/post/list";
+		request.setAttribute("result", writeService.insertPost(wRequest, request));
+		// HttpSession session = request.getSession();
+		// session.setAttribute("post", wRequest);
+		
+		return "post/list";
 		
 	}
+	
+//	@RequestMapping("/post/writeresult")
+//	public String getResult() {
+//		return "post/writeresult";
+//	}
 	
 }
