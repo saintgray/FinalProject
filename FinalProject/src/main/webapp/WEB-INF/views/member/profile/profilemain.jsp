@@ -50,14 +50,12 @@
 	<c:if test="${empty profile}">
 	
 		
-		
 		<div id="regarea">
 			<h3 id="msg">내 프로필이 비었습니다.<br> 지금 등록하세요</h3>
 			
 			<img src="${pageContext.request.contextPath}/resources/files/server/icons/icon_plus.png" id="plus_icon">
 						
-		</div>
-		
+		</div>	
 		
 	</c:if>
 	
@@ -70,4 +68,15 @@
 
 <%@include file="/WEB-INF/views/layout/footer.jsp" %>
 </body>
+
+<script>
+
+	$(document).ready(function(){
+		$('#plus_icon').on('click',function(){
+			
+			location.href="${pageContext.request.contextPath}/member/profile/register"
+		})
+		
+	})
+</script>
 </html>
