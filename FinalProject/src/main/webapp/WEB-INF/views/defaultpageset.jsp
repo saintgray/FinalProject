@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <!-- JQuery 1.12.4 -->
-<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<!-- <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script> -->
 
-
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 
 
 <!-- Google Font -->
@@ -18,9 +18,12 @@
 
 
 
-<!-- Bootstrap -->
+ <!-- Bootstrap -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/default/bootstrap.min.css"  type="text/css">
-<script src="${pageContext.request.contextPath}/resources/default/bootstrap.bundle.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/default/bootstrap.bundle.min.js"></script> 
+
+
+  
 
 <!-- default css -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/default/default.css"  type="text/css">

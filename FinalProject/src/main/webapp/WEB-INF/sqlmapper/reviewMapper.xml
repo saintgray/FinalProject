@@ -15,6 +15,14 @@
 		WHERE
 		mat.mentor_idx=#{arg0}
 	</select>
+	
+	<select id="getTotalReview" resultType="String">
+		SELECT count(*) FROM 
+		dream.member mem JOIN post JOIN dream.match mat JOIN review rev
+		ON 
+		mem.m_idx=post.m_idx and mat.match_idx=rev.match_idx and post.post_idx=mat.post_idx
+		WHERE mat.mentor_idx=${arg0};
+	</select>
 
 
 
