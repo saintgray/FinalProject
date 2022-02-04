@@ -37,5 +37,10 @@ public class ProfileController {
 		
 		return "member/profile/profilemain";
 	}
+	
+	@GetMapping("/register")
+	public String showProfileRegisterForm() {
+		return "member/profile/profileregisterform";
+	}
 
 }
