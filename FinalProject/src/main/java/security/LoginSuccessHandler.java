@@ -27,8 +27,6 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 		Iterator<GrantedAuthority> itr= logininfo.getAuthorities().iterator();
 		String redirectUrl="/";
 		
-		
-		
 		while(itr.hasNext()) {
 			if(itr.next().getAuthority().equals("ROLE_ADMIN")) {
 				redirectUrl="/admin/manage";

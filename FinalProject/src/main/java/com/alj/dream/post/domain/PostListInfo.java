@@ -11,7 +11,6 @@ public class PostListInfo {
 	public PostListInfo() {}
 
 	public PostListInfo(int post_idx, String post_nm, int cat_idx, String cat_nm, String match_yn) {
-		super();
 		this.post_idx = post_idx;
 		this.post_nm = post_nm;
 		this.cat_idx = cat_idx;

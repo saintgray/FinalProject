@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.alj.dream.post.dao.PostDao;
 import com.alj.dream.post.domain.PostListInfo;
+import com.alj.dream.post.domain.PostListView;
 
 @Service
 public class PostListService {
@@ -20,10 +21,8 @@ public class PostListService {
 
 	// 페이지 당 노출할 메시지의 수
 	private final int COUNT_PER_PAGE = 10;
-	// 페이징 번호 노출 개수
-	private final int COUNT_PER_PAGING_NUM = 5;
 
-	public List<PostListInfo> getPage(int m_idx, String wanted, int pageNum) {
+	public PostListView getPage(int m_idx, String wanted, int pageNum) {
 		
 		dao = template.getMapper(PostDao.class);
 		
@@ -33,11 +32,11 @@ public class PostListService {
 		int index = (pageNum-1)*COUNT_PER_PAGE;
 
 		List<PostListInfo> list = new ArrayList<PostListInfo>();
-
+		
 		list = dao.selectListByMemberIdx(m_idx, wanted, index, COUNT_PER_PAGE);
 		// 매칭유무 컬럼을 나중에 mapper sql에 추가해야 함
 		
-		return list;
+		return new PostListView(totalCount, COUNT_PER_PAGE, pageNum, list);
 	}
 
 }

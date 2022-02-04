@@ -18,7 +18,12 @@
 <!-- Container -->
 <div class="container" id="PostListArea">
 
-리스트
+타입 : ${logininfo.m_type} <br>
+글 수 : ${listView.totalCount} <br>
+
+<hr>
+
+리스트 영역
 
 </div>
 
