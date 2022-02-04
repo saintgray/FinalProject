@@ -40,13 +40,23 @@
    	
    }
   
-  .banner::after{
+  .banner::after, .subbanner::after{
   	content: '';
     border-bottom: 1px solid #FFD601;
     width: 100%;
     margin-top: 10px;
     margin-bottom: 40px;
     display: block;
+  }
+  .subbanner{
+  	font-size: 25px;
+  	font-weight: 500px;
+  }
+
+  .descript{
+  	font-size: 15px;
+  	color: rgb(197,	197,197);
+  	font-weight: light;
   }
  
   
