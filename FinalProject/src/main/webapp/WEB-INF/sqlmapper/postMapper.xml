@@ -64,15 +64,16 @@
  	</select>
  	
  	<select id="selectListByMemberIdx"
- 			resultType="com.alj.dream.post.domain.PostListRequest"
+ 			resultType="com.alj.dream.post.domain.PostListInfo"
  	>
  	select p.post_idx, p.post_nm, c.cat_idx, c.cat_nm
 	from post p, category c
-	where p.m_idx=${m_idx} and p.cat_idx=c.cat_idx and p.post_deldate is null;
+	where p.m_idx=${m_idx} and p.cat_idx=c.cat_idx and p.wanted={wanted} and p.post_deldate is null
+	order by post_regdate desc limit #{index}, #{count};
  	</select>
  	
- 	<select id="selectCountByIdx">
- 	select count(*) from post where m_idx=#{idx}
+ 	<select id="selectTotalCountByIdx">
+ 	select count(*) from post where m_idx=#{m_idx} and wanted=#{wanted}
  	</select>
  
  </mapper>
