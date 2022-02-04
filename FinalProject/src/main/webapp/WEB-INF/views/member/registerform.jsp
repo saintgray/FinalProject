@@ -84,7 +84,7 @@
 			
 				<div id="regbtncontroller" class="d-flex flex-row justify-content-around">
 					
-					<button  type="button" class="btn btn-general" id="registerbtn" disabled>회원가입</button>
+					<button  type="button" class="btn btn-general" id="registerbtn">회원가입</button>
 				</div>
 			</div>
 			
