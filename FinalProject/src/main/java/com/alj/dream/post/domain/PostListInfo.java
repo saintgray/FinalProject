@@ -1,6 +1,6 @@
 package com.alj.dream.post.domain;
 
-public class PostListRequest {
+public class PostListInfo {
 	
 	private int post_idx;
 	private String post_nm;
@@ -8,9 +8,9 @@ public class PostListRequest {
 	private String cat_nm;
 	private String match_yn;
 	
-	public PostListRequest() {}
+	public PostListInfo() {}
 
-	public PostListRequest(int post_idx, String post_nm, int cat_idx, String cat_nm, String match_yn) {
+	public PostListInfo(int post_idx, String post_nm, int cat_idx, String cat_nm, String match_yn) {
 		super();
 		this.post_idx = post_idx;
 		this.post_nm = post_nm;

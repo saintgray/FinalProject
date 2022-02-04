@@ -2,15 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<c:if test="${result} eq 0">
-<script>
-alert('작성 실패');
-history.go(-1);
-</script>
-</c:if>
-
-<c:if test="${result} eq 1">
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,11 +18,9 @@ history.go(-1);
 <!-- Container -->
 <div class="container" id="PostListArea">
 
-
+리스트
 
 </div>
 
 </body>
 </html>
-
-</c:if>
