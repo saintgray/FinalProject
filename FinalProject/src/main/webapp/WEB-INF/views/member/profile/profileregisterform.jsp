@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -45,10 +47,11 @@
 	}
 
 </style>
-
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <!-- include summernote css/js -->
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
+<!-- <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script> -->
+<script src="${pageContext.request.contextPath}/resources/default/summernote-bs4.js"></script>
 <!-- timepicker script & css -->
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css">
 <script src="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>
@@ -160,7 +163,10 @@
 
 </div>
 <%@include file="/WEB-INF/views/layout/footer.jsp" %>
-</body>
+
+
+
+
 <script>
 $(document).ready(function(){
 		// 회원의 첨부파일 (File 객체) 을 보관하고 있다가 프로필 등록을 눌렀을때 서버에게 data 로 보내주기 위한 배열 전역 변수를 선언.
@@ -172,18 +178,25 @@ $(document).ready(function(){
 			
 			var formData = new FormData();
 			
+			formData.append('line',$('input[name=line]').val());
+			formData.append('calltime',$('input[name=calltime_prefix]').val()+' ~ '+$('input[name=calltime_suffix]').val());
+			formData.append('career',$('.summernote').summernote('code'));
+			
+			
+			
+			
 			$(myfiles).each(function(index,item){
 				// 서버에서 받을때 커맨드 객체 내의  List<MultipartFile> 의 변수명을 files 로 맞추어 주면 자동으로 바인딩 하여 들어갈 것이다.
 				formData.append('files['+index+']', item);
 			})
 			
 			$.ajax({
-				url: '${pageContext.request.contextPath}/test',
+				url: 'register',
 				type:'post',
 				enctype:'multipart/form-data',
 				processData:false,
-				contentType:false,
 				cash:false,
+				contentType:false,
 				data:formData,
 				success:function(data){
 					console.log('통신성공');
@@ -214,9 +227,17 @@ $(document).ready(function(){
 			$(fileList).each(function(index, item){
 				
 				
-				
-				
-				// List를 돌면서 그 안의 File 들을  myfiles 배열에도  추가한다 
+			 	/* var fileObj={
+						
+						file: item,
+						// MB 기준
+						file_size: item.size/(1024*1024),
+						file_exet: item.name.substring(item.name.lastIndexOf('.')),
+						file_originnm: item.name.replaceAll(' ','_')
+				}  */
+			 
+				// List를 돌면서 그 안의 File 들을  myfiles 배열에도  추가한다
+				console.log(item);
 				myfiles.push(item);
 				///////////////////////////////////////////////////////////////////////////////////////
 				
@@ -250,13 +271,13 @@ $(document).ready(function(){
 		// 미리보기 부분에서 삭제한 파일 뒤에 있는 모든 요소들의 thisindex 값을 1만큼 줄인다.
 		var indexchoosen=$(this).siblings('.thisindex').text();
 		$('.thisindex').each(function(index,item){
-			console.log(index+'번 요소의 빨간번호는?');
-			console.log($(item).text());
-			console.log($(item).text() > indexchoosen);
+			
+			
 			if($(item).text() > indexchoosen){
 				
 				$(item).text($(item).text()-1);
 			}
+			
 		})
 		// 마지막으로 삭제하려는 파일을 미리보기에서 삭제한다.
 		$(this).parent('.select').remove();
@@ -286,13 +307,14 @@ $(document).ready(function(){
 		    ['style', ['bold', 'italic', 'underline', 'clear']],
 		    ['font', ['strikethrough', 'superscript', 'subscript']],
 		    ['fontsize', ['fontsize']],
-		    ['color', ['color']],
+		    /* ['color', ['color']], */
 		    ['para', ['ul', 'ol', 'paragraph']],
-		    ['height', ['height']]
+		    ['height', ['height']],
+		    ['insert', ['link', 'picture', 'video']],
 		  ],
 		 height: 600,
          codemirror: {
-             theme: 'monokai'
+        	 theme: 'monokai'
          },
          lang: 'ko-KR',
          placeholder: '화려한 나의 경력을 작성해주세요'
@@ -300,9 +322,12 @@ $(document).ready(function(){
          //maxHeight: 600,
          //width: 900
 		
-	}) 
+	});
+	
 })
 
 </script>
+</body>
+
 
 </html>

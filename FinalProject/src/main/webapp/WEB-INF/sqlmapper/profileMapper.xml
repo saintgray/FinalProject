@@ -12,6 +12,9 @@
  				WHERE
  				m_idx=#{arg0}
  	</select>
- 
+ 	
+ 	<insert id="insertProfile" parameterType="com.alj.dream.profile.domain.ProfileRegisterData" useGeneratedKeys="true" keyProperty="profile_idx">
+ 		INSERT INTO dream.profile(m_idx,line,calltime,career,qna) values(#{m_idx},#{line},#{calltime},#{career},#{qna})
+ 	</insert>
  
  </mapper>
