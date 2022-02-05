@@ -15,19 +15,49 @@
 		margin-top:150px;
 		text-align:  center;
 	}
+	#timezone input{
+		width: 150px;
+		text-align: center;
+	}
+	#timezone span{
+		padding-right: 20px;
+		padding-left: 20px;
+		font-size:30px;
+		font-weight:bold;
+	}
+	#career{
+		text-align: left;
+	}
+	.delRow{
+		width:15px;
+		height:15px;
+		border-radius: 50%;
+		border: 1px solid rgb(195,195,195);
+	}
+	#selected{
+		border: 1px solid black;
+		border-radius: 10px;
+		
+	}
+	.select{
+		height: 20px;
+		
+	}
+
 </style>
 
 <!-- include summernote css/js -->
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
-
-
+<!-- timepicker script & css -->
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>
 
 <title>프로필 등록</title>
 </head>
 <body>
 <%@include file="/WEB-INF/views/layout/header.jsp" %>
-<div class="container d-flex- flex-wrap flex-column justify-content-around gw" id="profileformwrap">
+<div class="container d-flex- flex-wrap flex-column justify-content-around" id="profileformwrap">
 	
 	<span id="index">1</span>
 	
@@ -48,9 +78,9 @@
 				멘티들에게 자신을 한 줄로 소개해보세요!
 			</div>
 			
-			<div class="my-5 mx-auto">
-				<input style="width: 50%" type="text" class="form-control" placeholder="" name="line">
-			</div>
+			
+			<input style="width: 50%" type="text" class="form-control my-5 mx-auto" placeholder="경력  5년의 첼로리스트 !!" name="line">
+			
 			
 		
 			<div class="d-flex flex-row justify-content-center my-5">
@@ -59,13 +89,73 @@
 			</div>
 	</div>
 	
+	<div class="container d-flex flex-column flex-wrap guide" id="calltime">
+	
+			<div class="subbanner">
+				연락 가능한 시간대를 선택하세요
+			</div>
+			<div class="descript mb-5">
+				멘티들에게 더 많은 연락을 받으실 수 있어요!
+			</div>
+			
+			<div class="d-flex flex-wrap p-2 justify-content-center" id="timezone">
+				<input  type="text" class="form-control timepicker"  name="calltime_prefix" id="calltime">
+				<span>~</span>
+				<input type="text" class="form-control timepicker"  name="calltime_suffix" id="calltime">
+			</div>
+			
+		
+			<div class="d-flex flex-row justify-content-center my-5 ">
+				<button type="button" class="btn btn-grey prev mx-4">이전</button>
+				<button type="button" class="btn btn-general next mx-4">다음</button>
+			</div>
+	</div>
+	
+	
+	
+	<div class="container d-flex flex-column flex-wrap guide" id="career">
+	
+			<div class="subbanner">
+				실력있는 멘토는 경력이 필수!
+			</div>
+			<div class="descript mb-5">
+				멘티들에게 자신을 어필해보세요
+			</div>
+			<div id="career">
+				<div class="summernote"></div>
+			</div>
+			
+			<div class="descript">실력을 증명하는 자격증으로 멘티의 신뢰도 UP!</div>
+			<div id="prof-files">
+			
+				<input type="file" id="myfiles" multiple>
+			</div>
+			
+			<div id="selected" class="d-flex flex-wrap">
+				파일 미리보기
+				
+			</div>
+			<div class="d-flex flex-row justify-content-center my-5 ">
+				<button type="button" class="btn btn-grey prev mx-4">이전</button>
+				<button type="button" class="btn btn-general next mx-4">다음</button>
+			</div>
+	</div>
+	
+	
+	<div>
+	
+		<button type="button" class="btn btn-danger" id="test">파일객체  전달 테스트</button>
+	
+	</div>
 	
 	
 	
 	
 	
 	
-	<div class="summernote"></div>
+	
+	
+	
 
 
 </div>
@@ -73,13 +163,128 @@
 </body>
 <script>
 $(document).ready(function(){
+		// 회원의 첨부파일 (File 객체) 을 보관하고 있다가 프로필 등록을 눌렀을때 서버에게 data 로 보내주기 위한 배열 전역 변수를 선언.
+		var myfiles=[];
+		
+		
+		
+		$('#test').on('click',function(){
+			
+			var formData = new FormData();
+			
+			$(myfiles).each(function(index,item){
+				// 서버에서 받을때 커맨드 객체 내의  List<MultipartFile> 의 변수명을 files 로 맞추어 주면 자동으로 바인딩 하여 들어갈 것이다.
+				formData.append('files['+index+']', item);
+			})
+			
+			$.ajax({
+				url: '${pageContext.request.contextPath}/test',
+				type:'post',
+				enctype:'multipart/form-data',
+				processData:false,
+				contentType:false,
+				cash:false,
+				data:formData,
+				success:function(data){
+					console.log('통신성공');
+				},
+				error:function(data){
+					console.log('통신실패');
+				}
+				
+			})
+			
+			
+		})
+		
+		
+		$('#myfiles').on('change',function(e){
+			// #myfiles 요소의 내용이 변했을 때 >> 파일을 선택했을 때
+			// 이벤트를 받아와 target 속성의 files 를 콘솔로 출력해본다. 
+			console.log(e.target.files);
+			// 결과는 FileList{0:File, 1:File........ N:File length : N+1}
+			var fileList=e.target.files;
+			// 이 파일리스트 배열을 돌면서 파일 미리보기에 파일을 추가해보자.
+			// 자바스크립트의 FileReader 객체가 파일들을 읽어올 수 있는 메소드를 제공해준다.
+			
+			// 미리 보기에서 삭제 , 추가 기능 구현을 위해 전역 변수에 저장된 myfiles의 길이를 먼저 구한다.
+			var myfileslength=myfiles.length;
+			
+			
+			$(fileList).each(function(index, item){
+				
+				
+				
+				
+				// List를 돌면서 그 안의 File 들을  myfiles 배열에도  추가한다 
+				myfiles.push(item);
+				///////////////////////////////////////////////////////////////////////////////////////
+				
+				
+				
+				var fileReader = new FileReader();
+				fileReader.readAsDataURL(item);
+				$(fileReader).on('load',function(e){
+					console.log(e);
+					// myfiles 배열에 5개의 파일이 미리 들어가 있었다면 새로 추가되는 첫번째 파일의 인덱스는 5가 될것이다.
+					// 그렇다면 삭제기능을 만들기 위해서는 myfiles 에 든 이 파일의 인덱스를 기준으로 삭제를 해야 하기 때문에
+					//  myfileslength+index(5+0, 5+1, 5+2....)
+					var html='<div class="select d-flex flex-wrap ">';
+						html+='<span style="color:red" class="thisindex">'+(myfileslength+index)+'</span>';
+						html+='<span class="mx-2">'+item.name+'</span>';
+						html+='<img src="${pageContext.request.contextPath}/resources/files/server/icons/icon_x.png" class="delRow me-3">';
+						html+="</div>"
+						
+					$('#selected').append($(html));
+					
+				})
+				
+			})
+			console.log(myfiles);
+			
+			
+			
+		})
+		
+	// 추가한 첨부파일의 삭제 
+	$('#selected').on('click','.delRow',function(){
+		console.log($(this).siblings('.thisindex').text());
+		// myfiles 배열에서 해당 인덱스의 파일을 삭제한다.
+		myfiles.splice($(this).siblings('.thisinndex').text(),1);
+		// 미리보기 부분에서 삭제한 파일 뒤에 있는 모든 요소들의 thisindex 값을 1만큼 줄인다.
+		var indexchoosen=$(this).siblings('.thisindex').text();
+		$('.thisindex').each(function(index,item){
+			console.log(index+'번 요소의 빨간번호는?');
+			console.log($(item).text());
+			console.log($(item).text() > indexchoosen);
+			if($(item).text() > indexchoosen){
+				
+				$(item).text($(item).text()-1);
+			}
+		})
+		// 마지막으로 삭제하려는 파일을 미리보기에서 삭제한다.
+		$(this).parent('.select').remove();
+		console.log(myfiles);
+	})
+		
+	// Jquery 의 timepicker 사용
+		$('.timepicker').timepicker({
+	    timeFormat: 'HH:mm p',
+	    interval: 60,
+	    minTime: '01',
+	    maxTime: '23:00pm',
+	    defaultTime: '00',
+	    startTime: '00',
+	    dynamic: false,
+	    dropdown: true,
+	    scrollbar: true
+	});
 	
 	
 	
 	
 	
-	
-	/* $('.summernote').summernote({
+	 $('.summernote').summernote({
 		toolbar: [
 		    // [groupName, [list of button]]
 		    ['style', ['bold', 'italic', 'underline', 'clear']],
@@ -94,12 +299,12 @@ $(document).ready(function(){
              theme: 'monokai'
          },
          lang: 'ko-KR',
-         placeholder: '자기소개를 입력해주세요'
+         placeholder: '화려한 나의 경력을 작성해주세요'
          //minHeight: 600,
          //maxHeight: 600,
          //width: 900
 		
-	}) */
+	}) 
 })
 
 </script>
