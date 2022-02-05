@@ -12,15 +12,15 @@ import com.alj.dream.profile.service.ProfileService;
 import security.AccountDetails;
 
 @Controller
-@RequestMapping("/member/profile")
-public class ProfileController {
+@RequestMapping("/member/profile/main")
+public class ProfileMainController {
 	
 	private ProfileService profService;
 	
-	public ProfileController() {}
+	public ProfileMainController() {}
 
 	@Autowired
-	public ProfileController(ProfileService profService) {
+	public ProfileMainController(ProfileService profService) {
 		this.profService = profService;
 	}
 
@@ -29,7 +29,7 @@ public class ProfileController {
 
 
 
-	@GetMapping("/main")
+	@GetMapping
 	public String showProfileMain(Authentication authentication, Model model) {
 		AccountDetails logininfo= (AccountDetails)authentication.getPrincipal();
 		model.addAttribute("profile", profService.getUserProfile(logininfo.getM_idx()));
@@ -38,9 +38,6 @@ public class ProfileController {
 		return "member/profile/profilemain";
 	}
 	
-	@GetMapping("/register")
-	public String showProfileRegisterForm() {
-		return "member/profile/profileregisterform";
-	}
+	
 
 }
