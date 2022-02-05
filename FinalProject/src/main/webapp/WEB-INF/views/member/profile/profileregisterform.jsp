@@ -222,23 +222,19 @@ $(document).ready(function(){
 				
 				
 				
-				var fileReader = new FileReader();
-				fileReader.readAsDataURL(item);
-				$(fileReader).on('load',function(e){
-					console.log(e);
-					// myfiles 배열에 5개의 파일이 미리 들어가 있었다면 새로 추가되는 첫번째 파일의 인덱스는 5가 될것이다.
-					// 그렇다면 삭제기능을 만들기 위해서는 myfiles 에 든 이 파일의 인덱스를 기준으로 삭제를 해야 하기 때문에
-					//  myfileslength+index(5+0, 5+1, 5+2....)
-					var html='<div class="select d-flex flex-wrap ">';
-						html+='<span style="color:red" class="thisindex">'+(myfileslength+index)+'</span>';
-						html+='<span class="mx-2">'+item.name+'</span>';
-						html+='<img src="${pageContext.request.contextPath}/resources/files/server/icons/icon_x.png" class="delRow me-3">';
-						html+="</div>"
-						
-					$('#selected').append($(html));
+			
+				// myfiles 배열에 5개의 파일이 미리 들어가 있었다면 새로 추가되는 첫번째 파일의 인덱스는 5가 될것이다.
+				// 그렇다면 삭제기능을 만들기 위해서는 myfiles 에 든 이 파일의 인덱스를 기준으로 삭제를 해야 하기 때문에
+				//  myfileslength+index(5+0, 5+1, 5+2....)
+				var html='<div class="select d-flex flex-wrap ">';
+					html+='<span style="color:red" class="thisindex">'+(myfileslength+index)+'</span>';
+					html+='<span class="mx-2">'+item.name+'</span>';
+					html+='<img src="${pageContext.request.contextPath}/resources/files/server/icons/icon_x.png" class="delRow me-3">';
+					html+="</div>"
 					
-				})
-				
+				$('#selected').append($(html));
+		
+			
 			})
 			console.log(myfiles);
 			
