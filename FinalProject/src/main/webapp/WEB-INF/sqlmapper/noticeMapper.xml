@@ -24,7 +24,14 @@
  	</insert>
  	<!-- #{arg0},#{arg1}를 사용할때는 매개변수가 여러개일시 사용하고,
  		 매개변수로 여러개를 객체로 만들어서 받을때는 parameterType 에 그 객체명의 풀 네임(경로)을 써주고 넣어주어야 할 값을 그 객체에 변수명과 일치시켜서 사용함 -->
- 	
+ 	<select id="getNotice" resultType="com.alj.dream.notice.domain.NoticeContent">
+ 		SELECT no.notice_idx, no.notice_title, no.notice_content, no.notice_regdate, no.notice_editdate, ad.admin_nm FROM
+ 			   dream.admin ad join dream.notice no
+ 			   ON
+ 			   ad.admin_idx=no.admin_idx
+ 			   WHERE no.notice_idx=#{arg0}
+ 			   
+ 	</select>
  
  	
  </mapper>

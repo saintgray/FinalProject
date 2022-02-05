@@ -15,6 +15,9 @@ margin-top: 100px;
 	height:120px;
 	border-radius: 50%;
 }
+.managetab{
+text-align: center;
+}
 </style>
 <title>Insert title here</title>
 </head>
@@ -42,10 +45,14 @@ margin-top: 100px;
 
 <!-- 관리자 메인 페이지 내용 -->
 
-<div class="container d-flex flex-row flex-wrap justify-content-around" id="adminMainwrap">
+<div class="container d-flex flex-row flex-wrap justify-content-around gw" id="adminMainwrap">
+
 <a href="">회원관리</a>
 <a href="">게시글관리</a>
-<a href="${pageContext.request.contextPath}/notice"><img src="${pageContext.request.contextPath}/resources/files/server/icons/customercenter.png"/></a>
+<div class="d-flex flex-column flex-wrap managetab">
+	<a href="${pageContext.request.contextPath}/notice" ><img src="${pageContext.request.contextPath}/resources/files/server/icons/customerservice.svg" /></a>
+	<span class="my-2">고객센터</span>
+</div>
 </div>
 
 
