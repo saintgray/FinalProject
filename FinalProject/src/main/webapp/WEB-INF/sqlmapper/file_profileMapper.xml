@@ -7,21 +7,29 @@
  <mapper namespace="com.alj.dream.file_profile.dao.ProfileFilesDao">
  
  	<insert id="insertProfileFiles" parameterType="java.util.List">
-    INSERT INTO dream.file_profile
-	    (file_nm, profile_idx,file_exet,file_size,file_originnm)
-    VALUES
-	    
-    <foreach collection="list" item="fileinfo" separator=",">
-	    (
-	        #{fileinfo.file_nm},
-	        #{fileinfo.profile_idx},
-	        #{fileinfo.file_exet},
-	        #{fileinfo.file_size},
-	        #{fileinfo.file_originnm}
-	    )
-    </foreach>
+	    INSERT INTO dream.file_profile
+		    (file_nm, profile_idx,file_exet,file_size,file_originnm)
+	    VALUES
+		    
+	    <foreach collection="list" item="fileinfo" separator=",">
+		    (
+		        #{fileinfo.file_nm},
+		        #{fileinfo.profile_idx},
+		        #{fileinfo.file_exet},
+		        #{fileinfo.file_size},
+		        #{fileinfo.file_originnm}
+		    )
+	    </foreach>
    
-</insert>
+	</insert>
+	
+	<!-- 2022-02-06 -->
+	<!-- 해당 프로필 번호를 profile_idx로 하는 file_profile 테이블의 모든 데이터를 가져오는 쿼리 -->
+	<select id="getFiles" resultType="com.alj.dream.file_profile.domain.FileInfo">
+		SELECT * FROM file_profile
+		WHERE profile_idx=#{arg0}
+	
+	</select>
  	
  
  </mapper>

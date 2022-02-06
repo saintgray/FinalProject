@@ -1,7 +1,9 @@
 package com.alj.dream.review.dao;
 
+import com.alj.dream.review.domain.StarsInfo;
+
 public interface ReviewDao {
 	
-	String getStars(String m_idx);
+	StarsInfo getStars(String m_idx);
 
 }

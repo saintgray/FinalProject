@@ -6,4 +6,6 @@ import com.alj.dream.file_profile.domain.FileInfo;
 
 public interface ProfileFilesDao {
 	int insertProfileFiles(List<FileInfo> files);
+	List<FileInfo> getFiles(String profile_idx);
+
 }

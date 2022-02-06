@@ -35,16 +35,26 @@
 		height:15px;
 		border-radius: 50%;
 		border: 1px solid rgb(195,195,195);
+		cursor:pointer;
 	}
 	#selected{
 		border: 1px solid black;
 		border-radius: 10px;
+		height:150px;
 		
 	}
 	.select{
 		height: 20px;
 		
 	}
+	.hide{
+		display: none !important;
+	}
+	
+	#prof-files{
+		text-align: left;	
+	}
+	
 
 </style>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
@@ -68,11 +78,11 @@
 	
 	
 	<div class="progress">
-  		<div class="progress-bar bg-warning" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+  		<div class="progress-bar bg-warning" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
 	</div>
 	
 	
-	<div class="container d-flex flex-column flex-wrap guide" id="line">
+	<div class="container d-flex flex-column flex-wrap guide" id="linearea">
 	
 			<div class="subbanner">
 				WHO AM I?
@@ -92,7 +102,7 @@
 			</div>
 	</div>
 	
-	<div class="container d-flex flex-column flex-wrap guide" id="calltime">
+	<div class="container d-flex flex-column flex-wrap guide hide" id="calltimearea">
 	
 			<div class="subbanner">
 				연락 가능한 시간대를 선택하세요
@@ -110,13 +120,13 @@
 		
 			<div class="d-flex flex-row justify-content-center my-5 ">
 				<button type="button" class="btn btn-grey prev mx-4">이전</button>
-				<button type="button" class="btn btn-general next mx-4">다음</button>
+				<button type="button" class="btn btn-general mx-4 next">다음</button>
 			</div>
 	</div>
 	
 	
 	
-	<div class="container d-flex flex-column flex-wrap guide" id="career">
+	<div class="container d-flex flex-column flex-wrap guide hide" id="careerarea">
 	
 			<div class="subbanner">
 				실력있는 멘토는 경력이 필수!
@@ -125,31 +135,56 @@
 				멘티들에게 자신을 어필해보세요
 			</div>
 			<div id="career">
-				<div class="summernote"></div>
+				<div class="summernote_career"></div>
 			</div>
 			
-			<div class="descript">실력을 증명하는 자격증으로 멘티의 신뢰도 UP!</div>
+			<div class="descript my-3">실력을 증명하는 자격증으로 멘티의 신뢰도 UP!</div>
 			<div id="prof-files">
-			
-				<input type="file" id="myfiles" multiple>
+				<label for="myfiles" class="btn btn-general m-2">
+					첨부파일 등록
+				</label>
+				<input type="file" style="display: none" id="myfiles" multiple>
+				<div class="mx-2 mb-2">파일 미리보기</div>
 			</div>
+			
 			
 			<div id="selected" class="d-flex flex-wrap">
-				파일 미리보기
+				
 				
 			</div>
 			<div class="d-flex flex-row justify-content-center my-5 ">
 				<button type="button" class="btn btn-grey prev mx-4">이전</button>
 				<button type="button" class="btn btn-general next mx-4">다음</button>
 			</div>
-	</div>
+			
+			
+		</div>
+		
+		
+		<div class="container d-flex flex-column flex-wrap guide hide" id="qnaarea">
+	
+			<div class="subbanner">
+				QNA
+			</div>
+			<div class="descript mb-5">
+				멘티들에게 자주받는 질문이 있나요? 여기에 등록해보세요
+			</div>
+			<div id="career">
+				<div class="summernote_qna"></div>
+			</div>
+			
+			<div class="d-flex flex-row justify-content-center my-5 ">
+				<button type="button" class="btn btn-grey prev mx-4">이전</button>
+				<button type="button" class="btn btn-warning next mx-4" id="registerbtn">프로필 등록</button>
+			</div>
+			
+			
+			
+		</div>
+		
 	
 	
-	<div>
 	
-		<button type="button" class="btn btn-danger" id="test">파일객체  전달 테스트</button>
-	
-	</div>
 	
 	
 	
@@ -169,18 +204,75 @@
 
 <script>
 $(document).ready(function(){
+		// 단계별 작성을 위한 이전/다음 버튼을 눌렀을 때의 스위칭 기능
+		$('#linearea .prev').on('click',function(){
+			history.go(-1);
+		})
+		$('#linearea .next').on('click',function(){
+			
+			$('#linearea').addClass('hide');
+			$('#calltimearea').removeClass('hide');
+			$('.progress-bar').attr({'style':'width: 50%','aria-valuenow':'50'});
+			$('html').scrollTop(0);
+		})
+		
+		$('#calltimearea .prev').on('click',function(){
+			$('#linearea').removeClass('hide');
+			$('#careerarea').addClass('hide');
+			$('.progress-bar').attr({'style':'width: 25%','aria-valuenow':'25'});
+			$('html').scrollTop(0);
+		})
+		$('#calltimearea .next').on('click',function(){
+			console.log('clicked');
+			$('#calltimearea').addClass('hide');
+			$('#careerarea').removeClass('hide');
+			$('.progress-bar').attr({'style':'width: 75%','aria-valuenow':'75'});
+			$('html').scrollTop(0);
+		})
+		
+		$('#careerarea .prev').on('click',function(){
+			$('#calltimearea').removeClass('hide');
+			$('#careerarea').addClass('hide');
+			$('.progress-bar').attr({'style':'width: 50%','aria-valuenow':'50'});
+			$('html').scrollTop(0);
+		})
+		$('#careerarea .next').on('click',function(){
+			
+			$('#careerarea').addClass('hide');
+			$('#qnaarea').removeClass('hide');
+			$('.progress-bar').attr({'style':'width: 100%','aria-valuenow':'100'});
+			$('html').scrollTop(0);
+		})
+		
+		$('#qnaarea .prev').on('click',function(){
+			$('#careerarea').removeClass('hide');
+			$('#qnaarea').addClass('hide');
+			$('.progress-bar').attr({'style':'width: 75%','aria-valuenow':'75'});
+			$('html').scrollTop(0);
+		})
+		$('#qnaarea #registerbtn').on('click',function(){
+			
+			
+			
+		})
+		
+		
+	
+	
+		
 		// 회원의 첨부파일 (File 객체) 을 보관하고 있다가 프로필 등록을 눌렀을때 서버에게 data 로 보내주기 위한 배열 전역 변수를 선언.
 		var myfiles=[];
 		
 		
 		
-		$('#test').on('click',function(){
+		$('#registerbtn').on('click',function(){
 			
 			var formData = new FormData();
 			
 			formData.append('line',$('input[name=line]').val());
 			formData.append('calltime',$('input[name=calltime_prefix]').val()+' ~ '+$('input[name=calltime_suffix]').val());
-			formData.append('career',$('.summernote').summernote('code'));
+			formData.append('career',$('.summernote_career').summernote('code'));
+			formData.append('qna',$('.summernote_qna').summernote('code'));
 			
 			
 			
@@ -268,6 +360,10 @@ $(document).ready(function(){
 		console.log($(this).siblings('.thisindex').text());
 		// myfiles 배열에서 해당 인덱스의 파일을 삭제한다.
 		myfiles.splice($(this).siblings('.thisinndex').text(),1);
+		
+		
+		
+		
 		// 미리보기 부분에서 삭제한 파일 뒤에 있는 모든 요소들의 thisindex 값을 1만큼 줄인다.
 		var indexchoosen=$(this).siblings('.thisindex').text();
 		$('.thisindex').each(function(index,item){
@@ -301,7 +397,7 @@ $(document).ready(function(){
 	
 	
 	
-	 $('.summernote').summernote({
+	 $('.summernote_career').summernote({
 		toolbar: [
 		    // [groupName, [list of button]]
 		    ['style', ['bold', 'italic', 'underline', 'clear']],
@@ -323,6 +419,30 @@ $(document).ready(function(){
          //width: 900
 		
 	});
+	 
+	 $('.summernote_qna').summernote({
+			toolbar: [
+			    // [groupName, [list of button]]
+			    ['style', ['bold', 'italic', 'underline', 'clear']],
+			    ['font', ['strikethrough', 'superscript', 'subscript']],
+			    ['fontsize', ['fontsize']],
+			    /* ['color', ['color']], */
+			    ['para', ['ul', 'ol', 'paragraph']],
+			    ['height', ['height']],
+			    ['insert', ['link', 'picture', 'video']],
+			  ],
+			 height: 600,
+	         codemirror: {
+	        	 theme: 'monokai'
+	         },
+	         lang: 'ko-KR',
+	         placeholder: 'QNA 작성'
+	         //minHeight: 600,
+	         //maxHeight: 600,
+	         //width: 900
+			
+		});
+		
 	
 })
 
