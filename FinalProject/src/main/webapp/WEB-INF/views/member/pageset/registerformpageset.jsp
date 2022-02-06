@@ -245,12 +245,26 @@
 				// 회원 가입 버튼을 누를 시에 이 조건문을 기준으로 FormData 객체에 추가하면 될 것이다.
 			}
 		})
+		//Cookie Test
+		$('#test').on('click',function(){
+		
+			/* var authCookie=document.cookie.match("authed");
+			console.log(authCookie[0]);
+			console.log(authCookie.input.substr(authCookie.input.indexOf('=')+1)); */
+			console.log(chkAuthed());
+		})
+		
 		
 		
 		//REGISTER SCRIPT
 		/////////////////////////////////
 		$('#registerbtn').on('click',function(){
-			if(!passwordMatches()){
+			
+			
+			
+			if(emptyValue($('#pw'))){
+				showWarningMsg($('#pw'),'*필수 입력사항입니다');
+			}else if(!passwordMatches()){
 				showWarningMsg($('#repw'),'비밀번호가 일치하지 않습니다');
 			}else if(!fullWriteEmail($('input[name=m_email_prefix]'),$('input[name=m_email_suffix]'))){
 				showWarningMsg($('input[name=m_email_prefix]'),'이메일을 입력하세요');
@@ -281,9 +295,14 @@
 					enctype:'multipart/form-data',
 					data:formData,
 					success:function(data){
-						console.log("회원가입성공!");
-						alert('회원가입이 완료되었습니다!');
-						location.href='${pageContext.request.contextPath}/'
+						
+						if(data=='NOTAUTHED'){
+							alert('이메일 인증이 필요합니다');
+						}else{
+							console.log("회원가입성공!");
+							alert('회원가입이 완료되었습니다!');
+							location.href='${pageContext.request.contextPath}/'	
+						}			
 					},
 					error:function(data){
 						console.log("회원가입실패!");
@@ -386,5 +405,15 @@
 	function completeLoad(){
 		$('#loading').remove();
 	}
+	
+	function chkAuthed(){
+		var authCookie = document.cookie.match("authed");	
+		console.log(authCookie);
+		var authedChk=authCookie.input.substr(authCookie.input.indexOf('=')+1);
+		console.log(authedChk);
+		return authedChk=='Y';
+		
+	}
+	
 
 </script>

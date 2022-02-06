@@ -72,7 +72,7 @@
 <%@include file="/WEB-INF/views/layout/header.jsp" %>
 <div class="container d-flex- flex-wrap flex-column justify-content-around" id="profileformwrap">
 	
-	<span id="index">1</span>
+	
 	
 	<div class="banner">프로필 등록</div>
 	
@@ -218,7 +218,7 @@ $(document).ready(function(){
 		
 		$('#calltimearea .prev').on('click',function(){
 			$('#linearea').removeClass('hide');
-			$('#careerarea').addClass('hide');
+			$('#calltimearea').addClass('hide');
 			$('.progress-bar').attr({'style':'width: 25%','aria-valuenow':'25'});
 			$('html').scrollTop(0);
 		})
@@ -292,9 +292,13 @@ $(document).ready(function(){
 				data:formData,
 				success:function(data){
 					console.log('통신성공');
+					alert('정상적으로 등록되었습니다.');
+					location.href="${pageContext.request.contextPath}/member/profile/main";
 				},
 				error:function(data){
-					console.log('통신실패');
+					
+					alert('통신신패!');
+					console.log(data);
 				}
 				
 			})
