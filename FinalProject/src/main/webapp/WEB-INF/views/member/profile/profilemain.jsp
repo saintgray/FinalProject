@@ -9,7 +9,7 @@
 <%@include file="/WEB-INF/views/defaultpageset.jsp" %>
 <style>
 #profileglobalwrap{
-	margin-top: 150px;
+	padding-top: 150px;
 }
 #regarea{
 	position: relative;
@@ -26,6 +26,10 @@
     padding: 20px;
     text-align: center;
 }
+#myphoto{
+	width:100px;
+	height:100px;
+}
 
 #plus_icon{
 	position :absolute;
@@ -37,6 +41,33 @@
 	cursor: pointer;
 	
 }
+
+  #bg_template {
+     
+      background: url("/mnm/resources/files/server/icons/bg_yello.png");
+      background-repeat: no-repeat;
+      font-size: 0px;
+      display: inline-block;    
+  }
+ 
+
+  .star{
+    width:60px;  
+    border-right: 15px solid white;
+
+  }
+  .activity{
+  	font-size:20px;
+  }
+  .activity_info{
+  	display: inline-block;
+  	padding-left: 10px;
+  	padding-right: 10px;
+  }
+  .br-col{
+  	   outline: 1px solid rgb(197,197,197);
+  }
+
 
 </style>
 
@@ -54,17 +85,33 @@
 <%@include file="/WEB-INF/views/layout/header.jsp" %>
 
 
-<div class="container" id="profileglobalwrap">
+<div class="container gw" id="profileglobalwrap">
 	<!-- 등록한 프로필이 없을때 + 등록했던 프로필을 모두 삭제했을 때 -->
+	<c:set var="m_idx">
+		<sec:authentication property="principal.m_idx"/>
+	</c:set>
+	
+	<!-- 만약 이 프로필이 비어있다면 -->
 	<c:if test="${empty profile}">
 	
-		
-		<div id="regarea" class="d-flex flex-column mx-auto my-4">
-			<h3 id="msg">내 프로필이 비었습니다.<br> 지금 등록하세요</h3>
+		<!-- 이 프로필의 소유주 idx 가 현재 로그인한 사람의 idx 와 같다면 -->
+		<c:if test="${m_idxOfThisProfile eq m_idx}">
+	
+			<div id="regarea" class="d-flex flex-column mx-auto my-4">
+				<h3 id="msg">내 프로필이 비었습니다.<br> 지금 등록하세요</h3>
+				
+				<img src="${pageContext.request.contextPath}/resources/files/server/icons/icon_plus.png" id="plus_icon">
+							
+			</div>	
 			
-			<img src="${pageContext.request.contextPath}/resources/files/server/icons/icon_plus.png" id="plus_icon">
-						
-		</div>	
+		</c:if>
+		
+		<!-- 이 프로필의 소유주 idx 가 현재 로그인한 사람의 idx 와 다르다면  -->
+		<c:if test="${m_idxOfThisProfile ne m_idx}">
+			<div class="d-flex flex-wrap justify-content-center">
+				<h1> 이 회원은 프로필이 없습니다. </h1>
+			</div>
+		</c:if>
 		
 	</c:if>
 	
@@ -72,29 +119,135 @@
 	<!-- 해당 유저의 프로필이 있을 때 -->
 	<c:if test="${not empty profile}">
 	
-		<h1> 내 프로필을 이 구역안에 출력되도록 하세요</h1>
+		<c:set var="photo">
+			<sec:authentication property="principal.photo"/>
+		</c:set>
+		<c:set var="m_idx">
+			<sec:authentication property="principal.m_idx"/>
+		</c:set>
 		
-		<h1>내 별점: ${profile.avgStars}</h1>
-		<h1>회원 고유번호 : ${profile.m_idx}</h1>
-		<h1>한줄소개 : ${profile.line}</h1>
-		<h1>연락가능시간 : ${profile.calltime}</h1>
-		<h1>프로필 등록일 : ${profile.profile_regdate}</h1>
+		<!-- 프로필 사진, 별점, 매칭수, 리뷰수 -->
+		<div id="maininfo" class="d-flex flex-wrap my-5 justify-content-center">
+			<img src="${pageContext.request.contextPath}/resources/files/member/${photo}" id="myphoto" class="mx-5">
+			<div class="d-flex flex-wrap flex-column">
+				<div class="d-flex flex-wrap mb-2 justify-content-center">
+					<div id="bg_template">
+				        <img src="${pageContext.request.contextPath}/resources/files/server/icons/teststar.png" class="star">
+				        <img src="${pageContext.request.contextPath}/resources/files/server/icons/teststar.png" class="star">
+				        <img src="${pageContext.request.contextPath}/resources/files/server/icons/teststar.png" class="star">
+				        <img src="${pageContext.request.contextPath}/resources/files/server/icons/teststar.png" class="star">
+				        <img src="${pageContext.request.contextPath}/resources/files/server/icons/teststar.png" class="star">
+				    </div>
+				</div>
+				
+				<div class="d-flex flex-wrap  justify-content-around my-2 activity">
+					<span class="activity_info">평점 : ${profile.avgStars}</span>
+					<span class="br-col"></span>
+					<span class="activity_info">고용수 : 0개</span>
+					<span class="br-col"></span>
+					<span class="activity_info">리뷰수 : 0개</span>
+				</div>
+				
+			</div>
+		</div>
+		<!-- ------------------------------------------- -->
 		
+		<!-- 한줄 소개 -->
+		<div class="d-flex flex-column">
 		
-		<h3>경력</h3>
-		<div>
-			${profile.career}
+			<div class="banner">
+				한줄 소개
+			</div>
+			<span>${profile.line}</span>
+		</div>
+		<!-- ------------------------------------------- -->
+		
+		<!-- 연락 가능 시간  -->
+		<div class="d-flex flex-column">
+			<div class="banner">
+				연락 가능 시간
+			</div>
+			<span>${profile.calltime}</span>
+		</div>
+		<!-- ------------------------------------------- -->
+		
+		<!-- 경력 -->
+		
+		<div class="d-flex flex-column">
+			<div class="banner">
+				경력
+			</div>
+			<div id="#careerarea">
+				${profile.career}
+			</div>
+			
 		</div>
 		
-		<h3>QNA</h3>
 		<div>
-			${profile.qna}
+		 	<!-- 첨부 파일 영역 -->
+		 	<!-- DB에서 해당 프로필의 고유번호에 해당하는 첨부파일을 받아와 다운로드 형태로 출력 -->
 		</div>
+		<!-- ------------------------------------------- -->
+		
+		<!-- QNA -->
+		
+		<div class="d-flex flex-column">
+			<div class="banner">
+				QNA
+			</div>
+			<div id="qnaarea">
+				${profile.qna}
+			</div>
+		</div>
+		
+		
+		
+		<c:if test="${profile.m_idx eq m_idx}">
+			<div class="d-flex flex-wrap">
+				<button type="button" class="btn btn-danger">프로필 삭제</button>
+			</div>
+		</c:if>
+		
+		
+		<script>
+		
+			 // DB 에서 해당 회원의 평점을 계산해서 5점 만점에 평균 x점이 나왔다고 가정하자.
+	        // 별 5개 이미지 길이만큼의 x에 대한 백분율 만큼 #bg_template 길이를 결정해 주면 될것이다.
+	        // 예를 들어 3.3점이라 하자.
+	        
+	        var avgRank=${profile.avgStars};
+	        // 일의 자리수 추출
+	        var fullStars=Math.floor(avgRank);
+	        // 소수점 자리수 추출
+	        var remainStarSize=(avgRank%1).toFixed(2); 
+	        var width=$('.star').width();
+	        var border=$('.star').css('border-right-width').replace("px","");
+	       console.log('fullStars>>>'+fullStars);
+	       console.log('remainStarSize>>'+remainStarSize);
+	       console.log('imgWidth'+width);
+	       console.log('border>>'+border);
+	       
+	        // 노랑색 바의 길이 = fullStar의 갯수*(star이미지의 width + star 이미지의 border-right 두께) + 소숫점첫째자리*star 이미지의 넓이
+	        barLength=fullStars*(width+parseInt(border))+($('.star').width())*remainStarSize;
+	        console.log(barLength);
+	        $('#bg_template').css('background-size',barLength+'px '+width+'px');
+	        
+	       
+	      
+	        // 별 랭킹의 전체 크기를 조정할 경우 css의 .star 스타일의 width 속성값을 조절한다.
+	        // avgRank 는 해당 튜터의 평균 랭킹을 DB에서 계산한 다음 반환된 값이어야 한다.
+	        // 랭킹이 들어간 레이아웃은 white 배경이어야 한다. >> 아닐 경우 새 별 이미지 작업 필요함
+	        // background 의 url 이미지 경로와 별모양 이미지는 서버 경로의 정적파일(resources) 에 있는 서버용 이미지들 경로로 잡는다.
+		</script>
+		
 	</c:if>
+		
+	
+		
 
 </div>
-
 <%@include file="/WEB-INF/views/layout/footer.jsp" %>
+
 <script>
 	
 
@@ -104,8 +257,7 @@
 		$('#plus_icon').on('click',function(){
 			
 			location.href="${pageContext.request.contextPath}/member/profile/register"
-		})
-		
+		})       
 	})
 </script>
 </body>

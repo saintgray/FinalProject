@@ -123,6 +123,8 @@
 	
 	
 	
+	<button type="button" class="btn btn-general" id="test">쿠키얻기</button>
+	
 	
 	
 	
