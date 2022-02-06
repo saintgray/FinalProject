@@ -29,6 +29,7 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 		
 		Iterator<GrantedAuthority> itr= logininfo.getAuthorities().iterator();
 		
+
 		RedirectStrategy rs=new DefaultRedirectStrategy();
 		RequestCache rc=new HttpSessionRequestCache();
 		
@@ -47,7 +48,8 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 					redirectUrl="/admin/manage";
 					break;
 				}
-			}
+
+		}
 		// 1.의 경우라면 요청한 페이지로 리다이렉팅한다.
 		}else {
 			redirectUrl=rc.getRequest(request, response).getRedirectUrl();
