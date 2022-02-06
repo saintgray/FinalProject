@@ -250,11 +250,7 @@ $(document).ready(function(){
 			$('.progress-bar').attr({'style':'width: 75%','aria-valuenow':'75'});
 			$('html').scrollTop(0);
 		})
-		$('#qnaarea #registerbtn').on('click',function(){
-			
-			
-			
-		})
+		
 		
 		
 	

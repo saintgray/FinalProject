@@ -245,15 +245,7 @@
 				// 회원 가입 버튼을 누를 시에 이 조건문을 기준으로 FormData 객체에 추가하면 될 것이다.
 			}
 		})
-		//Cookie Test
-		$('#test').on('click',function(){
-		
-			/* var authCookie=document.cookie.match("authed");
-			console.log(authCookie[0]);
-			console.log(authCookie.input.substr(authCookie.input.indexOf('=')+1)); */
-			console.log(chkAuthed());
-		})
-		
+	
 		
 		
 		//REGISTER SCRIPT
@@ -405,15 +397,7 @@
 	function completeLoad(){
 		$('#loading').remove();
 	}
-	
-	function chkAuthed(){
-		var authCookie = document.cookie.match("authed");	
-		console.log(authCookie);
-		var authedChk=authCookie.input.substr(authCookie.input.indexOf('=')+1);
-		console.log(authedChk);
-		return authedChk=='Y';
-		
-	}
+
 	
 
 </script>
