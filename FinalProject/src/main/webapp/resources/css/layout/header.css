@@ -113,3 +113,10 @@
 
       height: 40px;
     }
+    #menutab .fi {
+ 		line-height: 2.7;   
+    
+    }
+    #menutab span{
+    	cursor: pointer;
+    }

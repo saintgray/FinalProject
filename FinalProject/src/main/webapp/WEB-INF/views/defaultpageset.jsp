@@ -16,6 +16,9 @@
 	 font-family : 'Noto Sans KR', sans-serif; 
 -->
 
+<!-- Uicons by <a href="https://www.flaticon.com/uicons">Flaticon</a> -->
+<link rel="stylesheet" href="https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css">
+
 
 
  <!-- Bootstrap -->
