@@ -2,7 +2,6 @@ package security;
 
 import java.io.IOException;
 import java.util.Iterator;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -10,7 +9,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.web.DefaultRedirectStrategy;
+import org.springframework.security.web.RedirectStrategy;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
+import org.springframework.security.web.savedrequest.RequestCache;
 
 
 public class LoginSuccessHandler implements AuthenticationSuccessHandler {
@@ -25,19 +28,39 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 		AccountDetails logininfo= (AccountDetails)	authentication.getPrincipal();
 		
 		Iterator<GrantedAuthority> itr= logininfo.getAuthorities().iterator();
+		
+		RedirectStrategy rs=new DefaultRedirectStrategy();
+		RequestCache rc=new HttpSessionRequestCache();
+		
+		
 		String redirectUrl="/";
 		
+		// 로그인에 성공시 기본으로 이동활 화면은 홈 화면
+		// 1. 인증이 필요한 페이지를 사용하려다 로그인페이지로 들어와서 로그인에 성공한 케이스
+		// 2. 직접 로그인 창을 클릭해서 로그인에 성공한 케이스
 		
-		
-		while(itr.hasNext()) {
-			if(itr.next().getAuthority().equals("ROLE_ADMIN")) {
-				redirectUrl="/admin/manage";
-				break;
+		// 2.의 경우 >> 만약 ADMIN 권한 이 있다면 관리자 메인페이지로 리다이렉팅 한다.
+		if(rc.getRequest(request, response)==null) {
+			
+			while(itr.hasNext()) {
+				if(itr.next().getAuthority().equals("ROLE_ADMIN")) {
+					redirectUrl="/admin/manage";
+					break;
+				}
 			}
+		// 1.의 경우라면 요청한 페이지로 리다이렉팅한다.
+		}else {
+			redirectUrl=rc.getRequest(request, response).getRedirectUrl();
+			
 		}
 		
 		
-		response.sendRedirect(request.getContextPath().concat(redirectUrl));
+		
+		
+		
+		
+		rs.sendRedirect(request, response, redirectUrl);
+		//response.sendRedirect(request.getContextPath().concat(redirectUrl));
 		
 	}
 	
