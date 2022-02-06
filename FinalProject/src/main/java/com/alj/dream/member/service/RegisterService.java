@@ -41,6 +41,7 @@ public class RegisterService {
 		infos.setM_password(pwEncoder.encode(infos.getM_password()));
 		String m_photo=infos.getPhoto()==null?"defaultprofile.png":String.valueOf(System.nanoTime());
 		infos.setM_photo(m_photo);
+		infos.setM_nm(infos.getM_nm().length()==0?email.getM_email_prefix():infos.getM_nm());
 		
 		
 		String savePath=req.getSession().getServletContext().getRealPath("/resources/files/member");

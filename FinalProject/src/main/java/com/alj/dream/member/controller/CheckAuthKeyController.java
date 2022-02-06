@@ -1,6 +1,7 @@
 package com.alj.dream.member.controller;
 
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -25,7 +26,7 @@ public class CheckAuthKeyController {
 		}
 
 		@PostMapping
-		public String checkEmailAuthKey(String insertedKey, @CookieValue(value="authKey", required=false)Cookie cookie) {
+		public String checkEmailAuthKey(HttpServletResponse resp, String insertedKey, @CookieValue(value="authKey", required=false)Cookie cookie) {
 	
 			String result=null;
 			
@@ -35,6 +36,11 @@ public class CheckAuthKeyController {
 			}else {
 				if(encoder.matches(insertedKey, cookie.getValue())) {
 					result="matched";
+					Cookie authCookie = new Cookie("authed", "Y");
+					authCookie.setMaxAge(60*60*24);
+					resp.addCookie(authCookie);
+					
+					
 				}else {
 					result="인증번호가 일치하지 않습니다";
 				}

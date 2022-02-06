@@ -69,7 +69,10 @@ public class CreateAuthKeyController {
 			
 			Cookie cookie= new Cookie("authKey", pwencoder.encode(authKey));
 			cookie.setMaxAge(60*3);
+			Cookie authCookie= new Cookie("authed", "N");
+			authCookie.setMaxAge(60*60*24);
 			response.addCookie(cookie);
+			response.addCookie(authCookie);
 			
 			
 			

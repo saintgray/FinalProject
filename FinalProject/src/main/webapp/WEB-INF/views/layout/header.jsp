@@ -8,6 +8,7 @@
 
 
 <div id="headerwrap">
+
 	<ul class="container d-flex">
 	      
 	      <li id="first" class="mr-auto p-2 d-flex flex-wrap">
@@ -37,13 +38,6 @@
 	      				<sec:authentication property="principal.m_type"/>
 	      			</c:set>
 
-	      			<c:if test="${type eq 'mentee'}">
-	      				<span class="inner list">멘토찾기</span>
-	      			</c:if>
-	      			<c:if test="${type eq 'mentor'}">
-	      				<span class="inner list">멘티찾기</span>
-	      			</c:if>
-
 	      			
 	      				<span class="inner list" id="mypost">내가 쓴 글</span>
 	      			
@@ -54,40 +48,60 @@
 	      				
 	      				<img src='${pageContext.request.contextPath}/resources/files/member/<sec:authentication property="principal.photo"/>' id="myPhoto" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expended="false">
 	      				
-	      				<ul class="dropdown-menu" aria-labelledby="myPhoto">
-
+	      				<ul class="dropdown-menu" aria-labelledby="myPhoto" id="menutab">
+							
 	      					<li>
-	      						<div class="dropdown-item d-flex flex-column">
-	      							<span>
-	      								<sec:authentication property="principal.name"/> 
-	      								<c:if test="${type eq 'mentor'}">
-	      									멘토님
-	      								</c:if>
-	      								<c:if test="${type eq 'mentee'}">
-	      									멘티님
-	      								</c:if>
-	      							</span>
-	      							<!-- 자신의 별점과 기타정보들 -->
+	      						<div class="d-flex flex-column">
+	      							<div class="d-flex justify-content-around dropdown-item">
+	      								<i class="fi fi-rr-user"></i>
+		      							<span>
+		      								<sec:authentication property="principal.name"/> 
+		      								<c:if test="${type eq 'mentor'}">
+		      									멘토님
+		      								</c:if>
+		      								<c:if test="${type eq 'mentee'}">
+		      									멘티님
+		      								</c:if>
+		      							</span>
+		      							<!-- 자신의 별점과 기타정보들 -->
+		      						</div>
 	      							
 	      							
 	      						</div>
 	      						
 	      						
 	      						<c:if test="${type eq 'mentor'}">
-      								<span class="dropdown-item" id="manageprofile">프로필 관리</span>
+	      							<div class="d-flex justify-content-around dropdown-item">
+	      								<i class="fi fi-rr-box-alt"></i>
+	      								<span id="manageprofile">프로필 관리</span>
+	      							</div>
+      								
       							</c:if>
-      							<span class="dropdown-item changeType">
-      								<c:if test="${type eq 'mentor'}">
-      									멘티로 전환
-      								</c:if>
-      								<c:if test="${type eq 'mentee'}">
-      									멘토로 전환
-      								</c:if>
-      							</span>
+      							
+      							<sec:authorize access="hasRole('GENERAL')">
+	      							<div class="d-flex justify-content-around dropdown-item">
+		      							<i class="fi fi-rr-rotate-right"></i>
+		      							<span class="changeType">
+		      								<c:if test="${type eq 'mentor'}">
+		      									멘티로 전환
+		      								</c:if>
+		      								<c:if test="${type eq 'mentee'}">
+		      									멘토로 전환
+		      								</c:if>
+		      							</span>
+	      							</div>
+      							</sec:authorize>
 	      							
 	      					</li>	
 	      					
-	      					<li><span class="dropdown-item" id="logoutbtn">로그아웃</span></li>
+	      					<li>
+	      						<div class="dropdown-item d-flex justify-content-around">
+	      							<i class="fi fi-rr-sign-out-alt"></i>
+	      							<span id="logoutbtn">로그아웃</span>
+	      						</div>
+	      						
+      						</li>
+      						
 	      				</ul>
 	      				
 	      				

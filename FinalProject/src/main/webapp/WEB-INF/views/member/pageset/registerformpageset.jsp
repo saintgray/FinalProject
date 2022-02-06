@@ -245,12 +245,18 @@
 				// 회원 가입 버튼을 누를 시에 이 조건문을 기준으로 FormData 객체에 추가하면 될 것이다.
 			}
 		})
+	
 		
 		
 		//REGISTER SCRIPT
 		/////////////////////////////////
 		$('#registerbtn').on('click',function(){
-			if(!passwordMatches()){
+			
+			
+			
+			if(emptyValue($('#pw'))){
+				showWarningMsg($('#pw'),'*필수 입력사항입니다');
+			}else if(!passwordMatches()){
 				showWarningMsg($('#repw'),'비밀번호가 일치하지 않습니다');
 			}else if(!fullWriteEmail($('input[name=m_email_prefix]'),$('input[name=m_email_suffix]'))){
 				showWarningMsg($('input[name=m_email_prefix]'),'이메일을 입력하세요');
@@ -281,9 +287,14 @@
 					enctype:'multipart/form-data',
 					data:formData,
 					success:function(data){
-						console.log("회원가입성공!");
-						alert('회원가입이 완료되었습니다!');
-						location.href='${pageContext.request.contextPath}/'
+						
+						if(data=='NOTAUTHED'){
+							alert('이메일 인증이 필요합니다');
+						}else{
+							console.log("회원가입성공!");
+							alert('회원가입이 완료되었습니다!');
+							location.href='${pageContext.request.contextPath}/'	
+						}			
 					},
 					error:function(data){
 						console.log("회원가입실패!");
@@ -386,5 +397,7 @@
 	function completeLoad(){
 		$('#loading').remove();
 	}
+
+	
 
 </script>
