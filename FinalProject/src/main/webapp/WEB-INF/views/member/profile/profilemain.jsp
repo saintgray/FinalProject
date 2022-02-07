@@ -6,7 +6,18 @@
 <html>
 <head>
 <meta charset="UTF-8">
+
+
 <%@include file="/WEB-INF/views/defaultpageset.jsp" %>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<!-- include summernote css/js -->
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
+<%-- <script src="${pageContext.request.contextPath}/resources/default/summernote-bs4.js"></script> --%>
+<!-- timepicker script & css -->
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>
+
 <style>
 #profileglobalwrap{
 	padding-top: 150px;
@@ -67,6 +78,17 @@
   .br-col{
   	   outline: 1px solid rgb(197,197,197);
   }
+  .edit{
+  	height: 30px;
+    padding: 0.175rem 0.475rem;
+    border-radius: 15px;
+  }
+  .ui-timepicker-container{
+  	z-index: 9999 !important;
+  }
+  #calltime{
+  	width: 150px;
+  }
 
 
 </style>
@@ -85,7 +107,7 @@
 <%@include file="/WEB-INF/views/layout/header.jsp" %>
 
 
-<div class="container gw" id="profileglobalwrap">
+<div class="container" id="profileglobalwrap">
 	<!-- 등록한 프로필이 없을때 + 등록했던 프로필을 모두 삭제했을 때 -->
 	<c:set var="m_idx">
 		<sec:authentication property="principal.m_idx"/>
@@ -153,19 +175,24 @@
 		<!-- ------------------------------------------- -->
 		
 		<!-- 한줄 소개 -->
-		<div class="d-flex flex-column">
-		
-			<div class="banner">
-				한줄 소개
+		<div class="d-flex flex-column mb-5">
+			<div class="d-flex flex-wrap">
+				<div class="banner flex-grow-1">
+					한줄 소개
+				</div>
+				<button id="editline" class="btn btn-general edit ms-auto" data-bs-toggle="modal" data-bs-target="#editarea">수정</button>
 			</div>
-			<span>${profile.line}</span>
+			<span id="originline">${profile.line}</span>
 		</div>
 		<!-- ------------------------------------------- -->
 		
 		<!-- 연락 가능 시간  -->
-		<div class="d-flex flex-column">
-			<div class="banner">
-				연락 가능 시간
+		<div class="d-flex flex-column mb-5">
+			<div class="d-flex flex-wrap">
+				<div class="banner flex-grow-1">
+					연락 가능 시간
+				</div>
+				<button id="editcalltime" class="btn btn-general edit ms-auto" data-bs-toggle="modal" data-bs-target="#editarea">수정</button>
 			</div>
 			<span>${profile.calltime}</span>
 		</div>
@@ -173,27 +200,34 @@
 		
 		<!-- 경력 -->
 		
-		<div class="d-flex flex-column">
-			<div class="banner">
-				경력
+		<div class="d-flex flex-column mb-5">
+			<div class="d-flex flex-wrap">
+				<div class="banner flex-grow-1">
+					경력
+				</div>
+				<button id="editcareer" class="btn btn-general edit ms-auto" data-bs-toggle="modal" data-bs-target="#editarea">수정</button>			
 			</div>
-			<div id="#careerarea">
+			<div id="careerarea">
 				${profile.career}
 			</div>
 			
-		</div>
-		
-		<div>
+			<div>
 		 	<!-- 첨부 파일 영역 -->
 		 	<!-- DB에서 해당 프로필의 고유번호에 해당하는 첨부파일을 받아와 다운로드 형태로 출력 -->
+			</div>	
 		</div>
+		
+		
 		<!-- ------------------------------------------- -->
 		
 		<!-- QNA -->
 		
-		<div class="d-flex flex-column">
-			<div class="banner">
-				QNA
+		<div class="d-flex flex-column mb-5">
+			<div class="d-flex flex-wrap">
+				<div class="banner flex-grow-1">
+					QNA
+				</div>
+				<button id="editqna" class="btn btn-general edit ms-auto" data-bs-toggle="modal" data-bs-target="#editarea">수정</button>
 			</div>
 			<div id="qnaarea">
 				${profile.qna}
@@ -203,8 +237,8 @@
 		
 		
 		<c:if test="${profile.m_idx eq m_idx}">
-			<div class="d-flex flex-wrap">
-				<button type="button" class="btn btn-danger">프로필 삭제</button>
+			<div class="d-flex flex-wrap justify-content-center">
+				<button type="button" class="btn btn-danger" id="delProfile">프로필 삭제</button>
 			</div>
 		</c:if>
 		
@@ -240,26 +274,32 @@
 	        // background 의 url 이미지 경로와 별모양 이미지는 서버 경로의 정적파일(resources) 에 있는 서버용 이미지들 경로로 잡는다.
 		</script>
 		
-	</c:if>
 		
-	
-		
-
+		<div class="modal fade" id="editarea" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered">
+			    <div class="modal-content">
+			      <div class="modal-header">
+			        <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+			        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			      </div>
+			      <div class="modal-body">
+			        ...ㄴㅇ라너이러나ㅣㅇ러
+			      </div>
+			      <div class="modal-footer d-flex flex-wrap justify-content-around">
+			        <button type="button" class="btn btn-grey" data-bs-dismiss="modal" id="close-modal">취소</button>
+			        <button type="button" class="btn btn-general editbtn">수정</button>
+			      </div>
+			    </div>
+			</div>
+  		
+		</div>
+	</c:if>	
 </div>
 <%@include file="/WEB-INF/views/layout/footer.jsp" %>
 
-<script>
-	
+<%@include file="/WEB-INF/views/member/profile/pageset/profilemainpageset.jsp" %>
 
-	$(document).ready(function(){
-		
-		
-		$('#plus_icon').on('click',function(){
-			
-			location.href="${pageContext.request.contextPath}/member/profile/register"
-		})       
-	})
-</script>
+
 </body>
 
 

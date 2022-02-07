@@ -5763,7 +5763,12 @@ keyframes progress-bar-stripes { 0%{
 
 @media ( min-width :576px) {
 	.modal-dialog {
-		max-width: 500px;
+		/* 2022 02 07 수정
+		   프로필 수정시 모달 summernote 창 확보를 위한 modal 창 max-width 증가
+		*/
+		
+		/* max-width: 500px; */
+		max-width:630px;
 		margin: 1.75rem auto
 	}
 	.modal-dialog-scrollable {
