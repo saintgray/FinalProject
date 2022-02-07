@@ -58,6 +58,14 @@
   	color: rgb(197,	197,197);
   	font-weight: light;
   }
+  a{
+  	color:black;
+  	text-decoration: none;
+  }
+  a:hover{
+  	text-decoration: underline;
+  	color: black;
+  }
  
   
  /* Scrollbar style */

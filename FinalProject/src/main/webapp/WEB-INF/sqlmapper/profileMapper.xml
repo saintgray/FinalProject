@@ -7,11 +7,14 @@
  <mapper namespace="com.alj.dream.profile.dao.ProfileDao">
  
  	<select id="getProfile" resultType="com.alj.dream.profile.domain.MyProfileInfo">
- 		SELECT * FROM
+ 		SELECT profile_idx, m_idx, line, calltime, career, qna, date_format(profile_regdate,'%Y년 %m월 %d일') as profile_regdate FROM
  				profile 
  				WHERE
- 				m_idx=#{arg0}
+ 				m_idx=#{arg0} and profile_yn='Y'
  	</select>
- 
+ 	
+ 	<insert id="insertProfile" parameterType="com.alj.dream.profile.domain.ProfileRegisterData" useGeneratedKeys="true" keyProperty="profile_idx">
+ 		INSERT INTO dream.profile(m_idx,line,calltime,career,qna) values(#{m_idx},#{line},#{calltime},#{career},#{qna})
+ 	</insert>
  
  </mapper>

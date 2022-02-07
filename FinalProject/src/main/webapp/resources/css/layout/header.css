@@ -3,6 +3,8 @@
  	#headerwrap {
       width: 80%;
       margin: 10px auto;
+      height:10%;
+      
     }
 
     ul li span {
@@ -102,6 +104,7 @@
       vertical-align: top;
     }
     #myPhoto{
+    	cursor:pointer;
     	width:42px;
     	height: 42px;
     }
@@ -109,4 +112,11 @@
     .inner {
 
       height: 40px;
+    }
+    #menutab .fi {
+ 		line-height: 2.7;   
+    
+    }
+    #menutab span{
+    	cursor: pointer;
     }

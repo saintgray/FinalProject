@@ -65,6 +65,9 @@
 			<div class="my-2" id="btnarea">
 				<button type="button" class="btn btn-general" id="loginbtn">로그인</button>
 			</div>	
+			
+			<!-- <input type="checkbox" name="remember-me">자동로그인 -->
+			
 		</form>
 		
 	</div>
