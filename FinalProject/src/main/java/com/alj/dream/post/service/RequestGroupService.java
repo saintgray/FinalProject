@@ -70,7 +70,7 @@ public class RequestGroupService {
 			System.out.println("postidx저장됨");
 			
 			System.out.println();
-			rmemberList = dao.selectRequestMember(midx, wanted, postidx);	// 게시글 고유번호에 문의한 회원정보를 rmemberList리스트에 add.
+			//rmemberList = dao.selectRequestMember(midx, wanted, postidx);	// 게시글 고유번호에 문의한 회원정보를 rmemberList리스트에 add.
 			System.out.println(i+"번째 멤버 : "+rmemberList);
 			
 			System.out.println();

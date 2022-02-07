@@ -50,7 +50,7 @@ text-align: center;
 <a href="">회원관리</a>
 <a href="">게시글관리</a>
 <div class="d-flex flex-column flex-wrap managetab">
-	<a href="${pageContext.request.contextPath}/notice" ><img src="${pageContext.request.contextPath}/resources/files/server/icons/customerservice.svg" /></a>
+	<a href="${pageContext.request.contextPath}/notice?selectPage=1&numOfNoticesPerPage=5" ><img src="${pageContext.request.contextPath}/resources/files/server/icons/customerservice.svg" /></a>
 	<span class="my-2">고객센터</span>
 </div>
 </div>

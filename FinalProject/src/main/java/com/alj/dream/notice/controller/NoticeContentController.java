@@ -23,7 +23,7 @@ public class NoticeContentController {
 		System.out.println(notice_idx);
 		//////////////
 		try {
-			model.addAttribute("content", service.getContent(notice_idx));
+			model.addAttribute("content", service.getNotice(notice_idx));
 		///////////////
 		}catch(Exception e) {
 			e.printStackTrace();

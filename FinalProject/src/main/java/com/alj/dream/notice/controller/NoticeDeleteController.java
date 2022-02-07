@@ -1,22 +1,31 @@
 package com.alj.dream.notice.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.alj.dream.notice.service.NoticeDeleteService;
 
-@Controller
+@RestController
 @RequestMapping("admin/notice/delete")
 public class NoticeDeleteController {
 	
 	@Autowired
 	private NoticeDeleteService noticedeleteService;
 	
-	@GetMapping
-	public String NoticeDeletePage() {
+	@PostMapping
+	public int NoticeDeletePage(String notice_idx) {
 		
-		return null;
+		int result=0;
+		
+		try {
+			result= noticedeleteService.deleteNotice(notice_idx);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		return result;
 	}
 }
