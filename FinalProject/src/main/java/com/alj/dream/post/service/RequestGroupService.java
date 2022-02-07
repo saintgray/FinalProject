@@ -19,7 +19,8 @@ public class RequestGroupService {
 	
 	
 	private PostDao dao;
-	@Autowired SqlSessionTemplate template;
+	@Autowired 
+	SqlSessionTemplate template;
 	
 	
 	// 받은 제의를 가져 올 메소드
@@ -51,45 +52,22 @@ public class RequestGroupService {
 		
 		// 회원이 올린 게시글의 총 개수(문의를 받은 게시글만)
 		int totalPostCount = dao.selectTotalPost(midx, wanted);
-		System.out.println("totalPostCount : "+totalPostCount);
 		int i =0;
 		
 		List<RequestMember> rmemberList = new ArrayList<RequestMember>();
-		List<RequestGroup> rgroupList = dao.selectRequestGroup(midx, wanted);	
-		
+		List<RequestGroup> rgroupList = dao.selectRequestPostByMIdx(midx, wanted);	
 		
 		while(i<totalPostCount) {
 							
+			int postidx = rgroupList.get(i).getPost_idx();			
+	
+			rmemberList = dao.selectRequestMemberByPostIdx(postidx);	// 게시글 고유번호에 문의한 회원정보를 rmemberList리스트에 add.
 			
-			System.out.println();
-			System.out.println(i+"번째 그룹리스트의 정보---------------------------------------------");
-			System.out.println(i+"번째 그룹(멤버리스트포함X) : " +rgroupList.get(i));
-			
-			int postidx = rgroupList.get(i).getPost_idx();													// 게시글의 고유번호 get.
-			System.out.println();
-			System.out.println("postidx저장됨");
-			
-			System.out.println();
-			//rmemberList = dao.selectRequestMember(midx, wanted, postidx);	// 게시글 고유번호에 문의한 회원정보를 rmemberList리스트에 add.
-			System.out.println(i+"번째 멤버 : "+rmemberList);
-			
-			System.out.println();
 			rgroupList.get(i).setList(rmemberList);		
-			System.out.println("rgroup에 rmemberList리스트를 set"); 
 			
-			System.out.println();
-			System.out.println(i+"번째 그룹(멤버리스트포함O) : "+rgroupList.get(i));
-			
-			System.out.println();
 			i++;
 		}
-		
-		//확인용
-		
-		System.out.println(rgroupList);
-		
-		
-		
+
 		return rgroupList;
 	}
 	

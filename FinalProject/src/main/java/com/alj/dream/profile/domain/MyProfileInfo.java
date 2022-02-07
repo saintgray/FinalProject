@@ -2,7 +2,7 @@ package com.alj.dream.profile.domain;
 
 import java.util.List;
 
-import com.alj.dream.file_profile.domain.MyFiles;
+import com.alj.dream.file_profile.domain.FileInfo;
 
 public class MyProfileInfo {
 	// 회원의 프로필에 필요한 정보는 다음과 같다.
@@ -17,7 +17,7 @@ public class MyProfileInfo {
 	private String career;
 	private String qna;
 	private String profile_regdate;
-	private List<MyFiles> files;
+	private List<FileInfo> files;
 	private String avgStars;
 	
 	public MyProfileInfo() {
@@ -25,7 +25,7 @@ public class MyProfileInfo {
 	}
 
 	public MyProfileInfo(String profile_idx, String m_idx, String line, String calltime, String career, String qna,
-			String profile_regdate, List<MyFiles> files, String avgStars) {
+			String profile_regdate, List<FileInfo> files, String avgStars) {
 		this.profile_idx = profile_idx;
 		this.m_idx = m_idx;
 		this.line = line;
@@ -93,11 +93,11 @@ public class MyProfileInfo {
 		this.profile_regdate = profile_regdate;
 	}
 
-	public List<MyFiles> getFiles() {
+	public List<FileInfo> getFiles() {
 		return files;
 	}
 
-	public void setFiles(List<MyFiles> files) {
+	public void setFiles(List<FileInfo> files) {
 		this.files = files;
 	}
 
