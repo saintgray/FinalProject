@@ -5,6 +5,7 @@ public class NoticeRegisterData {
 	private String admin_idx;
 	private String notice_title;
 	private String notice_content;
+	private String notice_idx;
 	
 	public NoticeRegisterData() {
 		
@@ -38,6 +39,14 @@ public class NoticeRegisterData {
 
 	public void setNotice_content(String notice_content) {
 		this.notice_content = notice_content;
+	}
+
+	public String getNotice_idx() {
+		return notice_idx;
+	}
+
+	public void setNotice_idx(String notice_idx) {
+		this.notice_idx = notice_idx;
 	}
 	
 	

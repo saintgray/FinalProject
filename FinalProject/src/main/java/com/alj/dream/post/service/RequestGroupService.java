@@ -63,6 +63,8 @@ public class RequestGroupService {
 	
 			rmemberList = dao.selectRequestMemberByPostIdx(postidx);	// 게시글 고유번호에 문의한 회원정보를 rmemberList리스트에 add.
 			
+
+
 			rgroupList.get(i).setList(rmemberList);		
 			
 			i++;

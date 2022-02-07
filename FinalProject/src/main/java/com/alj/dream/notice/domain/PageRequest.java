@@ -6,8 +6,7 @@ public class PageRequest {
 	private String numOfNoticesPerPage;
 	
 	public PageRequest() {
-		this.selectPage="1";
-		this.numOfNoticesPerPage="5";
+		
 	}
 
 	public PageRequest(String selectPage, String numOfNoticesPerPage) {
@@ -30,6 +29,11 @@ public class PageRequest {
 
 	public void setNumOfNoticesPerPage(String numOfNoticesPerPage) {
 		this.numOfNoticesPerPage = numOfNoticesPerPage;
+	}
+
+	@Override
+	public String toString() {
+		return "PageRequest [selectPage=" + selectPage + ", numOfNoticesPerPage=" + numOfNoticesPerPage + "]";
 	}
 	
 	
