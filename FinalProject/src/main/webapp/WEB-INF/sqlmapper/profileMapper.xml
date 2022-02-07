@@ -10,11 +10,19 @@
  		SELECT profile_idx, m_idx, line, calltime, career, qna, date_format(profile_regdate,'%Y년 %m월 %d일') as profile_regdate FROM
  				profile 
  				WHERE
- 				m_idx=#{arg0} and profile_yn='Y'
+ 				m_idx=#{arg0} and profile_deldate is null
  	</select>
  	
  	<insert id="insertProfile" parameterType="com.alj.dream.profile.domain.ProfileRegisterData" useGeneratedKeys="true" keyProperty="profile_idx">
  		INSERT INTO dream.profile(m_idx,line,calltime,career,qna) values(#{m_idx},#{line},#{calltime},#{career},#{qna})
  	</insert>
- 
+ 	
+ 	
+ 	<!-- 프로필 삭제 -->
+	<update id="deleteProfile" parameterType="String">
+		UPDATE dream.profile set profile_deldate=current_timestamp
+		WHERE profile_idx=#{arg0}	
+	</update>
+	
+	
  </mapper>
