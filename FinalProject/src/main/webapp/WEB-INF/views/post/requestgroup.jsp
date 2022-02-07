@@ -21,11 +21,11 @@
 <br>
 --그룹리스트
 <br>
-<td>게시글 고유번호 : ${rgroup.post_idx }</td><br>
-<td>게시글 타이틀 : ${rgroup.post_nm }</td><br>
-<td>게시글 생성일자 : ${rgroup.post_regdate }</td><br>
-<td>게시글 요청대상 : ${rgroup.wanted }</td><br>
-<td>게시글 카테고리 : ${rgroup.cat_nm }</td><br>
+<td>게시글 고유번호 : ${rgroup.post_idx}</td><br>
+<td><a href="${pageContext.request.contextPath}/post/requestpost?postidx=${rgroup.post_idx}">게시글 타이틀 : ${rgroup.post_nm}</a></td><br>
+<td>게시글 생성일자 : ${rgroup.post_regdate}</td><br>
+<td>게시글 요청대상 : ${rgroup.wanted}</td><br>
+<td>게시글 카테고리 : ${rgroup.cat_nm}</td><br>
 </tr>
 <br>
 --멤버리스트

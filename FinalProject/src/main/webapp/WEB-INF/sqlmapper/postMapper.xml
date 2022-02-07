@@ -5,17 +5,18 @@
  
  <mapper namespace="com.alj.dream.post.dao.PostDao">
  
+ <!-- 작성자 : 정지원  -->
  
  	<select id="selectTotalPost"
 		resultType="int">
 		select count(distinct p.post_idx)
 		from post p, category c, dream.match m
 		where p.m_idx=#{param1} and c.cat_idx=p.cat_idx and p.wanted=#{param2} and
-		m.post_idx=p.post_idx;
+			m.post_idx=p.post_idx;
 	</select> 
  
- 
- 	<select id="selectRequestGroup" 
+ 	<!-- 매칭테이블을 가지고있는 게시물 -->
+ 	<select id="selectRequestPostByMIdx" 
  		resultType="com.alj.dream.post.domain.RequestGroup">	
  		select distinct 
  			p.post_nm, 
@@ -28,11 +29,24 @@
 			p.m_idx=#{param1} and p.wanted=#{param2} and m.post_idx=p.post_idx ;
  	</select>
  	
- 
-	<select id="selectRequestMember"
+ 	<select id="selectRequestPostByPostIdx" 
+ 		resultType="com.alj.dream.post.domain.RequestGroup">	
+ 		select distinct 
+ 			p.post_nm, 
+ 			p.post_idx, 
+ 			c.cat_nm, 
+ 			p.post_regdate
+		from 
+			post p join category c on  c.cat_idx=p.cat_idx
+		where 
+			p.post_idx = #{idx};
+ 	</select>
+ 	
+ 	<!-- 매칭테이블을 가지고있는 회원 -->
+	<select id="selectRequestMemberByPostIdx"
  		resultType="com.alj.dream.post.domain.RequestMember">
  		select 
- 			mem.m_photo, mem.m_idx, p.post_idx, mem.m_nm, pr.line, m.match_idx, m.match_yn
+ 			mem.m_photo, mem.m_idx, p.post_idx, mem.m_nm, pr.line, m.match_idx, m.match_yn, pr.line
 		from 
 			post p, category c, dream.match m, member mem, profile pr
 		where 
@@ -49,6 +63,9 @@
  	</select> 
  
  
+ 
+ <!-- 작성자 : 김지현 -->
+ 
 	 	<insert id="insertPost"
  			parameterType="com.alj.dream.post.domain.PostWriteRequest"
 			useGeneratedKeys="true"
@@ -63,15 +80,17 @@
  	</select>
  	
  	<select id="selectListByMemberIdx"
- 			resultType="com.alj.dream.post.domain.PostListRequest"
+ 			resultType="com.alj.dream.post.domain.PostListInfo"
  	>
  	select p.post_idx, p.post_nm, c.cat_idx, c.cat_nm
 	from post p, category c
-	where p.m_idx=${m_idx} and p.cat_idx=c.cat_idx and p.post_deldate is null;
+	where p.m_idx=#{m_idx} and p.cat_idx=c.cat_idx and p.wanted=#{wanted} and p.post_deldate is null
+	order by post_regdate desc limit #{index}, #{count}
  	</select>
  	
- 	<select id="selectCountByIdx">
- 	select count(*) from post where m_idx=#{idx}
+ 	<select id="selectTotalCountByIdx"
+ 			resultType="int">
+ 	select count(*) from post where m_idx=#{m_idx} and wanted=#{wanted}
  	</select>
  
  </mapper>
