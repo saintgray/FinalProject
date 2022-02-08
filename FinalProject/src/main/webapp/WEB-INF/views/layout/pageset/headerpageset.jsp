@@ -4,6 +4,8 @@
 <script>
 
 	$(document).ready(function(){
+		
+		
 		$('body').on('click','#register',function(){
 			location.href="${pageContext.request.contextPath}/termsform";
 			
@@ -16,7 +18,8 @@
 			location.href="${pageContext.request.contextPath}/member/loginform";
 		})
 		
-		 $('#logoutbtn').on('click',function(){
+		 $('.logoutbtn').on('click',function(){
+			 	
   	        	  
   	        	  location.href="${pageContext.request.contextPath}/logout";
   	     })
