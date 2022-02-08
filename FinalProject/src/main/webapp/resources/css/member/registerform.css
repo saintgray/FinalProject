@@ -75,3 +75,11 @@ label span{
 #insertedProfile{
 	line-height:150px;
 }
+
+#locarea{
+	
+	padding: 15px;
+    border-radius: 10px;
+    background: rgb(235,235,235);
+    margin-bottom: 20px;
+}

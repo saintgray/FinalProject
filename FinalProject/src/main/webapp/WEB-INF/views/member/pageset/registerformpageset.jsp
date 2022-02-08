@@ -18,6 +18,8 @@
 		})
 			
 		$('#btncontroller').on('click','#skip',function(){
+			
+			getLocations();
 			showBasicInfosForm();
 		})
 		
@@ -267,7 +269,8 @@
 				formData.append('m_email_suffix',$('input[name=m_email_suffix]').val());
 				formData.append('m_password',$('#pw').val());
 				formData.append('m_nm',$('#m_nm').val().trim());
-				formData.append('m_adyn','${adyn}')
+				formData.append('m_adyn','${adyn}');
+				formData.append('loc_idx',$('#locarea .inp_loc:checked').val());
 				$('#userinterestselect input[name=interest]').each(function(index, item){
 					formData.append('interest',item.defaultValue);	
 				})
@@ -307,8 +310,6 @@
 		
 		
 		
-		
-		
 	})
 	
 	function getCategoryList(){
@@ -325,6 +326,9 @@
 				console.log(data.length);
 				// 더 이상의 자식 노드가 없다면 기본정보 입력란을 보여준다.(아직 작업중) / 작업완료
 				if(data.length==0){
+					// 기본정보에 지역입력을 위해 서버에서 지역 리스트를 가져와 지역 영역에 출력
+					getLocations();
+					
 					showBasicInfosForm();
 				}else{
 				//////////////////////////////////////////
@@ -396,6 +400,35 @@
 	}
 	function completeLoad(){
 		$('#loading').remove();
+	}
+	
+	function getLocations(){
+		$.ajax({
+			url:"${pageContext.request.contextPath}/loc/list",
+			type:"POST",
+			dataType:"json",
+			success:function(data){
+				$(data).each(function(index, item){
+					var html='<div class="form-check mx-3">\r\n';
+						html+='<input class="form-check-input inp_loc" type="radio" id="loc'+item.loc_idx+'" name="loc" value="'+item.loc_idx+'">\r\n';
+						html+='<label class="form-check-label" for="loc'+item.loc_idx+'">\r\n';
+						html+=item.loc_nm
+						html+='</label>\r\n';
+						html+='</div>\r\n';
+					
+					
+					$('#locarea').append(html);
+					
+	 
+				})
+				
+			},
+			error:function(data){
+				console.log('통신실패');
+				console.log(data);
+			}
+		})
+		
 	}
 
 	
