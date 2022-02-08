@@ -7,15 +7,30 @@
  
  
  	<insert id="insertMember" parameterType="com.alj.dream.member.domain.RegisterInfo" useGeneratedKeys="true" keyProperty="m_idx">
- 		insert into 
- 		member(m_email, m_password, m_nm, m_adyn, m_photo, loc_idx) 
- 		values(#{m_email}, #{m_password},#{m_nm},#{m_adyn},#{m_photo},#{loc_idx})
+ 		insert into member(m_email, m_password, m_nm, m_adyn, m_photo) values(#{m_email}, #{m_password},#{m_nm},#{m_adyn},#{m_photo})
  	</insert>
  	
  	<select id="selectByEmail" resultType="String">
  		select m_email from member where m_email = #{arg0}
  	</select>
  	
+ 	<select id="getMemberList" resultType="com.alj.dream.member.domain.MemberInfo">
+ 	
+ 	SELECT m_idx, m_email, m_nm, m_photo, m_regdate, m_quitdate, m_blacklist,(select count(*) FROM 
+																				member join report
+																				on member.m_idx=report.m_reported
+																				) as reportCount
+	FROM member
+	
+	limit #{arg0}, #{arg1}
+	
+ 	
+ 	</select>
+ 	
+ 	<select id="getTotalNumOfMember" resultType="String">
+ 	
+ 		SELECT count(*) from member
+ 	</select>
  </mapper>
  
  

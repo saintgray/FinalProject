@@ -32,7 +32,7 @@
 	                
 	                <ul class="f-list">
 	                	<li><span class="head">고객센터</span></li>
-	                    <li><a href="${pageContext.request.contextPath}/notice">공지사항</a></li>
+	                    <li><a href="${pageContext.request.contextPath}/notice?selectPage=1&numOfNoticesPerPage=5">공지사항</a></li>
 	                    <li>1:1문의</li>
 	                    <li>자주 묻는 질문</li>
 	                    

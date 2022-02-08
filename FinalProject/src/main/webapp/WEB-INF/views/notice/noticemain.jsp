@@ -9,11 +9,7 @@
 <head>
 <meta charset="UTF-8">
 <%@ include file="/WEB-INF/views/defaultpageset.jsp" %>
-<style>
-#noticeList span{
-	padding: 0 10px;
-}
-</style>
+
 <title>공지사항</title>
 </head>
 <body>
@@ -44,11 +40,11 @@
 		 --%>
 		 
 		<c:forEach var="items" items="${notices.noticeList}">
-			<div class="d-flex flex-row flex-wrap" id="noticeList">
+			<div class="d-flex flex-row flex-wrap">
 				
-				<span>${items.notice_idx}</span>
-				<span><a href="${pageContext.request.contextPath}/notice/content?notice_idx=${items.notice_idx}&selectPage=${param.selectPage}&numOfNoticesPerPage=${param.numOfNoticesPerPage}">${items.notice_title}</a></span>
-				<span>${items.notice_regdate}</span>		
+				<span class="px-2">${items.notice_idx}</span>
+				<a class="px-2" href="${pageContext.request.contextPath}/notice/content?notice_idx=${items.notice_idx}&selectPage=${param.selectPage}&numOfNoticesPerPage=${param.numOfNoticesPerPage}">${items.notice_title}</a>
+				<span class="px-2">${items.notice_regdate}</span>		
 			</div>
 		</c:forEach>
 		
