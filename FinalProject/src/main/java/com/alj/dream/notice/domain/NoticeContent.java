@@ -8,6 +8,7 @@ public class NoticeContent {
 	private String notice_regdate;
 	private String notice_editdate;
 	private String admin_nm;
+	private String admin_idx;
 	
 	
 	public NoticeContent() {
@@ -16,13 +17,14 @@ public class NoticeContent {
 
 
 	public NoticeContent(String notice_idx, String notice_title, String notice_content, String notice_regdate,
-			String notice_editdate, String admin_nm) {
+			String notice_editdate, String admin_nm, String admin_idx) {
 		this.notice_idx = notice_idx;
 		this.notice_title = notice_title;
 		this.notice_content = notice_content;
 		this.notice_regdate = notice_regdate;
 		this.notice_editdate = notice_editdate;
 		this.admin_nm = admin_nm;
+		this.admin_idx = admin_idx;
 	}
 
 
@@ -84,8 +86,18 @@ public class NoticeContent {
 	public void setAdmin_nm(String admin_nm) {
 		this.admin_nm = admin_nm;
 	}
-	
-	
+
+
+	public String getAdmin_idx() {
+		return admin_idx;
+	}
+
+
+	public void setAdmin_idx(String admin_idx) {
+		this.admin_idx = admin_idx;
+	}
+
+
 	
 	
 

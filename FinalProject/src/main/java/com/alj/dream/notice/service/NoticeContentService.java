@@ -13,7 +13,7 @@ public class NoticeContentService {
 
 	
 	
-	public NoticeContent getContent(String notice_idx) {
+	public NoticeContent getNotice(String notice_idx) {
 		
 		return sst.getMapper(NoticeDao.class).getNotice(notice_idx);
 	}

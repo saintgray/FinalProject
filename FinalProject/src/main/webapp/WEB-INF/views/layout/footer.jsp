@@ -13,15 +13,17 @@
 	                
 	                <ul class="f-list">
 	                	<li><span class="head">회사소개</span></li>
-	                    <li>목차1</li>
-	                    <li>목차2</li>
+	                    <li>알려드림</li>
+	                    <li>채용안내</li>
 	                </ul>
 	                
 	            </div>
 	
 	            <div class="f-info mx-4">
 	            	<ul class="f-list">
-	            		<li><span class="head">오시는길</span></li>
+	            		<li><span class="head">고객안내</span></li>
+	            		<li>이용안내</li>
+	                    <li>이용약관</li>
 	            	</ul>
 	               
 	            </div>
@@ -32,8 +34,8 @@
 	                	<li><span class="head">고객센터</span></li>
 	                    <li><a href="${pageContext.request.contextPath}/notice">공지사항</a></li>
 	                    <li>1:1문의</li>
-	                    <li>목차3</li>
-	                    <li>목차4</li>
+	                    <li>자주 묻는 질문</li>
+	                    
 	                </ul>
 	                
 	               

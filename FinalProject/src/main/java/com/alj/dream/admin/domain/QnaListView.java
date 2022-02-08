@@ -1,5 +1,7 @@
 package com.alj.dream.admin.domain;
 
+import java.util.List;
+
 import com.bitcamp.op.guestbook.domain.Pagination;
 
 public class QnaListView {

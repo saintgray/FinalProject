@@ -12,5 +12,7 @@ public interface NoticeDao {
 	String getTotalNumOfNotice();
 	int insertNotice(NoticeRegisterData data);
 	NoticeContent getNotice(String notice_idx);
+	int updateNotice(NoticeRegisterData data);
+	int deleteNotice(String notice_idx);
 
 }

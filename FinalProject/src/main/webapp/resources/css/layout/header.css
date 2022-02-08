@@ -120,3 +120,6 @@
     #menutab span{
     	cursor: pointer;
     }
+    .offcanvas-body *{
+    	cursor:pointer;
+    }

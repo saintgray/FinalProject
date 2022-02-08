@@ -97,7 +97,7 @@
 	      					<li>
 	      						<div class="dropdown-item d-flex justify-content-around">
 	      							<i class="fi fi-rr-sign-out-alt"></i>
-	      							<span id="logoutbtn">로그아웃</span>
+	      							<span class="logoutbtn">로그아웃</span>
 	      						</div>
 	      						
       						</li>
@@ -124,23 +124,26 @@
     <!--offcanvas area-->
     <div class="offcanvas offcanvas-start" tabindex="-1" id="sidemenu" aria-labelledby="offcanvasExampleLabel">
       <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="offcanvasExampleLabel">당신의 멘토를 찾아보세요!</h5>
+      <a id="logo"><img src="${pageContext.request.contextPath}/resources/files/server/bannerimg/logo.svg"></a>
+        <!-- <h5 class="offcanvas-title" id="offcanvasExampleLabel">당신의 멘토를 찾아보세요!</h5> -->
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
       </div>
       <div class="offcanvas-body">
-        <ul>
-          <li><h4 class="fs-5">회원가입</h4></li>
-          <li>
-            <h4 class="fs-5">로그인</h4>
-          </li>
-          <li>
-            <h4 class="fs-5">알려드림은 어떤 서비스인가요?</h4>
-          </li>
-          <li>
-            <h4 class="fs-5">이용안내</h4>
-            
-          </li>
-          <li></li>
+        <ul class="container d-flex flex-column">
+        	<sec:authorize access="isAnonymous()">
+        		<li><h4 class="fs-5 my-2">회원가입</h4></li>
+        		<li><h4 class="fs-5 my-2">로그인</h4></li>
+        	</sec:authorize>
+        	<sec:authorize access="isAuthenticated()">
+        		<li><h4 class="fs-5 my-2 logoutbtn">로그아웃</h4></li>
+        	</sec:authorize>       
+	        <li>
+	            <h4 class="fs-5 my-2">알려드림은 어떤 서비스인가요?</h4>
+	        </li>
+            <li>
+	            <h4 class="fs-5 my-2">이용안내</h4>
+	            
+	        </li>         
         </ul>
         
       </div>

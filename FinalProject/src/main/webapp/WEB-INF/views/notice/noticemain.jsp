@@ -23,18 +23,38 @@
 		<!--  List<Notice> 객체가 Model 에 notices 라는 포장지로 감싸져있음 -->
 		<!--  c:forEach 태그의 items 속성은 List<Notice> 를 의미함 -->
 		<!-- var 속성은 그 리스트 안의 Notice 를 의미함 -->
+		
+		<%-- 	<%
+		NoticePageView  notice = (NoticePageView)request.getAttribute("notices");
+		List<Notice> notices = notice.getNoticeList();
+		for(int i =0 ; i < notices.size(); i++){
+			Notice item = notices.get(i);
+		%>
+			<div class="d-flex flex-row flex-wrap" id="noticeList">
+			<span><%=item.getNotice_idx()%></span> 
+			<span><%=item.getNotice_title()%></span>
+			</div>
+		<% 
+		}
+		%> --%>
+		
+		
+	    <%--  <%= request.getParameter("selectPage") %>
+		${param.selectPage}
+		 --%>
+		 
 		<c:forEach var="items" items="${notices.noticeList}">
 			<div class="d-flex flex-row flex-wrap" id="noticeList">
 				
 				<span>${items.notice_idx}</span>
-				<span><a href="${pageContext.request.contextPath}/notice/content?notice_idx=${items.notice_idx}">${items.notice_title}</a></span>
+				<span><a href="${pageContext.request.contextPath}/notice/content?notice_idx=${items.notice_idx}&selectPage=${param.selectPage}&numOfNoticesPerPage=${param.numOfNoticesPerPage}">${items.notice_title}</a></span>
 				<span>${items.notice_regdate}</span>		
 			</div>
 		</c:forEach>
+		
 		<c:forEach begin="1" end="${notices.totalPage}" var="pnum">
 			<a href="${pageContext.request.contextPath}/notice?selectPage=${pnum}&numOfNoticesPerPage=5">${pnum}</a>
 		</c:forEach>
-		
 		
 		<sec:authorize access="hasRole('ADMIN')">
 
@@ -55,7 +75,6 @@
 	$('#regnoticebtn').on('click',function(){
 		location.href="${pageContext.request.contextPath}/admin/notice/register";
 	})
-
 </script>
 
 </html>

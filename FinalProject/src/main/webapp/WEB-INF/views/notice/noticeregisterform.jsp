@@ -15,10 +15,10 @@
 <h1>공지사항 등록 폼입니다.</h1>
 
 <div>
-<form>
 
+<form>
 <input type="text" name="notice_title" placeholder="제목 입력"><br>
-<input type="text" name="notice_content" placeholder="내용 입력"><br>
+<input type="text" name="notic e_content" placeholder="내용 입력"><br>
 <input type="button" value="등록" id="registerbtn">
 </form>
 </div>
