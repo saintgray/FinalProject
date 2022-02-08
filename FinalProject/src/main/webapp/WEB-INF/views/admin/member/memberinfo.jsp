@@ -7,20 +7,20 @@
 <head>
 <meta charset="UTF-8">
 <%@ include file="/WEB-INF/views/defaultpageset.jsp" %>
-<title>공지사항</title>
+<title>회원관리</title>
 </head>
 <body>
-
 <%@include file="/WEB-INF/views/layout/header.jsp" %>
-
-<div class="container gw">
-	<h1> 공지사항 내용을 보여주는 jsp 입니다 </h1>
-	<h1>제목 : ${content.notice_title}</h1>
-	<h3>내용: ${content.notice_content}</h3>
-	<h3>작성일 : ${content.notice_regdate}</h3>
-	<h3>수정일  : ${content.notice_editdate}</h3>
-	<h3>작성자: ${content.admin_nm}</h3>
-	<h3>게시글 고유번호 : ${content.notice_idx}</h3>
+<div class="container">
+	<h1> 회원리스트를 보여주는 jsp 입니다 </h1>
+	<h3>회원 고유번호 : ${memberinfo.m_idx}</h1>
+	<h3>이메일: ${memberinfo.m_email}</h3>
+	<h3>이름 : ${memberinfo.m_nm}</h3>
+	<h3>프로필사진 : ${memberinfo.m_photo}</h3>
+	<h3>가입 일자: ${memberinfo.m_regdate}</h3>
+	<h3>탈퇴 일자 : ${memberinfo.m_quitdate}</h3>
+	<h3>블랙리스트 유무 : ${memberinfo.m_blacklist}</h3>
+	<h3>회원 신고 누적횟수 : ${memberinfo.reportCount}</h3>
 	
 	<sec:authorize access="hasRole('ADMIN')">
 		<c:set var="admin_idx">
@@ -35,11 +35,10 @@
 			</c:if>	
 		</div>
 	</sec:authorize>
+	
 </div>
-
 <%@include file="/WEB-INF/views/layout/footer.jsp" %>
 </body>
-
 <script>
 
     $(
@@ -48,14 +47,14 @@
   			$('#listbtn').click(
 		      	function(){
 		      	
-		      	location.href="${pageContext.request.contextPath}/notice?selectPage=${param.selectPage}&numOfNoticesPerPage=${param.numOfNoticesPerPage}";
+		      	location.href="${pageContext.request.contextPath}/admin/m_email?selectPage=${param.selectPage}&numOfMemberPerPage=${param.numOfMemberPerPage}";
 		      	}
   		     );
   			
   			$('#editbtn').click(function(){
   				// 수정하는 폼을 보여줌
   				// 공지사항의 수정은 관리자만 할 수 있다
-  				location.href="${pageContext.request.contextPath}/admin/notice/edit?notice_idx=${content.notice_idx}&selectPage=${param.selectPage}&numOfNoticesPerPage=${param.numOfNoticesPerPage}";
+  				location.href="${pageContext.request.contextPath}/admin/member/edit?m_idx=${memberinfo.m_idx}&selectPage=${param.selectPage}&numOfMemberPerPage=${param.numOfMemberPerPage}";
   				
   			})
   			
@@ -64,20 +63,20 @@
   				if(!confirm("삭제 하시겠습니까?")){
   					return false;
   				}else{
-  					//location.href="${pageContext.request.contextPath}/admin/notice/delete?notice_idx=${content.notice_idx}&selectPage=${param.selectPage}";
+  					//location.href="${pageContext.request.contextPath}/admin/member/delete?m_idx=${memberinfo.m_idx}&selectPage=${param.selectPage}";
   					var data={
-  							notice_idx:${content.notice_idx}
+  							m_idx:${memberinfo.m_idx}
   					}
   					
   					$.ajax({
   						
-  						url: '${pageContext.request.contextPath}/admin/notice/delete',
+  						url: '${pageContext.request.contextPath}/admin/member/delete',
   						type: 'POST',
   						data: data,
   						success:function(data){
   							if(data==1){
   								alert('정상적으로 삭제되었습니다.');
-  								location.href="${pageContext.request.contextPath}/notice?selectPage=${param.selectPage}&numOfNoticesPerPage=${param.numOfNoticesPerPage}";
+  								location.href="${pageContext.request.contextPath}/admin/m_email?selectPage=${param.selectPage}&numOfMemberPerPage=${param.numOfMemberPerPage}";
   							}else if(data==0){
   								alert('오류가 발생했습니다. 잠시 후 다시 시도하세요');
   							}
