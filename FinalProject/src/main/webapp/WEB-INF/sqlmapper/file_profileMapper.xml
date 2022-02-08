@@ -23,13 +23,28 @@
    
 	</insert>
 	
-	<!-- 2022-02-06 -->
+	<!-- 2022-02-08 -->
 	<!-- 해당 프로필 번호를 profile_idx로 하는 file_profile 테이블의 모든 데이터를 가져오는 쿼리 -->
 	<select id="getFiles" resultType="com.alj.dream.file_profile.domain.FileInfo">
-		SELECT * FROM file_profile
-		WHERE profile_idx=#{arg0}
+		SELECT fp.file_nm, fp.profile_idx, fp.file_size, fp.file_exet, fp.file_originnm
+		FROM file_profile fp JOIN dream.profile prof
+		on fp.profile_idx=prof.profile_idx
+		WHERE prof.profile_deldate is null AND prof.profile_idx=#{arg0};
 	
 	</select>
+	
+	
+	<delete id="deleteFile" parameterType="com.alj.dream.file_profile.domain.DeleteFileRequest">
+		DELETE FROM dream.file_profile fr
+		WHERE fr.file_nm=#{file_nm}
+		
+	</delete>
+	
+	
+	<update id="deleteFile2" parameterType="com.alj.dream.file_profile.domain.DeleteFileRequest">
+		UPDATE dream.file_profile fr
+		SET fr.deleteYN='Y'
+	</update>
  	
  
  </mapper>
