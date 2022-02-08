@@ -68,6 +68,12 @@
 		        <div id="userinterestselect" class="hidden">
 		        	
 		        </div>
+		        
+		        <div>
+		        	<div class="d-flex flex-wrap justify-content-around" id="locarea">
+		        		
+		        	</div>      
+		        </div>
 		        	      
 			
 			

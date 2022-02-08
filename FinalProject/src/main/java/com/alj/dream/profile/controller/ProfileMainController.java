@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.alj.dream.profile.domain.MyProfileInfo;
 import com.alj.dream.profile.service.ProfileService;
 
 import security.AccountDetails;
@@ -19,6 +20,7 @@ import security.AccountDetails;
 public class ProfileMainController {
 	
 	private ProfileService profService;
+
 	
 	public ProfileMainController() {}
 
@@ -50,8 +52,15 @@ public class ProfileMainController {
 			System.out.println(response);
 		}else {
 			try {
-				model.addAttribute("profile", profService.getUserProfile(m_idx));
-				model.addAttribute("m_idxOfThisProfile",m_idx);
+				MyProfileInfo profile=profService.getUserProfile(m_idx);
+				if(profile==null) {
+					model.addAttribute("profileOwnerIdx", m_idx);
+				}else {
+					
+					model.addAttribute("profile", profService.getUserProfile(m_idx));
+				}
+				
+				
 				//model.addAttribute("error", "일시적인 오류가 발생했습니다. 잠시 후 다시 시도해주세요");
 			} catch (Exception e) {
 				model.addAttribute("error", "일시적인 오류가 발생했습니다. 잠시 후 다시 시도해주세요");

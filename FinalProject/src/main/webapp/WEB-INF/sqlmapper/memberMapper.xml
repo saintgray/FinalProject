@@ -7,12 +7,15 @@
  
  
  	<insert id="insertMember" parameterType="com.alj.dream.member.domain.RegisterInfo" useGeneratedKeys="true" keyProperty="m_idx">
- 		insert into member(m_email, m_password, m_nm, m_adyn, m_photo) values(#{m_email}, #{m_password},#{m_nm},#{m_adyn},#{m_photo})
+ 		insert into 
+ 		member(m_email, m_password, m_nm, m_adyn, m_photo, loc_idx) 
+ 		values(#{m_email}, #{m_password},#{m_nm},#{m_adyn},#{m_photo},#{loc_idx})
  	</insert>
  	
  	<select id="selectByEmail" resultType="String">
  		select m_email from member where m_email = #{arg0}
  	</select>
+ 	
  </mapper>
  
  
