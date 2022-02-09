@@ -64,8 +64,8 @@
 			
 				// 1. ajax 로 통신하여 한줄소개를 수정한다.
 				var data={line:$('.modal-body #editline').val()}
-				var url='${pageContext.request.contextPath}/member/profile/edit/line'
-				editProfile(data,url);
+				//var url='${pageContext.request.contextPath}/member/profile/edit/line'
+				editProfile(data);
 				
 				
 				
@@ -112,9 +112,9 @@
 				
 			}else if(confirm('정말로 연락가능 시간대를 수정하시겠습니까?')){
 			
-				var data={calltime:$('.modal-body input[name=calltime_prefix]').val()+" ~ "+$('.modal-body input[name=calltime_suffix]').val()}
-				var url='${pageContext.request.contextPath}/member/profile/edit/calltime'
-				editProfile(data, url);
+				var data={calltime:$('.modal-body input[name=calltime_prefix]').val()+' ~ '+$('.modal-body input[name=calltime_suffix]').val()}
+				//var url='${pageContext.request.contextPath}/member/profile/edit/calltime'
+				editProfile(data);
 				
 			}
 		
@@ -162,8 +162,8 @@
 		$('.modal-footer').on('click','#editcareerbtn',function(){
 			if(confirm('정말로 경력을 수정하시겠습니까?')){
 				var data={career:$('.modal-body #editcareerarea').summernote('code')}
-				var url='${pageContext.request.contextPath}/member/profile/edit/career'
-				editProfile(data, url);
+				//var url='${pageContext.request.contextPath}/member/profile/edit/career'
+				editProfile(data);
 			
 			
 			}
@@ -209,8 +209,8 @@
 		$('.modal-footer').on('click','#editqnabtn',function(){
 			if(confirm('정말로 QNA 내용을 수정하겠습니까?')){
 				var data={qna:$('.modal-body #editqnaarea').summernote('code')}
-				var url='${pageContext.request.contextPath}/member/profile/edit/qna'
-				editProfile(data, url);
+				//var url='${pageContext.request.contextPath}/member/profile/edit/qna'
+				editProfile(data);
 				
 				
 			}
@@ -227,7 +227,7 @@
 		
 		$.ajax({
 			
-			url: url,
+			url: '${pageContext.request.contextPath}/member/profile/edit',
 			type:'POST',
 			data: data,
 			success:function(data){
@@ -250,7 +250,7 @@
 		
 	}
 	
-	
+	/* 
 	function deleteFile(file_nm){
 		
 		$.ajax({
@@ -259,5 +259,5 @@
 			
 		})
 		
-	}
+	} */
 </script>

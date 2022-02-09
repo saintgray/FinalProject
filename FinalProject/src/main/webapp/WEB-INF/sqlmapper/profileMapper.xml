@@ -25,4 +25,27 @@
 	</update>
 	
 	
+	<!-- 프로필 수정 -->
+	<update id="editProfile" parameterType="com.alj.dream.profile.domain.ProfileRegisterData">
+	
+		UPDATE dream.profile 
+		<set>
+			<if test="line!=null">
+				line=#{line}
+			</if>
+			<if test="career!=null">
+				career=#{career}
+			</if>
+			<if test="calltime!=null">
+				calltime=#{calltime}
+			</if>
+			<if test="qna!=null">
+				qna=#{qna}
+			</if>
+		</set>
+		
+		WHERE m_idx=#{m_idx} 
+	
+	</update>
+	
  </mapper>
