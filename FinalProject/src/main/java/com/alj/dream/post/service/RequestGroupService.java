@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import com.alj.dream.post.dao.PostDao;
@@ -17,28 +18,23 @@ import security.AccountDetails;
 @Service
 public class RequestGroupService {
 	
-	
 	private PostDao dao;
+	
 	@Autowired 
-	SqlSessionTemplate template;
+	private SqlSessionTemplate template;
+	
 	
 	
 	// 받은 제의를 가져 올 메소드
-	public List<RequestGroup> getRequestGroup (HttpSession session){
+	public List<RequestGroup> getRequestGroup (Authentication auth){
 		
 		dao = template.getMapper(PostDao.class);
-		
-		// 현재 로그인한 회원의 m_idx와 m_type(멘티/멘토)을 세션에서 가져온다.
-		//int midx= Integer.parseInt(((AccountDetails) session.getAttribute("accountDetails")).getM_idx());
-		//String mtype=((AccountDetails)session.getAttribute("accountDetails")).getM_type();
-		
-		// 임시테스트용 로그인 정보
-		int midx=1;
-		String mtype="mentee";
-		
+	
+		AccountDetails logininfo = (AccountDetails)auth.getPrincipal();
+		int midx = Integer.parseInt(logininfo.getM_idx());
+		String mtype = logininfo.getM_type();
 		
 		String wanted = null;						// 게시물의 제안 대상
-		
 		
 		if (mtype.equalsIgnoreCase("mentee")) {
 			wanted="mentor";
@@ -46,8 +42,6 @@ public class RequestGroupService {
 		}else if(mtype.equalsIgnoreCase("mentor")) {
 			wanted="mentee";
 		}
-		
-		
 		
 		
 		// 회원이 올린 게시글의 총 개수(문의를 받은 게시글만)
