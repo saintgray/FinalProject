@@ -21,6 +21,8 @@
 <style>
 #profileglobalwrap{
 	padding-top: 150px;
+	padding-left:10px;
+	padding-right: 10px;
 }
 #regarea{
 	position: relative;

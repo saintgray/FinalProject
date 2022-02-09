@@ -1,37 +1,53 @@
 package com.alj.dream.profile.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.alj.dream.profile.domain.ProfileRegisterData;
+import com.alj.dream.profile.service.ProfileEditService;
+
+import security.AccountDetails;
 
 @RestController
 @RequestMapping("/member/profile/edit")
 public class ProfileEditController {
 
+	private ProfileEditService editService;
 	
+	public ProfileEditController() {
 	
-	@PostMapping("/line")
-	public int editLine(String line) {
-		System.out.println("line>>>"+line);
-		return 1;
 	}
 	
-	@PostMapping("/career")
-	public int editCareer(String career) {
-		System.out.println(career);
-		return 1;
-	}
 	
-	@PostMapping("/qna")
-	public int editQna(String qna) {
-		System.out.println(qna);
-		return 1;
+	@Autowired
+	public ProfileEditController(ProfileEditService editService) {
+		this.editService = editService;
 	}
-	
-	@PostMapping("/calltime")
-	public int editCalltime(String calltime) {
-		System.out.println(calltime);
-		return 1;
+
+
+
+	@PostMapping
+	public int editProfile(ProfileRegisterData data, Authentication auth) {
+		
+		
+		int result=0;
+		
+		data.setM_idx(((AccountDetails)auth.getPrincipal()).getM_idx());
+		
+		
+		try {
+			
+			result=editService.updateProfile(data);
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		return result;
 	}
 	
 	
