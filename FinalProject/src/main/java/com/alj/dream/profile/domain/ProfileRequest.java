@@ -6,6 +6,7 @@ public class ProfileRequest {
 	private String m_email;
 	private String m_photo;
 	private String line;
+	// private String loc;
 	
 	public ProfileRequest() {}
 
