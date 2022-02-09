@@ -8,18 +8,21 @@ public class MemberVO {
 	private String m_nm;
 	private String role;
 	private String m_photo;
+	private String m_blacklist;
 	
 	public MemberVO() {
 		
 	}
 
-	public MemberVO(String m_idx, String m_email, String m_password, String m_nm, String role, String m_photo) {
+	public MemberVO(String m_idx, String m_email, String m_password, String m_nm, String role, String m_photo,
+			String m_blacklist) {
 		this.m_idx = m_idx;
 		this.m_email = m_email;
 		this.m_password = m_password;
 		this.m_nm = m_nm;
 		this.role = role;
 		this.m_photo = m_photo;
+		this.m_blacklist = m_blacklist;
 	}
 
 	public String getM_idx() {
@@ -70,7 +73,18 @@ public class MemberVO {
 		this.m_photo = m_photo;
 	}
 
+	public String getM_blacklist() {
+		return m_blacklist;
+	}
 
+	public void setM_blacklist(String m_blacklist) {
+		this.m_blacklist = m_blacklist;
+	}
+
+	
+	
+	
+	
 
 	
 	
