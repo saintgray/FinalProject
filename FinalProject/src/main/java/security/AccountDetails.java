@@ -14,6 +14,7 @@ public class AccountDetails extends User{
 	private String name;
 	private String m_type;
 	
+	
 
 	public AccountDetails(String username, String password, boolean enabled, boolean accountNonExpired,
 			boolean credentialsNonExpired, boolean accountNonLocked,
@@ -25,6 +26,7 @@ public class AccountDetails extends User{
 		this.name=name==null?username.substring(0,username.indexOf('@')):name;
 		this.m_type=m_type;
 		this.m_idx=m_idx;
+		
 	
 		
 	}

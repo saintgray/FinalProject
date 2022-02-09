@@ -14,11 +14,22 @@
 	font-size: 13px;
 	color: red;
 	font-weight: light;
+	height:20px;
 }
 #loading{
 	width: 45px;
 	display: block;
 	margin:0 auto;
 }
-
-
+#auth_warning{
+	height:40px;
+	padding:10px;
+}
+#auth_warning::before{
+	outline: 1px solid black;
+	content:'';
+	display: block;
+	margin-top:20px;
+	margin-bottom:20px;
+	
+}
