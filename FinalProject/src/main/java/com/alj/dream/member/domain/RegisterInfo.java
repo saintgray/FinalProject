@@ -12,6 +12,7 @@ public class RegisterInfo {
 	private String m_adyn;
 	private MultipartFile photo;
 	private String m_photo;
+	private String loc_idx;
 	private List<String> interest;
 	
 	public RegisterInfo() {
@@ -20,8 +21,7 @@ public class RegisterInfo {
 	}
 
 	public RegisterInfo(int m_idx, String m_email, String m_password, String m_nm, String m_adyn, MultipartFile photo,
-			String m_photo, List<String> interest) {
-	
+			String m_photo, String loc_idx, List<String> interest) {
 		this.m_idx = m_idx;
 		this.m_email = m_email;
 		this.m_password = m_password;
@@ -29,6 +29,7 @@ public class RegisterInfo {
 		this.m_adyn = m_adyn;
 		this.photo = photo;
 		this.m_photo = m_photo;
+		this.loc_idx = loc_idx;
 		this.interest = interest;
 	}
 
@@ -88,6 +89,14 @@ public class RegisterInfo {
 		this.m_photo = m_photo;
 	}
 
+	public String getLoc_idx() {
+		return loc_idx;
+	}
+
+	public void setLoc_idx(String loc_idx) {
+		this.loc_idx = loc_idx;
+	}
+
 	public List<String> getInterest() {
 		return interest;
 	}
@@ -95,6 +104,7 @@ public class RegisterInfo {
 	public void setInterest(List<String> interest) {
 		this.interest = interest;
 	}
+
 	
 	
 

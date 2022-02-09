@@ -11,6 +11,7 @@ public class NoticeContent {
 	private String admin_idx;
 	
 	
+	
 	public NoticeContent() {
 		
 	}

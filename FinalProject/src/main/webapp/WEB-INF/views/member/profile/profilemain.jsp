@@ -21,6 +21,8 @@
 <style>
 #profileglobalwrap{
 	padding-top: 150px;
+	padding-left:10px;
+	padding-right: 10px;
 }
 #regarea{
 	position: relative;
@@ -89,6 +91,13 @@
   #calltime{
   	width: 150px;
   }
+  .delRow{
+		width:15px;
+		height:15px;
+		border-radius: 50%;
+		border: 1px solid rgb(195,195,195);
+		cursor:pointer;
+  }
 
 
 </style>
@@ -115,9 +124,12 @@
 	
 	<!-- 만약 이 프로필이 비어있다면 -->
 	<c:if test="${empty profile}">
+		<c:set var="m_idx">
+			<sec:authentication property="principal.m_idx"/>
+		</c:set>
 	
 		<!-- 이 프로필의 소유주 idx 가 현재 로그인한 사람의 idx 와 같다면 -->
-		<c:if test="${m_idxOfThisProfile eq m_idx}">
+		<c:if test="${profileOwnerIdx eq m_idx}">
 	
 			<div id="regarea" class="d-flex flex-column mx-auto my-4">
 				<h3 id="msg">내 프로필이 비었습니다.<br> 지금 등록하세요</h3>
@@ -129,7 +141,7 @@
 		</c:if>
 		
 		<!-- 이 프로필의 소유주 idx 가 현재 로그인한 사람의 idx 와 다르다면  -->
-		<c:if test="${m_idxOfThisProfile ne m_idx}">
+		<c:if test="${profileOwnerIdx ne m_idx}">
 			<div class="d-flex flex-wrap justify-content-center">
 				<h1> 이 회원은 프로필이 없습니다. </h1>
 			</div>
@@ -236,11 +248,58 @@
 		
 		
 		
+		
+		
+		
+	
+		
+		<div class="modal fade" id="editarea" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered">
+			    <div class="modal-content">
+			      <div class="modal-header">
+			        <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+			        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			      </div>
+			      <div class="modal-body">
+			        ...ㄴㅇ라너이러나ㅣㅇ러
+			      </div>
+			      <div class="modal-footer d-flex flex-wrap justify-content-around">
+			        <button type="button" class="btn btn-grey" data-bs-dismiss="modal" id="close-modal">취소</button>
+			        <button type="button" class="btn btn-general editbtn">수정</button>
+			      </div>
+			    </div>
+			</div>
+  		
+		</div>
+		
+		
+		<!-- 파일 제대로 가져왔는지 테스트 -->
+		<div class="banner">
+			첨부파일
+		</div>
+		<div style="border:1px solid black; padding:20px; margin-bottom: 50px" class="d-flex flex-row flex-wrap">
+			<c:forEach var="file" items="${profile.files}">
+			<%-- 	<p>${file.file_nm}</p>
+				<p>${file.profile_idx}</p>
+				<p>${file.file_size}</p>
+				<p>${file.file_exet}</p>
+				<p>${file.file_originnm}</p> --%>
+				<div class="select d-flex flex-wrap ">
+					<span style="display:none">${file.file_nm}</span>
+					<a class="mx-2" href="${pageContext.request.contextPath}/resources/files/member/profile_attachfiles/${file.file_nm}" download>${file.file_originnm}</a>
+					<img src="${pageContext.request.contextPath}/resources/files/server/icons/icon_x.png" class="delRow me-3">
+				</div>
+					
+				
+			</c:forEach>
+		</div>
+		
 		<c:if test="${profile.m_idx eq m_idx}">
-			<div class="d-flex flex-wrap justify-content-center">
+			<div class="d-flex flex-wrap justify-content-center mb-5">
 				<button type="button" class="btn btn-danger" id="delProfile">프로필 삭제</button>
 			</div>
 		</c:if>
+		
 		
 		
 		<script>
@@ -275,25 +334,9 @@
 		</script>
 		
 		
-		<div class="modal fade" id="editarea" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-			<div class="modal-dialog modal-dialog-centered">
-			    <div class="modal-content">
-			      <div class="modal-header">
-			        <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
-			        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-			      </div>
-			      <div class="modal-body">
-			        ...ㄴㅇ라너이러나ㅣㅇ러
-			      </div>
-			      <div class="modal-footer d-flex flex-wrap justify-content-around">
-			        <button type="button" class="btn btn-grey" data-bs-dismiss="modal" id="close-modal">취소</button>
-			        <button type="button" class="btn btn-general editbtn">수정</button>
-			      </div>
-			    </div>
-			</div>
-  		
-		</div>
+		
 	</c:if>	
+			
 </div>
 <%@include file="/WEB-INF/views/layout/footer.jsp" %>
 

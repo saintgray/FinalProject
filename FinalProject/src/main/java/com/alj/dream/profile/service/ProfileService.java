@@ -36,17 +36,22 @@ public class ProfileService {
 		// 해당 유저의 프로필이 등록되있는 상태일 때만 (prof 가 null 이 아닐 때만)
 		// 별점과 첨부파일들을 가져온다
 		
+		// 이 멤버의 프로필이 존재한다면
 		if(prof!=null) {
+			
+			// 1. 해당 review 테이블과 memer 테이블을 조인하여 해당 유저의 별점을 가져와서 MyProfileInfo 객체의 변수에 할당
 			// 멘토의 기본 별점은 3.5점이라 하자.
 			// 총 별점 평균은 (sum+3.5)/(count+1) 이 총 평균 별점이 된다.
 			StarsInfo si=sst.getMapper(ReviewDao.class).getStars(m_idx);
 			double avgStars=(si.getSum()+3.5f)/(si.getCount()+1);
 			prof.setAvgStars(Formatter.form.format(avgStars));
 			
-			// 해당 유저의 고유번호를 가진 profile idx를 외래키로 하는 file_profile 의 데이터를 모두 가져온다.
+			
+			
+			// 2. 해당 유저의 고유번호를 가진 profile idx를 외래키로 하는 file_profile 의 데이터를 모두 가져온다.
 			prof.setFiles(sst.getMapper(ProfileFilesDao.class).getFiles(prof.getProfile_idx()));
 			
-			//prof.setAvgStars(sst.getMapper(ReviewDao.class).getStars(m_idx));
+			
 			
 		
 		}

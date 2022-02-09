@@ -64,8 +64,8 @@
 			
 				// 1. ajax 로 통신하여 한줄소개를 수정한다.
 				var data={line:$('.modal-body #editline').val()}
-				var url='${pageContext.request.contextPath}/member/profile/edit/line'
-				editProfile(data,url);
+				//var url='${pageContext.request.contextPath}/member/profile/edit/line'
+				editProfile(data);
 				
 				
 				
@@ -112,9 +112,9 @@
 				
 			}else if(confirm('정말로 연락가능 시간대를 수정하시겠습니까?')){
 			
-				var data={calltime:$('.modal-body input[name=calltime_prefix]').val()+" ~ "+$('.modal-body input[name=calltime_suffix]').val()}
-				var url='${pageContext.request.contextPath}/member/profile/edit/calltime'
-				editProfile(data, url);
+				var data={calltime:$('.modal-body input[name=calltime_prefix]').val()+' ~ '+$('.modal-body input[name=calltime_suffix]').val()}
+				//var url='${pageContext.request.contextPath}/member/profile/edit/calltime'
+				editProfile(data);
 				
 			}
 		
@@ -122,6 +122,7 @@
 		})
 // 2022 02 07 20:40 까지 작업 완료
 // 내일 할것 career ,qna 첨부파일 수정 작업
+// 2022 02 08 작업 시작
 		
 		$('#editcareer').on('click',function(){
 			
@@ -160,12 +161,11 @@
 		
 		$('.modal-footer').on('click','#editcareerbtn',function(){
 			if(confirm('정말로 경력을 수정하시겠습니까?')){
+				var data={career:$('.modal-body #editcareerarea').summernote('code')}
+				//var url='${pageContext.request.contextPath}/member/profile/edit/career'
+				editProfile(data);
 			
-				// 1. ajax 로 통신하여 한줄소개를 수정한다.
-				
-				// 정상적으로 수정할 시 close 버튼 클릭 이벤트를 강제실행한다.
-				
-				$('#close-modal').trigger('click');
+			
 			}
 		
 			
@@ -208,12 +208,11 @@
 		
 		$('.modal-footer').on('click','#editqnabtn',function(){
 			if(confirm('정말로 QNA 내용을 수정하겠습니까?')){
-			
-				// 1. ajax 로 통신하여 한줄소개를 수정한다.
+				var data={qna:$('.modal-body #editqnaarea').summernote('code')}
+				//var url='${pageContext.request.contextPath}/member/profile/edit/qna'
+				editProfile(data);
 				
-				// 정상적으로 수정할 시 close 버튼 클릭 이벤트를 강제실행한다.
 				
-				$('#close-modal').trigger('click');
 			}
 		
 			
@@ -223,12 +222,12 @@
 		
 	})
 	
-	
+
 	function editProfile(data, url){
 		
 		$.ajax({
 			
-			url: url,
+			url: '${pageContext.request.contextPath}/member/profile/edit',
 			type:'POST',
 			data: data,
 			success:function(data){
@@ -251,8 +250,14 @@
 		
 	}
 	
-	
-	function editAttachFile(data url){
+	/* 
+	function deleteFile(file_nm){
 		
-	}
+		$.ajax({
+			
+			url:
+			
+		})
+		
+	} */
 </script>

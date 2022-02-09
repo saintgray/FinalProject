@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.alj.dream.notice.service.NoticeDeleteService;
 
 @RestController
-@RequestMapping("admin/notice/delete")
+@RequestMapping("/admin/notice/delete")
 public class NoticeDeleteController {
 	
 	@Autowired
