@@ -74,7 +74,7 @@
 				
 				<div class="d-flex flex-row flex-wrap justify-content-between">
 					<div class="form-check form-switch">
-					  <input class="form-check-input" type="checkbox" role="switch" id="autoLogin" name="rememeber-me">
+					  <input class="form-check-input" type="checkbox" role="switch" id="autoLogin" name="remember-me">
 					  <label class="form-check-label" for="autoLogin">자동 로그인</label>
 					</div>
 					
