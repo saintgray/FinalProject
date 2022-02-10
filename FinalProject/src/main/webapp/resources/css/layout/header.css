@@ -95,7 +95,9 @@
     }
 
     #logo,
-    #subnav .inner, .sub {
+    #subnav .inner, 
+    .sub,
+    #myinfo {
       cursor: pointer;
     }
 

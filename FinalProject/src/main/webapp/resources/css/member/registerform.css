@@ -5,6 +5,8 @@ display: block;
 #regGlobalWrap{
 	margin-top: 100px;
 	width: 500px;
+	padding:5px;
+	
 }
 
 label img{
@@ -82,4 +84,9 @@ label span{
     border-radius: 10px;
     background: rgb(235,235,235);
     margin-bottom: 20px;
+}
+
+.inp_loc{
+	
+	cursor:pointer;
 }

@@ -54,7 +54,7 @@
 	      						<div class="d-flex flex-column">
 	      							<div class="d-flex justify-content-around dropdown-item">
 	      								<i class="fi fi-rr-user"></i>
-		      							<span>
+		      							<span id="myinfo">
 		      								<sec:authentication property="principal.name"/> 
 		      								<c:if test="${type eq 'mentor'}">
 		      									멘토님

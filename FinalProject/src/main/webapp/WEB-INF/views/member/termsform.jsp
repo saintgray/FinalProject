@@ -6,6 +6,9 @@
 <meta charset="UTF-8">
 <%@include file="/WEB-INF/views/defaultpageset.jsp" %>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/member/termsform.css">
+
+
+
 <script>
 
 // 회원가입 폼에서 뒤로가기를 눌렀을 시 체크박스 자동해제
@@ -21,16 +24,7 @@ window.onpageshow = function(event) {
 $(document).ready(function() {
 	console.log('로딩끝');
 	
-	/* $('input[type=checkbox]').each(function(index, item){
-		console.log('체크');
-		console.log($(item).is('checked'));
-		console.log($(item).is(':checked'));
-		if($(item).is(':checked')){
-			console.log('체크됨');
-			$('label[for='+$(item).attr('id')+']').children().attr('src','${pageContext.request.contextPath}/resources/files/server/icons/check_off.svg');
-			
-		}
-	}) */
+	
 	$('input[type=checkbox]').each(function(index,item){
 		$(item).checked=false;
 	})
@@ -100,7 +94,7 @@ $(document).ready(function() {
 <body>
 
 <%@ include file="/WEB-INF/views/layout/header.jsp" %>
-<div id="termsGlobalWrap"class="container">
+<div id="termsGlobalWrap" class="container gw">
 	
 	<div class="banner">이용약관</div>
 	
