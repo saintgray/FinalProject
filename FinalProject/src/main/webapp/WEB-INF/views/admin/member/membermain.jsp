@@ -8,19 +8,15 @@
 <meta charset="UTF-8">
 <%@ include file="/WEB-INF/views/defaultpageset.jsp" %>
 <style>
-#noticeList span{
+#listTable span{
 	padding: 0 10px;
 }
 @media(max-width: 720px){
 
 	.subinfo{
-	 display: none;
-		
-	}
-	
-	
+	 display: none;		
+	}	
 }
-
 	
 	.m_img{
 		width:40px;
@@ -37,13 +33,14 @@
 	 */
 	 #listTable{
 	 	border-collapse: separate;
-    	border-spacing: 0 13px;
+    	border-spacing: 0 30px;
 	 }
 </style>
 <title>회원관리</title>
 </head>
 <body>
 <%@ include file="/WEB-INF/views/layout/header.jsp" %>
+	<h1 class="mx-5">회원 리스트</h1><hr>
 <div class="d-flex flex-column justify-content-center" id="globalwrap">
 	<table class="mx-auto" id=listTable>
 		

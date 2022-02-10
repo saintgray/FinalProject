@@ -34,6 +34,10 @@
         	
         	location.href="${pageContext.request.contextPath}/member/profile/main"
         })
+        
+        $('#myinfo').on('click',function(){
+        	location.href="${pageContext.request.contextPath}/member/myinfo"
+        })
 	
 		
 	})

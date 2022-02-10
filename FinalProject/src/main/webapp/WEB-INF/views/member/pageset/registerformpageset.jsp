@@ -19,9 +19,33 @@
 			
 		$('#btncontroller').on('click','#skip',function(){
 			
+			// 현재 체크 되어 있는 모든 체크박스를 해제한다.
+			// property 를 false로 하는 것 만으로는 change 이벤트가 실행되지 않으므로 trigger('change') 를 붙여
+			// 해당 이벤트가 자동으로 실행되도록 한다 >> userinterestselect 에 있는 모든 체크된 관심사 제거
+			$('#interestInfos input[type=checkbox]').prop('checked',false).trigger('change');
+			console.log($('#interestInfos input[type=checkbox]'));
+			
 			getLocations();
 			showBasicInfosForm();
 		})
+		
+		$('#locarea').on('change','#noneLoc',function(){
+		
+			if($(this).is(':checked')){
+				$('#locarea input[name=loc]').prop('checked',false);
+			}
+		})
+		$('#locarea').on('focus','input[name=loc]',function(){
+			
+			if($('#locarea #noneLoc').is(':checked')){
+				$('#locarea #noneLoc').prop('checked',false);
+			}
+		})
+		$('#locarea').on('focusout','#noneLoc',function(){
+			$(this).prop('checked',false);	
+		})
+		
+		
 		
 		
 		
@@ -258,10 +282,13 @@
 			
 			if(emptyValue($('#pw'))){
 				showWarningMsg($('#pw'),'*필수 입력사항입니다');
+				$('html').animate({scrollTop: $('#pw').offset().top}, 50);
 			}else if(!passwordMatches()){
 				showWarningMsg($('#repw'),'비밀번호가 일치하지 않습니다');
+				$('html').animate({scrollTop: $('#repw').offset().top}, 50);
 			}else if(!fullWriteEmail($('input[name=m_email_prefix]'),$('input[name=m_email_suffix]'))){
 				showWarningMsg($('input[name=m_email_prefix]'),'이메일을 입력하세요');
+				$('html').animate({scrollTop: $('input[name=m_email_prefix]').offset().top}, 50);
 			}else{
 				
 				var formData =new FormData();
@@ -421,6 +448,8 @@
 					
 	 
 				})
+				
+				$('#locarea').append('<div class="d-flex justify-content-center" style="width:100%"><div class="form-check m-4"><input class="form-check-input inp_loc" type="checkbox" id="noneLoc"><label class="form-check-label" for="noneLoc">선택안함</label></div></div>');
 				
 			},
 			error:function(data){

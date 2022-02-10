@@ -11,8 +11,11 @@
 			location.href="${pageContext.request.contextPath}/member/profile/register"
 		})       
 		
+		
 		$('#delProfile').on('click',function(){
+			
 			if(confirm('정말로 내 프로필을 삭제하시겠습니까?')){
+				
 				// 프로필 삭제 ${profile.profile_idx}에 해당하는 프로필 데이터의 profile_deldate 를 DB 시간으로 update
 				var profile_idx={profile_idx:${profile.profile_idx}}
 				
@@ -170,7 +173,6 @@
 			
 		})
 		
-		
 		$('#editqna').on('click',function(){
 			
 			$('.modal-title').text('QNA');
@@ -199,7 +201,8 @@
 		        	 theme: 'monokai'
 		         },
 		         lang: 'ko-KR',
-		         placeholder: '화려한 나의 경력을 작성해주세요'		
+		         placeholder: 'QNA 작성'
+		
 			})
 			$('.modal-footer .editbtn').attr('id','editqnabtn');	
 	
@@ -286,7 +289,8 @@
 					console.log(data);
 					alert('수정되었습니다');
 					// 정상적으로 수정할 시 close 버튼 클릭 이벤트를 강제실행한다.
-					$('#close-modal').trigger('click');	
+					$('#close-modal').trigger('click');
+					location.href="${pageContext.request.contextPath}/member/profile/main";
 				}else{
 					alert('일시적인 오류가 발생하였습니다. 잠시 후 다시 시도하세요');
 				}
