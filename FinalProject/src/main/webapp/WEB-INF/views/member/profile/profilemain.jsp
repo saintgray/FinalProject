@@ -98,6 +98,16 @@
 		border: 1px solid rgb(195,195,195);
 		cursor:pointer;
   }
+  #label_files{
+  	cursor: pointer;
+  }
+  #attachedFilesWrap{
+  	border-radius: 15px;
+    padding: 20px;
+    margin-bottom: 50px;
+    background-color: rgb(236,236,236);
+
+  }
 
 
 </style>
@@ -252,7 +262,7 @@
 		
 		
 	
-		
+		<!-- 수정시 해당 항목을 수정하는 팝업 영역 -->
 		<div class="modal fade" id="editarea" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
 			<div class="modal-dialog modal-dialog-centered">
 			    <div class="modal-content">
@@ -268,30 +278,41 @@
 			        <button type="button" class="btn btn-general editbtn">수정</button>
 			      </div>
 			    </div>
-			</div>
-  		
+			</div>	
 		</div>
 		
 		
-		<!-- 파일 제대로 가져왔는지 테스트 -->
+		<!-- 프로필에 등록한 첨부파일들 -->
 		<div class="banner">
-			첨부파일
+			등록파일
 		</div>
-		<div style="border:1px solid black; padding:20px; margin-bottom: 50px" class="d-flex flex-row flex-wrap">
-			<c:forEach var="file" items="${profile.files}">
-			<%-- 	<p>${file.file_nm}</p>
-				<p>${file.profile_idx}</p>
-				<p>${file.file_size}</p>
-				<p>${file.file_exet}</p>
-				<p>${file.file_originnm}</p> --%>
-				<div class="select d-flex flex-wrap ">
-					<span style="display:none">${file.file_nm}</span>
-					<a class="mx-2" href="${pageContext.request.contextPath}/resources/files/member/profile_attachfiles/${file.file_nm}" download>${file.file_originnm}</a>
-					<img src="${pageContext.request.contextPath}/resources/files/server/icons/icon_x.png" class="delRow me-3">
-				</div>
-					
+		<div class="d-flex flex-row flex-wrap" id="attachedFilesWrap">
+			
+			<div class="select d-flex flex-wrap  flex-grow-1">
+				<c:if test="${empty profile.files}">
+					<span class="fw-bold" style="color:rgb(70,70,70)">파일이 없습니다</span>
+				</c:if>
 				
-			</c:forEach>
+				<c:forEach var="file" items="${profile.files}">
+				
+					<div class="select d-flex flex-wrap">
+						<span style="display:none" class="fileName">${file.file_nm}</span>
+						<a class="mx-2" href="${pageContext.request.contextPath}/resources/files/member/profile_attachfiles/${file.file_nm}" download>${file.file_originnm}</a>
+						<img src="${pageContext.request.contextPath}/resources/files/server/icons/icon_x.png" class="delRow me-3">
+					</div>
+						
+									
+				
+				</c:forEach>
+			
+			</div>
+			
+			<div class="d-flex flex-column justify-content-center">
+				<label for="addfiles" id="label_files">
+					<i class="fi fi-rr-add"></i>
+				</label>
+				<input multiple type="file" style="display:none" id="addfiles">
+			</div>
 		</div>
 		
 		<c:if test="${profile.m_idx eq m_idx}">

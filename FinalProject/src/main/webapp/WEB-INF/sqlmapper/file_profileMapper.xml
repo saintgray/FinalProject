@@ -29,22 +29,17 @@
 		SELECT fp.file_nm, fp.profile_idx, fp.file_size, fp.file_exet, fp.file_originnm
 		FROM file_profile fp JOIN dream.profile prof
 		on fp.profile_idx=prof.profile_idx
-		WHERE prof.profile_deldate is null AND prof.profile_idx=#{arg0};
+		WHERE prof.profile_deldate is null AND prof.profile_idx=#{arg0} AND fp.file_deldate is null;
 	
 	</select>
 	
-	
-	<delete id="deleteFile" parameterType="com.alj.dream.file_profile.domain.DeleteFileRequest">
-		DELETE FROM dream.file_profile fr
-		WHERE fr.file_nm=#{file_nm}
-		
-	</delete>
-	
-	
-	<update id="deleteFile2" parameterType="com.alj.dream.file_profile.domain.DeleteFileRequest">
-		UPDATE dream.file_profile fr
-		SET fr.deleteYN='Y'
+	<!-- 파일 삭제 -->
+	<update id="deleteFile">
+		UPDATE file_profile
+		SET file_deldate=CURRENT_TIMESTAMP
+		WHERE file_nm=#{arg0}
 	</update>
+	
  	
  
  </mapper>
