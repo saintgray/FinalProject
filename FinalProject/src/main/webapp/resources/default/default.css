@@ -66,6 +66,11 @@
   	text-decoration: underline;
   	color: black;
   }
+  
+  /* 컨텐츠 길이에 상관없이 footer 최 하단에 고정*/
+  footer{
+  	transform:translateY(-100%);
+  }
  
   
  /* Scrollbar style */

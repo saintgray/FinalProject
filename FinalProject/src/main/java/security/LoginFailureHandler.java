@@ -29,15 +29,15 @@ public class LoginFailureHandler implements AuthenticationFailureHandler {
 		// Spring 에서 발생한 예외의 종류는 크게 4가지가 있다.
 		// 1. BadCredentialsException : 아이디와 비밀번호가 서로 일치하지 않을 경우 발생하는 예외
 		// 2. UserNameNotFoundException : 입력한 아이디가 데이터베이스에 없을 경우 발생하는 예외
-		// 3. DisabledException : enabled 값이 false 일 경우
+		// 3. DisabledException : 인증에는 성공했으나 Authentication 의  isEnabled 값이 false 일 경우
 		// 4. SessionAuthenticationException : 이미 인증이 된 아이디일 경우
 		String msg=null;
 		
 		
-		String redirectUrl="/member/loginform?error=true";
+		String forwarding="/member/loginform?error=true";
 
 		
-	  //String redirectUrl="/test2"
+	  
 		
 		System.out.println("called onAuthenticationFailure");
 		
@@ -54,12 +54,12 @@ public class LoginFailureHandler implements AuthenticationFailureHandler {
 		
 		}else if(exception instanceof SessionAuthenticationException) {
 			
-			redirectUrl="redirect:/";
+			forwarding="redirect:/";
 			
 		}
 		request.setAttribute("insertedEmail", request.getParameter("username"));
 		request.setAttribute("msg", msg);
-		request.getRequestDispatcher(redirectUrl).forward(request, response);
+		request.getRequestDispatcher(forwarding).forward(request, response);
 		
 		
 		

@@ -22,14 +22,30 @@
 	margin:0 auto;
 }
 #auth_warning{
-	height:40px;
-	padding:10px;
+	min-height: 50px;
+    line-height: 50px;
 }
 #auth_warning::before{
-	outline: 1px solid black;
+	outline: 1px solid rgba(59,59,59, 0.15);
 	content:'';
 	display: block;
-	margin-top:20px;
-	margin-bottom:20px;
+	margin-top: 30px;
+	
 	
 }
+
+label[for=autoLogin], #forgetMe{
+	
+	    font-size: 12px;
+	    position: relative;
+	    bottom: 2px;
+	    color: rgb(59,59,59);
+	    font-weight: 400;
+	    cursor:pointer;
+	
+}
+#autoLogin{
+	
+	cursor: pointer;
+}
+

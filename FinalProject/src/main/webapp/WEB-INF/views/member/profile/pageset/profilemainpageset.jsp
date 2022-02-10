@@ -129,10 +129,9 @@
 			$('.modal-title').text('경력');
 			var html='';
 			html+='<div class="d-flex flex-column mb-5">\r\n';
-				
-				html+='<div id="editcareerarea">\r\n';
-					html+='${profile.career}\r\n';
-				html+='</div>\r\n';
+				html+='<div id="editcareerarea">\r\n';			
+					html+=$('#careerarea').html();
+				html+='\r\n</div>\r\n';
 			html+='</div>\r\n';
 			$('.modal-body').html(html);
 			$('#editcareerarea').summernote({
@@ -218,6 +217,58 @@
 			
 		})
 		
+		// DELETE ATTACH FILES
+		/////////////////////////////////
+		$('#attachedFilesWrap .delRow').on('click',function(){
+			
+			if(confirm('정말로 삭제하시겠습니까?')){
+				deleteFile($(this).siblings('.fileName').text());	
+			}	
+		})
+		
+		// ADD FILES
+		$('#addfiles').on('change',function(e){
+			
+			
+			var files= e.target.files
+			console.log(files.length);
+			var formData=new FormData();
+			
+			formData.append('profile_idx',${profile.profile_idx})
+			$(files).each(function(index, items){
+				console.log(items);
+				
+				formData.append('files['+index+']',items);
+			})
+			
+			
+			// 테스트 통신
+		 	 $.ajax({
+				url:'${pageContext.request.contextPath}/member/profile/uploadfiles',
+				type:'POST',
+				enctype:'multipart/form-data',
+				processData:false,
+				cash:false,
+				contentType:false,
+				data:formData,
+				success:function(data){
+					if(data==files.length){
+						location.href='${pageContext.request.contextPath}/member/profile/main';
+						
+					}else{
+						alert('잠시 후 다시 시도해주세요');
+					}
+				},
+				error:function(data){
+					console.log('통신실패');
+					console.log(data);
+				}
+				
+				
+			})
+			
+		})
+		
 		
 		
 	})
@@ -250,14 +301,29 @@
 		
 	}
 	
-	/* 
+	
 	function deleteFile(file_nm){
-		
+		console.log(file_nm);
 		$.ajax({
 			
-			url:
+			url:'${pageContext.request.contextPath}/member/profile/deletefile',
+			type:'POST',
+			data:{file_nm: file_nm},
+			success:function(data){
+				console.log('통신성공');
+				if(data==1){
+					console.log('정상적으로 삭제되었습니다.');
+				}else{
+					console.log('오류가 발생헀습니다. 잠시 후 다시 시도하세요');
+				}
+			},
+			error:function(data){
+				console.log('통신실패');
+				console.log('오류가 발생헀습니다. 잠시 후 다시 시도하세요');
+			}
 			
 		})
 		
-	} */
+		
+	} 
 </script>
