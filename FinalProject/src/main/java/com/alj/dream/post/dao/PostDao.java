@@ -34,7 +34,7 @@ public interface PostDao {
 	// 작성자 : 김지현
 	int insertPost(PostWriteRequest wRequest);
 
-	List<PostViewRequest> selectPostByPostIdx(int post_idx);
+	PostViewRequest selectPostByPostIdx(int post_idx);
 
 	List<PostListInfo> selectListByMemberIdx(@Param("m_idx")int m_idx, @Param("wanted")String wanted, @Param("index")int index, @Param("count")int count);
 

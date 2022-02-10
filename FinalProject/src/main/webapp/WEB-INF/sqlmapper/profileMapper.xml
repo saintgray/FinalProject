@@ -24,7 +24,7 @@
 		WHERE profile_idx=#{arg0}	
 	</update>
 	
-	
+		
 	<!-- 프로필 수정 -->
 	<update id="editProfile" parameterType="com.alj.dream.profile.domain.ProfileRegisterData">
 	
@@ -47,5 +47,15 @@
 		WHERE m_idx=#{m_idx} 
 	
 	</update>
+	
+	
+	<!-- 요청글 작성자의 프로필 가져오기 -->
+	<select id="getWriterProfile" parameterType="int" resultType="com.alj.dream.profile.domain.ProfileRequest">
+	select m.m_nm, m.m_email, m.m_photo, prof.line
+	from member m, profile prof
+	where m.m_idx = prof.m_idx
+	and prof.profile_deldate is null
+	and m.m_idx=#{idx}
+	</select>
 	
  </mapper>

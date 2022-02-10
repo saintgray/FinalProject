@@ -99,7 +99,9 @@
  	
  	<select id="selectPostByPostIdx"
  			resultType="com.alj.dream.post.domain.PostViewRequest">
- 	SELECT * FROM post WHERE post_idx = #{idx};
+ 	select post_idx, post_nm, post_content, post_regdate, post_editdate, p.cat_idx, c.cat_nm, m_idx
+	from post p, category c
+	where p.cat_idx = c.cat_idx and post_idx=#{idx}
  	</select>
  	
  	<select id="selectListByMemberIdx"
