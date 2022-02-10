@@ -1,11 +1,13 @@
 package com.alj.dream.post.controller;
 
-import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.alj.dream.post.domain.PostWriteRequest;
 import com.alj.dream.post.service.PostWriteService;
@@ -22,14 +24,22 @@ public class PostWriteController {
 	}
 	
 	@PostMapping("/post/write")
-	public String writePost(
-			PostWriteRequest wRequest,
-			HttpServletRequest request
-			) {
-
-		writeService.insertPost(wRequest, request);
+	@ResponseBody
+	public int writePost(PostWriteRequest wRequest) {
 		
-		return "redirect:/post/list";
+		int resultCnt = 0;
+		
+		// 글 업로드
+		resultCnt = writeService.insertPost(wRequest);
+		
+		// 파일업로드 처리
+		List<MultipartFile> list = wRequest.getFileList();
+		System.out.println(list);
+		
+		return resultCnt;
+		
+		// return "redirect:/post/list";
+		// return "redirect:".concat(request.getContextPath().concat("/post/content?post_idx").concat(String.valueOf(wRequest.getPost_idx())));
 		
 	}
 	

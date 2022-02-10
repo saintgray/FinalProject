@@ -88,14 +88,28 @@
  	</insert>
  	
  <!-- 작성자 : 김지현 -->
- 
-	 	<insert id="insertPost"
+	<insert id="insertPost"
  			parameterType="com.alj.dream.post.domain.PostWriteRequest"
 			useGeneratedKeys="true"
 			keyProperty="post_idx">
  	INSERT INTO post (post_nm, post_content, cat_idx, wanted, m_idx)
 	VALUES (#{post_nm}, #{post_content}, #{cat_idx}, #{wanted}, #{m_idx});
  	</insert>
+ 	
+ 	<!-- 게시물 수정 -->
+ 	<update id="updatePost"
+ 			parameterType="com.alj.dream.post.domain.PostWriteRequest">
+ 	
+ 	</update>
+ 	
+ 	<!-- 게시물 삭제 : 삭제날짜 추가 -->
+ 	<!-- 게시물 첨부파일 삭제... -->
+ 	<update id="deletePost"
+ 			parameterType="int">
+ 	update post
+ 	set post_deldate=current_timestamp()
+ 	where post_idx=#{idx}
+ 	</update>
  	
  	<select id="selectPostByPostIdx"
  			resultType="com.alj.dream.post.domain.PostViewRequest">
@@ -105,17 +119,30 @@
  	</select>
  	
  	<select id="selectListByMemberIdx"
- 			resultType="com.alj.dream.post.domain.PostListInfo"
- 	>
- 	select p.post_idx, p.post_nm, c.cat_idx, c.cat_nm
-	from post p, category c
-	where p.m_idx=#{m_idx} and p.cat_idx=c.cat_idx and p.wanted=#{wanted} and p.post_deldate is null
+ 			resultType="com.alj.dream.post.domain.PostListInfo">
+ 	select p.post_idx, p.post_nm, p.m_idx, c.cat_idx, c.cat_nm, m.match_yn
+ 	from post p left join category c on p.cat_idx=c.cat_idx
+				left join dream.match m on p.post_idx=m.post_idx
+	where p.post_deldate is null and p.m_idx=#{m_idx} and p.wanted=#{wanted}
 	order by post_regdate desc limit #{index}, #{count}
  	</select>
  	
  	<select id="selectTotalCountByIdx"
  			resultType="int">
  	select count(*) from post where m_idx=#{m_idx} and wanted=#{wanted}
+ 	</select>
+ 	
+ 	<select id="selectListBySearchParams"
+ 			parameterType="com.alj.dream.post.domain.SearchParams"
+ 			resultType="com.alj.dream.post.domain.PostListInfo">
+ 	select p.post_idx, p.post_nm, p.m_idx, c.cat_idx, c.cat_nm, member.loc_idx, loc.loc_nm, m.match_yn
+ 	from post p left join category c on p.cat_idx=c.cat_idx
+ 				left join member on p.m_idx=member.m_idx
+ 				left join loc on member.loc_idx=loc.loc_idx
+				left join dream.match m on p.post_idx=m.post_idx
+ 	where p.post_deldate is null and p.m_idx!=#{m_idx} and p.wanted=#{wanted}
+ 		  and p.cat_idx=#{cat_idx} and member.loc_idx=#{loc_idx}
+ 	order by post_regdate desc		
  	</select>
  
  </mapper>

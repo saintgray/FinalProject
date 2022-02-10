@@ -8,25 +8,20 @@ import com.alj.dream.post.dao.PostDao;
 import com.alj.dream.post.domain.PostWriteRequest;
 
 @Service
-public class PostWriteService {
+public class PostEditService {
 
 	private PostDao dao;
-
+	
 	@Autowired
 	private SqlSessionTemplate template;
-	
-	public int insertPost(
-			PostWriteRequest wRequest
-			) {
-		
+
+	public int editPost(PostWriteRequest wRequest) {
 		int resultCnt = 0;
 		
 		dao = template.getMapper(PostDao.class);
-		
-		resultCnt = dao.insertPost(wRequest);
+		resultCnt = dao.updatePost(wRequest);
 		
 		return resultCnt;
-		
 	}
 	
 }
