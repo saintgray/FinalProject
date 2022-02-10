@@ -47,13 +47,17 @@
 		); 
 		-->
 		<!-- 자동 로그인 쿠키의 만료시간은 자유롭게 설정할 수 있으나 여기에서는 604800 초, 즉  1주일 이라 하겠다. -->
-		<!-- <security:remember-me data-source-ref="dataSource" token-validity-seconds="604800"/> -->
+		<security:remember-me data-source-ref="dataSource" token-validity-seconds="604800"/>
 		<security:logout logout-url="/logout" 
 						 invalidate-session="true"
-						 logout-success-url="/"				
-						 delete-cookies="JSESSIONID"/>
+						 logout-success-url="/"	
+						 delete-cookies="JSESSIONID,remember-me"/>	
 						 <!-- 로그아웃시 remember-me 쿠키를 삭제하여 데이터베이스의 persistent_logins 내 해당 유저의 로그인 기록도 없앤다 -->
-						 <!-- delete-cookies="JSESSIONID,remember-me"/> -->
+						  
+						 <!-- 이전 버전 -->		
+						 <!-- delete-cookies="JSESSIONID"/> -->
+						
+						 
 						 
 	</security:http>
 	<security:authentication-manager>

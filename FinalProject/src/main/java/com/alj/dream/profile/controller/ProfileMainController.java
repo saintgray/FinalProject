@@ -57,12 +57,12 @@ public class ProfileMainController {
 			System.out.println(response);
 		}else {
 			try {
-				MyProfileInfo profile=profService.getUserProfile(m_idx);
+				MyProfileInfo profile=profService.getUserProfile(req, m_idx);
 				if(profile==null) {
 					model.addAttribute("profileOwnerIdx", m_idx);
 				}else {
 					
-					model.addAttribute("profile", profService.getUserProfile(m_idx));
+					model.addAttribute("profile", profile);
 				}
 				
 				

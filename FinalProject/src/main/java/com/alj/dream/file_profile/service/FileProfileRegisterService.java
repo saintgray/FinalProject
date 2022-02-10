@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.alj.dream.file_profile.dao.ProfileFilesDao;
@@ -52,6 +53,11 @@ public class FileProfileRegisterService {
 			String file_nm=String.valueOf(System.nanoTime());
 			
 			File newfile = new File(savePath, file_nm);
+			
+			if(!newfile.exists()) {
+				newfile.mkdir();
+			}
+			
 			file.transferTo(newfile);
 			
 			
