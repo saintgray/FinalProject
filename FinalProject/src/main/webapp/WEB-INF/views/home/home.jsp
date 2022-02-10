@@ -34,36 +34,9 @@
 	
 	
 
-	     </div>
+	   
 	     
-	     <sec:authorize access="isAuthenticated()">
-	     <%-- 	<c:set value="type">
-	     		<sec:authentication property="m_type"/>
-	     	</c:set>
-		      --%>
-		     <div class="d-flex flex-column justify-content-around" id="mnmbtn">
-		     	<button id="postbtn" class="btn btn-general my-2" onclick="location.href='${pageContext.request.contextPath}/post/write';">요청서 작성</button>
-		     	<c:if test="${type eq 'mentor'}">
-		     		<button id="findmentorbtn" class="btn btn-general my-2">멘티찾기</button>
-		     	</c:if>
-		     	<c:if test="${type eq 'mentee'}">
-		     		<button id="findmenteebtn" class="btn btn-general my-2">멘토찾기</button>
-		     	</c:if>
-		     </div>
-	     </sec:authorize>
-	     
-	     
-	     <!-- test area -->
-		<h1><sec:authorize access="hasRole('ROLE_ADMIN')">ROLE_ADMIN 관리자입니다.</sec:authorize>	 </h1>
-		<h1><sec:authorize access="hasRole('ADMIN')">ADMIN관리자입니다.</sec:authorize>	 </h1>
-		<h1><sec:authorize access="isAnonymous()">비회원입니다.</sec:authorize>	 </h1>
-		<h1><sec:authorize access="hasRole('GENERAL')">회원입니다.</sec:authorize>	 </h1>
-		<h1><sec:authorize access="isAuthenticated()">인증은 되었습니다.</sec:authorize> </h1>
-		<%-- <h1>멘토/멘티 상태 : <sec:authentication property="m_type"/></h1> --%>
-		
-		
-
-		
+	
 	
 		    <!-- banner area -->
 		    <!-- 관리자는 배너(광고창) 등록 기능을 사용할 수 있습니다. 우선순위 10 -->
@@ -83,7 +56,7 @@
 		     	</c:set>
 			      --%>
 			     <div class="d-flex flex-column justify-content-around" id="mnmbtn">
-			     	<button id="writepostbtn" class="btn btn-general my-2">요청서 작성</button>
+			     	<button id="writepostbtn" class="btn btn-general my-2" onclick="location.href='${pageContext.request.contextPath}/post/write';">요청서 작성</button>
 			     	<c:if test="${type eq 'mentor'}">
 			     		<button id="findmentorbtn" class="btn btn-general my-2">멘티찾기</button>
 			     	</c:if>
