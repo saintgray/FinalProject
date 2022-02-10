@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.alj.dream.post.domain.Chat;
+import com.alj.dream.post.domain.Match;
 import com.alj.dream.post.domain.PostListInfo;
 import com.alj.dream.post.domain.PostViewRequest;
 import com.alj.dream.post.domain.PostWriteRequest;
@@ -22,6 +24,12 @@ public interface PostDao {
 
 	public RequestGroup selectRequestPostByPostIdx(int postidx);
 	
+	// 사용 분야 : 채팅
+	int insertMatch(Match match);
+	
+	public Match selectMatch(int postidx, int menteeidx, int mentoridx);
+	
+	public int insertChat(Chat chat);
 	
 	// 작성자 : 김지현
 	int insertPost(PostWriteRequest wRequest);
@@ -33,5 +41,7 @@ public interface PostDao {
 	int selectCountByIdx(int m_idx);
 
 	int selectTotalCountByIdx(@Param("m_idx")int m_idx, @Param("wanted")String wanted);
+
+	
 
 }

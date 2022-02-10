@@ -33,6 +33,7 @@
 							<td>회원 사진 : ${member.m_photo}</td><br>
 							<td>매칭 여부 : ${member.matched_yn}</td><br>
 							<td>매칭 여부 : ${member.line}</td><br>
+							<td><a href="${pageContext.request.contextPath}/post/chat?midx=${member.m_idx}&postidx=${requestPost.post_idx}">문의하기</a>
 						</tr>
 					</c:forEach>
 
