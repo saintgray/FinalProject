@@ -1,7 +1,5 @@
 package com.alj.dream.post.service;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,8 +16,7 @@ public class PostWriteService {
 	private SqlSessionTemplate template;
 	
 	public int insertPost(
-			PostWriteRequest wRequest,
-			HttpServletRequest request
+			PostWriteRequest wRequest
 			) {
 		
 		int resultCnt = 0;
