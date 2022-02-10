@@ -53,41 +53,55 @@
 			
 			
 			//if($('input[name=m_email_prefix]').val().trim().length==0 || $('input[name=m_email_suffix]').val().trim().length==0){
+			
 			if(!fullWriteEmail($('input[name=m_email_prefix]'),$('input[name=m_email_suffix]'))){
 				//$('#w_email').text('이메일을 입력해주세요').css('visibility','visible');
 				showWarningMsg($(this),'이메일을 입력해주세요');
 				$('input[name=m_email_prefix], input[name=m_email_suffix]').val("");
-			}else if($('#w_email').text()!='이미 등록된 이메일입니다'){
+			}else{
 				
-				var infos={
-						m_email_prefix: $('input[name=m_email_prefix]').val(),
-						m_email_suffix: $('input[name=m_email_suffix]').val()
-				}
 				
-				$.ajax({
-					url: "${pageContext.request.contextPath}/sendAuthKey",
-					data: infos,
-					type: "POST",
-					beforeSend:function(){
-						loading($('#emailarea'));
-						$('#w_email').css({'visibility':'hidden','color':'red'})
+				console.log('이메일 중복을 확인합니다.')
+				
+				
+				
+				chkEmail();
+				console.log('duplicated');
+				console.log(duplicated);
+				
+				if(!duplicated){
 					
-					},
-					success:function(data){
-						console.log(data);
-						$('#autharea').css('display','flex').html('<input type="text" id="insertedKey" class="form-control" placeholder="인증번호" aria-label="인증번호" aria-describedby="button-addon2"><button class="btn btn-grey" type="button" id="checkAuthKey">인증</button>')
-						
-					},
-					error:function(data){
-						console.log(data);
-					
-					},
-					complete:function(){
-						completeLoad();
-						
+					var infos={
+							m_email_prefix: $('input[name=m_email_prefix]').val(),
+							m_email_suffix: $('input[name=m_email_suffix]').val()
 					}
 					
-				})
+					$.ajax({
+						url: "${pageContext.request.contextPath}/sendAuthKey",
+						data: infos,
+						type: "POST",
+						beforeSend:function(){
+							loading($('#emailarea'));
+							$('#w_email').css({'visibility':'hidden','color':'red'})
+						
+						},
+						success:function(data){
+						
+							$('#w_email').val('');
+							$('#autharea').css('display','flex').html('<input type="text" id="insertedKey" class="form-control" placeholder="인증번호" aria-label="인증번호" aria-describedby="button-addon2"><button class="btn btn-grey" type="button" id="checkAuthKey">인증</button>')
+							alert('인증번호를 발송했습니다. 메일을 확인하세요');
+						},
+						error:function(data){
+							console.log(data);
+						
+						},
+						complete:function(){
+							completeLoad();
+							
+						}
+						
+					})
+				}
 			}
 			
 			
@@ -113,42 +127,13 @@
 			}else{
 				if(fullWriteEmail($('input[name=m_email_prefix]'),$('input[name=m_email_suffix]'))){
 					
-					var infos={
-							m_email_prefix: $('input[name=m_email_prefix]').val(),
-							m_email_suffix: $('input[name=m_email_suffix]').val()
-					}
+					chkEmail();
 					
-										
-						
-					/////////////////////	
-					 	$.ajax({
-							url:"${pageContext.request.contextPath}/chk_email",
-							data : infos,
-							type: 'POST',
-							
-							success: function(data){
-								
-								if(data!='ABLEREGISTER'){
-									showWarningMsg($('input[name=m_email_prefix]'),data);
-								}else{
-									
-									$('#w_email').css('color','blue');
-									showWarningMsg($('input[name=m_email_prefix]'),'사용가능한 이메일입니다');
-									
-								}	
-								
-							},
-							error: function(data){
-								alert(data);
-							},
-							
-							
-						}) 
-					////////////////////
-					}
+					
 					
 				}
-			})
+			}
+		})
 		
 		
 		$('#basicInfos').on('focus','input',function(){
@@ -320,6 +305,7 @@
 						
 						if(data=='NOTAUTHED'){
 							alert('이메일 인증이 필요합니다');
+							$('html').animate({scrollTop:$('input[name=m_email_prefix]').offset().top -50},50)
 						}else{
 							console.log("회원가입성공!");
 							alert('회원가입이 완료되었습니다!');
@@ -338,6 +324,10 @@
 		
 		
 	})
+	
+	
+	
+	var duplicated;
 	
 	function getCategoryList(){
 		var interest=$('#interestInfos input[name=interest]:checked');
@@ -458,6 +448,44 @@
 			}
 		})
 		
+	}
+	
+	function chkEmail(){
+		
+		var infos={
+				m_email_prefix: $('input[name=m_email_prefix]').val(),
+				m_email_suffix: $('input[name=m_email_suffix]').val()
+		}
+		
+							
+			
+		/////////////////////	
+		 	$.ajax({
+				url:"${pageContext.request.contextPath}/chk_email",
+				data : infos,
+				type: 'POST',
+				
+				success: function(data){
+					
+					console.log(data);
+					
+					if(data!='ABLEREGISTER'){
+						duplicated=true;	
+						showWarningMsg($('input[name=m_email_prefix]'),data);
+					}else{
+						duplicated=false;
+					}
+					
+				},
+				error: function(data){
+					alert(data);
+				},
+				
+				
+			}) 
+		////////////////////
+	
+	
 	}
 
 	

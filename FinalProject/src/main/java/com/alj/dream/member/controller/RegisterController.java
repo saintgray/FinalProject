@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -46,16 +47,16 @@ public class RegisterController {
 	@ResponseBody
 	@Transactional
 //	public String registerMember(@CookieValue("authed") String authed, HttpServletRequest req, Emailinfos email,
-	public String registerMember(HttpServletRequest req, Emailinfos email,
-			RegisterInfo infos) {
+	public String registerMember(HttpServletRequest req, Emailinfos email, RegisterInfo infos, @CookieValue("authed") String authed) {
 		
 //		System.out.println(authed);
 
 		String result = null;
 
-//		if (authed.equals("N")) {
-//			result = "NOTAUTHED";
-//		} else {
+		
+		if (authed.equals("N")) {
+			result = "NOTAUTHED";
+		} else {
 
 			try {
 				int insertResult = service.insertMember(req, email, infos);
@@ -83,7 +84,7 @@ public class RegisterController {
 				e.printStackTrace();
 			}
 
-//		}
+		}
 
 		return result;
 	}

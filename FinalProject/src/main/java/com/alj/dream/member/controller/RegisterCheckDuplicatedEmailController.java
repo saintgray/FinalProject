@@ -38,7 +38,7 @@ public class RegisterCheckDuplicatedEmailController {
 		String result = chkEmailService.selectByEMail(m_email);
 		System.out.println("result>>>"+result);
 		
-		return result!=null?"이미 등록된 이메일입니다":"ABLEREGISTER";
+		return result!=null?"사용중이거나 탈퇴한 아이디입니다":"ABLEREGISTER";
 		
 	}
 	

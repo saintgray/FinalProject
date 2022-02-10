@@ -2,9 +2,8 @@
 
  	#headerwrap {
       width: 80%;
-      margin: 10px auto;
-      
-      
+      margin: 0px auto;
+      padding-top: 10px;
     }
 
     ul li span {
