@@ -31,6 +31,29 @@
  	
  		SELECT count(*) from member
  	</select>
+ 	
+ 	
+ 	
+ 	<select id="getMemberInfo" resultType="com.alj.dream.member.domain.MemberInfo">
+ 		SELECT 
+				m_idx, 
+    			m_email, 
+    			m_nm,
+    			m_photo,  
+    			m_regdate,
+    			m_quitdate,
+    			m_blacklist,
+    			(select count(*) FROM 
+				member join report
+				on member.m_idx=report.m_reported
+				WHERE m_idx=#{arg0}
+				) as reportCount
+			FROM member
+			WHERE m_idx=#{arg0}
+ 	
+ 	</select>
+ 	
+ 	
  </mapper>
  
  

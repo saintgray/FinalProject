@@ -10,6 +10,7 @@ public class MemberListView {
 	private int selectPage;
 	private List<MemberInfo> list;
 	
+	
 	public MemberListView() {
 		// TODO Auto-generated constructor stub
 	}
