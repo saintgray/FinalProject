@@ -7,21 +7,29 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<%@ include file="/WEB-INF/views/defaultpageset.jsp"%>
 <style>
 #adminMainwrap {
 	margin-top: 100px;
 }
 
-#adminMainwrap img {
+#adminMainwrap .managebtn {
 	width: 120px;
 	height: 120px;
 	border-radius: 50%;
+	border: 2px solid #FFD601;
 }
 
 .managetab {
 	text-align: center;
 	justify-content: center;
 }
+
+@media(max-width: 500px){
+	 #adminMainwrap{
+		flex-direction: column !important;
+	} 
+} 
 </style>
 <title>Insert title here</title>
 </head>
@@ -43,7 +51,7 @@
 
  -->
 
-	<%@ include file="/WEB-INF/views/defaultpageset.jsp"%>
+	
 	<%@ include file="/WEB-INF/views/layout/header.jsp"%>
 
 
@@ -52,21 +60,30 @@
 	<div
 		class="container d-flex flex-row flex-wrap justify-content-around gw"
 		id="adminMainwrap">
-		<div class="d-flex flex-column flex-wrap managetab">
-			<a href="${pageContext.request.contextPath}/admin/member/list?selectPage=1&numOfMemberPerPage=5">
-			<img src="${pageContext.request.contextPath}/resources/files/server/icons/adminmember.svg"/></a>
-			<span class="my-2">회원관리</span>
+		
+			<div class="d-flex flex-column flex-wrap managetab">
+				<a href="${pageContext.request.contextPath}/admin/member/list?selectPage=1&numOfMemberPerPage=5">
+				<img src="${pageContext.request.contextPath}/resources/files/server/icons/adminmember.svg" class="managebtn"/></a>
+				<a class="mx" href="${pageContext.request.contextPath}/admin/member/list?selectPage=1&numOfMemberPerPage=5">회원관리</a>
+			</div>
+		
+		
+			<div class="d-flex flex-column flex-wrap managetab">
+				<a href="">
+				<img src="${pageContext.request.contextPath}/resources/files/server/icons/post.png" class="managebtn"></a>
+				<a class="mx" href="" >게시글관리</a>
+			</div>
+			<div class="d-flex flex-column flex-wrap managetab">
+				<a href="">
+				<img src="${pageContext.request.contextPath}/resources/files/server/icons/category.png" class="managebtn"></a>
+				<a class="mx" href="" >분야관리</a>
+			</div>
+			<div class="d-flex flex-column flex-wrap managetab">
+				<a href="${pageContext.request.contextPath}/notice?selectPage=1&numOfNoticesPerPage=5">
+					<img src="${pageContext.request.contextPath}/resources/files/server/icons/customerservice.svg" class="managebtn"/></a>
+					<a class="mx" href="${pageContext.request.contextPath}/notice?selectPage=1&numOfNoticesPerPage=5">고객센터</a>
+			</div>
 		</div>
-		<div class="d-flex flex-column flex-wrap managetab">
-			<a href="">게시글관리</a>
-		</div>
-		<div class="d-flex flex-column flex-wrap managetab">
-			<a
-				href="${pageContext.request.contextPath}/notice?selectPage=1&numOfNoticesPerPage=5">
-				<img src="${pageContext.request.contextPath}/resources/files/server/icons/customerservice.svg" /></a>
-			<span class="my-2">고객센터</span>
-		</div>
-	</div>
 
 
 	<%@ include file="/WEB-INF/views/layout/footer.jsp"%>

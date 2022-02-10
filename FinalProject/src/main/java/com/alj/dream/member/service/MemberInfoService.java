@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.alj.dream.member.dao.MemberDao;
 import com.alj.dream.member.domain.MemberInfo;
+import com.alj.dream.report.dao.ReportDao;
 
 @Service
 public class MemberInfoService {
@@ -13,6 +14,14 @@ public class MemberInfoService {
 	private SqlSessionTemplate sst;
 	
 	public MemberInfo getMemberInfo(String m_idx) {
-		return sst.getMapper(MemberDao.class).getMemberInfo(m_idx);
+		MemberInfo memberInfo= null;
+		
+		memberInfo=sst.getMapper(MemberDao.class).getMemberInfo(m_idx);
+		
+		memberInfo.setReportList(sst.getMapper(ReportDao.class).getReportListByIdx(m_idx));
+		
+		
+		return memberInfo;
+		//return sst.getMapper(MemberDao.class).getMemberInfo(m_idx);
 	}
 }
