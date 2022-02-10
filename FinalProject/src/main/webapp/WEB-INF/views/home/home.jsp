@@ -48,7 +48,7 @@
 	     	</c:set>
 		      --%>
 		     <div class="d-flex flex-column justify-content-around" id="mnmbtn">
-		     	<button id="postbtn" class="btn btn-general my-2">요청서 작성</button>
+		     	<button id="postbtn" class="btn btn-general my-2" onclick="location.href='${pageContext.request.contextPath}/post/write';">요청서 작성</button>
 		     	<c:if test="${type eq 'mentor'}">
 		     		<button id="findmentorbtn" class="btn btn-general my-2">멘티찾기</button>
 		     	</c:if>
