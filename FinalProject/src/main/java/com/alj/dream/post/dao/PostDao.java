@@ -26,14 +26,15 @@ public interface PostDao {
 	public RequestGroup selectRequestPostByPostIdx(int postidx);
 	
 	// 사용 분야 : 채팅
-	int insertMatch(Match match);
+	public int insertMatch(Match match);
 	
 	public Match selectMatch(int postidx, int menteeidx, int mentoridx);
 	
 	public int insertChat(Chat chat);
 	
-	// 작성자 : 김지현
-	int insertPost(PostWriteRequest wRequest);
+
+int insertPost(PostWriteRequest wRequest);
+
 	
 	int updatePost(PostWriteRequest wRequest);
 	
@@ -50,5 +51,6 @@ public interface PostDao {
 	int selectTotalCountByIdx(@Param("m_idx")int m_idx, @Param("wanted")String wanted);
 
 	List<PostListInfo> selectListBySearchParams(SearchParams params);
+
 
 }

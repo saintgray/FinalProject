@@ -35,7 +35,8 @@
  			p.post_nm, 
  			p.post_idx, 
  			c.cat_nm, 
- 			p.post_regdate
+ 			p.post_regdate,
+ 			p.wanted
 		from 
 			post p join category c on  c.cat_idx=p.cat_idx
 		where 
@@ -88,7 +89,9 @@
  	</insert>
  	
  <!-- 작성자 : 김지현 -->
-	<insert id="insertPost"
+
+ <insert id="insertPost"
+
  			parameterType="com.alj.dream.post.domain.PostWriteRequest"
 			useGeneratedKeys="true"
 			keyProperty="post_idx">
