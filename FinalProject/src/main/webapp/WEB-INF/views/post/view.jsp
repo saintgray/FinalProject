@@ -26,10 +26,23 @@ history.go(-1);
 <!-- Container -->
 <div class="container" id="PostViewArea">
 
+<sec:authorize access="isAuthenticated()">
+	<c:set var="idx">
+	   <sec:authentication property="principal.m_idx" />
+	</c:set>
+</sec:authorize>
+
 <table>
 <tr>
-	<td>매치유무</td>
+	<c:if test="${viewRequest.m_idx eq idx}">
+	<td>매치유무 : ${viewRequest.match_yn}</td>
 	<td>${viewRequest.cat_nm}</td>
+	</c:if>
+	
+	<c:if test="${viewRequest.m_idx ne idx}">
+	<td colspan="2">${viewRequest.cat_nm}</td>
+	</c:if>
+
 	<td>${viewRequest.post_nm}</td>
 </tr>
 
@@ -53,15 +66,18 @@ history.go(-1);
 	<td colspan="3">${viewRequest.post_content}</td>
 </tr>
 
-<tr>
-	<td colspan="3">매칭정보</td>
-</tr>
 
-<sec:authorize access="isAuthenticated()">
-	<c:set var="idx">
-	   <sec:authentication property="principal.m_idx" />
-	</c:set>
-</sec:authorize>
+<c:if test="${viewRequest.m_idx eq idx}">
+<tr>
+	<td colspan="3">매칭정보 : match테이블에서 가져온 정보 출력</td>
+</tr>
+</c:if>
+
+<c:if test="${viewRequest.m_idx ne idx}">
+<tr>
+	<td colspan="3">문의하기</td>
+</tr>
+</c:if>
 
 <c:if test="${viewRequest.m_idx eq idx}">
 <tr>
