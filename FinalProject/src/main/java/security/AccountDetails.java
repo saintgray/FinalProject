@@ -15,6 +15,7 @@ public class AccountDetails extends User{
 	private String m_type;
 	
 	
+	
 
 	public AccountDetails(String username, String password, boolean enabled, boolean accountNonExpired,
 			boolean credentialsNonExpired, boolean accountNonLocked,

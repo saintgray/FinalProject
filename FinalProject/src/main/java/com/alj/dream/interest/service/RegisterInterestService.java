@@ -1,5 +1,8 @@
 package com.alj.dream.interest.service;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,14 +29,18 @@ public class RegisterInterestService {
 	
 	public int insertInterest(RegisterInfo infos) {
 		
+		List<Interest> interest =null;
 		
-		if(infos.getInterest()!=null) {
+		if(infos.getInterest()!=null) {	
 			
-			for(String cat_idx: infos.getInterest()) {
-				sst.getMapper(InterestDao.class).registerUserInterest(new Interest(String.valueOf(infos.getM_idx()), cat_idx));
-			}
+			interest=new LinkedList<Interest>();
 			
+			for(String cat_idx:infos.getInterest()) {
+				interest.add(new Interest(String.valueOf(infos.getM_idx()), cat_idx));
+			}		
 		}
+		
+		sst.getMapper(InterestDao.class).registerUserInterest(interest);
 			
 		return 0;
 		

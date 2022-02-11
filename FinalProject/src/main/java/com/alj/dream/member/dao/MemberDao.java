@@ -3,6 +3,7 @@ package com.alj.dream.member.dao;
 import java.util.List;
 
 import com.alj.dream.member.domain.MemberInfo;
+import com.alj.dream.member.domain.MyInfo;
 import com.alj.dream.member.domain.RegisterInfo;
 
 public interface MemberDao {
@@ -12,4 +13,5 @@ public interface MemberDao {
 	List<MemberInfo> getMemberList(int firstIndex, int numOfMember);
 	String getTotalNumOfMember();
 	MemberInfo getMemberInfo(String m_idx);
+	MyInfo selectByIdx(String principal_idx);
 }

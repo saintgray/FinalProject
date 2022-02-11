@@ -9,13 +9,14 @@ public class MemberVO {
 	private String role;
 	private String m_photo;
 	private String m_blacklist;
+	private String m_regdate;
 	
 	public MemberVO() {
 		
 	}
 
 	public MemberVO(String m_idx, String m_email, String m_password, String m_nm, String role, String m_photo,
-			String m_blacklist) {
+			String m_blacklist, String m_regdate) {
 		this.m_idx = m_idx;
 		this.m_email = m_email;
 		this.m_password = m_password;
@@ -23,6 +24,7 @@ public class MemberVO {
 		this.role = role;
 		this.m_photo = m_photo;
 		this.m_blacklist = m_blacklist;
+		this.m_regdate = m_regdate;
 	}
 
 	public String getM_idx() {
@@ -81,8 +83,14 @@ public class MemberVO {
 		this.m_blacklist = m_blacklist;
 	}
 
-	
-	
+	public String getM_regdate() {
+		return m_regdate;
+	}
+
+	public void setM_regdate(String m_regdate) {
+		this.m_regdate = m_regdate;
+	}
+
 	
 	
 
