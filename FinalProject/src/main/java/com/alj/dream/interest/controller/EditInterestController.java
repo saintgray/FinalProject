@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.alj.dream.category.domain.CategoryRequested;
 import com.alj.dream.interest.domain.Interest;
 import com.alj.dream.interest.service.EditInterestService;
 
@@ -35,7 +36,7 @@ public class EditInterestController {
 
 
 	@PostMapping
-	public int editInterest(@RequestBody List<Interest> interest, Authentication auth) {
+	public int editInterest(@RequestBody List<String> interest, Authentication auth) {
 //			for(Interest inter : interest) {
 //				System.out.printf("cat_idx: %s , m_idx: %s",inter.getCat_idx(),inter.getM_idx());
 //			}
