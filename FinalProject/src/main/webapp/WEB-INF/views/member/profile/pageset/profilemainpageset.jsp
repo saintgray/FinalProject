@@ -2,8 +2,8 @@
     pageEncoding="UTF-8"%>
 <script>
 	
-
 	$(document).ready(function(){
+		
 		
 		
 		$('#plus_icon').on('click',function(){
@@ -13,32 +13,35 @@
 		
 		
 		$('#delProfile').on('click',function(){
-			
-			if(confirm('정말로 내 프로필을 삭제하시겠습니까?')){
-				
-				// 프로필 삭제 ${profile.profile_idx}에 해당하는 프로필 데이터의 profile_deldate 를 DB 시간으로 update
-				var profile_idx={profile_idx:${profile.profile_idx}}
-				
-				$.ajax({
+			<c:if test="${not empty profile}">
+				if(confirm('정말로 내 프로필을 삭제하시겠습니까?')){
 					
-					url: 'delete',
-					type: 'POST',
-					data: profile_idx,
-					success: function(data){
-						if(data==1){
-							alert('정상적으로 삭제되었습니다');
-							location.href="${pageContext.request.contextPath}/member/profile/main";
+					// 프로필 삭제 :  profile_deldate 를 DB 시간으로 update
+					
+					var profile_idx={profile_idx:${profile.profile_idx}}
+					
+					$.ajax({
+						
+						url: 'delete',
+						type: 'POST',
+						data: profile_idx,
+						success: function(data){
+							if(data==1){
+								alert('정상적으로 삭제되었습니다');
+								location.href="${pageContext.request.contextPath}/member/profile/main";
+							}
+						},
+						
+						error: function(data){
+							console.log('에러발생');
+							console.log(data);
 						}
-					},
-					error: function(data){
-						console.log('에러발생');
-						console.log(data);
-					}
+						
+					})
 					
-				})
-				
-			}
-			
+				}
+			</c:if>
+					
 		})
 		
 		$('#close-modal').on('click',function(){
@@ -69,11 +72,7 @@
 				var data={line:$('.modal-body #editline').val()}
 				//var url='${pageContext.request.contextPath}/member/profile/edit/line'
 				editProfile(data);
-				
-				
-				
-				
-				
+	
 			}
 		
 			
@@ -245,7 +244,7 @@
 			})
 			
 			
-			// 테스트 통신
+			// 파일 업로드
 		 	 $.ajax({
 				url:'${pageContext.request.contextPath}/member/profile/uploadfiles',
 				type:'POST',
@@ -275,6 +274,15 @@
 		
 		
 	})
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 
 	function editProfile(data, url){
