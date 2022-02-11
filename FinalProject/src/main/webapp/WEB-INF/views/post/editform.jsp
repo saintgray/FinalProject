@@ -1,6 +1,25 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%-- <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> --%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+
+<sec:authorize access="isAuthenticated()">
+	<c:set var="idx">
+	   <sec:authentication property="principal.m_idx" />
+	</c:set>
+	<c:set var="type">
+	   <sec:authentication property="principal.m_type" />
+	</c:set>
+</sec:authorize>
+
+<c:if test="${idx ne editRequest.m_idx}">
+<script>
+alert('수정 권한이 없습니다.');
+history.go(-1);
+</script>
+</c:if>
+
+<c:if test="${idx eq editRequest.m_idx}">
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,15 +35,6 @@
 
 <!-- Container -->
 <div class="container">
-
-<sec:authorize access="isAuthenticated()">
-	<c:set var="idx">
-	   <sec:authentication property="principal.m_idx" />
-	</c:set>
-	<c:set var="type">
-	   <sec:authentication property="principal.m_type" />
-	</c:set>
-</sec:authorize>
 
 <!-- 프로필 출력 -->
 <div>
@@ -153,3 +163,4 @@ $(document).ready(function(){
 </body>
 
 </html>
+</c:if>
