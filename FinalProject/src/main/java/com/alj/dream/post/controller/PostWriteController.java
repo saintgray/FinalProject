@@ -22,6 +22,11 @@ public class PostWriteController {
 
 	@GetMapping("/post/write")
 	public String getWriteForm() {
+		
+//		ProfileRequest writerProfile = service.getWriterProfile(viewRequest.getM_idx());
+//
+//		model.addAttribute("writerProfile", writerProfile);
+		
 		return "post/writeform";
 	}
 	

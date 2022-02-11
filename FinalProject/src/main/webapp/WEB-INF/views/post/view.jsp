@@ -1,11 +1,3 @@
-<!-- 
-
-매치 유무를 글쓴이=접속한 사람 일 경우에만 표기할까?
-그러면 view 페이지 하나로 다 할 수 있을 것 같음.
-
- -->
-
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>

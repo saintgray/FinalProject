@@ -8,13 +8,13 @@
 
 <script>
 
-function selectCategory(idx){
+function selectCategory(){
 	
-	var interest = idx;
+	var interest = $('#categoryInfos option:selected');
 
 	console.log(interest);
 	
-	$.ajax({
+	/* $.ajax({
 		url: '${pageContext.request.contextPath}/category/list',
 		type: 'GET',
 		data: interest,
@@ -22,29 +22,18 @@ function selectCategory(idx){
 		success: function(data){
 			console.log(data.length);
 			
-			/* if(data.length>0){
+			if(data.length==0){
 				
-				
-			}
+			}else{
 			
-			var html='<select id="childCategory" name="cat_idx">';
+			var html="";
 			$(data).each(function(index, items){
 				console.log(items.cat_idx);
 				console.log(items.cat_nm);
 				
-				html+='<option value="'+items.cat_idx+'">'+items.cat_nm+'</option>';
+				html += '<select>\r\n';
 				
-			})
-			html+="</select>"
-			
-			console.log(html);
-			
-			$('#category').html(html);
-			
-			
-			$(data).each(function(index, items){
-				console.log(items.cat_idx);
-				console.log(items.cat_nm);
+				html += '</select>\r\n';
 				
 				html+= '<div class="input-group justify-content-center my-4">\r\n';
 					html+= '<label for="interest'+items.cat_idx+'">\r\n';
@@ -53,14 +42,22 @@ function selectCategory(idx){
 						html+='<span>'+items.cat_nm+'</span>\r\n';
 					html+='</label>\r\n';
 					html+='<input type="checkbox" id="interest'+items.cat_idx+'" name="interest" class="interest hidden" value="'+items.cat_idx+'">\r\n';
-				html+='</div>\r\n'; */
+				html+='</div>\r\n';
 			
+			
+			
+			
+			})
+			
+				$('#interestInfos').html(html);
+				$('#loading').remove();
+			}
 			
 		},
 		error: function(data){
 			console.log(data);
 		}
-	});
+	}); */
 	
 }
 
@@ -104,7 +101,8 @@ $(document).ready(function(){
          lang: 'ko-KR',
          placeholder: '내용을 입력하세요.'
          
-	});
+
+	});	
         
     var formData = new FormData(document.getElementById('writePost'));
     
@@ -132,11 +130,11 @@ $(document).ready(function(){
 
 		var post_nm = $('#post_nm').val();
 	    var content = $('#content').summernote('code');
-	    /* var cat_idx = $('#cat_idx').val(); */
+	    var cat_idx = $('#cat_idx').val();
 	    
 	    formData.set("post_nm", post_nm);
 	    formData.set("post_content", content);
-	    /* formData.set("cat_idx", cat_idx); */
+	    formData.set("cat_idx", cat_idx);
 		
  		/* key 확인하기 */
 		for (let key of formData.keys()) {
