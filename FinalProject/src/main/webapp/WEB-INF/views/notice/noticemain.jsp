@@ -15,6 +15,7 @@
 #listTable{
 	border-collapse: separate;
 	border-spacing: 0 30px;
+	text-align: center;
 }
 
 @media(max-width: 750px){
@@ -26,10 +27,17 @@
 #globalwrap{
 	height: 100%;
 }
+
+.indexes{
+	outline : 1px solid rgb(123,123,123);
+	background : rgb(197,197,197);
+}
 </style>
 <title>공지사항</title>
 </head>
 <body>
+
+<div class="gw">
 	<%@ include file="/WEB-INF/views/layout/header.jsp"%>
 
 	<!--  List<Notice> 객체가 Model 에 notices 라는 포장지로 감싸져있음 -->
@@ -54,9 +62,16 @@
 	<%--  <%= request.getParameter("selectPage") %>
 		${param.selectPage}
 		 --%>
-		 <h1 class="mx-5">공지사항 리스트</h1><hr>
-	<div class="d-flex flex-column junity-content-center my-4" id="globalwrap">
+		 
+	<div class="d-flex flex-column junity-content-center my-4" id="globalwrap">	 
+		 <h1 class="mx-5 banner">공지사항 리스트</h1>
+	
 		<table class="mx-auto" id="listTable">
+		<tr class="py-2 indexes">
+		<td>번호</td>
+		<td>제목</td>
+		<td>내용</td>
+		</tr>
 			<c:forEach var="items" items="${notices.noticeList}">
 
 				<tr class="my-5">
@@ -89,7 +104,7 @@
 	<%@ include file="/WEB-INF/views/layout/footer.jsp"%>
 
 
-
+</div>
 </body>
 <script>
 	$('#regnoticebtn')

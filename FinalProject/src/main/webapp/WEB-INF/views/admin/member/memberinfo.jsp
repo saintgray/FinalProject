@@ -42,6 +42,7 @@
 		
 		<div class="d-flex flex-row flex-wrap justify-content-center">
 		    <button type="button" class="btn btn-general" id="listbtn">목록</button>
+		    <button type="button" class="btn btn-danger" id="reportbtn">신고보기</button>
 		   <%--  <c:if test="${m_idx eq memberinfo.m_idx}">
 				<button type="button" class="btn btn-general" id="editbtn">수정</button>
 				<button type="button" class="btn btn-danger" id="delbtn">삭제</button>	
@@ -61,49 +62,13 @@
 		      	function(){
 		      	
 		      	location.href="${pageContext.request.contextPath}/admin/member/list?selectPage=${param.selectPage}&numOfMemberPerPage=${param.numOfMemberPerPage}";
-		      	}
-  		     );
+		      	
+		      	});
   			
-  			 $('#editbtn').click(function(){
-  				// 수정하는 폼을 보여줌
-  				// 공지사항의 수정은 관리자만 할 수 있다
-  				location.href="${pageContext.request.contextPath}/admin/member/edit?m_idx=${memberinfo.m_idx}&selectPage=${param.selectPage}&numOfMemberPerPage=${param.numOfMemberPerPage}";
-  				
+  			$('#reportbtn').click(function(){
+  				location.href="${pageContext.request.contextPath}/admin/reported/list";
   			})
-  			
-  			$('#delbtn').click(function(){
-  				
-  				if(!confirm("삭제 하시겠습니까?")){
-  					return false;
-  				}else{
-  					
-  					//location.href="${pageContext.request.contextPath}/admin/member/delete?m_idx=${memberinfo.m_idx}&selectPage=${param.selectPage}";
-  					var data={
-  							m_idx:${memberinfo.m_idx}
-  					}
-  					
-  					$.ajax({
-  						
-  						url: '${pageContext.request.contextPath}/admin/member/delete',
-  						type: 'POST',
-  						data: data,
-  						success:function(data){
-  							if(data==1){
-  								alert('정상적으로 삭제되었습니다.');
-  								location.href="${pageContext.request.contextPath}/admin/m_email?selectPage=${param.selectPage}&numOfMemberPerPage=${param.numOfMemberPerPage}";
-  							}else if(data==0){
-  								alert('오류가 발생했습니다. 잠시 후 다시 시도하세요');
-  							}
-  						},
-  						error:function(data){
-  							console.log(data);
-  						}
-  						
-  					})
-  				
-  				}
-
-  			}) 
+  			  
   		})
 
 </script>
