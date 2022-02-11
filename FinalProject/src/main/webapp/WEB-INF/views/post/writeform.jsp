@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!DOCTYPE html>
 <html>
@@ -9,29 +9,29 @@
 <title>Insert title here</title>
 </head>
 <body>
-<%@ include file="/WEB-INF/views/defaultpageset.jsp" %>
-<%@ include file="/WEB-INF/views/post/pageset/writeformpageset.jsp"  %>
+	<%@ include file="/WEB-INF/views/defaultpageset.jsp"%>
+	<%@ include file="/WEB-INF/views/post/pageset/writeformpageset.jsp"%>
 
-<!-- Header -->
-<%@ include file="/WEB-INF/views/layout/header.jsp" %>
+	<!-- Header -->
+	<%@ include file="/WEB-INF/views/layout/header.jsp"%>
 
-<!-- Container -->
-<div class="container">
+	<!-- Container -->
+	<div class="container">
 
-<sec:authorize access="isAuthenticated()">
-	<c:set var="idx">
-	   <sec:authentication property="principal.m_idx" />
-	</c:set>
-	<c:set var="type">
-	   <sec:authentication property="principal.m_type" />
-	</c:set>
-</sec:authorize>
+		<sec:authorize access="isAuthenticated()">
+			<c:set var="idx">
+				<sec:authentication property="principal.m_idx" />
+			</c:set>
+			<c:set var="type">
+				<sec:authentication property="principal.m_type" />
+			</c:set>
+		</sec:authorize>
 
-<!-- 프로필 출력 -->
-<div>
-프로필 정보가 출력될 영역입니다.
+		<!-- 프로필 출력 -->
+		<div>
+			프로필 정보가 출력될 영역입니다.
 
-<%-- <c:if test="${writerProfile ne null}">
+			<%-- <c:if test="${writerProfile ne null}">
 <table>
 <tr>
 	<td rowspan="2"><img src="${writerProfile.m_photo}"></td>
@@ -46,59 +46,62 @@
 <c:if test="${writerProfile eq null}">
 글쓴이의 프로필 정보가 없습니다.
 </c:if> --%>
-</div>
+		</div>
 
-<!-- 게시글 작성 -->
-<div>
+		<!-- 게시글 작성 -->
+		<div>
 
-<form role="form" method="post" enctype="multipart/form-data" id="writePost">
+			<form role="form" method="post" enctype="multipart/form-data"
+				id="writePost">
 
-<!-- 제목 -->
-<input type="text" name="post_nm" id="post_nm" placeholder="제목을 입력하세요."><br>
+				<!-- 제목 -->
+				<input type="text" name="post_nm" id="post_nm"
+					placeholder="제목을 입력하세요."><br>
 
-<!-- 내용 -->
-<textarea name="post_content" id="content"></textarea> <br>
+				<!-- 내용 -->
+				<textarea name="post_content" id="content"></textarea>
+				<br>
 
-<!-- 카테고리 인덱스 -->
-<!-- <select id="category" onchange="selectCategory(this.value)"> -->
-<select id="category">
-	<option value="">선택</option>
-	<option value="1">음악</option>
-	<option value="2">미술</option>
-	<option value="3">요리</option>
-</select>
+				<!-- 카테고리 인덱스 -->
+				<div id="categoryInfos">
+					<!-- <select id="parentCategory" onchange="selectCategory(this.value)"> -->
+					<select id="parentCategory">
+						<option value="">선택</option>
+						<option value="1">음악</option>
+						<option value="2">미술</option>
+						<option value="3">요리</option>
+					</select>
+					<select name="cat_idx" id="cat_idx">
+						<option value="8">기타</option>
+						<option value="9">드럼</option>
+					</select>
+				</div>
 
-<select id="childCategory" name="cat_idx">
-	<option value="8">실험용</option>
-</select>
+				<input type="hidden" name="wanted" value="${type eq 'mentor'?'mentee':'mentor'}">
+				<input type="hidden" name="m_idx" value="${idx}">
 
-<br>
+				<!-- 파일업로드 -->
+				<input type="file" name="attachFile" id="attachFile" multiple>
+				<br>
 
-<input type="hidden" name="wanted" value="${type eq 'mentor'?'mentee':'mentor'}">
-<input type="hidden" name="m_idx" value="${idx}">
+				<button type="reset">리셋</button>
+				<button type="button" id="ajaxBtn">작성</button>
 
-<!-- 파일업로드 -->
-<input type="file" name="attachFile" id="attachFile" multiple> 
-<br>
+			</form>
 
-<button type="reset">리셋</button> <button type="button" id="ajaxBtn">작성</button>
-
-</form>
-
-</div>
+		</div>
 
 
 
-</div>
+	</div>
 
-<script>
+	<script>
+		$(document).ready(function() {
 
-$(document).ready(function(){
+			/* $('button[type="submit"]'). */
 
-	/* $('button[type="submit"]'). */
-	
-})
-</script>
+		})
+	</script>
 </body>
 
 </html>
