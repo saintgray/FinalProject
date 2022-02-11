@@ -1,4 +1,4 @@
-package com.alj.dream.post.controller;
+package com.alj.dream.request.controller;
 
 import javax.servlet.http.HttpSession;
 
@@ -8,7 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.alj.dream.post.service.RequestGroupService;
+import com.alj.dream.request.service.RequestGroupService;
 
 @Controller
 public class RequestGroupContorller {

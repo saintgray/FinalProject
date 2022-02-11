@@ -101,7 +101,7 @@ $(document).ready(function(){
 	console.log(midx);
 	console.log(wanted);
 		 $.ajax({
-			url : '${pageContext.request.contextPath}/post/matchchk',
+			url : '${pageContext.request.contextPath}/match/matchchk',
 			type : 'POST',
 			data : {
 				postidx : postidx,
