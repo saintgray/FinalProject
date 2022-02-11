@@ -21,7 +21,7 @@ public class EchoHandler extends TextWebSocketHandler {
 	private Map<String, WebSocketSession> sessionMap = new HashMap<String, WebSocketSession>();
 
 	@Autowired
-	private ChatService service;
+	private MatchService service;
 	
 
 
