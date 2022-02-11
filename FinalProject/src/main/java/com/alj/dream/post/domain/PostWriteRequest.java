@@ -16,6 +16,15 @@ public class PostWriteRequest {
 	
 	public PostWriteRequest() {}
 
+	public PostWriteRequest(int post_idx, String post_nm, String post_content, int cat_idx, String wanted, String m_idx) {
+		this.post_idx = post_idx;
+		this.post_nm = post_nm;
+		this.post_content = post_content;
+		this.cat_idx = cat_idx;
+		this.wanted = wanted;
+		this.m_idx = m_idx;
+	}
+	
 	public PostWriteRequest(int post_idx, String post_nm, String post_content, int cat_idx, String wanted, String m_idx,
 			List<MultipartFile> fileList) {
 		this.post_idx = post_idx;

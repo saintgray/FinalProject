@@ -99,7 +99,13 @@
  	<!-- 게시물 수정 -->
  	<update id="updatePost"
  			parameterType="com.alj.dream.post.domain.PostWriteRequest">
- 	
+UPDATE post
+SET
+post_nm = #{post_nm},
+post_content = #{post_content},
+post_editdate = CURRENT_TIMESTAMP()
+WHERE post_idx = #{post_idx};
+
  	</update>
  	
  	<!-- 게시물 삭제 : 삭제날짜 추가 -->
@@ -116,6 +122,13 @@
  	select post_idx, post_nm, post_content, post_regdate, post_editdate, p.cat_idx, c.cat_nm, m_idx
 	from post p, category c
 	where p.cat_idx = c.cat_idx and post_idx=#{idx}
+ 	</select>
+ 	
+ 	<select id="selectWriteRequestByPostIdx"
+ 			resultType="com.alj.dream.post.domain.PostWriteRequest">
+ 	select post_idx, post_nm, post_content, cat_idx, wanted, m_idx
+	from post
+	where post_idx=#{idx}
  	</select>
  	
  	<select id="selectListByMemberIdx"

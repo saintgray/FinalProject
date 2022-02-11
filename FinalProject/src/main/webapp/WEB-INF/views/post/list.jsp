@@ -44,7 +44,7 @@
 						<td>${listInfo.post_idx}</td>
 						<td>${listInfo.cat_nm}</td>
 						<td>${listInfo.match_yn}</td>
-						<td><a href="view.do?idx=${listInfo.post_idx}">${listInfo.post_nm}</a>
+						<td><a href="view?idx=${listInfo.post_idx}">${listInfo.post_nm}</a>
 						</td>
 					</tr>
 				</c:forEach>

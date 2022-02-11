@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%-- <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> --%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,7 +29,23 @@
 
 <!-- 프로필 출력 -->
 <div>
-	
+프로필 정보가 출력될 영역입니다.
+
+<%-- <c:if test="${writerProfile ne null}">
+<table>
+<tr>
+	<td rowspan="2"><img src="${writerProfile.m_photo}"></td>
+	<td>${writerProfile.m_nm} / 활동지역정보</td>
+</tr>
+<tr>
+	<td colspan="2">${writerProfile.line}</td>
+</tr>
+</table>
+</c:if>
+
+<c:if test="${writerProfile eq null}">
+글쓴이의 프로필 정보가 없습니다.
+</c:if> --%>
 </div>
 
 <!-- 게시글 작성 -->
@@ -64,7 +81,7 @@
 <input type="file" name="attachFile" id="attachFile" multiple> 
 <br>
 
-<button type="reset">리셋</button> <button type="submit">작성</button> <button type="button" id="ajaxBtn">ajax로 작성</button>
+<button type="reset">리셋</button> <button type="button" id="ajaxBtn">작성</button>
 
 </form>
 
