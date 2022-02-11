@@ -1,16 +1,16 @@
-package com.alj.dream.post.service;
+package com.alj.dream.match.service;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.alj.dream.post.dao.PostDao;
-import com.alj.dream.post.domain.Chat;
+import com.alj.dream.match.dao.MatchDao;
+import com.alj.dream.match.domain.Chat;
 
 @Service
 public class ChatInsertService {
 
-	private PostDao dao;
+	private MatchDao dao;
 	@Autowired 
 	private SqlSessionTemplate template;
 	
@@ -20,7 +20,7 @@ public class ChatInsertService {
 		
 		int resultCnt = 0;
 		
-		dao = template.getMapper(PostDao.class);
+		dao = template.getMapper(MatchDao.class);
 		resultCnt = dao.insertChat(chat);
 		
 		return resultCnt;

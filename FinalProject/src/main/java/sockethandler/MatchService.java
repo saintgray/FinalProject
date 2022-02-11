@@ -5,16 +5,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
-import com.alj.dream.post.dao.PostDao;
-import com.alj.dream.post.domain.Chat;
-import com.alj.dream.post.domain.Match;
+import com.alj.dream.match.dao.MatchDao;
+import com.alj.dream.match.domain.Chat;
+import com.alj.dream.match.domain.Match;
 
 import security.AccountDetails;
 
 
 public class MatchService {
 	
-	private PostDao dao;
+	private MatchDao dao;
 	
 	
 	@Autowired

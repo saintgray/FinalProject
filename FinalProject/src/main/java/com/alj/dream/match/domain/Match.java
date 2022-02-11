@@ -1,4 +1,4 @@
-package com.alj.dream.post.domain;
+package com.alj.dream.match.domain;
 
 public class Match {
 
