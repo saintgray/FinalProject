@@ -106,7 +106,9 @@
 					<div class="banner flex-grow-1">
 						한줄 소개
 					</div>
-					<button id="editline" class="btn btn-general edit ms-auto" data-bs-toggle="modal" data-bs-target="#editarea">수정</button>
+					<c:if test="${m_idx eq profile.m_idx}">
+						<button id="editline" class="btn btn-general edit ms-auto" data-bs-toggle="modal" data-bs-target="#editarea">수정</button>
+					</c:if>
 				</div>
 				<span id="originline">${profile.line}</span>
 			</div>
@@ -118,7 +120,9 @@
 					<div class="banner flex-grow-1">
 						연락 가능 시간
 					</div>
-					<button id="editcalltime" class="btn btn-general edit ms-auto" data-bs-toggle="modal" data-bs-target="#editarea">수정</button>
+					<c:if test="${m_idx eq profile.m_idx}">
+						<button id="editcalltime" class="btn btn-general edit ms-auto" data-bs-toggle="modal" data-bs-target="#editarea">수정</button>
+					</c:if>
 				</div>
 				<span>${profile.calltime}</span>
 			</div>
@@ -131,7 +135,9 @@
 					<div class="banner flex-grow-1">
 						경력
 					</div>
-					<button id="editcareer" class="btn btn-general edit ms-auto" data-bs-toggle="modal" data-bs-target="#editarea">수정</button>			
+					<c:if test="${m_idx eq profile.m_idx}">
+						<button id="editcareer" class="btn btn-general edit ms-auto" data-bs-toggle="modal" data-bs-target="#editarea">수정</button>			
+					</c:if>
 				</div>
 				<div id="careerarea">
 					${profile.career}
@@ -153,7 +159,9 @@
 					<div class="banner flex-grow-1">
 						QNA
 					</div>
-					<button id="editqna" class="btn btn-general edit ms-auto" data-bs-toggle="modal" data-bs-target="#editarea">수정</button>
+					<c:if test="${m_idx eq profile.m_idx}">
+						<button id="editqna" class="btn btn-general edit ms-auto" data-bs-toggle="modal" data-bs-target="#editarea">수정</button>
+					</c:if>
 				</div>
 				<div id="qnaarea">
 					${profile.qna}
