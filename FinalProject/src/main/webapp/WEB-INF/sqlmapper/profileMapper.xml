@@ -44,7 +44,7 @@
 			</if>
 		</set>
 		
-		WHERE m_idx=#{m_idx} 
+		WHERE m_idx=#{m_idx} AND profile_deldate is null;
 	
 	</update>
 	
