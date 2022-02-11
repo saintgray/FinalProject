@@ -66,13 +66,44 @@ history.go(-1);
 <c:if test="${viewRequest.m_idx eq idx}">
 <tr>
 	<td><a href="${pageContext.request.contextPath}/post/edit?idx=${viewRequest.post_idx}">수정</a></td>
-	<td>삭제</td>
+	<td><a href="javascript:deletePost(${viewRequest.post_idx})">삭제</a></td>
 </tr>
 </c:if>
 
 </table>
 
 </div>
+
+<script>
+function deletePost(idx){
+	
+	if(confirm('글이 삭제됩니다. 계속 진행하시겠습니까?')){
+		
+		$.ajax({
+			url: '${pageContext.request.contextPath}/post/delete',
+			type: 'post',
+			data: {post_idx : idx},
+			success: function(data){
+				if(data==1){
+					alert('게시글이 삭제되었습니다.');
+					location.href="${pageContext.request.contextPath}/post/list";
+				} else {
+					console.log('삭제 실패');
+				}
+			},
+			error: function(){
+				console.log('비동기 통신 오류');
+			}
+		});
+		
+	}
+	
+}
+
+$(document).ready(function(){
+	
+});
+</script>
 
 </body>
 </html>
