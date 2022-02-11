@@ -1,4 +1,4 @@
-package com.alj.dream.post.service;
+package com.alj.dream.request.service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,15 +10,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
-import com.alj.dream.post.dao.PostDao;
-import com.alj.dream.post.domain.RequestGroup;
-import com.alj.dream.post.domain.RequestMember;
+import com.alj.dream.request.dao.RequestDao;
+import com.alj.dream.request.domain.RequestGroup;
+import com.alj.dream.request.domain.RequestMember;
 
 import security.AccountDetails;
 @Service
 public class RequestGroupService {
 	
-	private PostDao dao;
+	private RequestDao dao;
 	
 	@Autowired 
 	private SqlSessionTemplate template;
@@ -28,7 +28,7 @@ public class RequestGroupService {
 	// 받은 제의를 가져 올 메소드
 	public List<RequestGroup> getRequestGroup (Authentication auth){
 		
-		dao = template.getMapper(PostDao.class);
+		dao = template.getMapper(RequestDao.class);
 	
 		AccountDetails logininfo = (AccountDetails)auth.getPrincipal();
 		int midx = Integer.parseInt(logininfo.getM_idx());

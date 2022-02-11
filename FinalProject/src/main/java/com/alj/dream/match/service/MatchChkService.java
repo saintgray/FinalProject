@@ -1,22 +1,20 @@
-package com.alj.dream.post.service;
+package com.alj.dream.match.service;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
-import com.alj.dream.post.dao.PostDao;
-import com.alj.dream.post.domain.Match;
+import com.alj.dream.match.dao.MatchDao;
+import com.alj.dream.match.domain.Match;
 
-import security.AccountDetails;
-import sockethandler.MatchService;
+
 @Service
 public class MatchChkService {
 	// 게시글에서 문의하기를 누름>> ajax통신
 	// myidx,(나), midx(글쓴이), postidx, wanted를 넘겨받아 match테이블의 존재유무 확인.
 	// 없으면 match테이블 생성 후 결과 리턴
 	
-	private PostDao dao;
+	private MatchDao dao;
 	@Autowired 
 	private SqlSessionTemplate template;
 	
@@ -29,7 +27,7 @@ public int getMatch(int postidx, int midx, int myidx, String wanted) {
 		
 		System.out.println("MatchCheckService서비스 : checkMatch메소드 진입 성공");
 		
-		dao = template.getMapper(PostDao.class);
+		dao = template.getMapper(MatchDao.class);
 		
 		int menteeIdx = 0;
 		int mentorIdx = 0;

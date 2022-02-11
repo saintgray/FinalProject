@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <mapper namespace="com.alj.dream.request.dao.RequestDao">
+ 
+ 
+ 	<select id="selectTotalPost"
+		resultType="int">
+		select count(distinct p.post_idx)
+		from post p, category c, dream.match m
+		where p.m_idx=#{param1} and c.cat_idx=p.cat_idx and p.wanted=#{param2} and
+			m.post_idx=p.post_idx;
+	</select> 
+ 
+ 	<!-- 매칭테이블을 가지고있는 게시물 -->
+ 	<select id="selectRequestPostByMIdx" 
+ 		resultType="com.alj.dream.request.domain.RequestGroup">	
+ 		select distinct 
+ 			p.post_nm, 
+ 			p.post_idx, 
+ 			c.cat_nm, 
+ 			p.post_regdate
+		from 
+			post p join category c on  c.cat_idx=p.cat_idx, dream.match m 
+		where 
+			p.m_idx=#{param1} and p.wanted=#{param2} and m.post_idx=p.post_idx ;
+ 	</select>
+ 	
+ 	<select id="selectRequestPostByPostIdx" 
+ 		resultType="com.alj.dream.request.domain.RequestGroup">	
+ 		select distinct 
+ 			p.post_nm, 
+ 			p.post_idx, 
+ 			c.cat_nm, 
+ 			p.post_regdate,
+ 			p.wanted
+		from 
+			post p join category c on  c.cat_idx=p.cat_idx
+		where 
+			p.post_idx = #{idx};
+ 	</select>
+ 	
+ 	<!-- 매칭테이블을 가지고있는 회원 -->
+	<select id="selectRequestMemberByPostIdx"
+ 		resultType="com.alj.dream.request.domain.RequestMember">
+ 		select 
+ 			mem.m_photo, mem.m_idx, p.post_idx, mem.m_nm, pr.line, m.match_idx, m.match_yn, pr.line
+		from 
+			post p, category c, dream.match m, member mem, profile pr
+		where 
+			p.post_idx=#{idx}
+			and m.post_idx=p.post_idx 
+			and pr.m_idx=mem.m_idx and c.cat_idx=p.cat_idx and
+			
+			case when p.wanted like 'mentor' then
+			mem.m_idx=m.mentor_idx
+			when p.wanted like 'mentee' then
+			mem.m_idx=m.mentee_idx
+			end 	
+		order by m.match_idx;
+ 	</select> 
+ 
+ 	
+ </mapper>

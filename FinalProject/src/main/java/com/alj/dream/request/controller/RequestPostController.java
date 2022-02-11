@@ -1,4 +1,4 @@
-package com.alj.dream.post.controller;
+package com.alj.dream.request.controller;
 
 import javax.servlet.http.HttpSession;
 
@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.alj.dream.post.service.RequestPostService;
+import com.alj.dream.request.service.RequestPostService;
 
 @Controller
 public class RequestPostController {
