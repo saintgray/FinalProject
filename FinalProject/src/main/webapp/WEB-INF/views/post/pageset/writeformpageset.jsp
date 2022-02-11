@@ -8,9 +8,11 @@
 
 <script>
 
-/* function selectCategory(cat_idx){
+function selectCategory(idx){
 	
-	var interest = cat_idx;
+	var interest = idx;
+
+	console.log(interest);
 	
 	$.ajax({
 		url: '${pageContext.request.contextPath}/category/list',
@@ -20,7 +22,7 @@
 		success: function(data){
 			console.log(data.length);
 			
-			if(data.length>0){
+			/* if(data.length>0){
 				
 				
 			}
@@ -37,14 +39,30 @@
 			
 			console.log(html);
 			
-			$('#childCategory').html(html);
+			$('#category').html(html);
+			
+			
+			$(data).each(function(index, items){
+				console.log(items.cat_idx);
+				console.log(items.cat_nm);
+				
+				html+= '<div class="input-group justify-content-center my-4">\r\n';
+					html+= '<label for="interest'+items.cat_idx+'">\r\n';
+						html+='<img src="${pageContext.request.contextPath}/resources/files/server/icons/check_off.svg">\r\n';
+						html+='<span class="hidden">'+items.cat_idx+'</span>\r\n';
+						html+='<span>'+items.cat_nm+'</span>\r\n';
+					html+='</label>\r\n';
+					html+='<input type="checkbox" id="interest'+items.cat_idx+'" name="interest" class="interest hidden" value="'+items.cat_idx+'">\r\n';
+				html+='</div>\r\n'; */
+			
+			
 		},
 		error: function(data){
 			console.log(data);
 		}
 	});
 	
-} */
+}
 
 // 파일업로드 관련 : 용량 제한, 확장자 제한
 function checkExtension(fileName, fileSize){
@@ -114,28 +132,33 @@ $(document).ready(function(){
 
 		var post_nm = $('#post_nm').val();
 	    var content = $('#content').summernote('code');
+	    /* var cat_idx = $('#cat_idx').val(); */
 	    
 	    formData.set("post_nm", post_nm);
 	    formData.set("post_content", content);
+	    /* formData.set("cat_idx", cat_idx); */
 		
-/* 		key 확인하기
+ 		/* key 확인하기 */
 		for (let key of formData.keys()) {
 			   console.log(key);
 		}
 
-		value 확인하기
+		/* value 확인하기 */
 		for (let value of formData.values()) {
 		      console.log(value);
-		} */
+		}
 		
 		$.ajax({
 			url: '${pageContext.request.contextPath}/post/write',
 			type: 'post',
 			data: formData,
-			success: function(data){
-				if(data==1){
+			success: function(result){
+				
+				console.log(result);
+			
+				if(result.cnt==1){
 					alert('요청글을 등록하였습니다.');
-					location.href='${pageContext.request.contextPath}/post/list';
+					location.href='${pageContext.request.contextPath}/post/view?idx='+result.idx;
 				} else {
 					console.log('등록 실패');
 				}

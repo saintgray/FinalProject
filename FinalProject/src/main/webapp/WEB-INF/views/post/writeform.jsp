@@ -43,7 +43,8 @@
 <textarea name="post_content" id="content"></textarea> <br>
 
 <!-- 카테고리 인덱스 -->
-<select id="parentCategory" onchange="selectCategory(this.value)">
+<!-- <select id="category" onchange="selectCategory(this.value)"> -->
+<select id="category">
 	<option value="">선택</option>
 	<option value="1">음악</option>
 	<option value="2">미술</option>
@@ -51,7 +52,7 @@
 </select>
 
 <select id="childCategory" name="cat_idx">
-	<option value="19">실험용</option>
+	<option value="8">실험용</option>
 </select>
 
 <br>

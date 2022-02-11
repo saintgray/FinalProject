@@ -25,6 +25,10 @@ public class PostListView {
 		}
 	}
 
+	public int getTotalPageCount() {
+		return totalPageCount;
+	}
+
 	public int getTotalCount() {
 		return totalCount;
 	}
