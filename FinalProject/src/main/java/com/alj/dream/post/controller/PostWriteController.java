@@ -1,6 +1,8 @@
 package com.alj.dream.post.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,7 +27,9 @@ public class PostWriteController {
 	
 	@PostMapping("/post/write")
 	@ResponseBody
-	public int writePost(PostWriteRequest wRequest) {
+	public Map<String, Integer> writePost(PostWriteRequest wRequest) {
+		
+		Map<String, Integer> result = new HashMap<String, Integer>();
 		
 		int resultCnt = 0;
 		
@@ -36,7 +40,10 @@ public class PostWriteController {
 		List<MultipartFile> list = wRequest.getFileList();
 		System.out.println(list);
 		
-		return resultCnt;
+		result.put("cnt", resultCnt);
+		result.put("idx", wRequest.getPost_idx());
+		
+		return result;
 		
 		// return "redirect:/post/list";
 		// return "redirect:".concat(request.getContextPath().concat("/post/content?post_idx").concat(String.valueOf(wRequest.getPost_idx())));
