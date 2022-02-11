@@ -1,11 +1,16 @@
 package com.alj.dream.post.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alj.dream.post.domain.PostWriteRequest;
 import com.alj.dream.post.service.PostEditService;
@@ -18,25 +23,34 @@ public class PostEditController {
 	private PostEditService service;
 	
 	@GetMapping
-	public String getEditForm(int post_idx) {
+	public String getEditForm(@RequestParam("idx")int post_idx, Model model) {
 		
-		// PostViewRequest ... 
+		model.addAttribute("editRequest", service.getPost(post_idx));
 		
 		return "post/editform";
 	}
 	
 	@PostMapping
-	public String editPost(PostWriteRequest wRequest) {
+	@ResponseBody
+	public Map<String, Integer> editPost(PostWriteRequest wRequest) {		
 		
-		int resultCnt = service.editPost(wRequest);
+		System.out.println(wRequest);
 		
-		if(resultCnt==0) {
-			// 수정 실패 메시지
-			
-			
-		}
+		Map<String, Integer> result = new HashMap<String, Integer>();
 		
-		return "redirect:/post/view?idx="+wRequest.getPost_idx();
+		// 글 수정
+		result.put("cnt", service.editPost(wRequest));
+		
+		// 파일업로드 수정 처리
+		//List<MultipartFile> list = wRequest.getFileList();
+		//System.out.println(list);
+		
+		result.put("idx", wRequest.getPost_idx());
+		
+		System.out.println("cnt: " + result.get("cnt"));
+		System.out.println("idx: " + result.get("idx"));
+		
+		return result;
 		
 	}
 

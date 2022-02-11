@@ -14,6 +14,18 @@ public class PostEditService {
 	
 	@Autowired
 	private SqlSessionTemplate template;
+	
+	public PostWriteRequest getPost(int post_idx) {
+		dao = template.getMapper(PostDao.class);
+		
+		PostWriteRequest wRequest = dao.selectWriteRequestByPostIdx(post_idx);
+		
+		// 첨부파일리스트 추가하기
+		// List<MultipartFile> fileList = ;
+		// wRequest.setFileList(fileList);
+		
+		return wRequest;
+	}
 
 	public int editPost(PostWriteRequest wRequest) {
 		int resultCnt = 0;
