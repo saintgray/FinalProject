@@ -1,63 +1,194 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 
 <!-- include summernote css/js -->
-<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
+<link
+	href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css"
+	rel="stylesheet">
+<script
+	src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
 
 
 <script>
+let cat_idx;
 
 function selectCategory(){
 	
 	var interest = $('#categoryInfos option:selected');
 
-	console.log(interest);
+	console.log(interest.val());
 	
-	/* $.ajax({
+	$.ajax({
 		url: '${pageContext.request.contextPath}/category/list',
 		type: 'GET',
-		data: interest,
+		data: {interest : interest.val()},
 		datatype: 'json',
 		success: function(data){
 			console.log(data.length);
 			
 			if(data.length==0){
 				
+				// 현재 선택한 interest 값을 cat_idx 에 저장한다.
+				cat_idx = interest.val();
+				console.log(cat_idx);
+				
 			}else{
 			
-			var html="";
-			$(data).each(function(index, items){
-				console.log(items.cat_idx);
-				console.log(items.cat_nm);
+				var html="";
+				html += '<select id="cat1" onchange="selectCategory1(this.value)">\r\n';
+				html += '<option value="">분야 선택</option>\r\n';
+				$(data).each(function(index, items){
+					console.log(items.cat_idx);
+					console.log(items.cat_nm);
+					
+					html += '<option value="'+items.cat_idx+'">'+items.cat_nm+'</option>';
 				
-				html += '<select>\r\n';
-				
+				})
 				html += '</select>\r\n';
 				
-				html+= '<div class="input-group justify-content-center my-4">\r\n';
-					html+= '<label for="interest'+items.cat_idx+'">\r\n';
-						html+='<img src="${pageContext.request.contextPath}/resources/files/server/icons/check_off.svg">\r\n';
-						html+='<span class="hidden">'+items.cat_idx+'</span>\r\n';
-						html+='<span>'+items.cat_nm+'</span>\r\n';
-					html+='</label>\r\n';
-					html+='<input type="checkbox" id="interest'+items.cat_idx+'" name="interest" class="interest hidden" value="'+items.cat_idx+'">\r\n';
-				html+='</div>\r\n';
+				$('#categoryInfos').append(html);
+				console.log(html);
 			
-			
-			
-			
-			})
-			
-				$('#interestInfos').html(html);
-				$('#loading').remove();
 			}
 			
 		},
 		error: function(data){
 			console.log(data);
 		}
-	}); */
+	});
+	
+}
+
+function selectCategory1(interest){
+	
+	var interest = interest;
+
+	console.log(interest);
+	
+	$.ajax({
+		url: '${pageContext.request.contextPath}/category/list',
+		type: 'GET',
+		data: {interest : interest},
+		datatype: 'json',
+		success: function(data){
+			console.log(data.length);
+			
+			if(data.length==0){
+				
+				// 현재 선택한 interest 값을 cat_idx 에 저장한다.
+				cat_idx = interest;
+				console.log(cat_idx);
+				
+			}else{
+			
+				var html="";
+				html += '<select id="cat2" onchange="selectCategory2(this.value)">\r\n';
+				html += '<option value="">하위분야 선택</option>\r\n';
+				$(data).each(function(index, items){
+					console.log(items.cat_idx);
+					console.log(items.cat_nm);
+					
+					html += '<option value="'+items.cat_idx+'">'+items.cat_nm+'</option>';
+				
+				})
+				html += '</select>\r\n';
+				
+				$('#categoryInfos').append(html);
+				console.log(html);
+				
+				/* if($('#cat2')!=null){
+					$('#cat2').html(html);
+				} else{
+					$('#cat1').after(html);
+					console.log(html);
+				} */
+				
+			}
+			
+		},
+		error: function(data){
+			console.log(data);
+		}
+	});
+	
+}
+
+function selectCategory2(interest){
+	
+	var interest = interest;
+
+	console.log(interest);
+	
+	$.ajax({
+		url: '${pageContext.request.contextPath}/category/list',
+		type: 'GET',
+		data: {interest : interest},
+		datatype: 'json',
+		success: function(data){
+			console.log(data.length);
+			
+			if(data.length==0){
+				
+				// 현재 선택한 interest 값을 cat_idx 에 저장한다.
+				cat_idx = interest;
+				console.log(cat_idx);
+				
+			}else{
+			
+				var html="";
+				html += '<select id="cat3" onchange="selectCategory3(this.value)">\r\n';
+				html += '<option value="">하위분야 선택</option>\r\n';
+				$(data).each(function(index, items){
+					console.log(items.cat_idx);
+					console.log(items.cat_nm);
+					
+					html += '<option value="'+items.cat_idx+'">'+items.cat_nm+'</option>';
+				
+				})
+				html += '</select>\r\n';
+				
+				$('#categoryInfos').append(html);
+				console.log(html);
+				
+				/* if($('#cat3')!=null){
+					$('#cat3').html(html);
+				} else{
+					$('#cat2').after(html);
+					console.log(html);
+				} */
+			}
+			
+		},
+		error: function(data){
+			console.log(data);
+		}
+	});
+	
+}
+
+function selectCategory3(interest){
+	
+	var interest = interest;
+
+	console.log(interest);
+	
+	$.ajax({
+		url: '${pageContext.request.contextPath}/category/list',
+		type: 'GET',
+		data: {interest : interest},
+		datatype: 'json',
+		success: function(data){
+			console.log(data.length);
+			
+			// 현재 선택한 interest 값을 cat_idx 에 저장한다.
+			cat_idx = interest;
+			console.log(cat_idx);	
+			
+		},
+		error: function(data){
+			console.log(data);
+		}
+	});
 	
 }
 
@@ -102,7 +233,9 @@ $(document).ready(function(){
          placeholder: '내용을 입력하세요.'
          
 
-	});	
+	});
+	
+	selectCategory();
         
     var formData = new FormData(document.getElementById('writePost'));
     
@@ -130,7 +263,7 @@ $(document).ready(function(){
 
 		var post_nm = $('#post_nm').val();
 	    var content = $('#content').summernote('code');
-	    var cat_idx = $('#cat_idx').val();
+	    /* var cat_idx = $('#cat_idx').val(); */
 	    
 	    formData.set("post_nm", post_nm);
 	    formData.set("post_content", content);
