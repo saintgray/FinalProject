@@ -2,9 +2,8 @@
 
  	#headerwrap {
       width: 80%;
-      margin: 10px auto;
-      height:10%;
-      
+      margin: 0px auto;
+      padding-top: 10px;
     }
 
     ul li span {
@@ -95,7 +94,9 @@
     }
 
     #logo,
-    #subnav .inner, .sub {
+    #subnav .inner, 
+    .sub,
+    #myinfo {
       cursor: pointer;
     }
 

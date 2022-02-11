@@ -30,7 +30,7 @@ public class PostListController {
 		String wanted = logininfo.getM_type()=="mentor"?"mentee":"mentor";
 		
 		model.addAttribute("logininfo", logininfo);
-		model.addAttribute("listView", listService.getPage(m_idx, wanted, pageNum));
+		model.addAttribute("listView", listService.getMyPostList(m_idx, wanted, pageNum));
 		
 		return "post/list";
 	}

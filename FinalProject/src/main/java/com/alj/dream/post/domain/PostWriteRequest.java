@@ -2,6 +2,8 @@ package com.alj.dream.post.domain;
 
 import java.util.List;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class PostWriteRequest {
 	
 	private int post_idx;
@@ -10,12 +12,21 @@ public class PostWriteRequest {
 	private int cat_idx;
 	private String wanted;
 	private String m_idx;
-	private List<PostFileRequest> fileList;
+	private List<MultipartFile> fileList;
 	
 	public PostWriteRequest() {}
 
+	public PostWriteRequest(int post_idx, String post_nm, String post_content, int cat_idx, String wanted, String m_idx) {
+		this.post_idx = post_idx;
+		this.post_nm = post_nm;
+		this.post_content = post_content;
+		this.cat_idx = cat_idx;
+		this.wanted = wanted;
+		this.m_idx = m_idx;
+	}
+	
 	public PostWriteRequest(int post_idx, String post_nm, String post_content, int cat_idx, String wanted, String m_idx,
-			List<PostFileRequest> fileList) {
+			List<MultipartFile> fileList) {
 		this.post_idx = post_idx;
 		this.post_nm = post_nm;
 		this.post_content = post_content;
@@ -73,11 +84,11 @@ public class PostWriteRequest {
 		this.m_idx = m_idx;
 	}
 
-	public List<PostFileRequest> getFileList() {
+	public List<MultipartFile> getFileList() {
 		return fileList;
 	}
 
-	public void setFileList(List<PostFileRequest> fileList) {
+	public void setFileList(List<MultipartFile> fileList) {
 		this.fileList = fileList;
 	}
 

@@ -1,10 +1,15 @@
 @charset "UTF-8";
 
+		footer{
+			
+		  
+		    box-shadow: 0 -4px 5px rgb(59 59 59 / 10%);
+		}
+
         #footerwrap{
             background-color: rgb(240,240,240);
-            padding: 10px;
-            margin-top: 10px;
-            box-shadow: 0 -4px 5px rgb(59 59 59 / 10%);
+            
+           
             
 
         }
@@ -33,5 +38,8 @@
 				  
 				   margin: 24px auto;
    				}
+   				
+   				
+   				
    				
    		}

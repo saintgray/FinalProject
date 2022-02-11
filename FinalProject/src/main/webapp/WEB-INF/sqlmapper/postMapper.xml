@@ -89,7 +89,9 @@
  	</insert>
  	
  <!-- 작성자 : 김지현 -->
+
  <insert id="insertPost"
+
  			parameterType="com.alj.dream.post.domain.PostWriteRequest"
 			useGeneratedKeys="true"
 			keyProperty="post_idx">

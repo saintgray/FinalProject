@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ 
+<mapper namespace="com.alj.dream.report.dao.ReportDao">
+ 
+ 
+ 
+ <select id="getReportListByIdx" resultType="com.alj.dream.report.domain.ReportInfo">
+	 SELECT mem.m_nm, rep.report_content, ch.message
+	 FROM member mem JOIN report rep JOIN chat ch
+	 ON 
+	 mem.m_idx=rep.m_report AND rep.chat_idx=ch.chat_idx
+	 WHERE rep.m_reported=#{arg0};
+ </select>
+</mapper>

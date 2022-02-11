@@ -4,8 +4,14 @@
 		padding: 0;
 		height:100%;
 	}
+	
+	/* footer 를 제외한 모든 contents 를 감싸는 영역   */
+	/* 컨텐츠가 화면보다 작던 길던(내용이 짧던 많던) footer는 최하단에 고정된다*/
 	.gw{
-		height:100%;
+		min-height:100%;
+		height:auto;
+		margin-bottom:-91px;
+		padding-bottom: 91px;
 	}
 
     ul {
@@ -66,7 +72,8 @@
   	text-decoration: underline;
   	color: black;
   }
- 
+  
+
   
  /* Scrollbar style */
  ::-webkit-scrollbar {

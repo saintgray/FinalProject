@@ -11,6 +11,7 @@ import com.alj.dream.post.domain.PostViewRequest;
 import com.alj.dream.post.domain.PostWriteRequest;
 import com.alj.dream.post.domain.RequestGroup;
 import com.alj.dream.post.domain.RequestMember;
+import com.alj.dream.post.domain.SearchParams;
 
 public interface PostDao {
 
@@ -31,8 +32,9 @@ public interface PostDao {
 	
 	public int insertChat(Chat chat);
 	
-	// 작성자 : 김지현
+
 int insertPost(PostWriteRequest wRequest);
+
 	
 	int updatePost(PostWriteRequest wRequest);
 	

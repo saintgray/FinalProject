@@ -16,10 +16,7 @@ public class NoticeListService {
 	
 	@Autowired
 	private SqlSessionTemplate sst;
-	
-	public void myMethod() {
-		System.out.println("noticelistservice 의 메소드입니다");
-	}
+
 	
 	public NoticePageView getNoticeList(PageRequest pagereq){
 		int selectPage= Integer.parseInt(pagereq.getSelectPage());

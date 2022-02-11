@@ -2,8 +2,8 @@
     pageEncoding="UTF-8"%>
 <script>
 	
-
 	$(document).ready(function(){
+		
 		
 		
 		$('#plus_icon').on('click',function(){
@@ -11,31 +11,37 @@
 			location.href="${pageContext.request.contextPath}/member/profile/register"
 		})       
 		
+		
 		$('#delProfile').on('click',function(){
-			if(confirm('정말로 내 프로필을 삭제하시겠습니까?')){
-				// 프로필 삭제 ${profile.profile_idx}에 해당하는 프로필 데이터의 profile_deldate 를 DB 시간으로 update
-				var profile_idx={profile_idx:${profile.profile_idx}}
-				
-				$.ajax({
+			<c:if test="${not empty profile}">
+				if(confirm('정말로 내 프로필을 삭제하시겠습니까?')){
 					
-					url: 'delete',
-					type: 'POST',
-					data: profile_idx,
-					success: function(data){
-						if(data==1){
-							alert('정상적으로 삭제되었습니다');
-							location.href="${pageContext.request.contextPath}/member/profile/main";
+					// 프로필 삭제 :  profile_deldate 를 DB 시간으로 update
+					
+					var profile_idx={profile_idx:${profile.profile_idx}}
+					
+					$.ajax({
+						
+						url: 'delete',
+						type: 'POST',
+						data: profile_idx,
+						success: function(data){
+							if(data==1){
+								alert('정상적으로 삭제되었습니다');
+								location.href="${pageContext.request.contextPath}/member/profile/main";
+							}
+						},
+						
+						error: function(data){
+							console.log('에러발생');
+							console.log(data);
 						}
-					},
-					error: function(data){
-						console.log('에러발생');
-						console.log(data);
-					}
+						
+					})
 					
-				})
-				
-			}
-			
+				}
+			</c:if>
+					
 		})
 		
 		$('#close-modal').on('click',function(){
@@ -66,11 +72,7 @@
 				var data={line:$('.modal-body #editline').val()}
 				//var url='${pageContext.request.contextPath}/member/profile/edit/line'
 				editProfile(data);
-				
-				
-				
-				
-				
+	
 			}
 		
 			
@@ -129,10 +131,9 @@
 			$('.modal-title').text('경력');
 			var html='';
 			html+='<div class="d-flex flex-column mb-5">\r\n';
-				
-				html+='<div id="editcareerarea">\r\n';
-					html+='${profile.career}\r\n';
-				html+='</div>\r\n';
+				html+='<div id="editcareerarea">\r\n';			
+					html+=$('#careerarea').html();
+				html+='\r\n</div>\r\n';
 			html+='</div>\r\n';
 			$('.modal-body').html(html);
 			$('#editcareerarea').summernote({
@@ -171,7 +172,6 @@
 			
 		})
 		
-		
 		$('#editqna').on('click',function(){
 			
 			$('.modal-title').text('QNA');
@@ -200,7 +200,8 @@
 		        	 theme: 'monokai'
 		         },
 		         lang: 'ko-KR',
-		         placeholder: '화려한 나의 경력을 작성해주세요'		
+		         placeholder: 'QNA 작성'
+		
 			})
 			$('.modal-footer .editbtn').attr('id','editqnabtn');	
 	
@@ -218,9 +219,70 @@
 			
 		})
 		
+		// DELETE ATTACH FILES
+		/////////////////////////////////
+		$('#attachedFilesWrap .delRow').on('click',function(){
+			
+			if(confirm('정말로 삭제하시겠습니까?')){
+				deleteFile($(this).siblings('.fileName').text());	
+			}	
+		})
+		
+		// ADD FILES
+		$('#addfiles').on('change',function(e){
+			
+			
+			var files= e.target.files
+			console.log(files.length);
+			var formData=new FormData();
+			
+			formData.append('profile_idx',${profile.profile_idx})
+			$(files).each(function(index, items){
+				console.log(items);
+				
+				formData.append('files['+index+']',items);
+			})
+			
+			
+			// 파일 업로드
+		 	 $.ajax({
+				url:'${pageContext.request.contextPath}/member/profile/uploadfiles',
+				type:'POST',
+				enctype:'multipart/form-data',
+				processData:false,
+				cash:false,
+				contentType:false,
+				data:formData,
+				success:function(data){
+					if(data==files.length){
+						location.href='${pageContext.request.contextPath}/member/profile/main';
+						
+					}else{
+						alert('잠시 후 다시 시도해주세요');
+					}
+				},
+				error:function(data){
+					console.log('통신실패');
+					console.log(data);
+				}
+				
+				
+			})
+			
+		})
+		
 		
 		
 	})
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 
 	function editProfile(data, url){
@@ -235,7 +297,8 @@
 					console.log(data);
 					alert('수정되었습니다');
 					// 정상적으로 수정할 시 close 버튼 클릭 이벤트를 강제실행한다.
-					$('#close-modal').trigger('click');	
+					$('#close-modal').trigger('click');
+					location.href="${pageContext.request.contextPath}/member/profile/main";
 				}else{
 					alert('일시적인 오류가 발생하였습니다. 잠시 후 다시 시도하세요');
 				}
@@ -250,14 +313,29 @@
 		
 	}
 	
-	/* 
+	
 	function deleteFile(file_nm){
-		
+		console.log(file_nm);
 		$.ajax({
 			
-			url:
+			url:'${pageContext.request.contextPath}/member/profile/deletefile',
+			type:'POST',
+			data:{file_nm: file_nm},
+			success:function(data){
+				console.log('통신성공');
+				if(data==1){
+					console.log('정상적으로 삭제되었습니다.');
+				}else{
+					console.log('오류가 발생헀습니다. 잠시 후 다시 시도하세요');
+				}
+			},
+			error:function(data){
+				console.log('통신실패');
+				console.log('오류가 발생헀습니다. 잠시 후 다시 시도하세요');
+			}
 			
 		})
 		
-	} */
+		
+	} 
 </script>
