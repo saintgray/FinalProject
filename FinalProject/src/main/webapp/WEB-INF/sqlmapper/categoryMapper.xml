@@ -6,15 +6,37 @@
  <mapper namespace="com.alj.dream.category.dao.CategoryDao">
  
  
- 	<select id="getChildCategory" resultType="com.alj.dream.category.domain.ChildCategory">
+ 	<!-- <select id="getChildCategory" resultType="com.alj.dream.category.domain.ChildCategory">
 		SELECT child.cat_idx, child.cat_nm FROM category parent JOIN category child ON parent.cat_nm=child.cat_type WHERE parent.cat_idx IN
 	    <foreach collection="list" item="cat_idx" open="(" close=")" separator=",">
 	        #{cat_idx}
 	    </foreach>
+	</select> -->
+	
+	
+	<select id="getChildCategory" resultType="com.alj.dream.category.domain.ChildCategory">
+	
+	
+		SELECT child.cat_idx, child.cat_nm,  (SELECT count(*) from category cp JOIN category cc 
+											  ON cp.cat_nm=cc.cat_type 
+											  WHERE cp.cat_nm=child.cat_nm) AS childNodeCount
+											  
+		FROM category parent JOIN category child 
+		ON parent.cat_nm=child.cat_type
+		
+		WHERE parent.cat_idx
+		<if test="arg0==null">
+			=(SELECT cat_idx FROM category WHERE cat_nm='취미')
+		</if>
+		<if test="arg0!=null">
+			IN
+			<foreach collection="list" item="cat_idx" open="(" close=")" separator=",">
+				#{cat_idx}
+			</foreach>
+		</if>
+		
 	</select>
 	
-	<select id="getCategoryIdxByName" resultType="String">
-		select cat_idx FROM category WHERE cat_nm=#{arg0} 
-	</select>
+	
  </mapper>
  

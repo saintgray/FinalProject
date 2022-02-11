@@ -5,10 +5,10 @@
  
  <mapper namespace="com.alj.dream.interest.dao.InterestDao">
  
- 	<insert id="registerUserInterest" parameterType="java.util.List">
+ 	<insert id="registerUserInterest">
  		INSERT INTO interestcat(m_idx, cat_idx) VALUES
- 		<foreach collection="list" separator="," item="interest">
- 			(#{interest.m_idx},#{interest.cat_idx})
+ 		<foreach collection="arg0" separator="," item="cat_idx">
+ 			(#{arg1},#{cat_idx})
  		</foreach>
  	
  	</insert>

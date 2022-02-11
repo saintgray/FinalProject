@@ -8,7 +8,7 @@ import com.alj.dream.interest.domain.Interest;
 
 public interface InterestDao {
 	
-	int registerUserInterest(List<Interest> interest);
+	int registerUserInterest(List<String> interest, String principal_idx);
 	List<ChildCategory> getUserInterest(String principal_idx);
 	int deleteAllInterest(String m_idx);
 

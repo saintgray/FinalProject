@@ -192,23 +192,27 @@
 			
 			
 			$('.modal-footer').on('click','#next',function(){
-				
-
-				$('#interestInfos input[name=interest]:checked').each(function(index, item){
-					
-					var interest={
-							m_idx:${principal_idx},
-							cat_idx:$(item).val()
-					}
-					interestArr.push(interest);
-				})
-				console.log(interestArr);
-				
-				
-				
+			
 				if($('#interestInfos input[name=interest]:checked').length==0){
 					$('#interestInfos').after('<div id="msgarea" class="text-center"><span>1개 이상의 관심분야를 선택해주세요</span></div>');
 				}else{
+					
+					$('#interestInfos input[name=interest]:checked').each(function(index, item){
+						
+						if($(item).siblings('.childNodesCount').text()==0){
+							
+							/* var interest={
+									m_idx:${principal_idx},
+									cat_idx:$(item).val()
+							} */
+							
+							interestArr.push($(item).val());
+						}	
+						
+					})
+					console.log('배열요소를 출력합니다. 선택한 카테고리의 자식노드가 없을 때만 추가됩니다.');
+					console.log(interestArr);
+					
 					getCategoryList();	
 				}
 			
@@ -257,12 +261,12 @@
 			datatype:"json",
 			success: function(data){
 				console.log(data.length);
-				// 더 이상의 자식 노드가 없다면 기본정보 입력란을 보여준다.(아직 작업중) / 작업완료
+				// 더 이상의 자식 노드가 없다면 회원의 관심사를 수정한다.
 				if(data.length==0){
-					// 기본정보에 지역입력을 위해 서버에서 지역 리스트를 가져와 지역 영역에 출력
+					
 					editCategory(interestArr);
 					
-					alert('카테고리 선택 완료!!');
+					
 				}else{
 				//////////////////////////////////////////
 				// 노드가 있다면 추가 선택을 한다.
@@ -276,6 +280,7 @@
 							html+='<span class="hidden">'+items.cat_idx+'</span>\r\n';
 							html+='<span>'+items.cat_nm+'</span>\r\n';
 						html+='</label>\r\n';
+						html+='<span class="childNodesCount" style="color:red">'+items.childNodeCount+'</span>\r\n';
 						html+='<input type="checkbox" id="interest'+items.cat_idx+'" name="interest" class="interest hidden" value="'+items.cat_idx+'">\r\n';
 					html+='</div>\r\n';
 				
@@ -309,7 +314,7 @@
 				console.log('통신완료');
 				
 				if(data>0){
-					console.log('등록이 완료되었습니다');
+					alert('등록이 완료되었습니다');
 					location.href='${pageContext.request.contextPath}/member/myinfo';
 				}
 			},

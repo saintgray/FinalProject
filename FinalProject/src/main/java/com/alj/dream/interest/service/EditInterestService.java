@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.alj.dream.category.dao.CategoryDao;
+import com.alj.dream.category.domain.CategoryRequested;
 import com.alj.dream.interest.dao.InterestDao;
 import com.alj.dream.interest.domain.Interest;
 
@@ -27,17 +29,18 @@ public class EditInterestService {
 
 
 	@Transactional
-	public int editInterest(String m_idx,List<Interest> interest) {
+	public int editInterest(String principal_idx,List<String> interest) {
 		
 		int result=0;
 		
 		
 		// 1. DB에 있는 이 회원의 관심분야를 모두 지운다.
-		sst.getMapper(InterestDao.class).deleteAllInterest(m_idx);
+		sst.getMapper(InterestDao.class).deleteAllInterest(principal_idx);
 		
 		
 		// 2. 새로 선택한 관심분야를 DB에 추가한다.
-		result=sst.getMapper(InterestDao.class).registerUserInterest(interest);
+		
+		result=sst.getMapper(InterestDao.class).registerUserInterest(interest, principal_idx);
 		
 		
 		
