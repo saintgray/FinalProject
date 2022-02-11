@@ -64,17 +64,6 @@
 
 				<!-- 카테고리 인덱스 -->
 				<div id="categoryInfos">
-					<!-- <select id="parentCategory" onchange="selectCategory(this.value)"> -->
-					<select id="parentCategory">
-						<option value="">선택</option>
-						<option value="1">음악</option>
-						<option value="2">미술</option>
-						<option value="3">요리</option>
-					</select>
-					<select name="cat_idx" id="cat_idx">
-						<option value="8">기타</option>
-						<option value="9">드럼</option>
-					</select>
 				</div>
 
 				<input type="hidden" name="wanted" value="${type eq 'mentor'?'mentee':'mentor'}">
