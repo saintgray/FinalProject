@@ -53,6 +53,15 @@
  	
  	</select>
  	
+ 	<!-- member의 idx로 멤버 정보 반환 -->
+ 	<select id="selectByIdx" resultType="com.alj.dream.member.domain.MyInfo">
+		SELECT m_email, m_nm, m_photo, date_format(m_regdate,'%Y년 %m월 %d일') as m_regdate from dream.member where m_idx=#{m_idx}
+	</select>
+ 	
+ 	
+ 	
+ 	
+ 	
  	
  </mapper>
  
