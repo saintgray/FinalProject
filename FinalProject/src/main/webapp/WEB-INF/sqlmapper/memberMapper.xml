@@ -57,6 +57,27 @@
  	<select id="selectByIdx" resultType="com.alj.dream.member.domain.MyInfo">
 		SELECT m_email, m_nm, m_photo, date_format(m_regdate,'%Y년 %m월 %d일') as m_regdate from dream.member where m_idx=#{m_idx}
 	</select>
+	
+	<!-- member 의 정보 수정 -->
+	<update id="editMember">
+	
+		UPDATE member
+		SET
+		<if test="m_nm!=null">
+			m_nm=#{m_nm}
+		</if>
+		<if test="photo!=null">
+			m_photo=#{m_photo}
+		</if>
+		<if test="m_password!=null">
+			m_password=#{m_password}
+		</if>
+		
+		WHERE m_idx=#{m_idx}
+		
+	
+	</update>
+	
  	
  	
  	
