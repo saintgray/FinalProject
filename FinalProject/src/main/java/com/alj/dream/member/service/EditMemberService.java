@@ -68,6 +68,9 @@ public class EditMemberService {
 			
 			
 		}
+		if(info.getM_password()!=null) {
+			info.setM_password(encoder.encode(info.getM_password()));
+		}
 		
 		
 		try {
