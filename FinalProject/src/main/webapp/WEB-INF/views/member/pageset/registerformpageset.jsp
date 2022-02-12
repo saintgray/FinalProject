@@ -174,7 +174,7 @@
 			
 		})
 		
-		
+	//123	
 		$('#interestInfos').on('change','.interest',function(){
 			
 			var checkbox_img=$(this).siblings('label').children('img');
@@ -182,9 +182,14 @@
 			if($(this).prop('checked')){
 				$('#msgarea').remove();
 				$(checkbox_img).attr('src','${pageContext.request.contextPath}/resources/files/server/icons/check_on.svg');
-				$('#userinterestselect').append($('<input type="checkbox" name="interest" class="interest" value="'+$(this).val()+'">\r\n'));
+				
+				// 해당 자식 노드의 수가 없는 항목 (=Leaf 인 항목들) 만 유저의 관심사에 추가한다.
+				if($(this).siblings('.cnc').text()==0){
+					$('#userinterestselect').append($('<input type="checkbox" name="interest" class="interest" value="'+$(this).val()+'">\r\n'));
+				}
 				
 			}else{	
+				
 				
 				$(checkbox_img).attr('src','${pageContext.request.contextPath}/resources/files/server/icons/check_off.svg');
 				$('#userinterestselect input[value='+$(this).val()+']').remove();
@@ -355,12 +360,15 @@
 					console.log(items.cat_idx);
 					console.log(items.cat_nm);
 					
+					
+					
 					html+= '<div class="input-group justify-content-center my-4">\r\n';
 						html+= '<label for="interest'+items.cat_idx+'">\r\n';
 							html+='<img src="${pageContext.request.contextPath}/resources/files/server/icons/check_off.svg">\r\n';
 							html+='<span class="hidden">'+items.cat_idx+'</span>\r\n';
 							html+='<span>'+items.cat_nm+'</span>\r\n';
 						html+='</label>\r\n';
+						html+='<span style="color:red" class="cnc hidden">'+items.childNodeCount+'</span>'
 						html+='<input type="checkbox" id="interest'+items.cat_idx+'" name="interest" class="interest hidden" value="'+items.cat_idx+'">\r\n';
 					html+='</div>\r\n';
 				

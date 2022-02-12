@@ -28,21 +28,25 @@
 	}
 	
 	#cameraicon{
-		position: absolute;
+	    position: absolute;
 	    right: 20px;
-	    bottom: 0;
-		cursor: pointer;
+	    bottom: 5px;
+	    cursor: pointer;
 	}
 	
 	.fi-rr-camera:before {
 	    content: "\f177";
 	    font-size: 25px;
+	    background-color: white;
+	    padding: 7px;
+	    border-radius: 15px 0 15px 0;
+	    border: 2px solid rgba(59,59,59,0.1);
 	}
 	#interestarea{
 		min-height: 100px;
 		background-color: rgb(197,197,197);
 		border-radius: 15px;
-		min-width: 400px;
+		max-width: 600px;
 		
 	}
 	#addCat{
@@ -104,7 +108,11 @@
 					<div class="mx-3 d-flex flex-column justify-content-around">
 						<div>
 							<h3 class="fw-light fs-4">${info.m_email}</h3>
-							<h3 class="fw-normal fs-4">${info.m_nm}<i class="fi fi-rr-pencil"></i></h3>
+							
+							<div id="namearea" class="d-flex flex-wrap input-group mb-3">
+								<h3 class="fw-normal fs-4">${info.m_nm}<i class="fi fi-rr-pencil" id="editnameicon"></i></h3>
+							</div>
+							
 							<h3 class="fw-normal fs-6 text-end" style="color:rgb(195,195,195)">가입일 : ${info.m_regdate}</h3>
 						</div>
 					</div>
@@ -113,9 +121,9 @@
 				</div>
 				
 				
-				<div class="my-4 d-flex flex-wrap justify-content-center">
-				
-					<div id="interestarea">
+				<div class="my-4 d-flex flex-wrap flex-column justify-content-center container"  id="interestarea">
+					
+					<div>
 						<!--  test -->
 						<c:if test="${empty info.list}">
 							<h3 class="text-center fw-normal fs-3 pt-2">관심분야가 없습니다</h3>
@@ -123,9 +131,19 @@
 							
 						</c:if>
 						<c:if test="${not empty info.list}">
-							<c:forEach var="item" items="${info.list}">
-								<h3>${item.cat_idx} : ${item.cat_nm}</h3>
-							</c:forEach>
+							<div class="d-flex flex-wrap flex-wrap">
+								<div class="d-flex flex-wrap flex-grow-1">
+									
+									<c:forEach var="item" items="${info.list}">
+										<span class="cidx fs-6 mx-2 d-none">${item.cat_idx}</span>
+										<span class="cnm fs-6 mx-2">${item.cat_nm}</span>										
+									
+									</c:forEach>
+								</div>
+								<div id="editinteresticon" class="pe-2">
+									<i class="fi fi-rr-pencil"  data-bs-toggle="modal" data-bs-target="#modal-cat"></i>
+								</div>
+							</div>
 						</c:if>	
 					</div>		
 			
@@ -181,7 +199,7 @@
 
 	$(document).ready(function(){
 			
-			$('#addCat').on('click',function(){
+			$('#addCat, #editinteresticon').on('click',function(){
 				
 					
 					
@@ -242,6 +260,63 @@
 				
 				
 			})
+			
+			$('#editphoto').on('change',function(e){
+				var reader = new FileReader();
+				
+				reader.readAsDataURL(e.target.files[0]);
+				
+				
+				$(reader).on('load',function(e){
+					
+					
+					
+					$('#myprofile').attr('src',e.target.result);
+					
+					setTimeout(function(){
+						if(confirm('프로필 사진을 수정하시겠습니까?')){
+							// aJax codes
+							var formData=new FormData();
+							formData.append('photo',$('#editphoto')[0].files[0]);
+							editInfo(formData);
+							/////////////
+						}else{
+								$('#myprofile').attr('src','${pageContext.request.contextPath}/resources/files/member/defaultprofile.png');
+								$('#editprofile').val('');
+						}
+					},200);
+					
+					
+				})
+				
+				
+			})
+			
+			
+			$('#namearea').on('click','#editnameicon',function(){
+				var html='';
+				html+='<input type="text" class="form-control" placeholder="별명" id="nameinput" value="${info.m_nm}">\r\n';
+				html+='<button type="button" class="btn btn-grey ms-1" id="editiconbtn">수정</button>\r\n';
+				html+='<button type="button" class="btn btn-danger" id="canceleditnamebtn">취소</button>\r\n';
+				$('#namearea').html(html);	
+			})
+			
+			$('#namearea').on('click','#editiconbtn',function(){
+				// 별명 수정 ajax 
+				
+				if(confirm('정말로 수정하시겠습니까?')){
+					console.log($('#nameinput').val());
+					var formData= new FormData();
+					formData.append('m_nm',$('#nameinput').val());
+					editInfo(formData);
+				}
+				
+			})
+			
+			$('#namearea').on('click','#canceleditnamebtn',function(){
+				$('#namearea').html('<h3 class="fw-normal fs-4">${info.m_nm}<i class="fi fi-rr-pencil" id="editnameicon"></i></h3>\r\n');
+				
+			})
 		
 		
 	})
@@ -277,11 +352,11 @@
 					html+= '<div class="input-group justify-content-center my-4">\r\n';
 						html+= '<label for="interest'+items.cat_idx+'">\r\n';
 							html+='<img src="${pageContext.request.contextPath}/resources/files/server/icons/check_off.svg">\r\n';
-							html+='<span class="hidden">'+items.cat_idx+'</span>\r\n';
+							html+='<span class="d-none">'+items.cat_idx+'</span>\r\n';
 							html+='<span>'+items.cat_nm+'</span>\r\n';
 						html+='</label>\r\n';
-						html+='<span class="childNodesCount" style="color:red">'+items.childNodeCount+'</span>\r\n';
-						html+='<input type="checkbox" id="interest'+items.cat_idx+'" name="interest" class="interest hidden" value="'+items.cat_idx+'">\r\n';
+						html+='<span class="childNodesCount d-none" style="color:red">'+items.childNodeCount+'</span>\r\n';
+						html+='<input type="checkbox" id="interest'+items.cat_idx+'" name="interest" class="interest d-none" value="'+items.cat_idx+'">\r\n';
 					html+='</div>\r\n';
 				
 				
@@ -325,6 +400,32 @@
 		})
 		
 	}
+	
+	function editInfo(data){
+		
+		$.ajax({
+			url:'${pageContext.request.contextPath}/member/info/edit',
+			type:'POST',
+			data:data,
+			contentType:false,
+			processData:false,
+			cash:false,
+			enctype:'multipart/form-data',
+			success:function(data){
+				console.log('통신성공');
+				
+			},
+			error:function(data){
+				
+				console.log('통신실패');
+				
+			}
+		})
+		
+	}
+	
+	
+	
 	
 	
 </script>

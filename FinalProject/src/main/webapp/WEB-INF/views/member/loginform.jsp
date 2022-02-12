@@ -39,6 +39,17 @@
 			$(this).siblings('.warning').css('visibility','hidden');
 			$('#auth_warning').text('');
 		})
+		
+		
+		$('input').on('keydown',function(e){
+			
+			
+			if(e.keyCode==13){
+				
+				
+				$('#loginbtn').trigger('click');
+			}
+		})
 	})
 </script>
 
