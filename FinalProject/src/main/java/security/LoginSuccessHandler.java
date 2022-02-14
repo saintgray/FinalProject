@@ -43,8 +43,7 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 		
 		
 		// 로그인에 성공시 기본으로 이동활 화면은 홈 화면
-		// 1. 인증이 필요한 페이지를 사용하려다 로그인페이지로 들어와서 로그인에 성공한 케이스
-		
+		// 1. 인증이 필요한 페이지를 사용하려다 로그인페이지로 들어와서 로그인에 성공한 케이스		
 		// 2. 직접 로그인 창을 클릭해서 로그인에 성공한 케이스
 		
 		if(rc.getRequest(request, response)==null) {
