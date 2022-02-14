@@ -12,16 +12,27 @@
 <script>
 let cat_idx;
 
-function selectCategory(){
-	
-	var interest = $('#categoryInfos option:selected');
+function resetCategory(){
+	$('#categoryInfos').empty();
+	cat_idx=0;
+		
+	var html='<button type="button" onclick="resetCategory()">분야 초기화</button> ';
+		
+	$('#categoryInfos').append(html);
+		
+	selectCategory(30);
+}
 
-	console.log(interest.val());
+function selectCategory(interest){
+	
+	var interest = interest;
+
+	console.log(interest);
 	
 	$.ajax({
 		url: '${pageContext.request.contextPath}/category/list',
 		type: 'GET',
-		data: {interest : interest.val()},
+		data: {interest : interest},
 		datatype: 'json',
 		success: function(data){
 			console.log(data.length);
@@ -29,13 +40,13 @@ function selectCategory(){
 			if(data.length==0){
 				
 				// 현재 선택한 interest 값을 cat_idx 에 저장한다.
-				cat_idx = interest.val();
+				cat_idx = interest;
 				console.log(cat_idx);
 				
 			}else{
 			
 				var html="";
-				html += '<select id="cat1" onchange="selectCategory1(this.value)">\r\n';
+				html += '<select onchange="selectCategory(this.value)">\r\n';
 				html += '<option value="">분야 선택</option>\r\n';
 				$(data).each(function(index, items){
 					console.log(items.cat_idx);
@@ -50,139 +61,6 @@ function selectCategory(){
 				console.log(html);
 			
 			}
-			
-		},
-		error: function(data){
-			console.log(data);
-		}
-	});
-	
-}
-
-function selectCategory1(interest){
-	
-	var interest = interest;
-
-	console.log(interest);
-	
-	$.ajax({
-		url: '${pageContext.request.contextPath}/category/list',
-		type: 'GET',
-		data: {interest : interest},
-		datatype: 'json',
-		success: function(data){
-			console.log(data.length);
-			
-			if(data.length==0){
-				
-				// 현재 선택한 interest 값을 cat_idx 에 저장한다.
-				cat_idx = interest;
-				console.log(cat_idx);
-				
-			}else{
-			
-				var html="";
-				html += '<select id="cat2" onchange="selectCategory2(this.value)">\r\n';
-				html += '<option value="">하위분야 선택</option>\r\n';
-				$(data).each(function(index, items){
-					console.log(items.cat_idx);
-					console.log(items.cat_nm);
-					
-					html += '<option value="'+items.cat_idx+'">'+items.cat_nm+'</option>';
-				
-				})
-				html += '</select>\r\n';
-				
-				$('#categoryInfos').append(html);
-				console.log(html);
-				
-				/* if($('#cat2')!=null){
-					$('#cat2').html(html);
-				} else{
-					$('#cat1').after(html);
-					console.log(html);
-				} */
-				
-			}
-			
-		},
-		error: function(data){
-			console.log(data);
-		}
-	});
-	
-}
-
-function selectCategory2(interest){
-	
-	var interest = interest;
-
-	console.log(interest);
-	
-	$.ajax({
-		url: '${pageContext.request.contextPath}/category/list',
-		type: 'GET',
-		data: {interest : interest},
-		datatype: 'json',
-		success: function(data){
-			console.log(data.length);
-			
-			if(data.length==0){
-				
-				// 현재 선택한 interest 값을 cat_idx 에 저장한다.
-				cat_idx = interest;
-				console.log(cat_idx);
-				
-			}else{
-			
-				var html="";
-				html += '<select id="cat3" onchange="selectCategory3(this.value)">\r\n';
-				html += '<option value="">하위분야 선택</option>\r\n';
-				$(data).each(function(index, items){
-					console.log(items.cat_idx);
-					console.log(items.cat_nm);
-					
-					html += '<option value="'+items.cat_idx+'">'+items.cat_nm+'</option>';
-				
-				})
-				html += '</select>\r\n';
-				
-				$('#categoryInfos').append(html);
-				console.log(html);
-				
-				/* if($('#cat3')!=null){
-					$('#cat3').html(html);
-				} else{
-					$('#cat2').after(html);
-					console.log(html);
-				} */
-			}
-			
-		},
-		error: function(data){
-			console.log(data);
-		}
-	});
-	
-}
-
-function selectCategory3(interest){
-	
-	var interest = interest;
-
-	console.log(interest);
-	
-	$.ajax({
-		url: '${pageContext.request.contextPath}/category/list',
-		type: 'GET',
-		data: {interest : interest},
-		datatype: 'json',
-		success: function(data){
-			console.log(data.length);
-			
-			// 현재 선택한 interest 값을 cat_idx 에 저장한다.
-			cat_idx = interest;
-			console.log(cat_idx);	
 			
 		},
 		error: function(data){
@@ -235,7 +113,7 @@ $(document).ready(function(){
 
 	});
 	
-	selectCategory();
+	selectCategory(30);	
         
     var formData = new FormData(document.getElementById('writePost'));
     
@@ -277,6 +155,11 @@ $(document).ready(function(){
 		/* value 확인하기 */
 		for (let value of formData.values()) {
 		      console.log(value);
+		}
+		
+		if(!cat_idx>0){
+			alert('분야를 반드시 선택하셔야 합니다.');
+			return;
 		}
 		
 		$.ajax({

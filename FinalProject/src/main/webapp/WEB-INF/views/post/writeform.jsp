@@ -64,6 +64,8 @@
 
 				<!-- 카테고리 인덱스 -->
 				<div id="categoryInfos">
+				
+				<button type="button" onclick="resetCategory()">분야 초기화</button>
 				</div>
 
 				<input type="hidden" name="wanted" value="${type eq 'mentor'?'mentee':'mentor'}">
