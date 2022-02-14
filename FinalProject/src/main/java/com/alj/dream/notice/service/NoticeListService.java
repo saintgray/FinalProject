@@ -19,8 +19,8 @@ public class NoticeListService {
 
 	
 	public NoticePageView getNoticeList(PageRequest pagereq){
-		int selectPage= Integer.parseInt(pagereq.getSelectPage());
-		int numOfNoticesPerPage = Integer.parseInt(pagereq.getNumOfNoticesPerPage());
+		int selectPage= pagereq.getSelectPage()==null? 1: Integer.parseInt(pagereq.getSelectPage());
+		int numOfNoticesPerPage =  pagereq.getNumOfNoticesPerPage()==null? 5:Integer.parseInt(pagereq.getNumOfNoticesPerPage());
 		
 		
 		int firstNoticeIndexOfSelectedPage = numOfNoticesPerPage*(selectPage-1);

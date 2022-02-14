@@ -17,11 +17,14 @@ public class ReportListController {
 	private ReportListService service;
 
 	@GetMapping
-	public String getReportInfo(String m_idx, Model model) {
+	public String getReportInfo(Model model, String m_idx) {
 		
 		
-		
-		model.addAttribute("list","");
+		try {
+		model.addAttribute("list", service.getReportListByIdx(m_idx));
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
 		return "admin/report/reportedlist";
 		
 		
