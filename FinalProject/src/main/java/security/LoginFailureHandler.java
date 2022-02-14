@@ -40,18 +40,26 @@ public class LoginFailureHandler implements AuthenticationFailureHandler {
 	  
 		
 		System.out.println("called onAuthenticationFailure");
+		System.out.println(exception.getMessage());
 		
-		if(exception instanceof BadCredentialsException || exception instanceof UsernameNotFoundException) {
+		if(exception instanceof UsernameNotFoundException) {
 			
-			System.out.println("errortype=BadCred, UserNotFound");
+			System.out.println("UserNotFound");
+			System.out.println("exceptionmsg >>> ".concat(exception.getMessage()));
+			msg=exception.getMessage();
 			
-			msg="*아이디 혹은 비밀번호를 잘못 입력하셨습니다.";
+			
+			
 			
 		}else if(exception instanceof DisabledException){
 			System.out.println("errortype = Disabled");
 			
 			msg="*잠긴 계정입니다. 고객센터에 문의하세요";
 		
+		}else if(exception instanceof BadCredentialsException) {
+			
+			msg="*아이디 혹은 비밀번호를 잘못 입력하셨습니다";
+			
 		}else if(exception instanceof SessionAuthenticationException) {
 			
 			forwarding="redirect:/";

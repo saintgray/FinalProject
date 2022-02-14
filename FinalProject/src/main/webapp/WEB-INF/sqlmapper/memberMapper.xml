@@ -66,7 +66,7 @@
 		<if test="m_nm!=null">
 			m_nm=#{m_nm}
 		</if>
-		<if test="photo!=null">
+		<if test="m_photo!=null">
 			m_photo=#{m_photo}
 		</if>
 		<if test="m_password!=null">
@@ -76,6 +76,16 @@
 		WHERE m_idx=#{m_idx}
 		
 	
+	</update>
+	
+	<!-- 회원 탈퇴 -->
+	<update id="quitMember">
+	
+		UPDATE member
+		SET
+		m_quitdate=CURRENT_TIMESTAMP
+		WHERE m_idx=#{arg0}
+		
 	</update>
 	
  	

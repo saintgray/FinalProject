@@ -392,9 +392,9 @@ $(document).ready(function(){
 	         //maxHeight: 600,
 	         //width: 900
 			
-		});
+		})
 	 
-	 /* $('.dropdown-toggle').dropdown(); */
+	/* $('.dropdown-toggle').dropdown(); */
 		
 	
 })

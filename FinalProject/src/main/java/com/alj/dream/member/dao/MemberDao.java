@@ -16,5 +16,6 @@ public interface MemberDao {
 	String getTotalNumOfMember();
 	MemberInfo getMemberInfo(String m_idx);
 	MyInfo selectByIdx(String principal_idx);
+	int quitMember(String m_idx);
 	
 }
