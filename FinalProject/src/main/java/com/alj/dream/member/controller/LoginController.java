@@ -14,6 +14,13 @@ public class LoginController {
 	public String showLoginForm(HttpServletRequest req, HttpServletResponse resp) {
 		
 		req.setAttribute("urlfrom", req.getHeader("referer"));
+		
+		if(req.getParameter("quit")!=null) {
+			
+			req.setAttribute("msg", "*탈퇴한 계정입니다.");
+			req.setAttribute("insertedEmail", req.getParameter("insertedEmail"));
+		}
+		
 		return "member/loginform";
 	}
 

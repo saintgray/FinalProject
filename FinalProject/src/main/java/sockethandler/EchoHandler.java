@@ -11,7 +11,7 @@ import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
-import com.alj.dream.post.domain.Chat;
+import com.alj.dream.match.domain.Chat;
 import com.google.gson.Gson;
 
 
@@ -63,7 +63,7 @@ public class EchoHandler extends TextWebSocketHandler {
 		chat.setMatch_idx(matchIdx);
 		chat.setM_sender(myIdx);
 		chat.setM_reciever(recieverIdx);
-		int result = service.insertChatDB(chat);	// DB에 chat데이터 저장하는 메소드실행
+		//int result = service.insertChatDB(chat);	// DB에 chat데이터 저장하는 메소드실행
 		
 		
 		WebSocketSession ws = sessionMap.get(recieverIdx); 	// 전달할 세션?

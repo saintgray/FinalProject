@@ -13,12 +13,14 @@ public class AccountDetails extends User{
 	private String photo;
 	private String name;
 	private String m_type;
+	private String m_quitdate;
+	
 	
 	
 
 	public AccountDetails(String username, String password, boolean enabled, boolean accountNonExpired,
 			boolean credentialsNonExpired, boolean accountNonLocked,
-			Collection<? extends GrantedAuthority> authorities, String photo, String name, String m_type,String m_idx) {
+			Collection<? extends GrantedAuthority> authorities, String photo, String name, String m_type,String m_idx,String m_quitdate) {
 		
 		
 		super(username, password, enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, authorities);
@@ -26,6 +28,7 @@ public class AccountDetails extends User{
 		this.name=name==null?username.substring(0,username.indexOf('@')):name;
 		this.m_type=m_type;
 		this.m_idx=m_idx;
+		this.m_quitdate=m_quitdate;
 		
 	
 		
@@ -87,6 +90,16 @@ public class AccountDetails extends User{
 
 	public void setAdmin_idx(String admin_idx) {
 		this.admin_idx = admin_idx;
+	}
+	
+	
+
+	public String getM_quitdate() {
+		return m_quitdate;
+	}
+
+	public void setM_quitdate(String m_quitdate) {
+		this.m_quitdate = m_quitdate;
 	}
 
 	@Override

@@ -51,34 +51,39 @@
 	      				<ul class="dropdown-menu" aria-labelledby="myPhoto" id="menutab">
 							
 	      					<li>
-	      						<div class="d-flex flex-column">
+	      						<!-- <div class="d-flex flex-column  dropdown-item"> -->
 	      							<div class="d-flex justify-content-around dropdown-item">
-	      								<i class="fi fi-rr-user"></i>
+	      								<i class="fi fi-rr-user mx-2""></i>
 		      							<span id="myinfo">
 		      								<sec:authentication property="principal.name"/> 
+		      							</span>
 		      								<c:if test="${type eq 'mentor'}">
-		      									멘토님
+		      									<span class="ms-1">멘토님</span>
 		      								</c:if>
 		      								<c:if test="${type eq 'mentee'}">
-		      									멘티님
+		      									<span class="ms-1">멘티님</span>
 		      								</c:if>
-		      							</span>
+		      							
 		      							<!-- 자신의 별점과 기타정보들 -->
 		      						</div>
 	      							
 	      							
-	      						</div>
-	      						
-	      						
+	      						<!-- </div> -->
+	      					</li>
+	      					
+      					<sec:authorize access="hasRole('GENERAL')">	
+	      					
+	      					<li>
 	      						<c:if test="${type eq 'mentor'}">
+	      							
 	      							<div class="d-flex justify-content-around dropdown-item">
-	      								<i class="fi fi-rr-box-alt"></i>
+	      								<i class="fi fi-rr-box-alt mx-2"></i>
 	      								<span id="manageprofile">프로필 관리</span>
 	      							</div>
-      								
-      							</c:if>
-      							
-      							<sec:authorize access="hasRole('GENERAL')">
+		     								
+	   							</c:if>
+	     							
+	     							
 	      							<div class="d-flex justify-content-around dropdown-item">
 		      							<i class="fi fi-rr-rotate-right"></i>
 		      							<span class="changeType">
@@ -90,9 +95,10 @@
 		      								</c:if>
 		      							</span>
 	      							</div>
-      							</sec:authorize>
-	      							
-	      					</li>	
+	      					</li>
+	      					
+  						</sec:authorize> 							
+	      						
 	      					
 	      					<li>
 	      						<div class="dropdown-item d-flex justify-content-around">

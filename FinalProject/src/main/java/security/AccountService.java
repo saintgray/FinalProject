@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.DisabledException;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -50,7 +50,7 @@ public class AccountService implements UserDetailsService {
 			return roleList;
 		}
 
-
+		
 		@Override
 		public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException{
 			
@@ -59,7 +59,7 @@ public class AccountService implements UserDetailsService {
 			System.out.println("username = "+username);
 			
 			AccountDetails userDetails=null;
-			//try {
+			
 				if(username.substring(username.indexOf("@")).equalsIgnoreCase("@aljdream.com")) {
 					AdminVO vo=stp.selectOne("selectbyadminname", username);
 					if(vo==null) {
@@ -70,31 +70,26 @@ public class AccountService implements UserDetailsService {
 					
 				}else {
 					MemberVO vo= stp.selectOne("selectbyusername", username);
+					
+					
+					
+					
 					if(vo==null) {
-						throw new UsernameNotFoundException("회원 정보가 없습니다.");
+						throw new UsernameNotFoundException("*아이디 혹은 비밀번호가 틀립니다");
 					}else if(vo.getM_blacklist().equals("Y")) {
 						enabled=false;
-					}
+					}	
+						
+					
+					
 					
 					
 					System.out.println("enabled >>>");
 					System.out.println(enabled);
-					userDetails=new AccountDetails(vo.getM_email(), vo.getM_password(),enabled, true,true,true,getRoleList(vo.getRole()),vo.getM_photo(), vo.getM_nm(),"mentee", vo.getM_idx());
+					userDetails=new AccountDetails(vo.getM_email(), vo.getM_password(),enabled, true,true,true,getRoleList(vo.getRole()),vo.getM_photo(), vo.getM_nm(),"mentee", vo.getM_idx(),vo.getM_quitdate());
 				}
-			//}catch(Exception e) {
-			//	e.printStackTrace();
-			//}
-			
-			
-			// 사용자가 아이디를 실수로 잘못입력했다면 User의 builder 메소드를 통해 객체를 생성해 줄 수 없기 때문에
-			// 먼저 vo가 null 인지 아닌지 체크한다.
-			
-			
-//			return User.builder()
-//					.username(vo.getEmail())
-//					.password("{noop}"+vo.getPassword())
-//					.roles(vo.getRole().split(","))
-//					.build();
+
+				
 			System.out.println("반환하는 AccountDetails 객체의 정보입니다.");
 			System.out.println(userDetails);
 			System.out.println(userDetails.getPassword());

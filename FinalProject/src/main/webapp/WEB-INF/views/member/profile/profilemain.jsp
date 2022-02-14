@@ -200,7 +200,7 @@
 			</div>
 			<div class="d-flex flex-row flex-wrap" id="attachedFilesWrap">
 				
-				<div class="select d-flex flex-wrap  flex-grow-1">
+				<div class="d-flex flex-wrap  flex-grow-1" id="attachFilesArea">
 					<c:if test="${empty profile.files}">
 						<span class="fw-bold" style="color:rgb(70,70,70)">파일이 없습니다</span>
 					</c:if>
