@@ -1,40 +1,61 @@
 package com.alj.dream.member.domain;
 
 public class PageRequest {
-	
-	private String selectPage;
-	private String numOfMemberPerPage;
-	
+
+	private int selectPage;
+	private int numOfMemberPerPage;
+	private String blacklisted;
+	private int firstMemberIndexOfSelectedPage;
+
 	public PageRequest() {
 	}
 
-	public PageRequest(String selectPage, String numOfMemberPerPage) {
+	public PageRequest(int selectPage, int numOfMemberPerPage, String blacklisted, int firstMemberIndexOfSelectedPage) {
 		this.selectPage = selectPage;
 		this.numOfMemberPerPage = numOfMemberPerPage;
+		this.blacklisted = blacklisted;
+		this.firstMemberIndexOfSelectedPage = firstMemberIndexOfSelectedPage;
 	}
 
-	
-	
-	public String getSelectPage() {
+	public int getSelectPage() {
 		return selectPage;
 	}
 
-	public void setSelectPage(String selectPage) {
+	public void setSelectPage(int selectPage) {
 		this.selectPage = selectPage;
 	}
 
-	public String getNumOfMemberPerPage() {
+	public int getNumOfMemberPerPage() {
 		return numOfMemberPerPage;
 	}
 
-	public void setNumOfMemberPerPage(String numOfMemberPerPage) {
+	public void setNumOfMemberPerPage(int numOfMemberPerPage) {
 		this.numOfMemberPerPage = numOfMemberPerPage;
 	}
 
-	@Override
-	public String toString() {
-		return "PageRequest [selectPage=" + selectPage + ", numOfMemberPerPage=" + numOfMemberPerPage + "]";
+	public String getBlacklisted() {
+		return blacklisted;
 	}
+
+	public void setBlacklisted(String blacklisted) {
+		this.blacklisted = blacklisted;
+	}
+
+	public int getFirstMemberIndexOfSelectedPage() {
+		return firstMemberIndexOfSelectedPage;
+	}
+
+	public void setFirstMemberIndexOfSelectedPage(int firstMemberIndexOfSelectedPage) {
+		this.firstMemberIndexOfSelectedPage = firstMemberIndexOfSelectedPage;
+	}
+	
+	
+	
+	
+	
+
+
+
 	
 	
 	

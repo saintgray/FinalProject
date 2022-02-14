@@ -33,9 +33,7 @@ public class NoticeController {
 //		
 //		model.addAttribute("notices", list);
 		
-		if(request.getParameter("selectPage") == null) {
-			request.setAttribute("selectPage", "1");	
-		}
+		
 		request.setAttribute("notices", noticeListService.getNoticeList(pageReq));
 		//model.addAttribute("notices", );
 		

@@ -32,6 +32,11 @@
 	outline : 1px solid rgb(123,123,123);
 	background : rgb(197,197,197);
 }
+#noticesearch{
+	width: 500px;
+}
+
+
 </style>
 <title>공지사항</title>
 </head>
@@ -70,7 +75,7 @@
 		<tr class="py-2 indexes">
 		<td>번호</td>
 		<td>제목</td>
-		<td>내용</td>
+		<td>작성일</td>
 		</tr>
 			<c:forEach var="items" items="${notices.noticeList}">
 
@@ -82,14 +87,28 @@
 				</tr>
 			</c:forEach>
 		</table>
-		<div class="d-flex justify-content-center my-5">
-		<sec:authorize access="hasRole('ADMIN')">
-
-			<button type="button" class="btn btn-general" id="regnoticebtn">공지사항
-				등록</button>
-			<!-- button 안에 <a> 태그는 쓰지 않으므로 이 버튼을 눌렀을때 스크립트로 해당 url 로 들어가게끔 할 것 -->
-		</sec:authorize>
+		
+		<div class="d-flex justify-content-center my-5" style="position:relative">
+			
+				<div class="input-group inner" id="noticesearch">
+			          <div class="input-group-prepend">
+			            <img class="input-group-text" style="height: 100%" src="${pageContext.request.contextPath}/resources/files/server/icons/img_searchicon.svg">
+			          </div>
+			          <input id="searchbar" style="border-left: 0;" type="text" class="form-control" aria-label="Amount (to the nearest dollar)"
+			            placeholder="검색">
+			            
+			          <sec:authorize access="hasRole('ADMIN')">
+							<button type="button" class="btn btn-general" id="regnoticebtn">공지사항
+								등록</button>
+							<!-- button 안에 <a> 태그는 쓰지 않으므로 이 버튼을 눌렀을때 스크립트로 해당 url 로 들어가게끔 할 것 -->
+					  </sec:authorize>
+		        </div>
+				
+			
+		
 		</div>
+		
+		
 		<div class="d-flex justify-content-center my-5">
 		<c:forEach begin="1" end="${notices.totalPage}" var="pnum">
 			<a class="mx-2" href="${pageContext.request.contextPath}/notice?selectPage=${pnum}&numOfNoticesPerPage=5">${pnum}</a>

@@ -14,15 +14,20 @@
  		select m_email from member where m_email = #{arg0}
  	</select>
  	
- 	<select id="getMemberList" resultType="com.alj.dream.member.domain.MemberInfo">
+ 	<select id="getMemberList" parameterType="com.alj.dream.member.domain.PageRequest" resultType="com.alj.dream.member.domain.MemberInfo">
  	
- 	SELECT m_idx, m_email, m_nm, m_photo, m_regdate, m_quitdate, m_blacklist,(select count(*) FROM 
-																				member join report
-																				on member.m_idx=report.m_reported
-																				) as reportCount
-	FROM member
-	
-	limit #{arg0}, #{arg1}
+	 	SELECT m_idx, m_email, m_nm, m_photo, m_regdate, m_quitdate, m_blacklist,(select count(*) FROM 
+																					member m join report rep
+		 																				on m.m_idx=rep.m_reported
+																					WHERE memrow.m_idx=m.m_idx
+																					) as reportCount
+		FROM member memrow
+		
+		<if test="blacklisted!=null">
+			WHERE memrow.m_blacklist='Y'
+		</if>
+		
+		limit #{firstMemberIndexOfSelectedPage}, #{numOfMemberPerPage}
 	
  	
  	</select>
