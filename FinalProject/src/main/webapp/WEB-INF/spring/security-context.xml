@@ -7,15 +7,16 @@
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
 	<context:annotation-config/>
-	<bean id="accountservice" class="security.AccountService"></bean>
-	
-	<bean id="loginsuccesshandler" class="security.LoginSuccessHandler"></bean>
-	
-	<bean id="accessdeniedhandler" class="security.UserAccessDeniedHandler"></bean>
-	
-	<bean id="loginfailurehandler" class="security.LoginFailureHandler">
+		<bean id="accountservice" class="security.AccountService"></bean>
 		
-	</bean>
+		<bean id="loginsuccesshandler" class="security.LoginSuccessHandler"></bean>
+		
+		<bean id="accessdeniedhandler" class="security.UserAccessDeniedHandler"></bean>
+		
+		<bean id="loginfailurehandler" class="security.LoginFailureHandler"></bean>
+			
+	<!-- 	<bean id="accountauthenticationprovider" class="security.AccountAuthenticationProvider"></bean> -->
+	
 	<!-- security - Encoder Class -->
 	<bean id="bcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
 	
@@ -27,29 +28,23 @@
 		<security:intercept-url pattern="/member/loginform" access="permitAll"/> <!-- 익명사용자(인증되지 않은 사용자)도 접근할 수 있는 url -->
 		<security:intercept-url pattern="/termsform" access="permitAll"/>
 		<security:intercept-url pattern="/register" access="permitAll"/>
+		
+		
 		<security:intercept-url pattern="/chk_email" access="permitAll"/> 
 		<security:intercept-url pattern="/admin/**" access="hasRole('ADMIN')"/> <!--  >> 권한컬럼 role 의 값이 ROLE_ADMIN 인 사람만이 들어갈 수 있다. -->
 		<security:intercept-url pattern="/member/**" access="isAuthenticated()"/>
 		<security:intercept-url pattern="/post/**" access="isAuthenticated()"/>
 
-		 
+		
 		<security:access-denied-handler ref="accessdeniedhandler"/>
 		
 		<security:form-login login-page="/member/loginform"
 							 login-processing-url="/member/login"
+							 
+							 
 							 authentication-success-handler-ref="loginsuccesshandler"
 							 authentication-failure-handler-ref="loginfailurehandler"/>
-		<!-- 자동로그인 기능을 사용하기 위해서는 해당 dataSource (HikariCP) 에 명시한 데이터베이스 의 스키마에 
-		스프링에서 권장해준 persistent_logins 테이블이 필요하다 >> 나중에 팀원에게 전달
-		create table dream.persistent_logins(
-
-		username varchar(64) not null,
-		series varchar(64) primary key,
-		token varchar(64) not null,
-		last_used timestamp not null
 		
-		); 
-		-->
 		<!-- 자동 로그인 쿠키의 만료시간은 자유롭게 설정할 수 있으나 여기에서는 604800 초, 즉  1주일 이라 하겠다. -->
 		<security:remember-me data-source-ref="dataSource" token-validity-seconds="604800"/>
 		<security:logout logout-url="/logout" 
@@ -65,10 +60,22 @@
 						 
 	</security:http>
 	<security:authentication-manager>
-	
+		
+		<!-- <security:authentication-provider ref="accountauthenticationprovider">
+		
+		</security:authentication-provider> -->
+		
 		<security:authentication-provider user-service-ref="accountservice">
-			<security:password-encoder ref="bcryptPasswordEncoder"/>
+		 	<security:password-encoder ref="bcryptPasswordEncoder"/>
+			
 		</security:authentication-provider>
+		
+		
+		
+		<!-- <security:authentication-provider user-service-ref="accountservice">		
+			<security:password-encoder ref="bcryptPasswordEncoder"/>
+		</security:authentication-provider> -->
+		
 	
 	</security:authentication-manager>
 	

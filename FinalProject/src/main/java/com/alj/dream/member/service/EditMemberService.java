@@ -76,9 +76,11 @@ public class EditMemberService {
 		try {
 			result=sst.getMapper(MemberDao.class).editMember(info);
 			
-			logininfo.setPhoto(newPhotoName);
+			
 			
 			if(photo!=null) {
+				logininfo.setPhoto(newPhotoName);
+				
 				File lastFile= new File(path,originPhotoName);
 				if(!originPhotoName.equals("defaultprofile.png")) {
 					System.out.println(lastFile.delete());

@@ -13,6 +13,7 @@
 		margin-top: 20px;
 		margin-bottom:20px;
 	}
+
 	#profileshotarea{
 		position: relative;
 	}
@@ -64,6 +65,31 @@
 		color:#FFD601;
 		font-weight:light;
 	}
+	#securityinfos input{
+		width:400px;
+	}
+	#editPwBtn{
+		width:135px;
+	}
+	.warning{
+		color: red;
+		font-size: 13px;
+	}
+	.u_txt_chk{
+	
+		text-decoration: underline;
+		color:#FCA106;
+		
+	}
+	#quitguide{
+	    font-size: 13px;
+	    margin-bottom: 10px;
+	    padding-left: 10px;
+	}
+	#quitlink{
+		color:#FCA106;
+		cursor: pointer;
+	}
 </style>
 <title>내 정보</title>
 </head>
@@ -80,9 +106,9 @@
 	
 	
 	<div id="controlbtn" class="d-flex justify-content-center">
-			<span class="mx-2">회원정보</span>
+			<span class="mx-2 u_txt_chk">회원정보</span>
 			<div class="form-check form-switch">
-				<input class="form-check-input" type="checkbox" role="switch" id="autoLogin" name="remember-me">		  
+				<input class="form-check-input" type="checkbox" role="switch" id="switchSettings">		  
 			</div>
 			<span class="mx-2">보안설정</span>
 	</div>
@@ -90,6 +116,8 @@
 	
 	<div class="d-flex flex-column justify-content-center" id="infosarea">
 			
+			
+			<!--  회원 정보 란 -->
 			<div class="my-auto" id="infos">
 				
 				
@@ -151,6 +179,28 @@
 				
 			</div>
 			
+			<!--  보안정보 란 -->
+			<div class="my-auto text-center d-none" id="securityinfos">
+			
+				<div class="d-flex flex-column justify-content-center">
+					
+						
+					
+					<input type="password" class="form-control my-1 mx-auto" placeholder="새 비밀번호" id="newPw">
+					<div id="w_pw" class="warning fw-normal text-center invisible">\r\n
+					</div>
+					
+					
+					<input type="password" id="repw" class="form-control my-1 mx-auto" placeholder="비밀번호 확인">
+					<div id="w_repw" class="warning fw-normal text-center invisible mb-5">\r\n
+					</div>
+					
+					
+					<button type="button" class="btn btn-general mx-auto my-2 input-group" id="editPwBtn">비밀번호 수정</button>
+					
+				</div>
+			
+			</div>
 			
 			
 		
@@ -188,6 +238,7 @@
 				</div>	
 			</div>
 			
+<div id="quitguide"><span>더 이상 알려드림 서비스를 사용하지 않는다면? >> </span><span id="quitlink" class="fw-bold">회원탈퇴</span></div>
 
 <%@include file="/WEB-INF/views/layout/footer.jsp" %>
 
@@ -317,7 +368,69 @@
 				$('#namearea').html('<h3 class="fw-normal fs-4">${info.m_nm}<i class="fi fi-rr-pencil" id="editnameicon"></i></h3>\r\n');
 				
 			})
+			
+			//editpw
+			$('#editPwBtn').on('click',function(){
+				
+				var vailed=true;
+				
+				$('#securityinfos input[type=password]').each(function(index, item){
+					
+					if($(item).val().indexOf(' ')>=0){
+						$(item).next('.warning').text('* 공백은 사용할 수 없습니다').addClass('visible').removeClass('invisible');
+						vailed=false;
+						return false;
+					}else if($(item).val().trim().length==0){
+						$(item).next('.warning').text('* 비밀번호를 입력해주세요').addClass('visible').removeClass('invisible');
+						vailed=false;
+						return false;
+					}else if($('#newPw').val() != $('#repw').val()){
+						$('#repw').next().text('*비밀번호가 일치하지 않습니다').addClass('visible').removeClass('invisible');
+						vailed=false;
+					}
+				})
+				
+				if(vailed=true){
+					
+					if(confirm('비밀번호를 수정하시겠습니까?')){
+						
+						var formData=new FormData();
+						formData.append('m_password',$('#newPw').val());
+						editInfo(formData);
+					}
+					
+				}
+				
+				
+				
+			})
+			
+			$('#securityinfos input[type=password]').on('focus',function(){
+				$('.warning').removeClass('visible').addClass('invisible');
+			})
+			
+			
+			// 회원 정보 (프로필사진, 닉네임, 관심분야) <> 보안 설정(비밀번호) 스위칭 기능
+			$('#switchSettings').on('change',function(){
+				if($(this).is(':checked')){
+					// 보안 설정 옵션 보여줌
+					$('#securityinfos').removeClass('d-none');
+					$('#infos').addClass('d-none');
+					// 텍스트 하이라이팅
+					$(this).parent().next().addClass('u_txt_chk');
+					$(this).parent().prev().removeClass('u_txt_chk');
+					
+				}else{
+					$('#infos').removeClass('d-none');
+					$('#securityinfos').addClass('d-none');
+					$(this).parent().prev().addClass('u_txt_chk');
+					$(this).parent().next().removeClass('u_txt_chk');
+				}
+			})
 		
+			$('#quitlink').on('click',function(){
+				location.href='${pageContext.request.contextPath}/member/quit';
+			})
 		
 	})
 	
@@ -413,11 +526,18 @@
 			enctype:'multipart/form-data',
 			success:function(data){
 				console.log('통신성공');
-				
+				if(data>=1){
+					alert('정상적으로 수정되었습니다');
+					location.href='${pageContext.request.contextPath}/member/myinfo';		
+				}else{
+					alert('오류가 발생하였습니다. 잠시 후 다시 시도하세요');
+				}
+	
 			},
 			error:function(data){
 				
 				console.log('통신실패');
+				alert('오류가 발생하였습니다. 잠시 후 다시 시도하세요');
 				
 			}
 		})
