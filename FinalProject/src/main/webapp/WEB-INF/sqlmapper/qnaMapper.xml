@@ -22,6 +22,20 @@
 		
 	
 	</select>
+	
+	<select id="getQna" resultType="com.alj.dream.qna.domain.QnaListContent">
+			SELECT
+				m.m_idx,
+				m.m_nm,
+				m.m_email,
+				q.qna_idx,
+				q.qna_title,
+				q.qna_content,
+				q.qna_regdate
+			FROM dream.qna as q join dream.member as m
+			ON q.m_idx = m.m_idx
+			WHERE q.qna_idx = #{qna_idx}
+	</select>
  	
  </mapper>
  
