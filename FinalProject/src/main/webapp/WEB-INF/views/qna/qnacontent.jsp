@@ -20,12 +20,12 @@
 <%@ include file="/WEB-INF/views/layout/header.jsp"%>
 	<h1 class="mx-5 banner">문의내용</h1>
 	<div class="container article">
-				
-			<h1>작성자: ${content.m_nm}</h1>
-			<h1>이메일: ${content.m_email}</h1>
-			<h1>제목: ${content.qna_title}</h1>
-			<h1>문의내용: ${content.qna_content}</h1>
-			<h1>작성일: ${content.qna_regdate}</h1>
+			
+			<h3>제목: ${content.qna_title}</h3>	
+			<h6>작성자: ${content.m_nm} 이메일: ${content.m_email}</h6>
+			<h6>작성일: ${content.qna_regdate}</h6>
+			<h4>문의내용: ${content.qna_content}</h4>
+			
 	</div>
 <%@ include file="/WEB-INF/views/layout/footer.jsp"%>
 </body>
