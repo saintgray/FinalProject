@@ -6,6 +6,9 @@ public class SearchParams {
 	private String wanted;
 	private int cat_idx;
 	private int loc_idx;
+	private int index;
+	private int count;
+	private int pageNum;
 	
 	public SearchParams() {}
 
@@ -46,6 +49,36 @@ public class SearchParams {
 
 	public void setLoc_idx(int loc_idx) {
 		this.loc_idx = loc_idx;
+	}
+
+	public int getIndex() {
+		return index;
+	}
+
+	public void setIndex(int index) {
+		this.index = index;
+	}
+
+	public int getCount() {
+		return count;
+	}
+
+	public void setCount(int count) {
+		this.count = count;
+	}
+
+	public int getPageNum() {
+		return pageNum;
+	}
+
+	public void setPageNum(int pageNum) {
+		this.pageNum = pageNum;
+	}
+
+	@Override
+	public String toString() {
+		return "SearchParams [m_idx=" + m_idx + ", wanted=" + wanted + ", cat_idx=" + cat_idx + ", loc_idx=" + loc_idx
+				+ ", index=" + index + ", count=" + count + ", pageNum=" + pageNum + "]";
 	}
 	
 }

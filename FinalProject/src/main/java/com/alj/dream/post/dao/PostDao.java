@@ -28,6 +28,8 @@ public interface PostDao {
 	int selectTotalCountByIdx(@Param("m_idx")int m_idx, @Param("wanted")String wanted);
 
 	List<PostListInfo> selectListBySearchParams(SearchParams params);
+	
+	int selectTotalCountBySearchParams(SearchParams params);
 
 
 }

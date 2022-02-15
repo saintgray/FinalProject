@@ -67,9 +67,34 @@
 					left join member on p.m_idx=member.m_idx
 					left join loc on member.loc_idx=loc.loc_idx
 					left join dream.match m on p.post_idx=m.post_idx
-		where p.post_deldate is null and p.m_idx!=#{m_idx} and p.wanted=#{wanted}
-		  and p.cat_idx=#{cat_idx} and member.loc_idx=#{loc_idx}
-		order by post_regdate desc
+		<where>
+			p.post_deldate is null and p.m_idx!=#{m_idx} and p.wanted=#{wanted}
+			<if test="cat_idx>0">
+				and p.cat_idx=#{cat_idx}
+			</if>
+			<if test="loc_idx>0">
+				and member.loc_idx=#{loc_idx}
+			</if>
+		</where>
+		order by post_regdate desc limit #{index}, #{count}
+	</select>
+	
+	<select id="selectTotalCountBySearchParams"
+			parameterType="com.alj.dream.post.domain.SearchParams"
+			resultType="int">
+		select count(*)
+		from post p left join member on p.m_idx=member.m_idx
+				    left join dream.match m on p.post_idx=m.post_idx
+		<where>
+			post_deldate is null and m.match_yn is null
+			and p.m_idx!=#{m_idx} and wanted=#{wanted}
+			<if test="cat_idx>0">
+				and cat_idx=#{cat_idx}
+			</if>
+			<if test="loc_idx>0">
+				and loc_idx=#{loc_idx}
+			</if>
+		</where>
 	</select>
 
 </mapper>
