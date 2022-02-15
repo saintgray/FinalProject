@@ -88,7 +88,11 @@
 		  	 
 		  	 
 		  	 <h1 class="banner mt-5">
+		  	 	
 		  	 	당신의 
+		  	 	<sec:authorize access="isAnonymous()">
+	  	 		 	멘티
+	  	 		</sec:authorize>
 		  	 	<c:if test="${type eq 'mentor'}">
 	  	 		  멘티  
 	  	 		 </c:if>
@@ -123,6 +127,9 @@
 		  	
 	  	 	<h1 class="banner mt-5">
 	  	 		전국의 
+	  	 		 <sec:authorize access="isAnonymous()">
+	  	 		 	멘티
+	  	 		 </sec:authorize>
 	  	 		 <c:if test="${type eq 'mentor'}">
 	  	 		  멘티  
 	  	 		 </c:if>
