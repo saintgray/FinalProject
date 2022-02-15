@@ -51,12 +51,18 @@
 		     </div>
 		     
 		     <sec:authorize access="isAuthenticated()">
-		     <%-- 	<c:set value="type">
-		     		<sec:authentication property="m_type"/>
+		     	<c:set var="type">
+		     		<sec:authentication property="principal.m_type"/>
 		     	</c:set>
-			      --%>
+		     	<c:set var="idx">
+		     		<sec:authentication property="principal.m_idx"/>
+		     	</c:set>
+		     	
+		     	<input type="hidden" name="type" value="${type}">
+		     	<input type="hidden" name="idx" value="${idx}">
+
 			     <div class="d-flex flex-column justify-content-around" id="mnmbtn">
-			     	<button id="writepostbtn" class="btn btn-general my-2" onclick="location.href='${pageContext.request.contextPath}/post/write';">요청서 작성</button>
+			     	<button id="writepostbtn" class="btn btn-general my-2">요청서 작성</button>
 			     	<c:if test="${type eq 'mentor'}">
 			     		<button id="findmentorbtn" class="btn btn-general my-2">멘티찾기</button>
 			     	</c:if>
@@ -87,9 +93,9 @@
 	    	
 		    	<!-- 허가증의 m_type 변수명을 type 으로 설정 -->
 		    	<!-- jstl 표현식에서 type 을 사용하여 간편히 처리하기 위함 -->
-		    	<c:set var="type">
+		    	<%-- <c:set var="type">
 		    		<sec:authentication property="principal.m_type"/>
-		    	</c:set>
+		    	</c:set> --%>
 		    	
 		    		<h4>현재 회원님의 상태는 ${type} 입니다</h4>
 		    	
