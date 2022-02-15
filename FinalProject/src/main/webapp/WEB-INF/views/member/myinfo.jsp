@@ -36,7 +36,7 @@
 	}
 	
 	.fi-rr-camera:before {
-	    content: "\f177";
+	    content: "\f178";
 	    font-size: 25px;
 	    background-color: white;
 	    padding: 7px;
@@ -55,11 +55,9 @@
 		height:50px;
 		cursor: pointer;
 	}
-	.fi-rr-pencil:before {
-		cursor: pointer;
-	    content: "\f2c3";
-	    font-size: 15px;
-	    margin-left: 10px;
+	.bi-wrench{
+		font-size: 14px;
+		cursor:pointer;
 	}
 	#msgarea{
 		color:#FFD601;
@@ -138,7 +136,8 @@
 							<h3 class="fw-light fs-4">${info.m_email}</h3>
 							
 							<div id="namearea" class="d-flex flex-wrap input-group mb-3">
-								<h3 class="fw-normal fs-4">${info.m_nm}<i class="fi fi-rr-pencil" id="editnameicon"></i></h3>
+								<%-- <h3 class="fw-normal fs-4">${info.m_nm}<i class="fi fi-rr-pencil" id="editnameicon"></i></h3> --%>
+								<h3 class="fw-normal fs-4">${info.m_nm}<i class="bi bi-wrench mx-1" id="editnameicon"></i></h3>
 							</div>
 							
 							<h3 class="fw-normal fs-6 text-end" style="color:rgb(195,195,195)">가입일 : ${info.m_regdate}</h3>
@@ -169,7 +168,7 @@
 									</c:forEach>
 								</div>
 								<div id="editinteresticon" class="pe-2">
-									<i class="fi fi-rr-pencil"  data-bs-toggle="modal" data-bs-target="#modal-cat"></i>
+									<i class="bi bi-wrench mx-1" data-bs-toggle="modal" data-bs-target="#modal-cat"></i>
 								</div>
 							</div>
 						</c:if>	
@@ -365,7 +364,7 @@
 			})
 			
 			$('#namearea').on('click','#canceleditnamebtn',function(){
-				$('#namearea').html('<h3 class="fw-normal fs-4">${info.m_nm}<i class="fi fi-rr-pencil" id="editnameicon"></i></h3>\r\n');
+				$('#namearea').html('<h3 class="fw-normal fs-4">${info.m_nm}<i class="bi bi-wrench mx-1" id="editnameicon"></i></h3>\r\n');
 				
 			})
 			

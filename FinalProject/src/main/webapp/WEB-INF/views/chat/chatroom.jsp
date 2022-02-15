@@ -1,12 +1,12 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
     <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
-<title>Ã¤ÆÃÃ¢</title>
+<meta charset="UTF-8">
+<%@ include file="/WEB-INF/views/defaultpageset.jsp" %>
+<title>ì±„íŒ…ì°½</title>
 <style>
 	.text_right {
 		text-align: right;
@@ -21,18 +21,18 @@
 		margin: 10px 0;
 	}
 </style>
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
 
 </head>
 <body>
-<%-- ${result eq 1?'¸ÅÄªÅ×ÀÌºí»ı¼º¿Ï·á' : result eq 0? '¸ÅÄªÅ×ÀÌºí»ı¼º½ÇÆĞ':'¼­¹ö¿À·ù'0} --%><!-- ¿À·ù È®ÀÎÇÏ±â -->
-<div>
-<h1>Çö·Î±×ÀÎ Á¤º¸</h1>
+
+<!-- Header -->
+	<%@ include file="/WEB-INF/views/layout/header.jsp" %>
+
+<h3>í˜„ë¡œê·¸ì¸ ì •ë³´</h3>
 <sec:authorize access="isAuthenticated()">
 <sec:authentication property="principal.m_idx"/>
 <sec:authentication property="principal.name"/>
-<sec:authentication property="principal.photo"/>
 <sec:authentication property="principal.m_type"/>
 	<c:set var="myidx">
 		<sec:authentication property="principal.m_idx"/>
@@ -40,40 +40,31 @@
 	<c:set var="myname">
 		<sec:authentication property="principal.name"/>
 	</c:set>
-	<c:set var="myphoto">
-		<sec:authentication property="principal.photo"/>
-	</c:set>
 	<c:set var="mytype">
 		<sec:authentication property="principal.m_type"/>
 	</c:set>
 </sec:authorize>
-${myidx}${myname}${myphoto}${mytype}
+myidx: ${myidx} myname : ${myname} myphoto : ${myphoto}$ mytype : {mytype}
+
+<h3>ì°¸ì—¬ì ì •ë³´</h3>
+
+matchidx : ${matchidx}<br>
+sender	 : ${myidx}<br>
+reciever : ${reciever}<br>
 
 
-<c:if test="${match.mentor_idx == myidx}">
-	<c:set var="reciever" value="${match.mentee_idx}"/>	
-</c:if>
-<c:if test="${match.mentee_idx == myidx}">
-	<c:set var="reciever" value="${match.mentor_idx}"/>	
-</c:if>
-</div>
 
-	<h1>Chatting Page (Ã¤ÆÃ¹æ¹øÈ£: ${match.match_idx})</h1>
-	<br>Æ÷½ºÆ® ¹øÈ£: ${match.post_idx}
-	<br>¸àÅä ¹æ³ª°¨¿©ºÎ: ${match.mentor_outyn}
-	<br>¸àÆ¼ ¹æ³ª°¨¿©ºÎ: ${match.mentee_outyn}
-	<br>¸ÅÄª ¿©ºÎ: ${match.match_yn}
-	<br>¸ÅÄª ³¯Â¥: ${match.match_date}
-	<br>¸àÆ¼ idx: ${match.mentee_idx}
-	<br>¸àÅä idx: ${match.mentor_idx}
-	<br>ÇöÀç ·Î±×ÀÎÇÑ Á¤º¸ : ${myidx}, ${myname}, ${myphoto}, ${mytype}
-	<br>º¸³»´Â »ç¶÷ : ${myidx} ¹Ş´Â»ç¶÷ : ${reciever}
+	<h2>Chatting Page (ì±„íŒ…ë°©ë²ˆí˜¸: ${matchidx})</h2>
+	
+	<a href="${pageContext.request.contextPath}/chat/report?matchidx=${matchidx}&sender=${myidx}&reciever=${reciever}">ì‹ ê³ í•˜ê¸°</a>
+	
+	<br>ë³´ë‚´ëŠ” ì‚¬ëŒ : ${myidx} ë°›ëŠ”ì‚¬ëŒ : ${reciever}
 	<br>
 	
 		<div>
 			<div>
 				<input type="text" id="message" />
-				<input type="button" id="sendBtn" value="Àü¼Û" />
+				<input type="button" id="sendBtn" value="ì „ì†¡" />
 			</div>
 			<br>
 			<div class="well" id="chatdata">
@@ -87,18 +78,15 @@ ${myidx}${myname}${myphoto}${mytype}
 <c:if test=""></c:if>
 
 <script>
-	//websocketÀ» ÁöÁ¤ÇÑ URL·Î ¿¬°á
+	//websocketì„ ì§€ì •í•œ URLë¡œ ì—°ê²°
 	var sock = new SockJS("<c:url value="/echo"/>");
-	//websocket ¼­¹ö¿¡¼­ ¸Ş½ÃÁö¸¦ º¸³»¸é ÀÚµ¿À¸·Î ½ÇÇàµÈ´Ù.
+	//websocket ì„œë²„ì—ì„œ ë©”ì‹œì§€ë¥¼ ë³´ë‚´ë©´ ìë™ìœ¼ë¡œ ì‹¤í–‰ëœë‹¤.
 	sock.onmessage = onMessage;
-	//websocket °ú ¿¬°áÀ» ²÷°í ½ÍÀ»¶§ ½ÇÇàÇÏ´Â ¸Ş¼Òµå
+	//websocket ê³¼ ì—°ê²°ì„ ëŠê³  ì‹¶ì„ë•Œ ì‹¤í–‰í•˜ëŠ” ë©”ì†Œë“œ
 	sock.onclose = onClose;
 	
 	
 	$(document).ready(function(){
-		
-		
-		
 		
 		
 		$("#sendBtn").on('click',function(){
@@ -109,32 +97,25 @@ ${myidx}${myname}${myphoto}${mytype}
 			
 			$('#message').focus();
 			
-			
-			
 		});
 		
 	});
 	
 	function sendMessage() {
-		//websocketÀ¸·Î ¸Ş½ÃÁö¸¦ º¸³»±â
+		//websocketìœ¼ë¡œ ë©”ì‹œì§€ë¥¼ ë³´ë‚´ê¸°
 		
 		var msg = {
-			myidx : '${myidx}',
-		    myname : '${myname}',
-			sender : '${myidx}',
 			reciever : '${reciever}',
-			matchIdx : '${match.match_idx}',
-			postidx : '${match.post_idx}',
-			midx : '${match.match_idx}',
+			matchidx : '${matchidx}',
 			message : $("#message").val()
 		};
 		console.log(msg);
 		sock.send(JSON.stringify(msg));
 	}
 
-	//evt ÆÄ¶ó¹ÌÅÍ´Â websocketÀÌ º¸³»ÁØ µ¥ÀÌÅÍ´Ù.
-	function onMessage(evt) { //º¯¼ö ¾È¿¡ functionÀÚÃ¼¸¦ ³ÖÀ½.
-		var data = evt.data; // Àü´Ş ¹ŞÀº µ¥ÀÌÅÍ
+	//evt íŒŒë¼ë¯¸í„°ëŠ” websocketì´ ë³´ë‚´ì¤€ ë°ì´í„°ë‹¤.
+	function onMessage(evt) { //ë³€ìˆ˜ ì•ˆì— functionìì²´ë¥¼ ë„£ìŒ.
+		var data = evt.data; // ì „ë‹¬ ë°›ì€ ë°ì´í„°
 		
 		//alert(data);
 		
@@ -150,13 +131,13 @@ ${myidx}${myname}${myphoto}${mytype}
 		var target = $('#chattingBox-1');
 		
 		if(target.length==0){
-			$('<div id=\"chattingBox-1\" class=\"chattingBox\"></div>').html('<h3>${user.name} : °Ô½Ã¹° ÀÛ¼ºÀÚ-'+msgData.matchIdx+'</h3>').appendTo('body');
+			$('<div id=\"chattingBox-1\" class=\"chattingBox\"></div>').html('<h3>${myname} : ê²Œì‹œë¬¼ ì‘ì„±ì-'+msgData.matchIdx+'</h3>').appendTo('body');
 			$('#chattingBox-1').append('<hr>')
 		}
 
 			
 
-		// ³ª¿Í »ó´ë¹æÀÌ º¸³½ ¸Ş¼¼Áö¸¦ ±¸ºĞÇÏ¿© Ãâ·Â
+		// ë‚˜ì™€ ìƒëŒ€ë°©ì´ ë³´ë‚¸ ë©”ì„¸ì§€ë¥¼ êµ¬ë¶„í•˜ì—¬ ì¶œë ¥
 		if (msgData.user == currentuser_session) {
 			var printHTML = "<div class='well text_right'>";
 			printHTML += "<div class='alert alert-info'>";
@@ -183,9 +164,10 @@ ${myidx}${myname}${myphoto}${mytype}
 	}
 
 	function onClose(evt) {
-		$("#data").append("¿¬°á ²÷±è");
+		$("#data").append("ì—°ê²° ëŠê¹€");
 	}
 	
-	
+
+	<%@include file="/WEB-INF/views/layout/footer.jsp" %>	
 </script>
 </html>

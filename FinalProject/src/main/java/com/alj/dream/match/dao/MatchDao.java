@@ -1,7 +1,6 @@
 package com.alj.dream.match.dao;
 
 
-import com.alj.dream.match.domain.Chat;
 import com.alj.dream.match.domain.Match;
 public interface MatchDao {
 
@@ -12,6 +11,6 @@ public interface MatchDao {
 	
 	public Match selectMatch(int postidx, int menteeidx, int mentoridx);
 	
-	public int insertChat(Chat chat);
+	
 	
 }

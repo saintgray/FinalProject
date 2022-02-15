@@ -74,7 +74,7 @@
       min-width: 70px;
     }
 
-    #subnav span {
+    #subnav span, .bi-arrow-repeat {
       line-height: 40px;
     }
 

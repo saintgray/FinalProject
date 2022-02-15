@@ -31,25 +31,25 @@ public class RequestGroupService {
 		dao = template.getMapper(RequestDao.class);
 	
 		AccountDetails logininfo = (AccountDetails)auth.getPrincipal();
-		int midx = Integer.parseInt(logininfo.getM_idx());
-		String mtype = logininfo.getM_type();
+		int myidx = Integer.parseInt(logininfo.getM_idx());
+		String mytype = logininfo.getM_type();
 		
 		String wanted = null;						// 게시물의 제안 대상
 		
-		if (mtype.equalsIgnoreCase("mentee")) {
+		if (mytype.equalsIgnoreCase("mentee")) {
 			wanted="mentor";
 			
-		}else if(mtype.equalsIgnoreCase("mentor")) {
+		}else if(mytype.equalsIgnoreCase("mentor")) {
 			wanted="mentee";
 		}
 		
 		
 		// 회원이 올린 게시글의 총 개수(문의를 받은 게시글만)
-		int totalPostCount = dao.selectTotalPost(midx, wanted);
+		int totalPostCount = dao.selectTotalPost(myidx, wanted);
 		int i =0;
 		
 		List<RequestMember> rmemberList = new ArrayList<RequestMember>();
-		List<RequestGroup> rgroupList = dao.selectRequestPostByMIdx(midx, wanted);	
+		List<RequestGroup> rgroupList = dao.selectRequestPostByMIdx(myidx, wanted);	
 		
 		while(i<totalPostCount) {
 							
@@ -57,8 +57,6 @@ public class RequestGroupService {
 	
 			rmemberList = dao.selectRequestMemberByPostIdx(postidx);	// 게시글 고유번호에 문의한 회원정보를 rmemberList리스트에 add.
 			
-
-
 			rgroupList.get(i).setList(rmemberList);		
 			
 			i++;

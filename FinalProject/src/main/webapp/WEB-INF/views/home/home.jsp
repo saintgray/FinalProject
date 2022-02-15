@@ -15,6 +15,10 @@
   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/home/home.css">
   <%@ include file="/WEB-INF/views/home/pageset/homepageset.jsp"%>
   
+  <style>
+  
+  </style>
+  
   <title>HOME</title>
 </head>
 
@@ -71,53 +75,83 @@
 			     	</c:if>
 			     </div>
 		     </sec:authorize>
-		     
-		     
-		     <!-- test area -->
-			<h1><sec:authorize access="hasRole('ROLE_ADMIN')">ROLE_ADMIN 관리자입니다.</sec:authorize>	 </h1>
-			<h1><sec:authorize access="hasRole('ADMIN')">ADMIN관리자입니다.</sec:authorize>	 </h1>
-			<h1><sec:authorize access="isAnonymous()">비회원입니다.</sec:authorize>	 </h1>
-			<h1><sec:authorize access="hasRole('GENERAL')">회원입니다.</sec:authorize>	 </h1>
-			<h1><sec:authorize access="isAuthenticated()">인증은 되었습니다.</sec:authorize> </h1>
-			<%-- <h1>멘토/멘티 상태 : <sec:authentication property="m_type"/></h1> --%>
-			
-			
-			
-			
-	   
-	    <!--  test area -->
-	    <div class="container" style="border: 1px solid black">
-	    
-	    	<!--  인증된 유저 = 로그인에 성공한 유저만 이 메뉴를 볼 수 있다 -->
-	    	<sec:authorize access="isAuthenticated()">
-	    	
-		    	<!-- 허가증의 m_type 변수명을 type 으로 설정 -->
-		    	<!-- jstl 표현식에서 type 을 사용하여 간편히 처리하기 위함 -->
-		    	<%-- <c:set var="type">
-		    		<sec:authentication property="principal.m_type"/>
-		    	</c:set> --%>
-		    	
-		    		<h4>현재 회원님의 상태는 ${type} 입니다</h4>
-		    	
-		    		<c:if test="${type eq 'mentee'}">
-		    			<span class="changeType">멘토로전환</span>
-			    	</c:if>
-			    	
-			    	<c:if test="${type eq 'mentor'}">
-			    		<span class="changeType">멘티로전환</span>
-			    	</c:if>
-	    	
-	    	</sec:authorize>
-	    </div>
-	    	
-	    <!-- end of test area -->	
-	    	
-	   
-	    
-	    
-	    	
-	    
-	    
+
+		     <div id="countarea">
+			     <div class="d-flex flex-row justify-content-center">
+			     
+			     	<table class="text-center" id="maininfo">
+			     		
+			     		<tr>
+			     			<td><span class="descript">회원</span></td>
+			     			<td><span class="descript">게시글</span></td>
+		     				<td><span class="descript">매칭</span></td>
+			     		</tr>
+			     	</table>
+			     
+			  	 </div>
+		  	 </div>
+		  	 
+		  	 
+		  	 <h1 class="banner mt-5">
+		  	 	
+		  	 	당신의 
+		  	 	<sec:authorize access="isAnonymous()">
+	  	 		 	멘티
+	  	 		</sec:authorize>
+		  	 	<c:if test="${type eq 'mentor'}">
+	  	 		  멘티  
+	  	 		 </c:if>
+	  	 		 <c:if test="${type eq 'mentee'}">
+	  	 		  멘토
+	  	 		 </c:if>
+		  	 	를 지금 찾아보세요!
+		  	 </h1>
+		  	 <div class="d-flex flex-row flex-nowrap justify-content-between mb-5" id="catarea">
+		  	 
+		  	 	<div class="d-flex flex-column cat-card mx-auto">
+		  	 		<a href="#">
+		  	 			<img src="${pageContext.request.contextPath}/resources/files/server/category/piano.jpg">
+		  	 		</a>
+		  	 		<span class="descript ms-2 my-1">음악</span>
+		  	 	</div>
+		  	 	<div class="d-flex flex-column cat-card mx-auto">
+		  	 		<a href="#">
+		  	 			<img src="${pageContext.request.contextPath}/resources/files/server/category/draw.png">
+		  	 		</a>
+		  	 		<span class="descript ms-2 my-1">미술</span>
+		  	 	</div>
+		  	 	<div class="d-flex flex-column cat-card mx-auto">
+		  	 		<a href="#">
+		  	 			<img src="${pageContext.request.contextPath}/resources/files/server/category/cook.jpg">
+		  	 		</a>
+		  	 		<span class="descript ms-2 my-1">요리</span>
+		  	 	</div>
+		  	 
+		  	 </div>
+		  	 
+		  	
+	  	 	<h1 class="banner mt-5">
+	  	 		전국의 
+	  	 		 <sec:authorize access="isAnonymous()">
+	  	 		 	멘티
+	  	 		 </sec:authorize>
+	  	 		 <c:if test="${type eq 'mentor'}">
+	  	 		  멘티  
+	  	 		 </c:if>
+	  	 		 <c:if test="${type eq 'mentee'}">
+	  	 		  멘토
+	  	 		 </c:if>
+	  	 		 를 지금 만나보세요!
+	  	 	</h1>
+	  	
+		  	<div id="locsearcharea" class="container d-flex p-2 flex-wrap mb-5 justify-content-center">
+		  	
+		  		
+		  	
+		  	</div>
+		  	 
+		  	 
+		  	 
 	     </div>
 	     
 	   

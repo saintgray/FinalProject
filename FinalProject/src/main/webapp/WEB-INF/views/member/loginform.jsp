@@ -50,6 +50,13 @@
 				$('#loginbtn').trigger('click');
 			}
 		})
+		
+		// forgetMe 
+		///////////////////////////
+		$('#forgetMe').on('click',function(){
+			location.href="${pageContext.request.contextPath}/findaccount";	
+		})
+		
 	})
 </script>
 

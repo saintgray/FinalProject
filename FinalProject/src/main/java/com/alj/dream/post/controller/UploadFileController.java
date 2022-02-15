@@ -51,6 +51,8 @@ public class UploadFileController {
 //		}
 //	}
 	
+	
+	
 //	@RequestMapping("/post/uploadFileResult")
 //	public String getResult() {
 //		return "/post/uploadfFileResult";
