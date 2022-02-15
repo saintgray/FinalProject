@@ -33,7 +33,52 @@
   	
   	         }, 5000);
   	
-  	
+  			$.ajax({
+  				
+  				url:'${pageContext.request.contextPath}/home/infos',
+  				type:'POST',
+  				contentType:'json',
+  				success:function(data){
+  					//console.log(data);
+  					//console.log(data.memberCount);
+  					
+  					html='';
+  					html+='<tr>\r\n';
+  					html+='<td class="mx-3"><h1 class="count">'+data.memberCount+'</h1></td>\r\n';
+  					html+='<td class="mx-3"><h1 class="count">'+data.postCount+'</h1></td>\r\n';
+  					html+='<td class="mx-3"><h1 class="count">'+data.matchingCount+'</h1></td>\r\n'
+  					html+='</tr>\r\n';
+  					$('#maininfo').prepend(html);
+  
+  				}
+  			})
+  			
+  			
+  			$.ajax({
+				url:"${pageContext.request.contextPath}/loc/list",
+				type:"POST",
+				dataType:"json",
+				success:function(data){
+					$(data).each(function(index, item){
+						var html='<div class="mx-3 my-2">\r\n';
+							html+='<span>'+item.loc_idx+'<span>\r\n';
+							html+='<a href="" class="loclink">'+item.loc_nm+'</a>\r\n';
+							html+='</div>\r\n';
+						
+						
+						$('#locsearcharea').append(html);
+						
+		 
+					})
+					
+					
+					
+				},
+				error:function(data){
+					console.log('통신실패');
+					console.log(data);
+				}
+			})
   	
   	
   	          var rolling = function (bannerarea_width) {

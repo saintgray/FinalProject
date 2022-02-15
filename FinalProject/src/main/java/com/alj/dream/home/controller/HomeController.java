@@ -1,4 +1,4 @@
-package com.alj.dream;
+package com.alj.dream.home.controller;
 
 import java.util.Locale;
 

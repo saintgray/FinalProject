@@ -85,7 +85,8 @@
 	     							
 	     							
 	      							<div class="d-flex justify-content-around dropdown-item">
-		      							<i class="fi fi-rr-rotate-right"></i>
+		      							<!-- <i class="fi fi-rr-rotate-right"></i> -->
+		      							<i class="bi bi-arrow-repeat"></i>
 		      							<span class="changeType">
 		      								<c:if test="${type eq 'mentor'}">
 		      									멘티로 전환
