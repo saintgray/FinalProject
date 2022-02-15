@@ -18,7 +18,7 @@
 
 <form>
 <input type="text" name="notice_title" placeholder="제목 입력"><br>
-<input type="text" name="notic e_content" placeholder="내용 입력"><br>
+<input type="text" name="notice_content" placeholder="내용 입력"><br>
 <input type="button" value="등록" id="registerbtn">
 </form>
 </div>
@@ -42,7 +42,7 @@ $(document).ready(function(){
 			success: function(data){
 				if(data==1){
 					alert('정상적으로 등록되었습니다');
-					location.href="${pageContext.request.contextPath}/notice";
+					location.href="${pageContext.request.contextPath}/notice?selectPage=1&numOfNoticesPerPage=5";
 				}else{
 					alert('오류가 발생하였습니다. 잠시 후 다시 시도하세요');
 				}

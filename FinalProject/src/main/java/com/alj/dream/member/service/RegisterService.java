@@ -48,10 +48,10 @@ public class RegisterService {
 			
 			
 			
-		
+				
 				
 // Tomcat 서버에 클라이언트의 파일을 저장시 코드				
-				
+				infos.setM_nm((infos.getM_nm()==null || infos.getM_nm().length()==0)? email.getM_email_prefix(): infos.getM_nm() );
 				infos.setM_email(EMailUtil.getUserEmail(email));
 				infos.setM_password(pwEncoder.encode(infos.getM_password()));
 				String m_photo=infos.getPhoto()==null?"defaultprofile.png":String.valueOf(System.nanoTime());

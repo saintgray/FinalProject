@@ -56,6 +56,7 @@
 			
 			<!-- 이 프로필의 소유주 idx 가 현재 로그인한 사람의 idx 와 다르다면  -->
 			<c:if test="${profileOwnerIdx ne m_idx}">
+				
 				<div class="d-flex flex-wrap justify-content-center">
 					<h1> 이 회원은 프로필이 없습니다. </h1>
 				</div>
@@ -64,8 +65,8 @@
 		</c:if>
 		
 		
-		<!-- 해당 유저의 프로필이 있을 때 -->
-		<c:if test="${not empty profile}">
+		<!-- 해당 유저의 프로필이 있고 해당 유저가 탈퇴하지 않았을 시 -->
+		<c:if test="${not empty profile and empty profile.m_quitdate}">
 		
 			<c:set var="photo">
 				<sec:authentication property="principal.photo"/>
@@ -200,7 +201,7 @@
 			</div>
 			<div class="d-flex flex-row flex-wrap" id="attachedFilesWrap">
 				
-				<div class="select d-flex flex-wrap  flex-grow-1">
+				<div class="d-flex flex-wrap  flex-grow-1" id="attachFilesArea">
 					<c:if test="${empty profile.files}">
 						<span class="fw-bold" style="color:rgb(70,70,70)">파일이 없습니다</span>
 					</c:if>
@@ -268,7 +269,15 @@
 			
 			
 			
-		</c:if>	
+		</c:if>
+		
+		
+		<!-- 해당 유저의 프로필은 있는데 탈퇴한 회원인 경우 -->
+		<c:if test="${not empty profile and not empty profile.m_quitdate}">
+		
+			<h1>탈퇴한 회원입니다.</h1>
+			
+		</c:if>
 				
 	</div>
 

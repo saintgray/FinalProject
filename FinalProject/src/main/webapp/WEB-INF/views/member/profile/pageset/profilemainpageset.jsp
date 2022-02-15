@@ -224,7 +224,7 @@
 		$('#attachedFilesWrap .delRow').on('click',function(){
 			
 			if(confirm('정말로 삭제하시겠습니까?')){
-				deleteFile($(this).siblings('.fileName').text());	
+				deleteFile($(this).siblings('.fileName').text(), $(this));	
 			}	
 		})
 		
@@ -244,8 +244,11 @@
 			})
 			
 			
-			// 파일 업로드
-		 	 $.ajax({
+			
+			
+			
+			//파일 업로드
+		 	  $.ajax({
 				url:'${pageContext.request.contextPath}/member/profile/uploadfiles',
 				type:'POST',
 				enctype:'multipart/form-data',
@@ -258,12 +261,13 @@
 						location.href='${pageContext.request.contextPath}/member/profile/main';
 						
 					}else{
-						alert('잠시 후 다시 시도해주세요');
+						alert('오류가 발생하였습니다 잠시 후 다시 시도해주세요');
 					}
 				},
 				error:function(data){
 					console.log('통신실패');
 					console.log(data);
+					alert('오류가 발생하였습니다 잠시 후 다시 시도해주세요');
 				}
 				
 				
@@ -314,7 +318,7 @@
 	}
 	
 	
-	function deleteFile(file_nm){
+	function deleteFile(file_nm, dom){
 		console.log(file_nm);
 		$.ajax({
 			
@@ -324,9 +328,10 @@
 			success:function(data){
 				console.log('통신성공');
 				if(data==1){
-					console.log('정상적으로 삭제되었습니다.');
+					console.log('삭제 성공');
+					$(dom).parent('.select').remove();		
 				}else{
-					console.log('오류가 발생헀습니다. 잠시 후 다시 시도하세요');
+					alert('오류가 발생헀습니다. 잠시 후 다시 시도하세요');
 				}
 			},
 			error:function(data){

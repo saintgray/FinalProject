@@ -16,8 +16,6 @@
 	 WHERE rep.m_reported=#{arg0};
  </select>
  
- 
- 
  <insert id="insertReport"
  		parameterType="com.alj.dream.report.domain.Report"
  		useGeneratedKeys="true"
@@ -27,3 +25,4 @@
  </insert>
  
 </mapper>
+

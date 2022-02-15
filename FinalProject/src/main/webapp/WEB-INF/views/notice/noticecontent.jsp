@@ -7,34 +7,52 @@
 <head>
 <meta charset="UTF-8">
 <%@ include file="/WEB-INF/views/defaultpageset.jsp" %>
+<style>
+	.article{
+	padding: 20px 40px 0;
+    border: 1px solid;
+    border-radius: 6px;
+	}
+</style>
 <title>공지사항</title>
 </head>
 <body>
-
-<%@include file="/WEB-INF/views/layout/header.jsp" %>
-
-<div class="container gw">
-	<h1> 공지사항 내용을 보여주는 jsp 입니다 </h1>
-	<h1>제목 : ${content.notice_title}</h1>
-	<h3>내용: ${content.notice_content}</h3>
-	<h3>작성일 : ${content.notice_regdate}</h3>
-	<h3>수정일  : ${content.notice_editdate}</h3>
-	<h3>작성자: ${content.admin_nm}</h3>
-	<h3>게시글 고유번호 : ${content.notice_idx}</h3>
+<div class="gw">
 	
-	<sec:authorize access="hasRole('ADMIN')">
-		<c:set var="admin_idx">
-			<sec:authentication property="principal.admin_idx"/>
-		</c:set>
+	<%@include file="/WEB-INF/views/layout/header.jsp" %>
+	<h1 class="mx-5 banner">공지사항</h1>
+	<div class="container article">
 		
-		<div class="d-flex flex-row flex-wrap justify-content-center">
-		    <button type="button" class="btn btn-general" id="listbtn">목록</button>
-		    <c:if test="${admin_idx eq content.admin_idx}">
-				<button type="button" class="btn btn-general" id="editbtn">수정</button>
-				<button type="button" class="btn btn-danger" id="delbtn">삭제</button>	
-			</c:if>	
-		</div>
-	</sec:authorize>
+		
+		<h1>제목 : ${content.notice_title}</h1>
+		<h6>작성자: ${content.admin_nm}</h6>
+		<h6>작성일 : ${content.notice_regdate} 수정일  : ${content.notice_editdate}</h6>
+		<h3>내용: ${content.notice_content}</h3>
+	
+		
+		
+	</div>
+	
+			<c:set var="admin_idx">
+				<sec:authentication property="principal.admin_idx"/>
+			</c:set>
+			
+			<div class="d-flex flex-row flex-wrap justify-content-center my-5">
+			    <button type="button" class="btn btn-general me-auto" id="listbtn">목록</button>
+			    
+			    
+			    
+			    
+			    <sec:authorize access="hasRole('ADMIN')">
+				    <c:if test="${admin_idx eq content.admin_idx}">
+				    	<div class="ms-auto">
+							<button type="button" class="btn btn-general" id="editbtn">수정</button>
+							<button type="button" class="btn btn-danger" id="delbtn">삭제</button>
+						</div>		
+					</c:if>	
+				</sec:authorize>
+			</div>
+	
 </div>
 
 <%@include file="/WEB-INF/views/layout/footer.jsp" %>

@@ -18,14 +18,23 @@ public class MemberListService {
 	private SqlSessionTemplate sst;
 	
 	public MemberListView getMemberList(PageRequest pagereq) {
-	int selectPage = Integer.parseInt(pagereq.getSelectPage());
-	int numOfMemberPerPage = Integer.parseInt(pagereq.getNumOfMemberPerPage());
+	int selectPage =pagereq.getSelectPage();
+	int numOfMemberPerPage = pagereq.getNumOfMemberPerPage();
 	
 	int firstMemberIndexOfSelectedPage = numOfMemberPerPage*(selectPage-1);
+	pagereq.setFirstMemberIndexOfSelectedPage(firstMemberIndexOfSelectedPage);
+	
+	
 	int totalNumOfMember = Integer.parseInt(sst.getMapper(MemberDao.class).getTotalNumOfMember());
 	int totalPage=totalNumOfMember/numOfMemberPerPage;
 	
-	List<MemberInfo> list = sst.getMapper(MemberDao.class).getMemberList(firstMemberIndexOfSelectedPage, numOfMemberPerPage);
+	System.out.println(pagereq.getFirstMemberIndexOfSelectedPage());
+	System.out.println(pagereq.getNumOfMemberPerPage());
+	System.out.println(pagereq.getSelectPage());
+	System.out.println(pagereq.getBlacklisted());
+	
+	
+	List<MemberInfo> list = sst.getMapper(MemberDao.class).getMemberList(pagereq);
 		
 	MemberListView pageView=
 			new MemberListView(totalPage,

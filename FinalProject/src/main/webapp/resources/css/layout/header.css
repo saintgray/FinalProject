@@ -6,10 +6,7 @@
       padding-top: 10px;
     }
 
-    ul li span {
-      display: inline-block;
-      width: 70px;
-    }
+    
     ul li img {
       display: inline-block;
     }
@@ -73,6 +70,8 @@
 
     #subnav .list {
       margin: 0 5px;
+      display: inline-block;
+      min-width: 70px;
     }
 
     #subnav span {
@@ -108,14 +107,23 @@
     	cursor:pointer;
     	width:42px;
     	height: 42px;
+   	    border-radius: 50%;
+   		border: 1px solid #FCA106;
     }
 
     .inner {
 
       height: 40px;
     }
+    #menutab{
+    	font-size:13px;
+    }
+    #menutab #myinfo{
+    	color: #142B6F;
+    	font-weight:bold;
+    }
     #menutab .fi {
- 		line-height: 2.7;   
+ 		line-height: 3.3;   
     
     }
     #menutab span{

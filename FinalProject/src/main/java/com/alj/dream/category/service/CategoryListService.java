@@ -26,14 +26,13 @@ public class CategoryListService {
 
 
 	public List<ChildCategory> getList(List<String> interest) {
-		System.out.println("서비스진입");
 		
 		
 		List<ChildCategory> list=null;
 		list=sst.getMapper(CategoryDao.class).getChildCategory(interest);
 		
-		System.out.println("서비스의 결과");
-		System.out.println(list);
+		
+		// System.out.println(list);
 		
 		
 		return list;

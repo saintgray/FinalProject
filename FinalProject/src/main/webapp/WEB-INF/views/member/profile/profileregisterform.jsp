@@ -14,8 +14,8 @@
 
 <!-- include summernote css/js -->
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
-<!-- <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script> -->
-<script src="${pageContext.request.contextPath}/resources/default/summernote-bs4.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
+
 
 <!-- timepicker script & css -->
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css">
@@ -392,7 +392,9 @@ $(document).ready(function(){
 	         //maxHeight: 600,
 	         //width: 900
 			
-		});
+		})
+	 
+	/* $('.dropdown-toggle').dropdown(); */
 		
 	
 })

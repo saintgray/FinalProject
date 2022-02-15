@@ -7,6 +7,5 @@ import com.alj.dream.category.domain.ChildCategory;
 public interface CategoryDao {
 	
 	List<ChildCategory> getChildCategory(List<String> interest);
-	String getCategoryIdxByName(String cat_nm);
 
 }

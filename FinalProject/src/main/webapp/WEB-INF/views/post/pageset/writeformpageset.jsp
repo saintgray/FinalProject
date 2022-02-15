@@ -1,63 +1,71 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 
 <!-- include summernote css/js -->
-<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
+<link
+	href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css"
+	rel="stylesheet">
+<script
+	src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
 
 
 <script>
+let cat_idx;
 
-function selectCategory(){
-	
-	var interest = $('#categoryInfos option:selected');
+function resetCategory(){
+	$('#categoryInfos').html('');
+	cat_idx=0;
+		
+	selectCategory();
+}
 
-	console.log(interest);
+function selectCategory(dom){
 	
-	/* $.ajax({
+	var interest = $(dom).children('option:selected').val();
+
+	$.ajax({
 		url: '${pageContext.request.contextPath}/category/list',
 		type: 'GET',
-		data: interest,
+		data: {interest : interest},
 		datatype: 'json',
 		success: function(data){
-			console.log(data.length);
+			
+			// remove all next Siblings		
+			$(dom).parent().nextAll().remove();
 			
 			if(data.length==0){
 				
+				// 현재 선택한 interest 값을 cat_idx 에 저장한다.
+				cat_idx = interest;
+				console.log(cat_idx);
+				
 			}else{
 			
-			var html="";
-			$(data).each(function(index, items){
-				console.log(items.cat_idx);
-				console.log(items.cat_nm);
+				var html="";
+				html+='<div class="selectarea mx-1">\r\n';
+				html += '<select onchange="selectCategory(this)">\r\n';
+				html += '<option value="">선택</option>\r\n';
 				
-				html += '<select>\r\n';
+				$(data).each(function(index, items){
+					console.log(items.cat_idx);
+					console.log(items.cat_nm);
+					
+					html += '<option value="'+items.cat_idx+'">'+items.cat_nm+'</option>';
 				
+				})
 				html += '</select>\r\n';
+				html+='</div>'
 				
-				html+= '<div class="input-group justify-content-center my-4">\r\n';
-					html+= '<label for="interest'+items.cat_idx+'">\r\n';
-						html+='<img src="${pageContext.request.contextPath}/resources/files/server/icons/check_off.svg">\r\n';
-						html+='<span class="hidden">'+items.cat_idx+'</span>\r\n';
-						html+='<span>'+items.cat_nm+'</span>\r\n';
-					html+='</label>\r\n';
-					html+='<input type="checkbox" id="interest'+items.cat_idx+'" name="interest" class="interest hidden" value="'+items.cat_idx+'">\r\n';
-				html+='</div>\r\n';
+				$('#categoryInfos').append(html);
+				console.log(html);
 			
-			
-			
-			
-			})
-			
-				$('#interestInfos').html(html);
-				$('#loading').remove();
 			}
 			
 		},
 		error: function(data){
 			console.log(data);
 		}
-	}); */
+	});
 	
 }
 
@@ -102,7 +110,9 @@ $(document).ready(function(){
          placeholder: '내용을 입력하세요.'
          
 
-	});	
+	});
+	
+	selectCategory(30);	
         
     var formData = new FormData(document.getElementById('writePost'));
     
@@ -122,15 +132,21 @@ $(document).ready(function(){
 				return false;
 			}
 			formData.append("fileList", inputFile[i]);
+			
+			/*
+			파일첨부에서 없앤 뒤 프리뷰를 #filePreview div에 나타나도록 하고
+			첨부된 파일 목록을 li 로 보여준다.
+			*/
+			
 		}
 		
 	});
 
-	$("#ajaxBtn").on("click", function(e){
+	$("#submitBtn").on("click", function(e){
 
 		var post_nm = $('#post_nm').val();
 	    var content = $('#content').summernote('code');
-	    var cat_idx = $('#cat_idx').val();
+	    /* var cat_idx = $('#cat_idx').val(); */
 	    
 	    formData.set("post_nm", post_nm);
 	    formData.set("post_content", content);
@@ -144,6 +160,11 @@ $(document).ready(function(){
 		/* value 확인하기 */
 		for (let value of formData.values()) {
 		      console.log(value);
+		}
+		
+		if(!cat_idx>0){
+			alert('분야를 반드시 선택하셔야 합니다.');
+			return;
 		}
 		
 		$.ajax({
@@ -169,18 +190,6 @@ $(document).ready(function(){
 		});
 		
 	});
-	
-	
-
-	
-	
-	// 카테고리 선택 관련
-	// https://huskdoll.tistory.com/497
-	// https://golddigger.tistory.com/42
-	
-	
-	
-	
 	
 });
 
