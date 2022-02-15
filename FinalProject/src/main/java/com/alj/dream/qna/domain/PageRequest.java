@@ -2,60 +2,58 @@ package com.alj.dream.qna.domain;
 
 public class PageRequest {
 	
-	private String selectPage;		//클릭한 현재페이지
-	private String numOfQnaPerPage;	//한 페이지당 보여줄 qna 갯수
-	private String numOfPagePerPage;
-	private String curPageIndex;
+	private int selectPage;		//클릭한 현재페이지
+	private int numOfQnaPerPage;	//한 페이지당 보여줄 qna 갯수
+	private int numOfPagePerPage;
+	private int curPageIndex;
 	
 	public PageRequest() {
-		
+		curPageIndex=-1;
+		numOfPagePerPage=10;
 	}
 
-	public PageRequest(String selectPage, String numOfQnaPerPage, String numOfPagePerPage, String curPageIndex) {
+	public PageRequest(int selectPage, int numOfQnaPerPage, int numOfPagePerPage, int curPageIndex) {
 		this.selectPage = selectPage;
 		this.numOfQnaPerPage = numOfQnaPerPage;
 		this.numOfPagePerPage = numOfPagePerPage;
 		this.curPageIndex = curPageIndex;
+	
+	
 	}
 
-	public String getSelectPage() {
+	public int getSelectPage() {
 		return selectPage;
 	}
 
-	public void setSelectPage(String selectPage) {
+	public void setSelectPage(int selectPage) {
 		this.selectPage = selectPage;
 	}
 
-	public String getNumOfQnaPerPage() {
+	public int getNumOfQnaPerPage() {
 		return numOfQnaPerPage;
 	}
 
-	public void setNumOfQnaPerPage(String numOfQnaPerPage) {
+	public void setNumOfQnaPerPage(int numOfQnaPerPage) {
 		this.numOfQnaPerPage = numOfQnaPerPage;
 	}
 
-	public String getNumOfPagePerPage() {
+	public int getNumOfPagePerPage() {
 		return numOfPagePerPage;
 	}
 
-	public void setNumOfPagePerPage(String numOfPagePerPage) {
+	public void setNumOfPagePerPage(int numOfPagePerPage) {
 		this.numOfPagePerPage = numOfPagePerPage;
 	}
 
-	public String getCurPageIndex() {
+	public int getCurPageIndex() {
 		return curPageIndex;
 	}
 
-	public void setCurPageIndex(String curPageIndex) {
+	public void setCurPageIndex(int curPageIndex) {
 		this.curPageIndex = curPageIndex;
 	}
 
-	@Override
-	public String toString() {
-		return "PageRequest [selectPage=" + selectPage + ", numOfQnaPerPage=" + numOfQnaPerPage + ", numOfPagePerPage="
-				+ numOfPagePerPage + ", curPageIndex=" + curPageIndex + "]";
-	}
-
+	
 	
 	
 	

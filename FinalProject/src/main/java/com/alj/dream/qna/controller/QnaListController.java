@@ -27,6 +27,12 @@ public class QnaListController {
 	public String getQnaList(PageRequest pageReq, Model model) {
 		
 		
+		System.out.println(pageReq.getCurPageIndex());
+		System.out.println(pageReq.getNumOfPagePerPage());
+		System.out.println(pageReq.getNumOfQnaPerPage());
+		System.out.println(pageReq.getSelectPage());
+		
+		
 		try {
 			model.addAttribute("pageView", listService.getQnaList(pageReq));
 			
