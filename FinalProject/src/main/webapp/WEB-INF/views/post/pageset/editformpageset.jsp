@@ -108,7 +108,7 @@ $(document).ready(function(){
 	});
 	
 	/* 글 수정시 summernote에 글내용 추가 */
-    $('#content').summernote('editor.insertText', "${editRequest.post_content}");
+    //$('#content').summernote('editor.insertText', "${editRequest.post_content}");
 	
 	
 });

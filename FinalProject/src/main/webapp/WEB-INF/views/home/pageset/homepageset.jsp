@@ -44,11 +44,13 @@
   					
   					html='';
   					html+='<tr>\r\n';
-  					html+='<td class="mx-3"><h1 class="count">'+data.memberCount+'</h1></td>\r\n';
-  					html+='<td class="mx-3"><h1 class="count">'+data.postCount+'</h1></td>\r\n';
-  					html+='<td class="mx-3"><h1 class="count">'+data.matchingCount+'</h1></td>\r\n'
+  					html+='<td class="mx-3"><h1 class="count counter">'+data.memberCount+'</h1></td>\r\n';
+  					html+='<td class="mx-3"><h1 class="count counter">'+data.postCount+'</h1></td>\r\n';
+  					html+='<td class="mx-3"><h1 class="count counter">'+data.matchingCount+'</h1></td>\r\n'
   					html+='</tr>\r\n';
   					$('#maininfo').prepend(html);
+  					
+  					
   
   				}
   			})
@@ -98,40 +100,57 @@
   	        	 //location.href="${pageContext.request.contextPath}/요청url"
   	          })
   	          
+  	          <sec:authorize access="isAuthenticated()">
+	  	          $('#writepostbtn').on('click',function(){
+	  	        	  
+	  	        	  //var type=$('input[name=type]').val();
+	  	        	  //var idx=$('input[name=idx]').val();
+	  	        	  
+	  	        	  //console.log(type);
+	  	        	  //console.log(idx);
+	  	        	  // 타입이 멘티라면 여기서 바로 writeform 으로 보내고
+	  	        	  // 멘토라면 ajax로 프로필이 있는지 한번 확인 후 보냄
+	  	        	  <c:set var="type">
+	  	        	  	<sec:authentication property="principal.m_type"/>
+	  	        	  </c:set>
+	  	        	  if(${type eq 'mentee'}){
+	  	        		  location.href="${pageContext.request.contextPath}/post/write";
+	  	        	  }else{
+	  	        		  
+	  	        	  
+		  	        	  $.ajax({
+		  	        		url: "${pageContext.request.contextPath}/post/checkProfile",
+		  	        		type: 'post',
+		  	        		
+							success: function(data){
+								
+								
+								if(data==''){
+									
+									if(confirm('프로필을 먼저 작성해야 합니다. 작성하시겠습니까?')){
+											location.href="${pageContext.request.contextPath}/member/profile/register";	
+									}
+								
+								}else{
+									location.href="${pageContext.request.contextPath}/post/write";	
+								}
+								
+								
+							},
+							error: function(data){
+								console.log('통신오류');
+								console.log(data);
+							}
+							
+		  	        	  })
+		  	        	  
+		  	        	  
+	  	              }
+	  	        	  
+	  	          })
+  	          </sec:authorize>
   	          
-  	          $('#writepostbtn').on('click',function(){
-  	        	  
-  	        	  var type=$('input[name=type]').val();
-  	        	  var idx=$('input[name=idx]').val();
-  	        	  
-  	        	  console.log(type);
-  	        	  console.log(idx);
-  	        	  
-  	        	  $.ajax({
-  	        		url: "${pageContext.request.contextPath}/post/checkProfile",
-  	        		type: 'post',
-					data: {
-						type : type,
-						idx : idx
-					},
-					success: function(data){
-						console.log(data);
-						
-						if(type=='mentor' && data==""){
-							alert('멘티구함 글을 쓰기 위해서는 프로필을 작성해야 합니다.');
-							location.href="${pageContext.request.contextPath}/member/profile/register";
-							return;
-						}
-						
-						location.href="${pageContext.request.contextPath}/post/write"
-					},
-					error: function(data){
-						console.log('통신오류');
-						console.log(data);
-					}
-  	        	  });
-  	        	  
-  	          })
+  	          
   	         
   	          
   	          
