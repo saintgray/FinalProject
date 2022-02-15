@@ -62,10 +62,13 @@
 				<textarea name="post_content" id="content"></textarea>
 				<br>
 
-				<!-- 카테고리 인덱스 -->
-				<div id="categoryInfos">
-				
-				<button type="button" onclick="resetCategory()">분야 초기화</button>
+				<!-- 분야 선택 -->
+				<div class="d-flex flex-row my-3">
+					<div class="descript my-1 ms-0 me-1">분야 선택</div>
+					<button type="button" class="btn btn-grey fs-6" onclick="resetCategory()">초기화</button>
+				</div>
+				<!-- 카테고리 selectbox -->
+				<div id="categoryInfos" class="d-flex flex-row flex-wrap  mb-5 mt-1">
 				</div>
 
 				<input type="hidden" name="wanted" value="${type eq 'mentor'?'mentee':'mentor'}">
@@ -73,10 +76,11 @@
 
 				<!-- 파일업로드 -->
 				<input type="file" name="attachFile" id="attachFile" multiple>
-				<br>
+				<!-- 업로드한 파일 썸네일 -->
+				<div id="filePreview"></div>
 
 				<button type="reset">리셋</button>
-				<button type="button" id="ajaxBtn">작성</button>
+				<button type="button" id="submitBtn">작성</button>
 
 			</form>
 

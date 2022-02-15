@@ -13,29 +13,25 @@
 let cat_idx;
 
 function resetCategory(){
-	$('#categoryInfos').empty();
+	$('#categoryInfos').html('');
 	cat_idx=0;
 		
-	var html='<button type="button" onclick="resetCategory()">분야 초기화</button> ';
-		
-	$('#categoryInfos').append(html);
-		
-	selectCategory(30);
+	selectCategory();
 }
 
-function selectCategory(interest){
+function selectCategory(dom){
 	
-	var interest = interest;
+	var interest = $(dom).children('option:selected').val();
 
-	console.log(interest);
-	
 	$.ajax({
 		url: '${pageContext.request.contextPath}/category/list',
 		type: 'GET',
 		data: {interest : interest},
 		datatype: 'json',
 		success: function(data){
-			console.log(data.length);
+			
+			// remove all next Siblings		
+			$(dom).parent().nextAll().remove();
 			
 			if(data.length==0){
 				
@@ -46,8 +42,10 @@ function selectCategory(interest){
 			}else{
 			
 				var html="";
-				html += '<select onchange="selectCategory(this.value)">\r\n';
-				html += '<option value="">분야 선택</option>\r\n';
+				html+='<div class="selectarea mx-1">\r\n';
+				html += '<select onchange="selectCategory(this)">\r\n';
+				html += '<option value="">선택</option>\r\n';
+				
 				$(data).each(function(index, items){
 					console.log(items.cat_idx);
 					console.log(items.cat_nm);
@@ -56,6 +54,7 @@ function selectCategory(interest){
 				
 				})
 				html += '</select>\r\n';
+				html+='</div>'
 				
 				$('#categoryInfos').append(html);
 				console.log(html);
@@ -133,11 +132,17 @@ $(document).ready(function(){
 				return false;
 			}
 			formData.append("fileList", inputFile[i]);
+			
+			/*
+			파일첨부에서 없앤 뒤 프리뷰를 #filePreview div에 나타나도록 하고
+			첨부된 파일 목록을 li 로 보여준다.
+			*/
+			
 		}
 		
 	});
 
-	$("#ajaxBtn").on("click", function(e){
+	$("#submitBtn").on("click", function(e){
 
 		var post_nm = $('#post_nm').val();
 	    var content = $('#content').summernote('code');
@@ -185,18 +190,6 @@ $(document).ready(function(){
 		});
 		
 	});
-	
-	
-
-	
-	
-	// 카테고리 선택 관련
-	// https://huskdoll.tistory.com/497
-	// https://golddigger.tistory.com/42
-	
-	
-	
-	
 	
 });
 
