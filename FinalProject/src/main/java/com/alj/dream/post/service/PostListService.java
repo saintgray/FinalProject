@@ -36,7 +36,6 @@ public class PostListService {
 		List<PostListInfo> list = new ArrayList<PostListInfo>();
 		
 		list = dao.selectListByMemberIdx(m_idx, wanted, index, COUNT_PER_PAGE);
-		// 매칭유무 컬럼을 나중에 mapper sql에 추가해야 함
 		
 		return new PostListView(totalCount, COUNT_PER_PAGE, pageNum, list);
 	}
@@ -50,6 +49,22 @@ public class PostListService {
 		
 		return list;
 		
+	}
+	
+	public PostListView getSearchResult(SearchParams params) {
+		
+		dao = template.getMapper(PostDao.class);
+		
+		int totalCount = dao.selectTotalCountBySearchParams(params);
+		int pageNum = params.getPageNum();
+		int index = (pageNum-1)*COUNT_PER_PAGE;
+		
+		params.setIndex(index);
+		params.setCount(COUNT_PER_PAGE);
+		
+		List<PostListInfo> list = dao.selectListBySearchParams(params);
+		
+		return new PostListView(totalCount, COUNT_PER_PAGE, pageNum, list);
 	}
 
 }

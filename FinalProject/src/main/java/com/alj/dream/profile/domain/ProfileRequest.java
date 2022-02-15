@@ -6,7 +6,7 @@ public class ProfileRequest {
 	private String m_email;
 	private String m_photo;
 	private String line;
-	// private String loc;
+	private String loc_nm;
 	
 	public ProfileRequest() {}
 
@@ -40,6 +40,20 @@ public class ProfileRequest {
 
 	public void setLine(String line) {
 		this.line = line;
+	}
+
+	public String getLoc_nm() {
+		return loc_nm;
+	}
+
+	public void setLoc_nm(String loc_nm) {
+		this.loc_nm = loc_nm;
+	}
+
+	@Override
+	public String toString() {
+		return "ProfileRequest [m_nm=" + m_nm + ", m_email=" + m_email + ", m_photo=" + m_photo + ", line=" + line
+				+ ", loc_nm=" + loc_nm + "]";
 	}
 	
 }

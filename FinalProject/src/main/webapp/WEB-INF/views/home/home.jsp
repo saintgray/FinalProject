@@ -55,12 +55,18 @@
 		     </div>
 		     
 		     <sec:authorize access="isAuthenticated()">
-		     <%-- 	<c:set value="type">
-		     		<sec:authentication property="m_type"/>
+		     	<c:set var="type">
+		     		<sec:authentication property="principal.m_type"/>
 		     	</c:set>
-			      --%>
+		     	<c:set var="idx">
+		     		<sec:authentication property="principal.m_idx"/>
+		     	</c:set>
+		     	
+		     	<input type="hidden" name="type" value="${type}">
+		     	<input type="hidden" name="idx" value="${idx}">
+
 			     <div class="d-flex flex-column justify-content-around" id="mnmbtn">
-			     	<button id="writepostbtn" class="btn btn-general my-2" onclick="location.href='${pageContext.request.contextPath}/post/write';">요청서 작성</button>
+			     	<button id="writepostbtn" class="btn btn-general my-2">요청서 작성</button>
 			     	<c:if test="${type eq 'mentor'}">
 			     		<button id="findmentorbtn" class="btn btn-general my-2">멘티찾기</button>
 			     	</c:if>
@@ -69,8 +75,7 @@
 			     	</c:if>
 			     </div>
 		     </sec:authorize>
-		     
-		     
+
 		     <div id="countarea">
 			     <div class="d-flex flex-row justify-content-center">
 			     
@@ -144,7 +149,6 @@
 		  		
 		  	
 		  	</div>
-		  	 
 		  	 
 		  	 
 		  	 

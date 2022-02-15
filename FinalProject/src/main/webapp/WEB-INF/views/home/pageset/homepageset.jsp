@@ -100,7 +100,37 @@
   	          
   	          
   	          $('#writepostbtn').on('click',function(){
-  	        	  location.href="${pageContext.request.contextPath}/post/write";  
+  	        	  
+  	        	  var type=$('input[name=type]').val();
+  	        	  var idx=$('input[name=idx]').val();
+  	        	  
+  	        	  console.log(type);
+  	        	  console.log(idx);
+  	        	  
+  	        	  $.ajax({
+  	        		url: "${pageContext.request.contextPath}/post/checkProfile",
+  	        		type: 'post',
+					data: {
+						type : type,
+						idx : idx
+					},
+					success: function(data){
+						console.log(data);
+						
+						if(type=='mentor' && data==""){
+							alert('멘티구함 글을 쓰기 위해서는 프로필을 작성해야 합니다.');
+							location.href="${pageContext.request.contextPath}/member/profile/register";
+							return;
+						}
+						
+						location.href="${pageContext.request.contextPath}/post/write"
+					},
+					error: function(data){
+						console.log('통신오류');
+						console.log(data);
+					}
+  	        	  });
+  	        	  
   	          })
   	         
   	          
