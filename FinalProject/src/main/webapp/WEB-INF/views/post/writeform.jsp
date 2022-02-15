@@ -28,14 +28,13 @@
 		</sec:authorize>
 
 		<!-- 프로필 출력 -->
-		<div>
-			프로필 정보가 출력될 영역입니다.
-
-			<%-- <c:if test="${writerProfile ne null}">
+		<div class="d-flex flex-column my-3">
+		<div class="descript my-1 ms-0 me-1">프로필</div>
+			<c:if test="${writerProfile ne null}">
 <table>
 <tr>
-	<td rowspan="2"><img src="${writerProfile.m_photo}"></td>
-	<td>${writerProfile.m_nm} / 활동지역정보</td>
+	<td rowspan="2"><img src="${pageContext.request.contextPath}/resources/default/${writerProfile.m_photo}" height="50"></td>
+	<td>${writerProfile.m_nm} / ${writerProfile.loc_nm}</td>
 </tr>
 <tr>
 	<td colspan="2">${writerProfile.line}</td>
@@ -45,7 +44,7 @@
 
 <c:if test="${writerProfile eq null}">
 글쓴이의 프로필 정보가 없습니다.
-</c:if> --%>
+</c:if>
 		</div>
 
 		<!-- 게시글 작성 -->
@@ -91,6 +90,7 @@
 	</div>
 
 	<script>
+	
 		$(document).ready(function() {
 
 			/* $('button[type="submit"]'). */
