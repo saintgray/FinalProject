@@ -5,11 +5,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
+<meta charset="UTF-8">
 <%@include file="/WEB-INF/views/defaultpageset.jsp" %>
+<link rel="shortcut icon" href="#">
 <title>받은 제의 리스트</title>
+ <!--  <%@ include file="/WEB-INF/views/defaultpageset.jsp" %>-->
 </head>
 <body>
+
+<!-- Header -->
+	<%@ include file="/WEB-INF/views/layout/header.jsp" %>
+
+
 
 <!-- 현 로그인 정보 -->
 <h1>현로그인 정보</h1>
@@ -58,97 +65,139 @@
 				<td>매칭 고유번호 : ${member.match_idx}</td>
 				<td class="postidxRow"><span class="postidx" style="color:red">${member.post_idx}</span>게시글 고유번호 : ${member.post_idx}</td>
 				
-				<td class="midxRow"><span class="midx">${member.m_idx}</span>문의한 회원 고유번호 : ${member.m_idx}</td>
-				<td>문의한 회원 이름 : ${member.m_nm}</td>
+				<td class="midxRow"><span class="midx" >${member.m_idx}</span>문의한 회원 고유번호 : ${member.m_idx}</td>
+				<td>
+					<a href="${pageContext.request.contextPath}/chat/chatroom?myidx=${myidx}&matchidx=${member.match_idx}&reciever=${member.m_idx}" style="color:blue">문의한 회원 이름 : ${member.m_nm}</a>
+				</td>
 				<td>문의한 회원 사진 : ${member.m_photo}</td>
 				<td class="wantedRow"><span class="wanted">${requestPost.wanted}</span>요청 대상 타입: ${requestPost.wanted}</td>
 				<td>매칭 여부 : ${member.matched_yn}</td>
 				<td>매칭 여부 : ${member.line}</td>
 				<td><input type="button" value="문의하기" class="rqBtn"></td>
-				<!-- 여기를 ajax처리한다 -->
-				<!-- myidx, mytype, midx, postidx전송해서 match테이블 확인 -->
-				<!-- 0:테이블존재 >이미 문의한 게시글입니다. / 0보다큼: 테이블무존재>새로생성>채팅한마디 받아야함 -->
-				<!-- myidx, mytype, midx, matchidx, message 전송 > chat만듬  -->
-				<!-- chat만들어지면 상대방에게 채팅을 보냈습니다. 확인후 꺼짐 -->
-				<td><input type="text" id="msg"><input type="button" value="채팅보내기" class="msgBtn"></td>
+				<td class="msgRow">
+					<input type="text" class="msg">
+					<input type="button" value="채팅보내기" class="msgBtn">
+				</td>
 			</tr>
 		
 </c:forEach>
 
 </table>
 
-			
-					
-	<br><br>
-	</div>
+</div>
 	
-	<script>
+<script>
 $(document).ready(function(){
+
 	
 	/*ajax처리*/
 	// 문의하기 눌렀을 시
-	$('.rqBtn').click(function(){	// 자손표시 어케하냐
+	$('.rqBtn').click(function(){	
 		
-	console.log($(this).parent().siblings('.postidxRow').children('.postidx').text());
-	console.log($(this).parent().siblings('.midxRow').children('.midx').text());
-	console.log('${myidx}');
-	console.log($(this).parent().siblings('.wantedRow').children('.wanted').text());
+		var mentor = "mentor";
+		var mentee = "mentee";	
+		var mytype = ${mytype};
+	
+		if(mytype == mentor){
+			//멘토면프로필을 확인한다 > 프로필 있을경우 그대로 진행 , 없으면 프로필을 작성해주세요
+			
+			$.ajax({
+				url : '${pageContext.request.contextPath}/post/profilechk',
+				type : 'post',
+				data : ${myidx},
+				success : function(data){
+					if(data != null){
+						console.log("멘토확인");
+						sendrq();
+					}else{
+						// 프로필작성하기로 보내기
+						alert('작성된 프로필이 없습니다. 프로필을 먼저 등록해주세요!');
+						location.href = '${pageContext.request.contextPath}/member/profile/profilemain';
+					}
+				}
+			})
+		}else if(mytype == mentee) {
+			console.log("멘티확인");
+			sendrq();
+		}
+	});
+
+	
+	function sendrq(){
 		
-	var postidx = $(this).parent().siblings('.postidxRow').children('.postidx').text();
-	var midx = $(this).parent().siblings('.midxRow').children('.midx').text();
-	var wanted = $(this).parent().siblings('.wantedRow').children('.wanted').text();
-	console.log(postidx);
-	console.log(midx);
-	console.log(wanted);
+		var postidx = $(this).parent().siblings('.postidxRow').children('.postidx').text();
+		var midx = $(this).parent().siblings('.midxRow').children('.midx').text();
+		var wanted = $(this).parent().siblings('.wantedRow').children('.wanted').text();
+		
+		console.log(postidx);
+		console.log(midx);
+		console.log(wanted);
+	
 		 $.ajax({
-			url : '${pageContext.request.contextPath}/match/matchchk',
+			url : '${pageContext.request.contextPath}/post/matchchk',
 			type : 'POST',
 			data : {
 				postidx : postidx,
 				myidx	: ${myidx},
-				midx : midx,
-				wanted : wanted
+				midx 	: midx,
+				wanted 	: wanted
 				},
+				
 			success : function(data){
 				// 전송에 성공하면 실행될 코드
 				if(data==0){	// 테이블이 이미 있다는 뜻 = 문의를 했던 글이라는 뜻
 					alert('이미 문의한 게시글입니다. 내 채팅목록을 확인해주세요!');
 				} else {
+					setMatchidx(data);
+					console.log(matchidx);
 					//채팅테이블 생성할 함수실행
 					alert('#member.m_idx 님에게 보낼 멋진 첫 한마디를 작성해주세요!');
 				}
 			}
 		})  
+	}
+	
+	
+	//ajax로 받은 결과 matchidx에 저장
+	function setMatchidx(data){
+		matchidx = data;
+	}
+	
+		// 채팅 입력했을 시
+		$('.msgBtn').click(function(){
+			
+			// var postidx = $(this).parent().siblings('.postidxRow').children('.postidx').text();
+			var midx = $(this).parent().siblings('.midxRow').children('.midx').text();
+			var msg = $(this).siblings('.msg').val();
+			
+			console.log(midx);
+			console.log(msg);
+			
+			$.ajax({
+				url : '${pageContext.request.contextPath}/post/insertchat',
+				type : 'post',
+				data : {
+				match_idx 	: 28,
+				m_reciever	: midx,
+				m_sender	: ${myidx},
+				message 	: msg
+				},
+			success : function(data){
+				// 전송에 성공하면 실행될 코드
+				if(data=='1'){	
+					alert('님에게 채팅을 전송했습니다! 채팅내용은 내 채팅목록에서 확인해주세요.');
+				} else {
+					alert('전송오류');
+				}
+			}
+		})
 	});
-
-	// 채팅 입력했을 시
-	$('#requestMember msgBtn').click(function(){	// 자손표시 어케하냐
-							$.ajax({
-								url : 'insertchat',
-								type : 'get',
-								data : {
-								match_idx 	: $('#member.post_idx'),
-								m_reciever	: $('#member.m_idx'),
-								m_sender	: $('#myidx'),
-								message 	: $('#msg').val
-								},
-							success : function(data){
-								// 전송에 성공하면 실행될 코드
-								if(data=='1'){	// 테이블이 이미 있다는 뜻 = 문의를 했던 글이라는 뜻
-									alert('#member.m_idx님에게 채팅을 전송했습니다!');
-								} else {
-									alert('전송오류');
-								
-								}
-							}
-							})
-						});
 });
-
-
 
 </script>
 	
+	
+<%@include file="/WEB-INF/views/layout/footer.jsp" %>
 </body>
 
 </html>

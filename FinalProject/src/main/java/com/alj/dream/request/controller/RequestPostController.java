@@ -6,9 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.alj.dream.profile.domain.MyProfileInfo;
 import com.alj.dream.request.service.RequestPostService;
 
 @Controller
@@ -31,5 +33,19 @@ public class RequestPostController {
 		
 		System.out.println("서비스에 getRequestPost메소드실행 성공");
 	}
+	
+	
+	// 문의하기 누를 때 멘토라면 > 프로필 체크하기
+	@PostMapping("/post/profilechk")
+	public MyProfileInfo chkProfile(
+			@RequestParam("myidx") int myidx
+			) {
+		
+		MyProfileInfo info=service.chkProfile(myidx);
+		
+		return info;
+		
+	}
+	
 	
 }

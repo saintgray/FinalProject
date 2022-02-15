@@ -18,8 +18,8 @@ public class RequestGroupContorller {
 	//받은 요청 페이지에 들어갈 그룹을 가져온다.
 	
 	@RequestMapping("/post/requestgroup")
-	public String getGroupPage(Authentication auth,									// session에 현재 사용자 idx와 m_type을가져온다
-						Model model) {
+	public String getGroupPage(Model model,
+			Authentication auth) {
 		try {
 		model.addAttribute("requestGroup", groupService.getRequestGroup(auth));	// 그룹 리스트부분
 		}catch(Exception e) {
