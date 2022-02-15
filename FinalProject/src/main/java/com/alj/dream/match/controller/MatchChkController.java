@@ -15,7 +15,7 @@ public class MatchChkController {
 	@Autowired
 	MatchChkService service;
 	
-	@RequestMapping(value="/match/matchchk", method=RequestMethod.POST)
+	@RequestMapping(value="/post/matchchk", method=RequestMethod.POST)
 	@ResponseBody
 	public int matchChk(
 			@RequestParam("postidx") int postidx,
@@ -23,7 +23,20 @@ public class MatchChkController {
 			@RequestParam("myidx") int myidx,
 			@RequestParam("wanted") String wanted
 			) {
+		
+		//확인용
+		System.out.println("MatchChkController : matchChk진입성공");
+		
+		System.out.println("postidx" + postidx);
+		System.out.println("midx"+ midx);
+		System.out.println("myidx" + myidx);
+		System.out.println("wanted" + wanted);
+		
+		
 		int matchIdx = service.getMatch(postidx, midx, myidx, wanted);
+		
+		System.out.println("MatchChkController : MatchChkService다녀온 후");
+		System.out.println("matchIdx : "+ matchIdx);
 		
 		return matchIdx;
 	}

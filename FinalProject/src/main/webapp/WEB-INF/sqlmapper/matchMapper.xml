@@ -21,13 +21,5 @@
  	where post_idx=#{param1} and mentee_idx=#{param2} and mentor_idx=#{param3};
  	</select>
  	
- 	<insert id="insertChat"
- 			parameterType="com.alj.dream.match.domain.Chat"
- 			useGeneratedKeys="true"
- 			keyProperty="chat_idx">
- 	INSESRT INTO dream.chat (match_idx, message, m_sender, m_reciever)
- 	values(#{match_idx}, #{message}, #{m_sender}, #{m_reciever});
- 	</insert>
- 	
  	
 </mapper>

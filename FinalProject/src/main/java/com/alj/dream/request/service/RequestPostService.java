@@ -7,6 +7,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.alj.dream.profile.dao.ProfileDao;
+import com.alj.dream.profile.domain.MyProfileInfo;
 import com.alj.dream.request.dao.RequestDao;
 import com.alj.dream.request.domain.RequestGroup;
 import com.alj.dream.request.domain.RequestMember;
@@ -14,7 +16,9 @@ import com.alj.dream.request.domain.RequestMember;
 @Service
 public class RequestPostService {
 
+	private static final int String = 0;
 	RequestDao dao;
+	ProfileDao pdao;
 	@Autowired
 	SqlSessionTemplate template;
 	
@@ -53,5 +57,17 @@ public class RequestPostService {
 		
 	}
 	
+	
+	public MyProfileInfo chkProfile(int myidx) {
+		
+		String m_idx = Integer.toString(myidx);
+		
+		pdao = template.getMapper(ProfileDao.class);
+		
+		MyProfileInfo info = pdao.getProfile(m_idx);  
+		
+		return info;
+		
+	}
 	
 }

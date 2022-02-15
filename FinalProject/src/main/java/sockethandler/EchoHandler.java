@@ -11,7 +11,7 @@ import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
-import com.alj.dream.match.domain.Chat;
+import com.alj.dream.chat.domain.Chat;
 import com.google.gson.Gson;
 
 
@@ -21,7 +21,7 @@ public class EchoHandler extends TextWebSocketHandler {
 	private Map<String, WebSocketSession> sessionMap = new HashMap<String, WebSocketSession>();
 
 	@Autowired
-	private MatchService service;
+	private ChatRoomService service;
 	
 
 
@@ -29,17 +29,15 @@ public class EchoHandler extends TextWebSocketHandler {
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
 		
-		String myIdx = (String) session.getAttributes().get("myidx");
-		String myName = (String) session.getAttributes().get("myname");
-		System.out.println("myidx>>>"+myIdx);
-		System.out.println("myname>>"+myName);
+		String myIdx = (String) session.getAttributes().get("myIdx");
 		
+		//확인용
+		System.out.println("myIdx>>>"+myIdx);
 		
 		sessionMap.put(myIdx, session);								// 맵에 idx키에 세션저장
 		
-		logger.info("연결되었습니다", session.getId()+" : "+myName);		// 세션의아이디 가죠옴???? 어떻게??
-		System.out.println(myIdx);
-		System.out.println("채팅 참여자 : " + myName);						// 고유번호가 출력
+		//logger.info("연결되었습니다", session.getId());		// 세션의아이디 가죠옴???? 어떻게??
+		System.out.println("sessionMap에 저장 : " + myIdx);					// 고유번호가 출력
 	}
 
 	
@@ -48,13 +46,15 @@ public class EchoHandler extends TextWebSocketHandler {
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
 		
 		// chatDB에 저장할 데이터들
-		int myIdx = (int) session.getAttributes().get("myidx");
-		int matchIdx = (int) session.getAttributes().get("matchIdx");
+		int myIdx = (int) session.getAttributes().get("myIdx");
+		int matchIdx = (int) session.getAttributes().get("matchidx");
 		int recieverIdx = (int) session.getAttributes().get("reciever");		// 전달받을 상대방idx
 		
-
-		String myName = (String) session.getAttributes().get("myname");
-		logger.info("{}로부터 {}를 전달받았습니다", myName, message.getPayload());		// 입력해서 sendMessage(웹소켓으로 메세지를 보내려던)에서 받은 메세지
+		System.out.println("myIdx"+myIdx);
+		System.out.println("matchIdx"+matchIdx);
+		System.out.println("recieverIdx"+recieverIdx);
+		
+		logger.info("{}로부터 {}를 전달받았습니다", myIdx, message.getPayload());		// 입력해서 sendMessage(웹소켓으로 메세지를 보내려던)에서 받은 메세지
 		Gson gson = new Gson();
 		Chat chat = gson.fromJson(message.getPayload(), Chat.class);
 		System.out.println(chat);
@@ -63,7 +63,7 @@ public class EchoHandler extends TextWebSocketHandler {
 		chat.setMatch_idx(matchIdx);
 		chat.setM_sender(myIdx);
 		chat.setM_reciever(recieverIdx);
-		//int result = service.insertChatDB(chat);	// DB에 chat데이터 저장하는 메소드실행
+		int result = service.insertChatting(chat);	// DB에 chat데이터 저장하는 메소드실행
 		
 		
 		WebSocketSession ws = sessionMap.get(recieverIdx); 	// 전달할 세션?
@@ -80,15 +80,14 @@ public class EchoHandler extends TextWebSocketHandler {
 	// 채팅창에 나갔을때
 	@Override
 	public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
-	
-		int myIdx = (int) session.getAttributes().get("sender");
-		String myName = (String) session.getAttributes().get("myname");
+		
+		int myIdx = (int) session.getAttributes().get("myIdx");
 		
 		sessionMap.remove(myIdx);	// 나간 사람의 세션이 삭제
 		
-		logger.info("{} 창을 나감", myName);
+		logger.info("{} 창을 나감", myIdx);
 		
-		System.out.println("채팅창나감"+myName);
+		System.out.println("채팅창나감"+myIdx);
 		
 		
 		

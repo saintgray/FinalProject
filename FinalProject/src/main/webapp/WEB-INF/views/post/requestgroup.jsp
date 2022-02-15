@@ -6,10 +6,13 @@
 <head>
 <meta charset="EUC-KR">
 <title>받은제의 그룹으로 보여지는 곳</title>
+<!--  <%@ include file="/WEB-INF/views/defaultpageset.jsp" %>-->
+
 </head>
 <body>
 
-
+<!-- Header -->
+	<%@ include file="/WEB-INF/views/layout/header.jsp" %>
 
 
 <!-- 받은 제의 그룹으로 나오기 -->
@@ -42,5 +45,8 @@
 					</c:forEach>
 
 	</c:forEach><br><br>
+	
+
+<%@include file="/WEB-INF/views/layout/footer.jsp" %>
 </body>
 </html>

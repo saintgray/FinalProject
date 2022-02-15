@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+  <mapper namespace="com.alj.dream.chat.dao.ChatDao">
+ 
+	<insert id="insertChat"
+ 			parameterType="com.alj.dream.chat.domain.Chat"
+ 			>
+ 	INSERT INTO dream.chat (match_idx, m_sender, m_reciever, message)
+ 	values(#{match_idx}, #{m_sender}, #{m_reciever}, #{message})
+ 	</insert>
+ 	
+ 	
+ 	<select id="selectChaListtByIdx"
+ 			resultType="com.alj.dream.chat.domain.ChatList">
+ 	select
+		m.match_idx, m.match_yn, 
+		mem.m_idx, mem.m_nm, mem.m_photo,
+		c.cat_nm, c.cat_type
+	from 
+		dream.match m join member mem on m.mentor_idx = mem.m_idx, 
+		post p join category c on c.cat_idx=p.cat_idx
+	where 
+		m.post_idx = p.post_idx and
+		
+	case when #{param1} like'mentor' then
+		m.mentor_idx = #{param2}
+		when #{param1} like'mentee' then
+		m.mentee_idx = #{param2}
+		end;
+ 	</select>
+ 	
+ 	
+ 	
+ 	
+</mapper>

@@ -15,4 +15,14 @@
 	 mem.m_idx=rep.m_report AND rep.chat_idx=ch.chat_idx
 	 WHERE rep.m_reported=#{arg0};
  </select>
+ 
+ <insert id="insertReport"
+ 		parameterType="com.alj.dream.report.domain.Report"
+ 		useGeneratedKeys="true"
+		keyProperty="report_idx">
+		INSERT INTO report (match_idx, report_content, m_report, m_reported)
+		VALUES (#{match_idx}, #{report_content}, #{m_report}, #{m_reported});
+ </insert>
+ 
 </mapper>
+
