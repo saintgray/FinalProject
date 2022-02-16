@@ -30,7 +30,7 @@
 			<h1 class="banner">비밀번호 찾기</h1>
 		
 			<div class="my-4">
-				<input type="text" class="form-control" placeholder="이메일" name="username" id="email" value="${insertedEmail}">
+				<input type="text" class="form-control" placeholder="이메일" id="email">
 				<div id="fb" class="warning invalid-feedback">
 					  
 				</div>
@@ -73,6 +73,24 @@
 								if(data=='ABLEREGISTER'){
 									showWarning($('#email'),'*계정 정보가 없습니다 이메일을 다시 확인하세요');
 								}else{
+									
+									$.ajax({
+										url:'${pageContext.request.contextPath}/findaccount',
+										type:'POST',
+										data:{email:$('#email').val().trim()},
+										success:function(data){
+											if(data==1){
+												alert('등록하신 계정으로 이메일을 발송했습니다');
+											}else{
+												alert('오류가 발생하였습니다 잠시 후 다시 시도하세요');
+											}
+											
+										},
+										error:function(data){
+											console.log(data);
+											alert('오류가 발생하였습니다 잠시 후 다시 시도하세요');
+										}
+									})
 									
 									
 								}

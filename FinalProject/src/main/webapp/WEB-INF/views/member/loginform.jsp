@@ -77,7 +77,7 @@
 			<form action="${pageContext.request.contextPath}/member/login" method="post">
 				
 				<div class="my-4">
-					<input type="text" class="form-control" placeholder="이메일" name="username" id="m_email" value="${insertedEmail}">
+					<input type="text" class="form-control" placeholder="이메일" name="username" id="m_email" value='<c:out value="${insertedEmail}"></c:out>'>
 					<div id="w_email" class="warning">
 					</div>
 				</div>

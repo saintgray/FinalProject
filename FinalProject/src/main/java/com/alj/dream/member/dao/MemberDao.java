@@ -21,5 +21,9 @@ public interface MemberDao {
 	MemberInfo getMemberInfo(String m_idx);
 	MyInfo selectByIdx(String principal_idx);
 	int quitMember(String m_idx);
+	int updateMemberPwByKeyCode(String rawKeyCode,String newPw);
+	int updateTempCodeByEmail(String tempCode, String email);
+	
+	
 	
 }

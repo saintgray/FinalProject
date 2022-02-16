@@ -58,7 +58,7 @@ public class CreateAuthKeyController {
 			content="<h1>인증용 이메일 key</h1>";
 			String authKey=KeyUtils.createAuthKey();
 			content+="<h3>".concat(authKey).concat("</h3>");
-			mh.setText(content);
+			mh.setText(content, true);
 			
 			mh.setTo(userEmail);
 			
