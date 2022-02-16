@@ -11,6 +11,7 @@ public class PostViewRequest {
 	private String cat_nm;
 	private int m_idx;
 	private String match_yn;
+	private String wanted;
 	
 	public PostViewRequest() {}
 
@@ -48,6 +49,10 @@ public class PostViewRequest {
 
 	public String getMatch_yn() {
 		return match_yn;
+	}
+
+	public String getWanted() {
+		return wanted;
 	}
 
 }

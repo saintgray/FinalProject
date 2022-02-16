@@ -27,25 +27,29 @@
 			</c:set>
 		</sec:authorize>
 
-		<!-- 프로필 출력 -->
-		<div class="d-flex flex-column my-3">
-		<div class="descript my-1 ms-0 me-1">프로필</div>
-			<c:if test="${writerProfile ne null}">
-<table>
-<tr>
-	<td rowspan="2"><img src="${pageContext.request.contextPath}/resources/default/${writerProfile.m_photo}" height="50"></td>
-	<td>${writerProfile.m_nm} / ${writerProfile.loc_nm}</td>
-</tr>
-<tr>
-	<td colspan="2">${writerProfile.line}</td>
-</tr>
-</table>
-</c:if>
+		<!-- 프로필 출력 : 멘토일 때에만 -->
+		<c:if test="${type eq 'mentor'}">
+			<div class="d-flex flex-column my-3">
+				<div class="descript my-1 ms-0 me-1">프로필</div>
+				<c:if test="${writerProfile ne null}">
+					<table>
+						<tr>
+							<td rowspan="2"><img
+								src="${pageContext.request.contextPath}/resources/default/${writerProfile.m_photo}"
+								height="50"></td>
+							<td>${writerProfile.m_nm}/ ${writerProfile.loc_nm}</td>
+						</tr>
+						<tr>
+							<td colspan="2">${writerProfile.line}</td>
+						</tr>
+					</table>
+				</c:if>
 
-<c:if test="${writerProfile eq null}">
-글쓴이의 프로필 정보가 없습니다.
-</c:if>
-		</div>
+				<c:if test="${writerProfile eq null}">
+				글쓴이의 프로필 정보가 없습니다.
+				</c:if>
+			</div>
+		</c:if>
 
 		<!-- 게시글 작성 -->
 		<div>
@@ -64,14 +68,16 @@
 				<!-- 분야 선택 -->
 				<div class="d-flex flex-row my-3">
 					<div class="descript my-1 ms-0 me-1">분야 선택</div>
-					<button type="button" class="btn btn-grey fs-6" onclick="resetCategory()">초기화</button>
+					<button type="button" class="btn btn-grey fs-6"
+						onclick="resetCategory()">초기화</button>
 				</div>
 				<!-- 카테고리 selectbox -->
 				<div id="categoryInfos" class="d-flex flex-row flex-wrap  mb-5 mt-1">
 				</div>
 
-				<input type="hidden" name="wanted" value="${type eq 'mentor'?'mentee':'mentor'}">
-				<input type="hidden" name="m_idx" value="${idx}">
+				<input type="hidden" name="wanted"
+					value="${type eq 'mentor'?'mentee':'mentor'}"> <input
+					type="hidden" name="m_idx" value="${idx}">
 
 				<!-- 파일업로드 -->
 				<input type="file" name="attachFile" id="attachFile" multiple>
@@ -90,7 +96,6 @@
 	</div>
 
 	<script>
-	
 		$(document).ready(function() {
 
 			/* $('button[type="submit"]'). */
