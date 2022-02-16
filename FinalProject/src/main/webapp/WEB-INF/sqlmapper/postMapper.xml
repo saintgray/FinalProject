@@ -33,7 +33,7 @@
 
 	<select id="selectPostByPostIdx"
 			resultType="com.alj.dream.post.domain.PostViewRequest">
-		select p.post_idx, post_nm, post_content, post_regdate, post_editdate, p.cat_idx, c.cat_nm, m_idx, match_yn
+		select p.post_idx, post_nm, post_content, post_regdate, post_editdate, p.cat_idx, c.cat_nm, m_idx, match_yn, wanted
 		from post p left join category c on p.cat_idx=c.cat_idx
 					left join dream.match m on p.post_idx=m.post_idx
 		where p.post_idx=#{idx}

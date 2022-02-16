@@ -46,6 +46,8 @@ history.go(-1);
 	<td>${viewRequest.post_nm}</td>
 </tr>
 
+<c:if test="${viewRequest.wanted eq 'mentee'}">
+
 <c:if test="${writerProfile ne null}">
 <tr>
 	<td rowspan="2"><img src="${writerProfile.m_photo}"></td>
@@ -60,6 +62,8 @@ history.go(-1);
 <tr>
 <td colspan="3">글쓴이의 프로필 정보가 없습니다.</td>
 </tr>
+</c:if>
+
 </c:if>
 
 <tr>
