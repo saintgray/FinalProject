@@ -2,9 +2,11 @@ package com.alj.dream.member.service;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.alj.dream.member.dao.MemberDao;
 
+@Service
 public class ResettingNewPwService {
 	
 	private SqlSessionTemplate sst;
