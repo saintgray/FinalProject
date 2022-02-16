@@ -18,7 +18,7 @@ public class ReportInsertController {
 	ReportInsertService service;
 	
 	@GetMapping("/chat/report")
-	@ResponseBody
+
 	public ModelAndView getReportPage(
 			ModelAndView mv,
 			@RequestParam("matchidx") int matchidx,
@@ -33,6 +33,7 @@ public class ReportInsertController {
 	}
 	
 	@PostMapping("/chat/sendreport")
+	@ResponseBody
 	public int insertReport(Report r) {
 		
 		System.out.println("ReportInsertController : insertReport메소드진입");
