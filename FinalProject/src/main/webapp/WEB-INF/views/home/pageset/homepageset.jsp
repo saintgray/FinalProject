@@ -96,8 +96,8 @@
   	          
   	          $('#findmentorbtn, #findmenteebtn').on('click',function(){
   	        	 console.log('검색!'); 
-  	        	 // 검색기능 만드신 분은 여기에 Controller 가 받는 요청 입력해주세요~
-  	        	 //location.href="${pageContext.request.contextPath}/요청url"
+  	        	 
+  	        	 location.href="${pageContext.request.contextPath}/post/search"
   	          })
   	          
   	          <sec:authorize access="isAuthenticated()">
