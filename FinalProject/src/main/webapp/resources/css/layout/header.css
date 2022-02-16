@@ -13,15 +13,14 @@
     #first {
       width: 100%;
     }
-    #logo {
-      margin-right: 15px; 
-    }
+   
     #search {
       width: 300px;
+      margin-left:15px;
       
     }
     #search img {
-      background-color: white;  
+      background-color: 	white;  
     }
     #search input::placeholder {
       font-size: 15px;

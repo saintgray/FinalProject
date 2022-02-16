@@ -14,7 +14,7 @@
 	      <li id="first" class="mr-auto p-2 d-flex flex-wrap">
 	        <img src="${pageContext.request.contextPath}/resources/files/server/icons/icon_sidemenu.svg" data-bs-toggle="offcanvas" data-bs-target="#sidemenu"
 	        aria-controls="sidemenu" class="sub"> 
-	        <a id="logo"><img src="${pageContext.request.contextPath}/resources/files/server/bannerimg/logo.svg"></a>
+	        <a id="logo"><img src="${pageContext.request.contextPath}/resources/files/server/bannerimg/logo.png"></a>
 	        
 	        <!--이 아이콘을 누르면 searchbar 로 focusing 되게 하세요-->
 	        <img src="${pageContext.request.contextPath}/resources/files/server/icons/img_searchicon.svg" class="sub" id="searchfocusbtn">
@@ -132,7 +132,7 @@
     <!--offcanvas area-->
     <div class="offcanvas offcanvas-start" tabindex="-1" id="sidemenu" aria-labelledby="offcanvasExampleLabel">
       <div class="offcanvas-header">
-      <a id="logo"><img src="${pageContext.request.contextPath}/resources/files/server/bannerimg/logo.svg"></a>
+      <a id="logo"><img src="${pageContext.request.contextPath}/resources/files/server/bannerimg/logo.png"></a>
         <!-- <h5 class="offcanvas-title" id="offcanvasExampleLabel">당신의 멘토를 찾아보세요!</h5> -->
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
       </div>

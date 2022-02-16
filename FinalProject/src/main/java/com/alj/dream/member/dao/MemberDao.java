@@ -23,6 +23,7 @@ public interface MemberDao {
 	int quitMember(String m_idx);
 	int updateMemberPwByKeyCode(String rawKeyCode,String newPw);
 	int updateTempCodeByEmail(String tempCode, String email);
+	int getCountByKeyCode(String keyCode);
 	
 	
 	

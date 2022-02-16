@@ -7,7 +7,24 @@
  <mapper namespace="com.alj.dream.profile.dao.ProfileDao">
  
  	<select id="getProfile" resultType="com.alj.dream.profile.domain.MyProfileInfo">
- 			SELECT profile_idx, m.m_idx, line, calltime, career, qna, date_format(profile_regdate,'%Y년 %m월 %d일') as profile_regdate, m.m_quitdate FROM
+ 			SELECT profile_idx, 
+ 				   m.m_idx, 
+ 				   line, 
+ 				   calltime, 
+ 				   career, 
+ 				   qna, 
+ 				   date_format(profile_regdate,'%Y년 %m월 %d일') AS profile_regdate, 
+ 				   m.m_quitdate,
+ 				   (SELECT count(*) 
+ 				   		FROM 
+						member m2 JOIN dream.match mat 
+						ON mat.mentor_idx=m2.m_idx AND m.m_idx=m2.m_idx 
+						WHERE mat.match_yn='Y') AS matchCount,
+				   (SELECT count(*) 
+						FROM 
+						dream.match mat JOIN review rev 
+						ON mat.match_idx=rev.match_idx AND mat.mentor_idx=m.m_idx) AS reviewCount 
+ 				FROM
  				profile JOIN member m
                 ON m.m_idx=profile.m_idx
  				WHERE

@@ -1,6 +1,7 @@
 package com.alj.dream.member.controller;
 
 import javax.mail.MessagingException;
+import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 
@@ -67,8 +68,8 @@ public class FindAccountController {
 		String tempCode=encoder.encode(KeyUtils.createRandomKeyCode());
 		
 		System.out.println("계정명: ".concat(email));
-		String reqUrl=req.getHeader("host").concat(req.getContextPath().concat("/resettingpassword?keycode=").concat(tempCode));
-		
+		String reqUrl="http://".concat(req.getHeader("host")).concat(req.getContextPath().concat("/resettingpassword?keycode=").concat(tempCode));
+		//String reqUrl=req.getContextPath().concat("/resettingpassword?keycode=").concat(tempCode);
 		System.out.println(tempCode);
 		System.out.println(reqUrl);
 		
@@ -87,12 +88,18 @@ public class FindAccountController {
 			String text="<div style=\"margin:0 auto; border:1px solid #FCA106; min-width:100% \">";
 			text+="<h1 style=\"text-align=center; margin-bottom:100px;\">비밀번호 변경 안내</h1>";
 			text+="<button type=\"button\" style=\"background-color: #142B6F; border: 0; border-radius: 15px; outline: 2px solid black;\">";
-			text+="<a target=\"_blank\" href=\"".concat(reqUrl).concat("\" style=\"font-size:35px; font-weight: bold; color: rgb(249,249,249); text-decoration: none; padding:5px\">비밀번호 재설정</a>");
+			text+="<a target=\"_blank\" href=\"";
+			text+=reqUrl;
+			text+="\" style=\"font-size:35px; font-weight: bold; color: rgb(249,249,249); text-decoration: none; padding:5px\">비밀번호 재설정</a>";
 			text+="</button>";
 			
 			text+="</div>";
 			
 			mh.setText(text, true);
+			
+			mh.setTo(email);
+			
+			ms.send(mm);
 			
 			
 		} catch (MessagingException e) {
