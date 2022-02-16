@@ -30,7 +30,7 @@ public class ChatInsertService {
 		int resultCnt = dao.insertChat(chat);
 		//System.out.println("Chat_IDX>>>".concat(String.valueOf(chat.getChat_idx())));
 		
-		System.out.println("chatinsert성공");
+		System.out.println("chatinsert성공. 리턴합니다");
 		
 		return resultCnt;
 	}

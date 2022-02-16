@@ -118,16 +118,16 @@ $(document).ready(function(){
 			})
 		}else if(mytype == mentee) {
 			console.log("멘티확인");
-			sendrq();
+			sendrq($(this));
 		}
 	});
 
 	
-	function sendrq(){
+	function sendrq(dom){
 		
-		var postidx = $(this).parent().siblings('.postidxRow').children('.postidx').text();
-		var midx = $(this).parent().siblings('.midxRow').children('.midx').text();
-		var wanted = $(this).parent().siblings('.wantedRow').children('.wanted').text();
+		var postidx = $(dom).parent().siblings('.postidxRow').children('.postidx').text();
+		var midx = $(dom).parent().siblings('.midxRow').children('.midx').text();
+		var wanted = $(dom).parent().siblings('.wantedRow').children('.wanted').text();
 		
 		console.log(postidx);
 		console.log(midx);

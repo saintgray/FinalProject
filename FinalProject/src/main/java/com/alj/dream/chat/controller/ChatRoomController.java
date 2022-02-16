@@ -53,6 +53,8 @@ public class ChatRoomController {
 			System.out.println("ChatRoomController : intoChat진입");
 			
 			session.setAttribute("myIdx", myIdx);
+			session.setAttribute("matchidx", matchidx);
+			session.setAttribute("reciever", reciever);
 			
 			System.out.println("matchidx : " + matchidx);
 			System.out.println("reciever : " + reciever);

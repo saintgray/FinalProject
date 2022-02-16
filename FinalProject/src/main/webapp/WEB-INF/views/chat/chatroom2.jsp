@@ -91,8 +91,8 @@ reciever : ${reciever}<br>
 	
 	$(document).ready(function(){
 		
-		$("#sendBtn").on('click',function(evt){
-			
+		
+		$("#sendBtn").on('click',function(){
 			console.log('메세지 버튼 클릭');
 			sendMessage();	// 메세지 보내는 함수 실행
 			
@@ -105,6 +105,11 @@ reciever : ${reciever}<br>
 	});
 	
 	
+	function onOpen(){
+		console.log('Info : connection opened');
+	}
+
+	
 	function sendMessage() {
 		//websocket으로 메시지를 보내기
 		
@@ -114,22 +119,57 @@ reciever : ${reciever}<br>
 			message : $("#message").val()
 		};
 		console.log(msg);
-		console.log('sendMessage');
 		sock.send(JSON.stringify(msg));
 	}
 
-	
-
-	function onOpen(){
-		console.log('Info : connection opened');
-	}
-
-	
-	function onMessage(evt) { 
-		console.log('onMessage');
-		var data = evt.data; 
-		console.log(data);
+	//evt 파라미터는 websocket이 보내준 데이터다.
+	function onMessage(evt) { //변수 안에 function자체를 넣음.
+		var data = evt.data; // 전달 받은 데이터
 		
+		//alert(data);
+		
+		msgData = JSON.parse(data); 
+		
+		var sessionid = null;
+		var message = null;
+		
+		//current session id//
+		var currentuser_session = $('#sessionuserid').val();
+		console.log('current session id: ' + currentuser_session);
+		
+		var target = $('#chattingBox-1');
+		
+		if(target.length==0){
+			$('<div id=\"chattingBox-1\" class=\"chattingBox\"></div>').html('<h3>${myname} : 게시물 작성자-'+msgData.matchIdx+'</h3>').appendTo('body');
+			$('#chattingBox-1').append('<hr>')
+		}
+
+			
+
+		// 나와 상대방이 보낸 메세지를 구분하여 출력
+		if (msgData.user == currentuser_session) {
+			var printHTML = "<div class='well text_right'>";
+			printHTML += "<div class='alert alert-info'>";
+			printHTML += "<strong>[" + msgData.sender + "] -> " + msgData.message
+					+ "</strong>";
+			printHTML += "</div>";
+			printHTML += "</div>";
+
+			$('#chattingBox-1').append(printHTML);
+		} else {
+			var printHTML = "<div class='well text_left'>";
+			printHTML += "<div class='alert alert-warning'>";
+			printHTML += "<strong>[" + msgData.reciever + "] -> " + msgData.message
+					+ "</strong>";
+			printHTML += "</div>";
+			printHTML += "</div>";
+
+			$('#chattingBox-1').append(printHTML);
+		}
+
+		console.log('chatting data: ' + data);
+
+		/* sock.close(); */
 	}
 
 	function onClose(evt) {

@@ -16,7 +16,7 @@ public class ChatRoomService {
 	private SqlSessionTemplate template;
 
 
-	public int insertChatting(Chat chat) {
+	public int insertChat(Chat chat) {
 
 		System.out.println("ChatRoomService : insertChatting메소드");
 		

@@ -24,6 +24,12 @@
 		</message-converters>
 	</annotation-driven>
 	
+	
+	<beans:bean id="chatservice" class="sockethandler.ChatRoomService"></beans:bean>
+	<beans:bean id="echohandler" class="sockethandler.EchoHandler">	</beans:bean>
+	
+	
+	
 
 	<!-- Handling Exception of HTTP GET request "/resources/**" URL-pattern-->
 	
