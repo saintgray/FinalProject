@@ -1,5 +1,6 @@
 package com.alj.dream.post.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
@@ -26,10 +27,13 @@ public interface PostDao {
 	int selectCountByIdx(int m_idx);
 
 	int selectTotalCountByIdx(@Param("m_idx")int m_idx, @Param("wanted")String wanted);
-
-	List<PostListInfo> selectListBySearchParams(SearchParams params);
 	
 	int selectTotalCountBySearchParams(SearchParams params);
-
+	
+	List<PostListInfo> selectListBySearchParams(SearchParams params);
+	
+	HashMap<String, Integer> selectLocInterest(int m_idx);
+	
+	List<PostListInfo> selectRecommendedList(SearchParams params);
 
 }

@@ -44,14 +44,15 @@
 			</c:if>
 		</div>
 
-		<div id="paging">
+		<nav aria-label="paging">
 			<c:if test="${listView.totalPageCount > 0}">
-				<c:forEach begin="1" end="${listView.totalPageCount}" var="pnum">
-					<a href="list?p=${pnum}" class="${listView.currentPage eq pnum ? 'curPage' : ''}">${pnum}</a>
-				</c:forEach>
-
+				<ul class="pagination justify-content-center">
+					<c:forEach begin="1" end="${listView.totalPageCount}" var="pnum">
+						<li class="page-item"><a class="page-link" href="list?p=${pnum}">${pnum}</a></li>
+					</c:forEach>
+				</ul>
 			</c:if>
-		</div>
+		</nav>
 
 	</div>
 
