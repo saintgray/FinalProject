@@ -13,8 +13,8 @@
  	</insert>
  	
  	
- 	<select id="selectChaListtByIdx"
- 			resultType="com.alj.dream.chat.domain.ChatList">
+ 	<select id="selectChatRoomByIdx"
+ 			resultType="com.alj.dream.chat.domain.ChatRoom">
  	select
 		m.match_idx, m.match_yn, 
 		mem.m_idx, mem.m_nm, mem.m_photo,
@@ -32,7 +32,11 @@
 		end;
  	</select>
  	
- 	
+ 	<select id="selectChatByMatchidx"
+ 			resultType="com.alj.dream.chat.domain.Chat">
+ 	select * from chat where match_idx = #{matchidx} order by sent asc;
+	
+ 	</select>
  	
  	
 </mapper>

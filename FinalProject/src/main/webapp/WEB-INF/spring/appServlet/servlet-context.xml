@@ -25,7 +25,7 @@
 	</annotation-driven>
 	
 	
-	<beans:bean id="chatservice" class="sockethandler.ChatRoomService"></beans:bean>
+	<!-- <beans:bean id="chatservice" class="sockethandler.ChatRoomService2"></beans:bean> -->
 	<beans:bean id="echohandler" class="sockethandler.EchoHandler">	</beans:bean>
 	
 	

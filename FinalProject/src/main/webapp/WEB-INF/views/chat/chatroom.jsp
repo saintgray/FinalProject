@@ -74,7 +74,13 @@ reciever : ${reciever}<br>
 		</div>
 	
 </body>
-
+<h4>이전 채팅 내역들 가져오기 확인</h4>
+<c:forEach items ="${chatlist}" var="c">
+	<td>보낸사람 : ${c.m_sender}</td>
+	<td>받는사람 : ${c.m_reciever}</td>
+	<td>보낸시각 : ${c.sent}</td>
+	<td>메세지내용 : ${c.message}</td> 
+</c:forEach>	
 <c:if test=""></c:if>
 
 <script>
@@ -122,6 +128,7 @@ reciever : ${reciever}<br>
 
 	function onOpen(){
 		console.log('Info : connection opened');
+		//열리면 그동안의 데이터 가져와야한다.//이부분은 다른 부분 참고하기
 	}
 
 	

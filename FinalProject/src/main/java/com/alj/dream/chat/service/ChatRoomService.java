@@ -10,13 +10,25 @@ import com.alj.dream.chat.dao.ChatDao;
 import com.alj.dream.chat.domain.Chat;
 
 @Service
-public class ChatInsertService {
+public class ChatRoomService {
 
 	
 	private ChatDao dao;
 	@Autowired 
 	private SqlSessionTemplate template;
 	
+	// DB에 채팅데이터 있는지 확인하기
+	public List<Chat> getChat(int myIdx, int matchidx, int reciever) {
+		
+		dao = template.getMapper(ChatDao.class);
+		
+		List<Chat> chatlist = dao.selectChatByMatchidx(matchidx);
+		System.out.println("ChatRoomService : getChat :"+chatlist);
+		return chatlist;
+	}
+	
+	
+	// DB에 채팅데이터 insert
 	public int insertChat(Chat chat) {
 		
 		System.out.println(chat.getM_reciever());
@@ -34,6 +46,8 @@ public class ChatInsertService {
 		
 		return resultCnt;
 	}
+
+
 	
 	
 	

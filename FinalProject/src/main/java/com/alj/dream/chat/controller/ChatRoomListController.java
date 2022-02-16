@@ -9,14 +9,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.alj.dream.chat.domain.ChatList;
-import com.alj.dream.chat.service.ChatListService;
+import com.alj.dream.chat.domain.ChatRoom;
+import com.alj.dream.chat.service.ChatRoomListService;
 
 @Controller
-public class ChatListController {
+public class ChatRoomListController {
 
 	@Autowired
-	ChatListService service;
+	ChatRoomListService service;
 	
 	 @RequestMapping("/chat/chatlist") 
 	 public String getChatList(Model model,

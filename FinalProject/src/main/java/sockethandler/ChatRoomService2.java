@@ -9,7 +9,7 @@ import com.alj.dream.chat.domain.Chat;
 
 
 
-public class ChatRoomService {
+public class ChatRoomService2 {
 	
 	private ChatDao dao;
 	@Autowired 
