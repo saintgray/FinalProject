@@ -1,12 +1,12 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
-<title>¹ŞÀºÁ¦ÀÇ ±×·ìÀ¸·Î º¸¿©Áö´Â °÷</title>
-<!--  <%@ include file="/WEB-INF/views/defaultpageset.jsp" %>-->
+<meta charset="UTF-8">
+<title>ë°›ì€ì œì˜ ê·¸ë£¹ìœ¼ë¡œ ë³´ì—¬ì§€ëŠ” ê³³</title>
+<%@ include file="/WEB-INF/views/defaultpageset.jsp" %>
 
 </head>
 <body>
@@ -15,32 +15,32 @@
 	<%@ include file="/WEB-INF/views/layout/header.jsp" %>
 
 
-<!-- ¹ŞÀº Á¦ÀÇ ±×·ìÀ¸·Î ³ª¿À±â -->
+<!-- ë°›ì€ ì œì˜ ê·¸ë£¹ìœ¼ë¡œ ë‚˜ì˜¤ê¸° -->
 
 
-<!-- ÀÓ½Ã Å×½ºÆ®  -->
+<!-- ì„ì‹œ í…ŒìŠ¤íŠ¸  -->
 <c:forEach items="${requestGroup}" var="rgroup">
 <tr>
 <br>
---±×·ì¸®½ºÆ®
+--ê·¸ë£¹ë¦¬ìŠ¤íŠ¸
 <br>
-<td>°Ô½Ã±Û °íÀ¯¹øÈ£ : ${rgroup.post_idx}</td><br>
-<td><a href="${pageContext.request.contextPath}/post/requestpost?postidx=${rgroup.post_idx}">°Ô½Ã±Û Å¸ÀÌÆ² : ${rgroup.post_nm}</a></td><br>
-<td>°Ô½Ã±Û »ı¼ºÀÏÀÚ : ${rgroup.post_regdate}</td><br>
-<td>°Ô½Ã±Û ¿äÃ»´ë»ó : ${rgroup.wanted}</td><br>
-<td>°Ô½Ã±Û Ä«Å×°í¸® : ${rgroup.cat_nm}</td><br>
+<td>ê²Œì‹œê¸€ ê³ ìœ ë²ˆí˜¸ : ${rgroup.post_idx}</td><br>
+<td><a href="${pageContext.request.contextPath}/post/requestpost?postidx=${rgroup.post_idx}">ê²Œì‹œê¸€ íƒ€ì´í‹€ : ${rgroup.post_nm}</a></td><br>
+<td>ê²Œì‹œê¸€ ìƒì„±ì¼ì : ${rgroup.post_regdate}</td><br>
+<td>ê²Œì‹œê¸€ ìš”ì²­ëŒ€ìƒ : ${rgroup.wanted}</td><br>
+<td>ê²Œì‹œê¸€ ì¹´í…Œê³ ë¦¬ : ${rgroup.cat_nm}</td><br>
 </tr>
 <br>
---¸â¹ö¸®½ºÆ®
+--ë©¤ë²„ë¦¬ìŠ¤íŠ¸
 <br>
 <td><c:forEach items="${rgroup.list}" var="member">
 						<tr><br>
-							<td>¸ÅÄª °íÀ¯¹øÈ£ : ${member.match_idx}</td><br>
-							<td>°Ô½Ã±Û °íÀ¯¹øÈ£ : ${member.post_idx}</td><br>
-							<td>È¸¿ø °íÀ¯¹øÈ£ : ${member.m_idx}</td><br>
-							<td>È¸¿ø ÀÌ¸§ : ${member.m_nm}</td><br>
-							<td>È¸¿ø »çÁø : ${member.m_photo}</td><br>
-							<td>¸ÅÄª ¿©ºÎ : ${member.matched_yn}</td><br>
+							<td>ë§¤ì¹­ ê³ ìœ ë²ˆí˜¸ : ${member.match_idx}</td><br>
+							<td>ê²Œì‹œê¸€ ê³ ìœ ë²ˆí˜¸ : ${member.post_idx}</td><br>
+							<td>íšŒì› ê³ ìœ ë²ˆí˜¸ : ${member.m_idx}</td><br>
+							<td>íšŒì› ì´ë¦„ : ${member.m_nm}</td><br>
+							<td>íšŒì› ì‚¬ì§„ : ${member.m_photo}</td><br>
+							<td>ë§¤ì¹­ ì—¬ë¶€ : ${member.matched_yn}</td><br>
 						</tr>
 					</c:forEach>
 

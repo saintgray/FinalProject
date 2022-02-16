@@ -97,7 +97,7 @@
 					</div>
 					
 					<div>
-						<span id="forgetMe">아이디/비밀번호 찾기</span>
+						<span id="forgetMe">비밀번호 찾기</span>
 					</div>
 				</div>		
 				

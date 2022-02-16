@@ -55,7 +55,7 @@ history.go(-1);
 <input type="text" name="post_nm" value="${editRequest.post_nm}" id="post_nm"> <br>
 
 <!-- 내용 -->
-<textarea name="post_content" id="content"></textarea> <br>
+<textarea name="post_content" id="content">${editRequest.post_content}</textarea> <br>
 
 <!-- 카테고리 인덱스 -->
 <!-- <select id="parentCategory" onchange="selectCategory(this.value)">

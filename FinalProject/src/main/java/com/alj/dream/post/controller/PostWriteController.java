@@ -60,8 +60,9 @@ public class PostWriteController {
 
 		List<MultipartFile> fileList = wRequest.getFileList();
 		System.out.println(fileList);
-
-		if (!fileList.isEmpty()) {
+		
+		if(fileList!=null) {
+		//if (!fileList.isEmpty()) {
 			uploadService.uploadfile(request, post_idx, fileList);
 		}
 
@@ -78,9 +79,11 @@ public class PostWriteController {
 
 	@PostMapping("/post/checkProfile")
 	@ResponseBody
-	public MyProfileInfo getProfile(String type, String idx) {
-				
-		return writeService.getProfile(idx);
+	public MyProfileInfo getProfile(Authentication auth) {
+		String m_idx=((AccountDetails)auth.getPrincipal()).getM_idx();
+		MyProfileInfo info=writeService.getProfile(m_idx);
+		
+		return info;
 
 	}
 

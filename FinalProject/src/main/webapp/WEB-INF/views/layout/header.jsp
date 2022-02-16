@@ -54,16 +54,17 @@
 	      						<!-- <div class="d-flex flex-column  dropdown-item"> -->
 	      							<div class="d-flex justify-content-around dropdown-item">
 	      								<i class="fi fi-rr-user mx-2""></i>
-		      							<span id="myinfo">
-		      								<sec:authentication property="principal.name"/> 
-		      							</span>
-		      								<c:if test="${type eq 'mentor'}">
-		      									<span class="ms-1">멘토님</span>
-		      								</c:if>
-		      								<c:if test="${type eq 'mentee'}">
-		      									<span class="ms-1">멘티님</span>
-		      								</c:if>
-		      							
+	      								<div class="flex-grow-1 text-center">
+			      							<span id="myinfo">
+			      								<sec:authentication property="principal.name"/> 
+			      							</span>
+			      								<c:if test="${type eq 'mentor'}">
+			      									<span class="ms-1">멘토님</span>
+			      								</c:if>
+			      								<c:if test="${type eq 'mentee'}">
+			      									<span class="ms-1">멘티님</span>
+			      								</c:if>
+		      							</div>
 		      							<!-- 자신의 별점과 기타정보들 -->
 		      						</div>
 	      							
@@ -78,7 +79,7 @@
 	      							
 	      							<div class="d-flex justify-content-around dropdown-item">
 	      								<i class="fi fi-rr-box-alt mx-2"></i>
-	      								<span id="manageprofile">프로필 관리</span>
+	      								<span id="manageprofile" class="flex-grow-1 text-center">프로필 관리</span>
 	      							</div>
 		     								
 	   							</c:if>
@@ -86,8 +87,8 @@
 	     							
 	      							<div class="d-flex justify-content-around dropdown-item">
 		      							<!-- <i class="fi fi-rr-rotate-right"></i> -->
-		      							<i class="bi bi-arrow-repeat"></i>
-		      							<span class="changeType">
+		      							<i class="bi bi-arrow-repeat mx-2"></i>
+		      							<span class="changeType flex-grow-1 text-center">
 		      								<c:if test="${type eq 'mentor'}">
 		      									멘티로 전환
 		      								</c:if>
@@ -103,8 +104,8 @@
 	      					
 	      					<li>
 	      						<div class="dropdown-item d-flex justify-content-around">
-	      							<i class="fi fi-rr-sign-out-alt"></i>
-	      							<span class="logoutbtn">로그아웃</span>
+	      							<i class="fi fi-rr-sign-out-alt mx-2"></i>
+	      							<span class="logoutbtn flex-grow-1 text-center">로그아웃</span>
 	      						</div>
 	      						
       						</li>

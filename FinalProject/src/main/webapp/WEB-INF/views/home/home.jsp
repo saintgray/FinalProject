@@ -15,9 +15,7 @@
   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/home/home.css">
   <%@ include file="/WEB-INF/views/home/pageset/homepageset.jsp"%>
   
-  <style>
   
-  </style>
   
   <title>HOME</title>
 </head>
@@ -62,8 +60,8 @@
 		     		<sec:authentication property="principal.m_idx"/>
 		     	</c:set>
 		     	
-		     	<input type="hidden" name="type" value="${type}">
-		     	<input type="hidden" name="idx" value="${idx}">
+		     	<%-- <input type="hidden" name="type" value="${type}"> --%>
+		     	<%-- <input type="hidden" name="idx" value="${idx}"> --%>
 
 			     <div class="d-flex flex-column justify-content-around" id="mnmbtn">
 			     	<button id="writepostbtn" class="btn btn-general my-2">요청서 작성</button>
@@ -167,8 +165,7 @@
 		
 		
 	
-    
-   
+  
 </body>
 
 </html>
