@@ -45,15 +45,15 @@
 				</div>
 			</div>
 			<input type="hidden" id="m_idx" value="${idx}">
-			<input type="hidden" id="wanted" value="${type eq 'mentor'?'mentee':'mentor'}">
+			<input type="hidden" id="wanted" value="${type}">
 			<button id="searchBtn">검색</button>
 
 		</div>
 
 		<div>추천 멘토/멘티 리스트 영역</div>
 
-		<div id="searchResult">
-		검색 결과 리스트 영역
+		<div id="searchResult" class="list-group">
+		
 		</div>
 
 	</div>
@@ -194,16 +194,38 @@
 						
 						console.log(data);
 						
-						/* var html="";
+						var list=data.list;
 						
+						console.log(list);
 						
-						$(data).each(function(index, item) {
+						var html='';
+						
+						if(list.length==0){
+							// 검색 결과가 없을 때
+							html+='등록된 요청글이 없습니다.\r\n';
+						} else {
+							// 검색 결과가 있을 때
 							
-						}) 
+							$(list).each(function(index, item) {
+								 html+='		<a href="view?idx='+item.post_idx+'" class="list-group-item list-group-item-action">\r\n';
+							 	 html+='			<div class="d-flex w-100 justify-content-between">\r\n';
+							 	 html+='				<h5 class="mb-1">\r\n'
+							 	 html+='					<c:out value="${listInfo.post_nm}" escapeXml="true" />\r\n';
+							 	 html+='				</h5>\r\n';
+							 	 html+='				<small>매칭여부: '+item.match_yn+'</small>\r\n';
+							 	 html+='			</div>\r\n';
+							 	 html+='			<p class="mb-1">'+item.cat_nm+' / '+item.loc_nm+'</p>\r\n';
+							 	 html+='		</a>\r\n';
+							}) 
+							
+						}
 						
-						10개 이상일 경우 더보기 버튼 밑에 출력하기
-						
+						/*
+						페이징이 있을 경우 더보기 버튼 출력
 						*/
+						
+						$('#searchResult').append(html);
+						
 					},
 					error: function(data){
 						console.log('통신오류');
@@ -211,12 +233,7 @@
 				})
 			})
 		});
-
-		/*
-		
-		 검색 -> post/search -> PostListView 받아오기 -> 화면 출력
-		
-		 */
+		 
 	</script>
 
 

@@ -22,39 +22,32 @@
 
 		<hr>
 
-		리스트 영역
-
-		<table>
-			<tr>
-				<th>글번호</th>
-				<th>분야</th>
-				<th>매칭유무</th>
-				<th>제목</th>
-			</tr>
-
+		<div class="list-group">
 			<c:if test="${empty listView.list}">
-				<tr>
-					<td colspan="4">등록된 요청글이 없습니다.</td>
-				</tr>
+				등록된 요청글이 없습니다.
 			</c:if>
 
 			<c:if test="${not empty listView.list}">
 				<c:forEach items="${listView.list}" var="listInfo">
-					<tr>
-						<td>${listInfo.post_idx}</td>
-						<td>${listInfo.cat_nm}</td>
-						<td>${listInfo.match_yn}</td>
-						<td><a href="view?idx=${listInfo.post_idx}">${listInfo.post_nm}</a>
-						</td>
-					</tr>
+
+					<a href="view?idx=${listInfo.post_idx}" class="list-group-item list-group-item-action">
+						<div class="d-flex w-100 justify-content-between">
+							<h5 class="mb-1">
+								<c:out value="${listInfo.post_nm}" escapeXml="true" />
+							</h5>
+							<small>${listInfo.match_yn}</small>
+						</div>
+						<p class="mb-1">${listInfo.cat_nm}/${listInfo.loc_nm}</p>
+					</a>
+
 				</c:forEach>
 			</c:if>
-		</table>
+		</div>
+
 		<div id="paging">
 			<c:if test="${listView.totalPageCount > 0}">
 				<c:forEach begin="1" end="${listView.totalPageCount}" var="pnum">
-					<a href="list?p=${pnum}"
-						class="${listView.currentPage eq pnum ? 'curPage' : ''}">${pnum}</a>
+					<a href="list?p=${pnum}" class="${listView.currentPage eq pnum ? 'curPage' : ''}">${pnum}</a>
 				</c:forEach>
 
 			</c:if>

@@ -7,7 +7,7 @@
  
  
  	<insert id="insertMember" parameterType="com.alj.dream.member.domain.RegisterInfo" useGeneratedKeys="true" keyProperty="m_idx">
- 		insert into member(m_email, m_password, m_nm, m_adyn, m_photo) values(#{m_email}, #{m_password},#{m_nm},#{m_adyn},#{m_photo})
+ 		insert into member(m_email, m_password, m_nm, m_adyn, m_photo, loc_idx) values(#{m_email}, #{m_password},#{m_nm},#{m_adyn},#{m_photo},#{loc_idx})
  	</insert>
  	
  	<select id="selectByEmail" resultType="String">
@@ -92,6 +92,28 @@
 		WHERE m_idx=#{arg0}
 		
 	</update>
+	
+	
+	
+	<!-- 해당 계정명의 tempCode update -->
+	<update id="updateTempCodeByEmail">
+		UPDATE member 
+		SET
+		tempcode=#{arg0}
+		WHERE m_email=#{arg1}
+	
+	</update>
+	
+	<!-- 메일로 보낸 임시 keyCode 와 일치하는 Member의 패스워드를 새로운 패스워드로 변경 -->
+	<update id="updateMemberPwByKeyCode">
+	
+		UPDATE member
+		SET
+		m_password=#{arg1}
+		WHERE tempcode=#{arg0}
+	
+	</update>
+	
 	
  	
  	
