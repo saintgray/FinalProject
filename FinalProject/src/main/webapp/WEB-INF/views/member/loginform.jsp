@@ -6,61 +6,6 @@
 <meta charset="UTF-8">
 <%@include file="/WEB-INF/views/defaultpageset.jsp" %>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/member/loginform.css">
-<script>
-
-	$(document).ready(function(){
-		
-		$('#loginbtn').on('click',function(){
-			var invailed=false;
-			if($('#m_email').val().length==0){
-				$('#w_email').text('*이메일을 입력하세요').css('visibility','visible');
-				invailed=true;
-				
-			}else if($('#m_email').val().indexOf('@')<0){
-				$('#w_email').text('*올바른 이메일 형식을 입력하세요').css('visibility','visible');
-				invailed=true;
-			}
-			if($('#m_pw').val().length==0){
-				$('#w_pw').text('*비밀번호를 입력하세요').css('visibility','visible');
-				invailed=true;
-			}
-			
-			
-			
-			
-			if(!invailed){
-				$('#insertarea').append($('<img src="${pageContext.request.contextPath}/resources/files/server/icons/loading/loading.svg" id="loading">'));
-				$('form').submit();
-			}
-		})
-		
-		
-		$('#m_email, #m_pw').on('focus',function(){
-			$(this).siblings('.warning').css('visibility','hidden');
-			$('#auth_warning').text('');
-		})
-		
-		
-		$('input').on('keydown',function(e){
-			
-			
-			if(e.keyCode==13){
-				
-				
-				$('#loginbtn').trigger('click');
-			}
-		})
-		
-		// forgetMe 
-		///////////////////////////
-		$('#forgetMe').on('click',function(){
-			location.href="${pageContext.request.contextPath}/findaccount";	
-		})
-		
-	})
-</script>
-
-
 <title>로그인</title>
 </head>
 <body>
@@ -70,7 +15,7 @@
 	<%@include file="/WEB-INF/views/layout/header.jsp" %>
 	<div class="container" id="loginglobalwrap">
 		<div class="banner text-center">
-		<img src="${pageContext.request.contextPath}/resources/files/server/bannerimg/logo.svg">
+			로그인
 		</div>
 		<div class="container d-flex flex-wrap flex-column justify-content-center p-2" id="insertarea">
 		
@@ -118,7 +63,7 @@
 				</div>	
 				
 				
-				<!-- <input type="checkbox" name="remember-me">자동로그인 -->
+				
 				
 			</form>
 			
@@ -130,6 +75,7 @@
 </div>
 
 <%@include file="/WEB-INF/views/layout/footer.jsp" %>
+<%@include file="/WEB-INF/views/member/pageset/loginformpageset.jsp" %>
 
 </body>
 </html>

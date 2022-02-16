@@ -129,7 +129,7 @@ $(document).ready(function(){
 		//editpw
 		$('#editPwBtn').on('click',function(){
 			
-			var vailed=true;
+			var valid=true;
 			
 			$('#securityinfos input[type=password]').each(function(index, item){
 				
@@ -147,7 +147,7 @@ $(document).ready(function(){
 				}
 			})
 			
-			if(vailed=true){
+			if(valid){
 				
 				if(confirm('비밀번호를 수정하시겠습니까?')){
 					

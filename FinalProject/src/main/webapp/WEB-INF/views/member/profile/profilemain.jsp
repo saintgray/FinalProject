@@ -92,9 +92,9 @@
 					<div class="d-flex flex-wrap  justify-content-around my-2 activity">
 						<span class="activity_info">평점 : ${profile.avgStars}</span>
 						<span class="br-col"></span>
-						<span class="activity_info">고용수 : 0개</span>
+						<span class="activity_info">매칭수 : ${profile.matchCount}</span>
 						<span class="br-col"></span>
-						<span class="activity_info">리뷰수 : 0개</span>
+						<span class="activity_info">리뷰수 : ${profile.reviewCount}</span>
 					</div>
 					
 				</div>
@@ -237,7 +237,7 @@
 			</div>
 			
 			<c:if test="${profile.m_idx eq m_idx}">
-				<div class="d-flex flex-wrap justify-content-center mb-5">
+				<div class="d-flex flex-wrap justify-content-end mb-5">
 					<button type="button" class="btn btn-danger" id="delProfile">프로필 삭제</button>
 				</div>
 			</c:if>
@@ -267,8 +267,6 @@
 	<%@include file="/WEB-INF/views/member/profile/pageset/noneProfilePageset.jsp" %>
 
 </c:if>
-<h1>${profile.m_idx}</h1>
-<h1>${m_idx}</h1>
 <c:if test="${not empty profile}">
 	<%@include file="/WEB-INF/views/member/profile/pageset/profilemainpageset.jsp"  %>
 	<c:if test="${profile.m_idx eq m_idx}">

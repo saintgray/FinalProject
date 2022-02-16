@@ -4,7 +4,7 @@ public class HomeInfo {
 	
 	private int memberCount;
 	private int postCount;
-	private int matchingCount;
+	private int matchCount;
 	
 	
 	public HomeInfo() {
@@ -12,10 +12,10 @@ public class HomeInfo {
 	}
 
 
-	public HomeInfo(int memberCount, int postCount, int matchingCount) {
+	public HomeInfo(int memberCount, int postCount, int matchCount) {
 		this.memberCount = memberCount;
 		this.postCount = postCount;
-		this.matchingCount = matchingCount;
+		this.matchCount = matchCount;
 	}
 
 
@@ -39,13 +39,13 @@ public class HomeInfo {
 	}
 
 
-	public int getMatchingCount() {
-		return matchingCount;
+	public int getmatchCount() {
+		return matchCount;
 	}
 
 
-	public void setMatchingCount(int matchingCount) {
-		this.matchingCount = matchingCount;
+	public void setmatchCount(int matchCount) {
+		this.matchCount = matchCount;
 	}
 	
 	

@@ -5,22 +5,10 @@
 <head>
 <meta charset="UTF-8">
 <%@ include file="/WEB-INF/views/defaultpageset.jsp" %>
-<style>
-	#findaccountarea{
-	
-		margin-top:200px;
-		width: 500px;
-		margin-left: auto;
-		margin-right: auto;
-	}
-	#w_email{
-		font-size:14px;
-		color:red;
-	}
-</style>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/member/findaccount.css">
 <title>회원정보 찾기</title>
 </head>
-<body>
+<body>	
 
 	<div class="gw">
 		<%@ include file="/WEB-INF/views/layout/header.jsp" %>

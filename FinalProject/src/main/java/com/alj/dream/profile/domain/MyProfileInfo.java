@@ -16,27 +16,15 @@ public class MyProfileInfo {
 	private String calltime;
 	private String career;
 	private String qna;
-	private String m_quitdate;
 	private String profile_regdate;
+	private String matchCount;
+	private String reviewCount;
 	private List<FileInfo> files;
 	private String avgStars;
+	private String m_quitdate;
 	
 	public MyProfileInfo() {
 	
-	}
-
-	public MyProfileInfo(String profile_idx, String m_idx, String line, String calltime, String career, String qna,
-			String m_quitdate, String profile_regdate, List<FileInfo> files, String avgStars) {
-		this.profile_idx = profile_idx;
-		this.m_idx = m_idx;
-		this.line = line;
-		this.calltime = calltime;
-		this.career = career;
-		this.qna = qna;
-		this.m_quitdate = m_quitdate;
-		this.profile_regdate = profile_regdate;
-		this.files = files;
-		this.avgStars = avgStars;
 	}
 
 	public String getProfile_idx() {
@@ -87,20 +75,28 @@ public class MyProfileInfo {
 		this.qna = qna;
 	}
 
-	public String getM_quitdate() {
-		return m_quitdate;
-	}
-
-	public void setM_quitdate(String m_quitdate) {
-		this.m_quitdate = m_quitdate;
-	}
-
 	public String getProfile_regdate() {
 		return profile_regdate;
 	}
 
 	public void setProfile_regdate(String profile_regdate) {
 		this.profile_regdate = profile_regdate;
+	}
+
+	public String getMatchCount() {
+		return matchCount;
+	}
+
+	public void setMatchCount(String matchCount) {
+		this.matchCount = matchCount;
+	}
+
+	public String getReviewCount() {
+		return reviewCount;
+	}
+
+	public void setReviewCount(String reviewCount) {
+		this.reviewCount = reviewCount;
 	}
 
 	public List<FileInfo> getFiles() {
@@ -119,6 +115,17 @@ public class MyProfileInfo {
 		this.avgStars = avgStars;
 	}
 
+	public String getM_quitdate() {
+		return m_quitdate;
+	}
+
+	public void setM_quitdate(String m_quitdate) {
+		this.m_quitdate = m_quitdate;
+	}
+
+	
+	
+	
 	
 	
 	

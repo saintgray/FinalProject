@@ -8,7 +8,7 @@
 		
 		$('#delProfile').on('click',function(){
 			
-				if(confirm('정말로 내 프로필을 삭제하시겠습니까?')){
+				if(confirm('정말로 내 프로필을 삭제하시겠습니까?\r\n삭제한 프로필은 복구 할 수 없습니다')){
 					
 					// 프로필 삭제 :  profile_deldate 를 DB 시간으로 update
 					

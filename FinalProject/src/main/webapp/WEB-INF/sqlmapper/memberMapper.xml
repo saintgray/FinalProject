@@ -114,6 +114,12 @@
 	
 	</update>
 	
+	<!-- 스케쥴러를 통해 임시 코드가 삭제되었는지 확인 (count) -->
+	<select id="getCountByKeyCode" resultType="Integer">
+		SELECT count(*) FROM member
+		WHERE tempcode=#{arg0} AND m_quitdate is null
+	</select>
+	
 	
  	
  	
