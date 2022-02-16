@@ -12,7 +12,7 @@ import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 import com.alj.dream.chat.domain.Chat;
-import com.alj.dream.chat.service.ChatInsertService;
+import com.alj.dream.chat.service.ChatRoomService;
 import com.google.gson.Gson;
 
 
@@ -21,10 +21,9 @@ public class EchoHandler extends TextWebSocketHandler {
 	private static final Logger logger = LoggerFactory.getLogger(EchoHandler.class);
 	private Map<Integer, WebSocketSession> sessionMap = new HashMap<Integer, WebSocketSession>();
 
-//	@Autowired
-//	private ChatRoomService service;
+
 	@Autowired
-	private ChatInsertService service;
+	private ChatRoomService service;
 
 
 	// 채팅창에 들어왔을때

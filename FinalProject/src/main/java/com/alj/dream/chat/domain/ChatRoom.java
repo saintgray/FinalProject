@@ -1,8 +1,8 @@
 package com.alj.dream.chat.domain;
 
-public class ChatList {
+public class ChatRoom {
 
-	// 채팅목록
+	// 채팅방에 필요한  데이터들
 	
 	private int match_idx;
 	private String match_yn;
@@ -12,7 +12,7 @@ public class ChatList {
 	private String cat_nm;
 	private String cat_type;
 	
-	public ChatList(int match_idx, String match_yn, int m_idx, String m_nm, String m_photo, String cat_nm,
+	public ChatRoom(int match_idx, String match_yn, int m_idx, String m_nm, String m_photo, String cat_nm,
 			String cat_type) {
 		this.match_idx = match_idx;
 		this.match_yn = match_yn;
@@ -23,7 +23,7 @@ public class ChatList {
 		this.cat_type = cat_type;
 	}
 
-	public ChatList() {}
+	public ChatRoom() {}
 
 	public int getMatch_idx() {
 		return match_idx;

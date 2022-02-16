@@ -1,5 +1,7 @@
 package com.alj.dream.chat.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,19 +14,48 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.alj.dream.chat.domain.Chat;
-import com.alj.dream.chat.service.ChatInsertService;
+import com.alj.dream.chat.service.ChatRoomService;
 import com.alj.dream.match.service.MatchChkService;
-
-import sockethandler.ChatRoomService;
 
 
 @Controller
 public class ChatRoomController {
 
 	@Autowired
-	ChatInsertService service;
+	ChatRoomService service;
+	
+	// 채팅방으로 입장했을 때 : 필요한 데이터 보내주기
+	@RequestMapping(value="/chat/chatroom", method=RequestMethod.GET)
+	@ResponseBody
+	public ModelAndView intoChat(
+			ModelAndView mv,
+			@RequestParam("myidx") int myIdx,
+			@RequestParam("matchidx") int matchidx,
+			@RequestParam("reciever") int reciever,
+			HttpSession session
+			) {
+			
+		System.out.println("ChatRoomController : intoChat진입");
+		
+		session.setAttribute("myIdx", myIdx);			// 에코핸들러에서 사용하기 위해 필요한 정보들 세션에 저장.
+		session.setAttribute("matchidx", matchidx);
+		session.setAttribute("reciever", reciever);
+		
+		// 채팅 시 필요한 정보 보내주기
+		mv.addObject("matchidx", matchidx);
+		mv.addObject("reciever", reciever);
+		
+		
+		// 채팅데이터를 확인해봐서 데이터가 있다면 가져온다.(채팅방 입장시, 채팅했던 메세지들이 출력할 수 있도록)
+		mv.addObject("chatlist", service.getChat(myIdx,matchidx,reciever));
+		
+		System.out.println("return mv 하기 전");
+		
+		return mv;
+	}
 	
 	
+	// 채팅메세지 DB에 저장하는 메소드
 	@RequestMapping(value="/post/insertchat", method=RequestMethod.POST)
 	@ResponseBody
 	public int insertChat(Chat chat
@@ -38,38 +69,4 @@ public class ChatRoomController {
 		return resultCnt;
 	}
 
-	
-	
-		@RequestMapping(value="/chat/chatroom", method=RequestMethod.GET)
-		@ResponseBody
-		public ModelAndView intoChat(
-				ModelAndView mv,
-				@RequestParam("myidx") int myIdx,
-				@RequestParam("matchidx") int matchidx,
-				@RequestParam("reciever") int reciever,
-				HttpSession session
-				) {
-				
-			System.out.println("ChatRoomController : intoChat진입");
-			
-			session.setAttribute("myIdx", myIdx);
-			session.setAttribute("matchidx", matchidx);
-			session.setAttribute("reciever", reciever);
-			
-			System.out.println("matchidx : " + matchidx);
-			System.out.println("reciever : " + reciever);
-	
-			// 채팅 시 필요한 정보 보내주기
-			//mv.setViewName("chat/chatRoom");
-			mv.addObject("matchidx", matchidx);
-			mv.addObject("reciever", reciever);
-			
-			System.out.println("mv.addObject(matchidx, matchidx) : " + matchidx);
-			System.out.println("mv.addObject(reciever, reciever) : " + reciever);
-		
-			System.out.println("return mv 하기 전");
-			
-			return mv;
-		}
-	
 }
