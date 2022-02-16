@@ -1,5 +1,7 @@
 package com.alj.dream.util.auth;
 
+import java.util.UUID;
+
 public class KeyUtils {
 	
 	
@@ -12,6 +14,10 @@ public class KeyUtils {
 		
 		System.out.println(key);
 		return key;
+	}
+	
+	public static String createRandomKeyCode() {
+		return UUID.randomUUID().toString();
 	}
 
 }
