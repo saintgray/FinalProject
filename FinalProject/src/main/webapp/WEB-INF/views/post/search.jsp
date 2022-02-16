@@ -50,10 +50,13 @@
 
 		</div>
 
-		<div>추천 멘토/멘티 리스트 영역</div>
+		<div id="recommendList" class="list=group">
+			
+		</div>
 
 		<div id="searchResult" class="list-group">
-		
+			<div class="descript mb-2">검색 결과</div>
+			
 		</div>
 
 	</div>
@@ -152,10 +155,61 @@
 				})
 
 		}
+		
+		// 추천멘토/멘티리스트 : 회원이 가입시 선택한 분야/지역 적용, 무작위 5건
+		function recommendList(){
+			var m_idx=$('#m_idx').val();
+			var wanted=$('#wanted').val();
+			
+			$.ajax({
+				url: '${pageContext.request.contextPath}/post/recommend',
+				type: 'post',
+				data: {
+					m_idx : m_idx,
+					wanted : wanted
+				},
+				success: function(data){
+					console.log(data);
+					
+					var html='';
+					
+					if(data.length==0){
+						// 추천 리스트가 없을 때
+						// 새로운 요청글을 등록해보세요! (요청글 등록 버튼 띄우기)
+						
+					} else {
+						// 추천 리스트가 있을 때
+						// 리스트 표시하기
+						html+='<div class="descript mb-2">이 \r\n';
+						html+='<c:if test="${type eq \'mentor\'}">멘티</c:if>\r\n';
+						html+='<c:if test="${type eq \'mentee\'}">멘토</c:if>\r\n';
+						html+='는 어떠세요?\r\n';
+						html+='</div>\r\n';
+						
+						$(data).each(function(index, item) { 
+							html+='		<a href="view?idx='+item.post_idx+'" class="list-group-item list-group-item-action">\r\n';
+						 	html+='			<div class="d-flex w-100 justify-content-between">\r\n';
+						 	html+='				<h6 class="mb-1">'+item.post_nm+'</h6>\r\n';
+						 	html+='			</div>\r\n';
+						 	html+='			<p class="mb-1">'+item.cat_nm+' / '+item.loc_nm+'</p>\r\n';
+						 	html+='		</a>\r\n';
+						})
+					}
+					
+					$('#recommendList').append(html);
+					
+				},
+				error: function(data){
+					console.log('통신오류');
+					console.log(data);
+				}
+			});
+		}
 
 		$(document).ready(function() {
 			selectCategory(30);
 			getLocations();
+			recommendList();
 			
 			$('#searchBtn').on('click', function(){
 				
@@ -206,28 +260,27 @@
 						} else {
 							// 검색 결과가 있을 때
 							
-							$(list).each(function(index, item) {
-								 html+='		<a href="view?idx='+item.post_idx+'" class="list-group-item list-group-item-action">\r\n';
-							 	 html+='			<div class="d-flex w-100 justify-content-between">\r\n';
-							 	 html+='				<h5 class="mb-1">\r\n'
-							 	 html+='					<c:out value="${listInfo.post_nm}" escapeXml="true" />\r\n';
-							 	 html+='				</h5>\r\n';
-							 	 html+='				<small>매칭여부: '+item.match_yn+'</small>\r\n';
-							 	 html+='			</div>\r\n';
-							 	 html+='			<p class="mb-1">'+item.cat_nm+' / '+item.loc_nm+'</p>\r\n';
-							 	 html+='		</a>\r\n';
-							}) 
+							$(list).each(function(index, item) { 
+								html+='		<a href="view?idx='+item.post_idx+'" class="list-group-item list-group-item-action">\r\n';
+							 	html+='			<div class="d-flex w-100 justify-content-between">\r\n';
+							 	html+='				<h5 class="mb-1">'+item.post_nm+'</h5>\r\n';
+							 	html+='			</div>\r\n';
+							 	html+='			<p class="mb-1">'+item.cat_nm+' / '+item.loc_nm+'</p>\r\n';
+							 	html+='		</a>\r\n';
+							})
+							
+							/* if(data.totalPageCount>data.currentPage){
+								// 현재 페이지보다 총 페이지 수가 많을 경우 -> 더보기 버튼 출력
+								html+='';
+								
+							} */
 							
 						}
-						
-						/*
-						페이징이 있을 경우 더보기 버튼 출력
-						*/
 						
 						$('#searchResult').append(html);
 						
 					},
-					error: function(data){
+					error: function(){
 						console.log('통신오류');
 					}
 				})
