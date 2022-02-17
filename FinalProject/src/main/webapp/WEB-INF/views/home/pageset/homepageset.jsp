@@ -46,7 +46,7 @@
   					html+='<tr>\r\n';
   					html+='<td class="mx-3"><h1 class="count counter">'+data.memberCount+'</h1></td>\r\n';
   					html+='<td class="mx-3"><h1 class="count counter">'+data.postCount+'</h1></td>\r\n';
-  					html+='<td class="mx-3"><h1 class="count counter">'+data.matchingCount+'</h1></td>\r\n'
+  					html+='<td class="mx-3"><h1 class="count counter">'+data.matchCount+'</h1></td>\r\n'
   					html+='</tr>\r\n';
   					$('#maininfo').prepend(html);
   					

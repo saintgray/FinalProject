@@ -43,6 +43,7 @@
    .banner{
    	font-size:30px;
    	font-weight: bolder;
+   
    	
    }
   
@@ -71,6 +72,17 @@
   a:hover{
   	text-decoration: underline;
   	color: black;
+  }
+  
+  #logo, #logo img{
+    	width: 120px;
+    height: 50px;
+  }
+  
+  @media(max-width:470px){
+  	.banner{
+  		font-size: 23px;
+  	}
   }
   
 

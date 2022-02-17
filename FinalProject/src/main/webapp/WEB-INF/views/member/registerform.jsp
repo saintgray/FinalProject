@@ -151,8 +151,9 @@
 </div>
 
 <%@include file="/WEB-INF/views/layout/footer.jsp" %>
+<%@include file="/WEB-INF/views/member/pageset/registerformpageset.jsp" %>
 </body>
 
-<%@include file="/WEB-INF/views/member/pageset/registerformpageset.jsp" %>
+
 
 </html>

@@ -35,7 +35,7 @@
 							<h5 class="mb-1">
 								<c:out value="${listInfo.post_nm}" escapeXml="true" />
 							</h5>
-							<small>${listInfo.match_yn}</small>
+							<span class="badge bg-warning text-dark">${listInfo.match_count}</span>
 						</div>
 						<p class="mb-1">${listInfo.cat_nm}/${listInfo.loc_nm}</p>
 					</a>
@@ -44,14 +44,15 @@
 			</c:if>
 		</div>
 
-		<div id="paging">
+		<nav aria-label="paging">
 			<c:if test="${listView.totalPageCount > 0}">
-				<c:forEach begin="1" end="${listView.totalPageCount}" var="pnum">
-					<a href="list?p=${pnum}" class="${listView.currentPage eq pnum ? 'curPage' : ''}">${pnum}</a>
-				</c:forEach>
-
+				<ul class="pagination justify-content-center">
+					<c:forEach begin="1" end="${listView.totalPageCount}" var="pnum">
+						<li class="page-item"><a class="page-link" href="list?p=${pnum}">${pnum}</a></li>
+					</c:forEach>
+				</ul>
 			</c:if>
-		</div>
+		</nav>
 
 	</div>
 

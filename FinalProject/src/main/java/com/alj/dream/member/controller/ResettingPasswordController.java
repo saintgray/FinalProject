@@ -9,11 +9,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.alj.dream.member.exception.KeyCodeExpiredException;
 import com.alj.dream.member.service.ResettingNewPwService;
 
 @Controller
-@RequestMapping("/requestpassword")
+@RequestMapping("/resettingpassword")
 public class ResettingPasswordController {
 
 	private ResettingNewPwService rsService;
@@ -31,17 +33,23 @@ public class ResettingPasswordController {
 
 
 	@GetMapping
-	public String showEditPwForm(HttpServletRequest req, @Param("keycode")String keyCode) {
-		req.setAttribute("keyCode", keyCode);
+	public String showEditPwForm(HttpServletRequest req) {
+		
 		
 		return "member/resettingpwform";
 	}
 	
 	@PostMapping
-	public int editToNewPassword(String keyCode, String newPw) {
+	@ResponseBody
+	public int editToNewPassword(String keycode, String newPw) {
 		
 		int result=0;
-		result=rsService.resettingPw(keyCode, newPw);
+		
+		try {
+			result=rsService.resettingPw(keycode, newPw);
+		}catch(KeyCodeExpiredException e) {
+			result=-1;
+		}
 		
 		
 		return result;

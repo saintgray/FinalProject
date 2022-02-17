@@ -1,5 +1,9 @@
 package com.alj.dream.post.domain;
 
+import java.util.List;
+
+import com.alj.dream.match.domain.MatchInfo;
+
 public class PostViewRequest {
 	
 	private int post_idx;
@@ -10,7 +14,9 @@ public class PostViewRequest {
 	private int cat_idx;
 	private String cat_nm;
 	private int m_idx;
-	private String match_yn;
+	private int match_count;
+	private String wanted;
+	private List<MatchInfo> matchInfos;
 	
 	public PostViewRequest() {}
 
@@ -46,8 +52,20 @@ public class PostViewRequest {
 		return m_idx;
 	}
 
-	public String getMatch_yn() {
-		return match_yn;
+	public int getMatch_count() {
+		return match_count;
+	}
+
+	public String getWanted() {
+		return wanted;
+	}
+	
+	public List<MatchInfo> getMatchInfos() {
+		return matchInfos;
+	}
+	
+	public void setMatchInfos(List<MatchInfo> matchInfos) {
+		this.matchInfos = matchInfos;
 	}
 
 }

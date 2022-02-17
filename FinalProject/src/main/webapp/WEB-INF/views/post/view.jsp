@@ -30,12 +30,20 @@ history.go(-1);
 	<c:set var="idx">
 	   <sec:authentication property="principal.m_idx" />
 	</c:set>
+	<c:set var="type">
+	   <sec:authentication property="principal.m_type" />
+	</c:set>
 </sec:authorize>
+
+<input type="hidden" id="postidx" value="${viewRequest.post_idx}">
+<input type="hidden" id="wanted" value="${viewRequest.wanted}">
+<input type="hidden" id="midx" value="${viewRequest.m_idx}">
+<input type="hidden" id="myidx" value="${idx}">
 
 <table>
 <tr>
 	<c:if test="${viewRequest.m_idx eq idx}">
-	<td>매치유무 : ${viewRequest.match_yn}</td>
+	<td>문의건수 : ${viewRequest.match_count} 건</td>
 	<td>${viewRequest.cat_nm}</td>
 	</c:if>
 	
@@ -45,6 +53,8 @@ history.go(-1);
 
 	<td>${viewRequest.post_nm}</td>
 </tr>
+
+<c:if test="${viewRequest.wanted eq 'mentee'}">
 
 <c:if test="${writerProfile ne null}">
 <tr>
@@ -62,6 +72,8 @@ history.go(-1);
 </tr>
 </c:if>
 
+</c:if>
+
 <tr>
 	<td colspan="3">${viewRequest.post_content}</td>
 </tr>
@@ -69,13 +81,16 @@ history.go(-1);
 
 <c:if test="${viewRequest.m_idx eq idx}">
 <tr>
-	<td colspan="3">매칭정보 : match테이블에서 가져온 정보 출력</td>
+	<td colspan="3">
+	매칭정보 : match테이블에서 가져온 정보 출력 <br>
+	${viewRequest.matchInfos}
+	</td>
 </tr>
 </c:if>
 
-<c:if test="${viewRequest.m_idx ne idx}">
+<c:if test="${viewRequest.m_idx ne idx && viewRequest.wanted eq type}">
 <tr>
-	<td colspan="3">문의하기</td>
+	<td colspan="3"><button type="button" id="matchBtn">문의하기</button></td>
 </tr>
 </c:if>
 
@@ -118,6 +133,38 @@ function deletePost(idx){
 
 $(document).ready(function(){
 	
+	$('#matchBtn').on('click', function(){
+		
+		var postidx=$('#postidx').val();
+		var wanted=$('#wanted').val();
+		var midx=$('#midx').val();
+		var myidx=$('#myidx').val();
+		
+		console.log('postidx:', postidx);
+		console.log('wanted:', wanted);
+		console.log('midx:', midx);
+		console.log('myidx:', myidx);
+		
+		$.ajax({
+			url: "${pageContext.request.contextPath}/post/matchchk",
+			type: "post",
+			data: {
+				postidx : postidx,
+				midx : midx,
+				myidx : myidx,
+				wanted: wanted
+			},
+			success : function(data){
+				alert('매칭 생성');
+				location.href="${pageContext.request.contextPath}/post/view?idx="+postidx;
+			},
+			error: function(data){
+				console.log('통신 오류');
+				console.log(data);
+			}
+		});
+		
+	})
 });
 </script>
 
