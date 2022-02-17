@@ -30,6 +30,9 @@ history.go(-1);
 	<c:set var="idx">
 	   <sec:authentication property="principal.m_idx" />
 	</c:set>
+	<c:set var="type">
+	   <sec:authentication property="principal.m_type" />
+	</c:set>
 </sec:authorize>
 
 <input type="hidden" id="postidx" value="${viewRequest.post_idx}">
@@ -85,7 +88,7 @@ history.go(-1);
 </tr>
 </c:if>
 
-<c:if test="${viewRequest.m_idx ne idx}">
+<c:if test="${viewRequest.m_idx ne idx && viewRequest.wanted eq type}">
 <tr>
 	<td colspan="3"><button type="button" id="matchBtn">문의하기</button></td>
 </tr>
@@ -137,10 +140,10 @@ $(document).ready(function(){
 		var midx=$('#midx').val();
 		var myidx=$('#myidx').val();
 		
-		console.log(postidx);
-		console.log(wanted);
-		console.log(midx);
-		console.log(myidx);
+		console.log('postidx:', postidx);
+		console.log('wanted:', wanted);
+		console.log('midx:', midx);
+		console.log('myidx:', myidx);
 		
 		$.ajax({
 			url: "${pageContext.request.contextPath}/post/matchchk",
