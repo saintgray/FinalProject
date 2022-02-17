@@ -26,8 +26,8 @@
 		
 		<h1>제목 : ${content.notice_title}</h1>
 		<h6>작성자: ${content.admin_nm}</h6>
-		<h6>작성일 : ${content.notice_regdate} 수정일  : ${content.notice_editdate}</h6>
-		<h3>내용: ${content.notice_content}</h3>
+		<h6>작성일 : ${content.notice_regdate} 수정일  : ${content.notice_editdate}</h6><hr>
+		<h4>내용: ${content.notice_content}</h4>
 	
 		
 		
