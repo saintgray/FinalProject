@@ -46,7 +46,7 @@
 			</div>
 			<input type="hidden" id="m_idx" value="${idx}">
 			<input type="hidden" id="wanted" value="${type}">
-			<button id="searchBtn">검색</button>
+			<button id="searchBtn" onclick="searchPost(1)">검색</button>
 
 		</div>
 
@@ -60,7 +60,6 @@
 		</div>
 
 	</div>
-
 
 	<script>
 		let cat_idx;
@@ -206,87 +205,94 @@
 			});
 		}
 
+		// 검색하기
+		function searchPost(pageNum){
+			
+			// 더보기 버튼이 있을 경우 -> 삭제
+			if($('#moreBtn')){
+				$('#moreBtn').remove();
+			}
+			
+			var loc_idx=0;
+			var m_idx=$('#m_idx').val();
+			var wanted=$('#wanted').val();
+			
+			console.log($('#locarea .inp_loc:checked').val());
+			
+			if($('#locarea .inp_loc:checked').val()>0){
+				loc_idx=$('#locarea .inp_loc:checked').val();
+			}
+			
+			console.log('m_idx:', m_idx);
+			console.log('wanted:', wanted);
+			console.log('cat_idx:', cat_idx);
+			console.log('loc_idx:', loc_idx);
+			
+			var searchParams={};
+			searchParams.m_idx=m_idx;
+			searchParams.wanted=wanted;
+			searchParams.cat_idx=cat_idx;
+			searchParams.loc_idx=loc_idx;
+			searchParams.pageNum=pageNum;
+			
+			console.log(searchParams);
+			
+			$.ajax({
+				url: '${pageContext.request.contextPath}/post/search',
+				type: 'post',
+				data: JSON.stringify(searchParams),
+				dataType: 'json',
+				contentType:'application/json; charset=UTF-8',
+				processData: false,
+				success: function(data){
+					
+					console.log(data);
+					
+					var list=data.list;
+					
+					console.log(list);
+					
+					var html='';
+					
+					if(list.length==0){
+						// 검색 결과가 없을 때
+						html+='등록된 요청글이 없습니다.\r\n';
+					} else {
+						// 검색 결과가 있을 때
+						
+						$(list).each(function(index, item) { 
+							html+='		<a href="view?idx='+item.post_idx+'" class="list-group-item list-group-item-action">\r\n';
+						 	html+='			<div class="d-flex w-100 justify-content-between">\r\n';
+						 	html+='				<h5 class="mb-1">'+item.post_nm+'</h5>\r\n';
+						 	html+='			</div>\r\n';
+						 	html+='			<p class="mb-1">'+item.cat_nm+' / '+item.loc_nm+'</p>\r\n';
+						 	html+='		</a>\r\n';
+						})
+						
+						if(data.totalPageCount>data.currentPage){
+							// 현재 페이지보다 총 페이지 수가 많을 경우 -> 더보기 버튼 출력
+							var page = data.currentPage+1;
+							html+='<button type="button" id="moreBtn" class="btn btn-outline-dark" onclick="searchPost('+page+')">더보기</button>';
+							
+						}
+						
+					}
+					
+					$('#searchResult').append(html);
+					
+				},
+				error: function(){
+					console.log('통신오류');
+				}
+			})
+		}
+			
 		$(document).ready(function() {
 			selectCategory(30);
 			getLocations();
 			recommendList();
-			
-			$('#searchBtn').on('click', function(){
-				
-				var loc_idx=0;
-				var m_idx=$('#m_idx').val();
-				var wanted=$('#wanted').val();
-				
-				console.log($('#locarea .inp_loc:checked').val());
-				
-				if($('#locarea .inp_loc:checked').val()>0){
-					loc_idx=$('#locarea .inp_loc:checked').val();
-				}
-				
-				console.log('m_idx:', m_idx);
-				console.log('wanted:', wanted);
-				console.log('cat_idx:', cat_idx);
-				console.log('loc_idx:', loc_idx);
-				
-				var searchParams={};
-				searchParams.m_idx=m_idx;
-				searchParams.wanted=wanted;
-				searchParams.cat_idx=cat_idx;
-				searchParams.loc_idx=loc_idx;
-				searchParams.pageNum=1;
-				
-				console.log(searchParams);
-				
-				$.ajax({
-					url: '${pageContext.request.contextPath}/post/search',
-					type: 'post',
-					data: JSON.stringify(searchParams),
-					dataType: 'json',
-					contentType:'application/json; charset=UTF-8',
-					processData: false,
-					success: function(data){
-						
-						console.log(data);
-						
-						var list=data.list;
-						
-						console.log(list);
-						
-						var html='';
-						
-						if(list.length==0){
-							// 검색 결과가 없을 때
-							html+='등록된 요청글이 없습니다.\r\n';
-						} else {
-							// 검색 결과가 있을 때
-							
-							$(list).each(function(index, item) { 
-								html+='		<a href="view?idx='+item.post_idx+'" class="list-group-item list-group-item-action">\r\n';
-							 	html+='			<div class="d-flex w-100 justify-content-between">\r\n';
-							 	html+='				<h5 class="mb-1">'+item.post_nm+'</h5>\r\n';
-							 	html+='			</div>\r\n';
-							 	html+='			<p class="mb-1">'+item.cat_nm+' / '+item.loc_nm+'</p>\r\n';
-							 	html+='		</a>\r\n';
-							})
-							
-							/* if(data.totalPageCount>data.currentPage){
-								// 현재 페이지보다 총 페이지 수가 많을 경우 -> 더보기 버튼 출력
-								html+='';
-								
-							} */
-							
-						}
-						
-						$('#searchResult').append(html);
-						
-					},
-					error: function(){
-						console.log('통신오류');
-					}
-				})
-			})
 		});
-		 
+	 
 	</script>
 
 

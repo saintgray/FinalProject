@@ -65,7 +65,7 @@
 		from post p left join member on p.m_idx=member.m_idx
 				    left join dream.match m on p.post_idx=m.post_idx
 		<where>
-			post_deldate is null and m.match_yn='N'
+			post_deldate is null and (m.match_yn='N' or m.match_yn is null)
 			and p.m_idx!=#{m_idx} and wanted=#{wanted}
 			<if test="cat_idx>0">
 				and cat_idx=#{cat_idx}
@@ -96,7 +96,7 @@
 	</select>
 	
 	<select id="selectLocInterest" resultType="java.util.HashMap">
-		select m.loc_idx, i.cat_idx
+		select m.m_idx, m.loc_idx, i.cat_idx
 		from member m left join interestcat i on m.m_idx=i.m_idx
 		where m.m_idx=#{m_idx}
 	</select>
