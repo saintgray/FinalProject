@@ -50,6 +50,9 @@ public class PostSearchController {
 	@ResponseBody
 	public List<PostListInfo> getRecommend(String m_idx, String wanted){
 		
+		System.out.println("m_idx: " + m_idx);
+		System.out.println("wanted: " + wanted);
+		
 		return service.getRecommend(Integer.parseInt(m_idx), wanted);
 
 	}
