@@ -8,6 +8,7 @@
 <%@ include file="/WEB-INF/views/defaultpageset.jsp" %>
 <title>채팅창</title>
 <style>
+
 	.text_right {
 		text-align: right;
 	}
@@ -15,11 +16,24 @@
 	.text_left {
 		text-align: left;
 	}
-	.chattingBox {
+	
+	#sendermsg {	  
 		padding : 15px;
-		border : 1px solid #AAA;
-		margin: 10px 0;
+		display: inline-block;
+		height: 50px;
+		margin: 6px;
+		border : 1px solid orange;
 	}
+	
+	#recievermsg {
+		padding : 15px;
+		display: inline-block;
+		height: 50px;
+		margin: 6px;
+		background-color: navy;
+		color : white;
+	}
+	
 </style>
 <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
 
@@ -44,7 +58,7 @@
 		<sec:authentication property="principal.m_type"/>
 	</c:set>
 </sec:authorize>
-myidx: ${myidx} myname : ${myname} myphoto : ${myphoto}$ mytype : {mytype}
+myidx: ${myidx} / myname : ${myname} / myphoto : ${myphoto} / mytype : ${mytype}
 
 <h3>참여자 정보</h3>
 
@@ -54,11 +68,69 @@ reciever : ${reciever}<br>
 
 
 
-	<h2>Chatting Page (채팅방번호: ${matchidx})</h2>
+<h2>Chatting Page (채팅방번호: ${matchidx})</h2>
+
+<!-- chatRoom의 Header -->
+
+	<!-- 상대방 프로필로 이동하기 -->
+	<!-- 미완 -->
+	<a href="${pageContext.request.contextPath}/member/profile/profilemain">${reciever}의 이름</a>
 	
+	<!-- 더보기 -->
+	
+	
+	<!-- 신고하기버튼  -->
+	<!-- 합치기만하면됨 -->
 	<a href="${pageContext.request.contextPath}/chat/report?matchidx=${matchidx}&sender=${myidx}&reciever=${reciever}">신고하기</a>
 	
-	<br>보내는 사람 : ${myidx} 받는사람 : ${reciever}
+	<!-- 채팅나가기 -->
+	<!-- 미완 : 채팅목록으로 리다이렉트/그리고 ajax로 update match mentee_outyn또는 mentor_outyn Y로 하기-->
+	<button id="leaveChat">이 채팅 나가기</button>
+	
+	<!-- 매칭하기 -->
+	<!-- 미완 -->
+	<button id="match">매칭 하기</button>
+	
+	<!-- 매칭취소하기 -->
+	<!-- 미완 -->
+	<button id="unmatch">매칭 취소</button>
+	
+	<!-- 후기쓰기 -->
+	<!-- 미완 -->
+	<button id="review">후기 쓰기</button>
+
+
+<!-- chatRoom의 Body -->
+
+<h4>이전 채팅 내역들</h4>
+<c:forEach items ="${chatlist}" var="c">
+	<c:set var="presender" value="${c.m_sender}"/>
+	<c:set var="prereciever" value="${c.m_reciever}"/>
+	<c:set var="present" value="${c.sent}"/>
+	<c:set var="premessage" value="${c.message}"/>
+	
+	
+	<!-- 내 메세지 창 -->
+	<c:if test="${presender==myidx}">
+		<div class='well text_right'>
+			<span>${c.sent}</span>
+			<span id="sendermsg" class="rounded-pill"><strong>${presender} -> ${premessage}</strong></span>
+		</div>
+	</c:if>
+	
+	<!-- 상대방 메세지 창 -->
+	<c:if test="${presender!=myidx}">
+		<div class='well text_left'>
+			<span id="recieverphoto">상대방 사진</span>
+			<span id="recievermsg" class="rounded-pill">${prereciever} -> ${premessage}</span>
+			<span>${c.sent}</span>
+		</div>
+	</c:if>	
+</c:forEach>	
+
+
+
+<br>보내는 사람 : ${myidx} 받는사람 : ${reciever}
 	<br>
 	
 		<div>
@@ -72,18 +144,11 @@ reciever : ${reciever}<br>
 				<input type="hidden" value='${myidx}' id="sessionuseridx">
 			</div>
 		</div>
-	
-</body>
-<h4>이전 채팅 내역들 가져오기 확인</h4>
-<c:forEach items ="${chatlist}" var="c">
-	<td>보낸사람 : ${c.m_sender}</td>
-	<td>받는사람 : ${c.m_reciever}</td>
-	<td>보낸시각 : ${c.sent}</td>
-	<td>메세지내용 : ${c.message}</td> 
-</c:forEach>	
-<c:if test=""></c:if>
+
 
 <script>
+
+	// 채팅관련 ------------------------------------------------------------------------------
 	//websocket을 지정한 URL로 연결
 	var sock = new SockJS("<c:url value="/echo"/>");
 
@@ -97,6 +162,7 @@ reciever : ${reciever}<br>
 	
 	$(document).ready(function(){
 		
+		// 메세지를 보낼 때
 		$("#sendBtn").on('click',function(evt){
 			
 			console.log('메세지 버튼 클릭');
@@ -106,6 +172,31 @@ reciever : ${reciever}<br>
 			
 			$('#message').focus();
 
+		});
+		
+		// 채팅 나가기 누를때
+		$("leaveChat").on('click',function(){
+			
+			//나가겠습니까? 모달띄우고 확인 누를시
+			
+			// ajax로 update할 데이터 보내고,
+			// 보낼 데이터 > myidx mytype matchidx
+			$.ajax({
+				url : '${pageContext.request.contextPath}/chat/leavechat',
+				type : 'POST',
+				data : {
+					matchidx : ${matchidx},
+					myidx : ${myidx},
+					mytype : ${mytype}
+				},
+				success : function(data){
+					if(data==1){
+						alert('')
+					}
+				}
+			})
+			// 채팅목록으로 리다이렉트
+			
 		});
 		
 	});
@@ -129,6 +220,7 @@ reciever : ${reciever}<br>
 	function onOpen(){
 		console.log('Info : connection opened');
 		//열리면 그동안의 데이터 가져와야한다.//이부분은 다른 부분 참고하기
+		
 	}
 
 	
@@ -147,6 +239,14 @@ reciever : ${reciever}<br>
 		console.log('Error:', err);
 	}
 
+	
+	// 기타관련 ------------------------------------------------------------------------------
+	
+	// 채팅 나가기
+	
 
+	
 </script>
+
+</body>
 </html>

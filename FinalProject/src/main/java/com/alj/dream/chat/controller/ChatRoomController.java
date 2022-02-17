@@ -69,4 +69,14 @@ public class ChatRoomController {
 		return resultCnt;
 	}
 
+	
+	// 채팅방 나갈때의 컨트롤러
+	@RequestMapping(value="/chat/leavechat", method=RequestMethod.POST)
+	@ResponseBody
+	public int leaveChat(
+			) {
+				return 0;
+		// 만드는 중 
+	}
+	
 }
