@@ -33,10 +33,10 @@
 
 	<select id="selectPostByPostIdx"
 			resultType="com.alj.dream.post.domain.PostViewRequest">
-		select p.post_idx, post_nm, post_content, post_regdate, post_editdate, p.cat_idx, c.cat_nm, m_idx, match_yn, wanted
+		select distinct p.post_idx, post_nm, post_content, post_regdate, post_editdate, p.cat_idx, c.cat_nm, m_idx, (select count(*) from dream.match where post_idx=#{idx}) as match_count, wanted
 		from post p left join category c on p.cat_idx=c.cat_idx
-					left join dream.match m on p.post_idx=m.post_idx
-		where p.post_idx=#{idx}
+				left join dream.match m on p.post_idx=m.post_idx
+		where p.post_idx=#{idx};
 	</select>
 
 	<select id="selectWriteRequestByPostIdx"
@@ -48,9 +48,8 @@
 
 	<select id="selectListByMemberIdx"
 			resultType="com.alj.dream.post.domain.PostListInfo">
-		select p.post_idx, p.post_nm, p.m_idx, c.cat_idx, c.cat_nm, m.match_yn
+		select p.post_idx, p.post_nm, p.m_idx, c.cat_idx, c.cat_nm, (select count(*)  from dream.match m JOIN post p2 on p2.post_idx= m.post_idx and p2.post_idx=p.post_idx) as match_count
 		from post p left join category c on p.cat_idx=c.cat_idx
-					left join dream.match m on p.post_idx=m.post_idx
 		where p.post_deldate is null and p.m_idx=#{m_idx} and p.wanted=#{wanted}
 		order by post_regdate desc limit #{index}, #{count}
 	</select>
@@ -62,11 +61,11 @@
 	<select id="selectTotalCountBySearchParams"
 			parameterType="com.alj.dream.post.domain.SearchParams"
 			resultType="int">
-		select count(*)
+		select distinct count(p.post_idx)
 		from post p left join member on p.m_idx=member.m_idx
 				    left join dream.match m on p.post_idx=m.post_idx
 		<where>
-			post_deldate is null and m.match_yn is null
+			post_deldate is null and m.match_yn='N'
 			and p.m_idx!=#{m_idx} and wanted=#{wanted}
 			<if test="cat_idx>0">
 				and cat_idx=#{cat_idx}
@@ -80,11 +79,10 @@
 	<select id="selectListBySearchParams"
 			parameterType="com.alj.dream.post.domain.SearchParams"
 			resultType="com.alj.dream.post.domain.PostListInfo">
-		select p.post_idx, p.post_nm, p.m_idx, c.cat_idx, c.cat_nm, member.loc_idx, loc.loc_nm, m.match_yn
+		select p.post_idx, p.post_nm, p.m_idx, c.cat_idx, c.cat_nm, member.loc_idx, loc.loc_nm, (select count(*) from dream.match m JOIN post p2 on p2.post_idx= m.post_idx and p2.post_idx=p.post_idx) as match_count
 		from post p left join category c on p.cat_idx=c.cat_idx
 					left join member on p.m_idx=member.m_idx
 					left join loc on member.loc_idx=loc.loc_idx
-					left join dream.match m on p.post_idx=m.post_idx
 		<where>
 			p.post_deldate is null and p.m_idx!=#{m_idx} and p.wanted=#{wanted}
 			<if test="cat_idx>0">
@@ -106,11 +104,10 @@
 	<select id="selectRecommendedList"
 			parameterType="com.alj.dream.post.domain.SearchParams"
 			resultType="com.alj.dream.post.domain.PostListInfo">
-		select p.post_idx, p.post_nm, p.m_idx, c.cat_idx, c.cat_nm, member.loc_idx, loc.loc_nm, m.match_yn
+		select p.post_idx, p.post_nm, p.m_idx, c.cat_idx, c.cat_nm, member.loc_idx, loc.loc_nm, (select count(*) from dream.match m JOIN post p2 on p2.post_idx= m.post_idx and p2.post_idx=p.post_idx) as match_count
 		from post p left join category c on p.cat_idx=c.cat_idx
 					left join member on p.m_idx=member.m_idx
 					left join loc on member.loc_idx=loc.loc_idx
-					left join dream.match m on p.post_idx=m.post_idx
 		<where>
 			p.post_deldate is null and p.m_idx!=#{m_idx} and p.wanted=#{wanted}
 			<if test="cat_idx>0">

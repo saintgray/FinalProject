@@ -54,7 +54,7 @@ public class PostListService {
 		params.setCount(COUNT_PER_PAGE);
 		
 		List<PostListInfo> list = dao.selectListBySearchParams(params);
-		
+		System.out.println(list);
 		return new PostListView(totalCount, COUNT_PER_PAGE, pageNum, list);
 	}
 	

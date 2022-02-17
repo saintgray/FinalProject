@@ -35,7 +35,7 @@
 							<h5 class="mb-1">
 								<c:out value="${listInfo.post_nm}" escapeXml="true" />
 							</h5>
-							<small>${listInfo.match_yn}</small>
+							<span class="badge bg-warning text-dark">${listInfo.match_count}</span>
 						</div>
 						<p class="mb-1">${listInfo.cat_nm}/${listInfo.loc_nm}</p>
 					</a>

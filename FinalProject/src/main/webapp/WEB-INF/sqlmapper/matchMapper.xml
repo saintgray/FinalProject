@@ -22,4 +22,10 @@
  	</select>
  	
  	
+ 	<select id="selectMatchInfo" resultType="com.alj.dream.match.domain.MatchInfo">
+ 	select match_idx, post_idx, mentor_idx, mentee_idx
+ 	from dream.match
+ 	where post_idx=#{idx}
+ 	</select>
+ 	
 </mapper>
