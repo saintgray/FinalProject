@@ -54,7 +54,7 @@ public class PostListService {
 		params.setCount(COUNT_PER_PAGE);
 		
 		List<PostListInfo> list = dao.selectListBySearchParams(params);
-		
+		System.out.println(list);
 		return new PostListView(totalCount, COUNT_PER_PAGE, pageNum, list);
 	}
 	
@@ -85,7 +85,7 @@ public class PostListService {
 		
 		HashMap<String, Integer> map = getLocInterest(m_idx);
 		
-		SearchParams params = new SearchParams(m_idx, wanted, map.get("cat_idx"), map.get("loc_idx"));
+		SearchParams params = new SearchParams(m_idx, wanted, map.get("cat_idx")==null?0:map.get("cat_idx"), map.get("loc_idx"));
 		params.setIndex(0);
 		params.setCount(5);
 		

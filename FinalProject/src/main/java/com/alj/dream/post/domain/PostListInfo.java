@@ -9,11 +9,11 @@ public class PostListInfo {
 	private String cat_nm;
 	private int loc_idx;
 	private String loc_nm;
-	private String match_yn;
+	private int match_count;
 	
 	public PostListInfo() {}
 
-	public PostListInfo(int post_idx, String post_nm, int m_idx, int cat_idx, String cat_nm, int loc_idx, String loc_nm, String match_yn) {
+	public PostListInfo(int post_idx, String post_nm, int m_idx, int cat_idx, String cat_nm, int loc_idx, String loc_nm, int match_count) {
 		this.post_idx = post_idx;
 		this.post_nm = post_nm;
 		this.m_idx = m_idx;
@@ -21,7 +21,7 @@ public class PostListInfo {
 		this.cat_nm = cat_nm;
 		this.loc_idx = loc_idx;
 		this.loc_nm = loc_nm;
-		this.match_yn = match_yn;
+		this.match_count = match_count;
 	}
 
 	public int getPost_idx() {
@@ -80,12 +80,12 @@ public class PostListInfo {
 		this.loc_nm = loc_nm;
 	}
 
-	public String getMatch_yn() {
-		return match_yn;
+	public int getMatch_count() {
+		return match_count;
 	}
 
-	public void setMatch_yn(String match_yn) {
-		this.match_yn = match_yn;
+	public void setMatch_count(int match_count) {
+		this.match_count = match_count;
 	}
 
 }
