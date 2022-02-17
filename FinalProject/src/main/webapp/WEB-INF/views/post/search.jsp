@@ -208,9 +208,17 @@
 		// 검색하기
 		function searchPost(pageNum){
 			
-			// 더보기 버튼이 있을 경우 -> 삭제
+			if(pageNum==1){
+				// 새로운 검색 -> 이전 내용 삭제
+				$('#searchResult').empty();
+				$('#searchResult').append('<div class="descript mb-2">검색 결과</div>\r\n');
+				
+			}
+			
 			if($('#moreBtn')){
+				// 더보기 버튼이 있을 경우 -> 삭제
 				$('#moreBtn').remove();
+				
 			}
 			
 			var loc_idx=0;
