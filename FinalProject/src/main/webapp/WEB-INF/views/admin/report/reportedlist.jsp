@@ -7,6 +7,13 @@
 <head>
 <meta charset="UTF-8">
 <%@ include file="/WEB-INF/views/defaultpageset.jsp" %>
+<style>
+	.article{
+	padding: 20px 40px 0;
+    border: 1px solid;
+    border-radius: 6px;
+	}
+</style>
 <title>신고내용</title>
 </head>
 <body>
@@ -14,22 +21,24 @@
 
 	<h1 class="banner">신고내역</h1>
 	
+	<div class="container article">
 	<c:if test="${empty list}">
 		<h1>이 회원은 신고당한 이력이 없습니다.</h1>
 	</c:if>
 	
+	
 	<c:if test="${not empty list}">
 		<c:forEach var="item" items="${list}">
-			<h1>신고자: ${item.m_nm}</h1>
-			<h1>신고내용: ${item.report_content}</h1>
-			<h1>채팅내용: ${item.message}</h1>
+			<h5>신고자: ${item.m_nm}</h5>
+			<h5>채팅내용: ${item.message}</h5><hr>
+			<h4>신고내용: ${item.report_content}</h4><hr><br>
 		
 		</c:forEach>
 	</c:if>
-	
-	
-	
+	</div>
+
 	
 	<%@include file="/WEB-INF/views/layout/footer.jsp" %>
 </body>
+
 </html>

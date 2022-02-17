@@ -77,7 +77,7 @@
   			$('#reportbtn').click(function(){
   				location.href="${pageContext.request.contextPath}/admin/reported/list?m_idx=${memberinfo.m_idx}";
   			})
-  			  
+  			 	 
   		})
 
 </script>
