@@ -26,7 +26,11 @@
 		
 		<h1>제목 : ${content.notice_title}</h1>
 		<h6>작성자: ${content.admin_nm}</h6>
-		<h6>작성일 : ${content.notice_regdate} 수정일  : ${content.notice_editdate}</h6><hr>
+		<h6>작성일 : ${content.notice_regdate} 
+		<c:if test="${not empty content.notice_editdate}">
+			수정일  : ${content.notice_editdate}
+		</c:if>
+		</h6><hr>
 		<h4>내용: ${content.notice_content}</h4>
 	
 		
@@ -67,8 +71,7 @@
 		      	function(){
 		      	
 		      	location.href="${pageContext.request.contextPath}/notice?selectPage=${param.selectPage}&numOfNoticesPerPage=${param.numOfNoticesPerPage}";
-		      	}
-  		     );
+		      	})
   			
   			$('#editbtn').click(function(){
   				// 수정하는 폼을 보여줌

@@ -1,14 +1,20 @@
 package com.alj.dream.reply.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.alj.dream.reply.domain.ReplyRegisterData;
 import com.alj.dream.reply.service.ReplyRegisterService;
 
-@RestController
+@Controller
 @RequestMapping("/admin/reply/register")
 public class ReplyRegisterController {
 	
@@ -24,12 +30,21 @@ public class ReplyRegisterController {
 		this.rrService = rrService;
 	}
 	
+	@GetMapping
+	public String showReplyRegForm(HttpServletRequest req) {
+		
+		
+		
+		return "admin/reply/registerform";
+	}	
+	
 	@PostMapping
-	public int registerReply(ReplyRegisterData data) {
+	@ResponseBody
+	public int registerReply(ReplyRegisterData data, Authentication auth) {
 		int result =0;
 		
 		try {
-			result=rrService.registerReply(data);
+			result=rrService.registerReply(data,auth);
 		}catch(Exception e) {
 			e.printStackTrace();
 		}

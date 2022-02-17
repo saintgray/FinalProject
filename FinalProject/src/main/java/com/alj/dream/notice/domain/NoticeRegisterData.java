@@ -7,15 +7,21 @@ public class NoticeRegisterData {
 	private String notice_content;
 	private String notice_idx;
 	
+	
 	public NoticeRegisterData() {
 		
 	}
 
-	public NoticeRegisterData(String admin_idx, String notice_title, String notice_content) {
+	
+
+	public NoticeRegisterData(String admin_idx, String notice_title, String notice_content, String notice_idx) {
 		this.admin_idx = admin_idx;
 		this.notice_title = notice_title;
 		this.notice_content = notice_content;
+		this.notice_idx = notice_idx;
 	}
+
+
 
 	public String getAdmin_idx() {
 		return admin_idx;
@@ -41,13 +47,19 @@ public class NoticeRegisterData {
 		this.notice_content = notice_content;
 	}
 
+
+
 	public String getNotice_idx() {
 		return notice_idx;
 	}
 
+
+
 	public void setNotice_idx(String notice_idx) {
 		this.notice_idx = notice_idx;
 	}
+
+	
 	
 	
 	
