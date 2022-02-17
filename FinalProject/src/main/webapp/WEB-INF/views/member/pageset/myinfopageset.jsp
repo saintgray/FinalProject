@@ -71,32 +71,40 @@ $(document).ready(function(){
 		
 		$('#editphoto').on('change',function(e){
 			var reader = new FileReader();
+			var photo=e.target.files[0];
+
 			
-			reader.readAsDataURL(e.target.files[0]);
+			
+			if(!(photo.type.match("image/*"))){
+				alert('이미지만 등록하실 수 있습니다.');
+			}else{
+				reader.readAsDataURL(e.target.files[0]);	
+			
+
+				$(reader).on('load',function(e){
+					
+					
+					
+					$('#myprofile').attr('src',e.target.result);
+					
+					setTimeout(function(){
+						if(confirm('프로필 사진을 수정하시겠습니까?')){
+							// aJax codes
+							var formData=new FormData();
+							formData.append('photo',$('#editphoto')[0].files[0]);
+							editInfo(formData);
+							/////////////
+						}else{
+								$('#myprofile').attr('src','${pageContext.request.contextPath}/resources/files/member/${info.m_photo}');
+								$('#editprofile').val('');
+						}
+					},200);
+					
+					
+				})
 			
 			
-			$(reader).on('load',function(e){
-				
-				
-				
-				$('#myprofile').attr('src',e.target.result);
-				
-				setTimeout(function(){
-					if(confirm('프로필 사진을 수정하시겠습니까?')){
-						// aJax codes
-						var formData=new FormData();
-						formData.append('photo',$('#editphoto')[0].files[0]);
-						editInfo(formData);
-						/////////////
-					}else{
-							$('#myprofile').attr('src','${pageContext.request.contextPath}/resources/files/member/${info.m_photo}');
-							$('#editprofile').val('');
-					}
-				},200);
-				
-				
-			})
-			
+			}		
 			
 		})
 		
@@ -135,15 +143,15 @@ $(document).ready(function(){
 				
 				if($(item).val().indexOf(' ')>=0){
 					$(item).next('.warning').text('* 공백은 사용할 수 없습니다').addClass('visible').removeClass('invisible');
-					vailed=false;
+					valid=false;
 					return false;
 				}else if($(item).val().trim().length==0){
 					$(item).next('.warning').text('* 비밀번호를 입력해주세요').addClass('visible').removeClass('invisible');
-					vailed=false;
+					valid=false;
 					return false;
 				}else if($('#newPw').val() != $('#repw').val()){
 					$('#repw').next().text('*비밀번호가 일치하지 않습니다').addClass('visible').removeClass('invisible');
-					vailed=false;
+					valid=false;
 				}
 			})
 			

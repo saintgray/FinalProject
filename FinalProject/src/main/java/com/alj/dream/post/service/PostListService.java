@@ -84,8 +84,11 @@ public class PostListService {
 		dao = template.getMapper(PostDao.class);
 		
 		HashMap<String, Integer> map = getLocInterest(m_idx);
+		System.out.println("result>>");
+		System.out.println(map);
 		
-		SearchParams params = new SearchParams(m_idx, wanted, map.get("cat_idx"), map.get("loc_idx"));
+		// 회원가입시 관심분야를 선택하지 않을 수 있으므로 선택하지 않았을 경우 SearchParams 의 cat_idx 를 0으로 지정
+		SearchParams params = new SearchParams(m_idx, wanted, map.get("cat_idx")==null?0:map.get("cat_idx"), map.get("loc_idx"));
 		params.setIndex(0);
 		params.setCount(5);
 		
