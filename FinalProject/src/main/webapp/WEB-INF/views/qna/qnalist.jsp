@@ -53,9 +53,12 @@
 		<td>등록일</td>
 	</tr>
 		<c:forEach var="item" items="${pageView.qnaList}">
-			<tr class="my-5">
+			<tr class="my-5 qnaRow">
 				<td><span class="px-5">${item.qna_idx}</span></td>
-				<td><a class="px-5" href="${pageContext.request.contextPath}/qna/content?qna_idx=${item.qna_idx}&selectPage=${param.selectPage}&numOfQnaPerPage=${param.numOfQnaPerPage}">${item.qna_title}</a></td>
+				<td>
+					<a class="px-5" href="${pageContext.request.contextPath}/qna/content?qna_idx=${item.qna_idx}&selectPage=${param.selectPage}&numOfQnaPerPage=${param.numOfQnaPerPage}">${item.qna_title}</a>
+					<span class="qna_idx d-none">${item.qna_idx}</span>
+				</td>
 				<td><span class="px-5">${item.qna_regdate}</span></td>
 			</tr>			
 		</c:forEach>
@@ -94,15 +97,9 @@
 		
 		
 	</div>
-	
-	
-	
-	
-	
 
-
-<%@ include file="/WEB-INF/views/layout/footer.jsp"%>
 </div>
+<%@ include file="/WEB-INF/views/layout/footer.jsp"%>
 </body>
 
 <script>

@@ -10,18 +10,23 @@
 <style>
 	.article{
 	padding: 20px 40px 0;
-    border: 1px solid;
     border-radius: 6px;
+	}
+	#reportedarea{
+		margin-top: 150px;
 	}
 </style>
 <title>신고내용</title>
 </head>
 <body>
+
+<div class="gw">
 <%@include file="/WEB-INF/views/layout/header.jsp" %>
 
+	
+	<div class="container article" id="reportedarea">
 	<h1 class="banner">신고내역</h1>
 	
-	<div class="container article">
 	<c:if test="${empty list}">
 		<h1>이 회원은 신고당한 이력이 없습니다.</h1>
 	</c:if>
@@ -37,8 +42,8 @@
 	</c:if>
 	</div>
 
-	
-	<%@include file="/WEB-INF/views/layout/footer.jsp" %>
+</div>	
+<%@include file="/WEB-INF/views/layout/footer.jsp" %>
 </body>
 
 </html>

@@ -17,7 +17,7 @@ public interface MemberDao {
 	int editMember(EditInfos info);
 	String selectByEmail(String m_email);
 	List<MemberInfo> getMemberList(PageRequest req);
-	String getTotalNumOfMember();
+	String getTotalNumOfMember(PageRequest pagereq);
 	MemberInfo getMemberInfo(String m_idx);
 	MyInfo selectByIdx(String principal_idx);
 	int quitMember(String m_idx);

@@ -32,9 +32,13 @@
  	
  	</select>
  	
- 	<select id="getTotalNumOfMember" resultType="String">
+ 	<select id="getTotalNumOfMember" resultType="String" parameterType="com.alj.dream.member.domain.PageRequest">
  	
  		SELECT count(*) from member
+ 		<if test="blacklisted!=null">
+ 			WHERE m_blacklist='Y'
+ 		</if>
+ 		
  	</select>
  	
  	

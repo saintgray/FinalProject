@@ -18,6 +18,7 @@
 <title>1대1 문의내용</title>
 </head>
 <body>
+<div class="gw">
 	<%@ include file="/WEB-INF/views/layout/header.jsp"%>
 	<h1 class="mx-5 banner">문의내용</h1>
 	<div class="container article">
@@ -39,8 +40,10 @@
 
 
 			<button type="button" class="btn btn-general" id="listbtn">목록</button>
+			<button type="button" class="btn btn-general" id="replybtn">답글</button>
 		</sec:authorize>
 	</div>
+</div>
 	<%@ include file="/WEB-INF/views/layout/footer.jsp"%>
 </body>
 <script>
@@ -49,10 +52,15 @@
 		$('#listbtn')
 				.click(
 						function() {
-
-							location.href = "${pageContext.request.contextPath}/qna/list?selectPage=${param.selectPage}&numOfMemberPerPage=${param.numOfMemberPerPage}";
+							location.href = "${pageContext.request.contextPath}/qna/list?selectPage=${param.selectPage}&numOfMemberPerPage=${param.numOfQnaPerPage}";
 
 						});
+		$('#replybtn')
+				.click(
+						function(){
+							
+							location.href = "${pageContext.request.contextPath}/admin/reply/register?m_idx=${content.m_idx}&qna_idx=${content.qna_idx}&selectPage=${param.selectPage}&numOfQnaPerPage=${param.numOfQnaPerPage}"
+						})
 
 	})
 </script>

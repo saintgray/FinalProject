@@ -3,7 +3,7 @@
  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  
- <mapper namespace="com.alj.dream.qna.dao.ReplyDao">
+ <mapper namespace="com.alj.dream.reply.dao.ReplyDao">
  	
  	<insert id="insertReply" parameterType="com.alj.dream.reply.domain.ReplyRegisterData">
  		insert into reply(reply_content, m_idx, admin_idx, qna_idx) values (#{reply_content}, #{m_idx}, #{admin_idx}, #{qna_idx})
