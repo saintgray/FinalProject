@@ -6,15 +6,22 @@ public class PageRequest {
 	private int numOfMemberPerPage;
 	private String blacklisted;
 	private int firstMemberIndexOfSelectedPage;
-
+	private String onlyId;
+	private String onlyName;
+	private String searched;
+	
 	public PageRequest() {
 	}
 
-	public PageRequest(int selectPage, int numOfMemberPerPage, String blacklisted, int firstMemberIndexOfSelectedPage) {
+	public PageRequest(int selectPage, int numOfMemberPerPage, String blacklisted, int firstMemberIndexOfSelectedPage,
+			String onlyId, String onlyName, String searched) {
 		this.selectPage = selectPage;
 		this.numOfMemberPerPage = numOfMemberPerPage;
 		this.blacklisted = blacklisted;
 		this.firstMemberIndexOfSelectedPage = firstMemberIndexOfSelectedPage;
+		this.onlyId = onlyId;
+		this.onlyName = onlyName;
+		this.searched = searched;
 	}
 
 	public int getSelectPage() {
@@ -48,6 +55,32 @@ public class PageRequest {
 	public void setFirstMemberIndexOfSelectedPage(int firstMemberIndexOfSelectedPage) {
 		this.firstMemberIndexOfSelectedPage = firstMemberIndexOfSelectedPage;
 	}
+
+	public String getOnlyId() {
+		return onlyId;
+	}
+
+	public void setOnlyId(String onlyId) {
+		this.onlyId = onlyId;
+	}
+
+	public String getOnlyName() {
+		return onlyName;
+	}
+
+	public void setOnlyName(String onlyName) {
+		this.onlyName = onlyName;
+	}
+
+	public String getSearched() {
+		return searched;
+	}
+
+	public void setSearched(String searched) {
+		this.searched = searched;
+	}
+
+	
 	
 	
 	

@@ -126,7 +126,7 @@
 			.on(
 					'click',
 					function() {
-						location.href = "${pageContext.request.contextPath}/admin/notice/register";
+						location.href = "${pageContext.request.contextPath}/admin/notice/register?selectPage=${param.selectPage}&numOfNoticesPerPage=${param.numOfNoticesPerPage}";
 					})
 </script>
 
