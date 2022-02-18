@@ -45,6 +45,8 @@ public class ChatRoomController {
 		mv.addObject("matchidx", matchidx);
 		mv.addObject("reciever", reciever);
 		
+		// 매칭테이블도 필요하다
+		mv.addObject("match", service.getMatch(matchidx));
 		
 		// 채팅데이터를 확인해봐서 데이터가 있다면 가져온다.(채팅방 입장시, 채팅했던 메세지들이 출력할 수 있도록)
 		mv.addObject("chatlist", service.getChat(myIdx,matchidx,reciever));
@@ -68,7 +70,7 @@ public class ChatRoomController {
 		
 		return resultCnt;
 	}
-
+	
 	
 	// 채팅방 나갈때의 컨트롤러
 	@RequestMapping(value="/chat/leavechat", method=RequestMethod.POST)
@@ -76,10 +78,15 @@ public class ChatRoomController {
 	public int leaveChat(
 			@RequestParam("matchidx") int matchidx,
 			@RequestParam("myidx") int myidx,
+			@RequestParam("reciever") int reciever,
 			@RequestParam("mytype") String mytype
 			) {
 		System.out.println("ChatRoomController : leaveChat");
-		int resultCnt = service.updateMatchOutyn(matchidx,myidx,mytype);
+		
+		System.out.println(mytype);
+		
+		
+		int resultCnt = service.updateMatchOutyn(matchidx,myidx,reciever,mytype);
 		// 예외처리 미완
 		return resultCnt;
 	}

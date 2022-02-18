@@ -68,6 +68,11 @@ reciever : ${reciever}<br>
 
 
 
+matchyn : ${match.match_yn}
+matchdate : ${match.match_date}
+
+
+
 <h2>Chatting Page (채팅방번호: ${matchidx})</h2>
 
 <!-- chatRoom의 Header -->
@@ -87,13 +92,33 @@ reciever : ${reciever}<br>
 	<!-- 미완 : 채팅목록으로 리다이렉트/그리고 ajax로 update match mentee_outyn또는 mentor_outyn Y로 하기-->
 	<button data-bs-target="#leaveChk" data-bs-toggle="modal">이 채팅 나가기</button>
 	
+
+	<c:if test="${match.match_yn eq 'N' && match.match_date eq null }">
+	
 	<!-- 매칭하기 -->
-	<!-- 미완 -->
+	<!-- 보이는 조건 : 매칭여부 N & 매칭날짜가null이어야함-->
 	<button id="match">매칭 하기</button>
+	</c:if>
+	<%-- <script>
+	var matchdate = ${match.match_date};
+	var currentTime = new Date();
+	var matchdate
+	var canUnmatch = 
+	var unmatchYN = matchdate.getTime() < currentTime.getTime()+3;
+	</script>
+	<c:if test="${match.match_yn eq 'Y' && match.match_date <  }"> --%>
 	
 	<!-- 매칭취소하기 -->
-	<!-- 미완 -->
+	<!-- 보이는 조건 : 매칭여부 Y && 매칭날짜가 현재보다 3일이전이어야한다 -->
+	
 	<button id="unmatch">매칭 취소</button>
+	<%-- </c:if> --%>
+	
+	
+	
+	<button id="unmatch">매칭 완료</button>
+	
+	
 	
 	<!-- 후기쓰기 -->
 	<!-- 미완 -->
@@ -102,7 +127,7 @@ reciever : ${reciever}<br>
 
 <!-- chatRoom의 Body -->
 
-<h4>이전 채팅 내역들</h4>
+<div id="chatBox" class="chattingBox">
 <c:forEach items ="${chatlist}" var="c">
 	<c:set var="presender" value="${c.m_sender}"/>
 	<c:set var="prereciever" value="${c.m_reciever}"/>
@@ -128,7 +153,7 @@ reciever : ${reciever}<br>
 	</c:if>	
 </c:forEach>	
 
-
+</div>
 
 <br>보내는 사람 : ${myidx} 받는사람 : ${reciever}
 	<br>
@@ -198,19 +223,20 @@ reciever : ${reciever}<br>
 		
 		
 		// 채팅 나가기 누를때
-		$("#leaveChat").on('click',function(){
+		 $("#leaveChat").on('click',function(){
 			
 			$.ajax({
 				url : '${pageContext.request.contextPath}/chat/leavechat',
 				type : 'POST',
 				data : {
-					matchidx : '${matchidx}',
-					myidx : '${myidx}',
+					matchidx : ${matchidx},
+					myidx : ${myidx},
+					reciever : ${reciever},
 					mytype : '${mytype}'
 				},
 				success : function(data){
 					if(data==1){
-						href="${pageContext.request.contextPath}/chat/chatlist";
+						location.href="${pageContext.request.contextPath}/chat/chatlist";
 						//성공했을때 > 채팅목록으로 나간다
 					}else{
 						//에러있을때
@@ -218,7 +244,7 @@ reciever : ${reciever}<br>
 					}
 				}
 			})
-		});
+		}); 
 		
 	});
 	
@@ -227,14 +253,14 @@ reciever : ${reciever}<br>
 		//websocket으로 메시지를 보내기
 		
 		var msg = {
-			reciever : '${reciever}',
-			matchidx : '${matchidx}',
+			reciever : ${reciever},
+			matchidx : ${matchidx},
 			message : $("#message").val()
 		};
 		console.log(msg);
 		console.log('sendMessage');
 		sock.send(JSON.stringify(msg));
-	}
+	};
 
 	
 
@@ -242,28 +268,58 @@ reciever : ${reciever}<br>
 		console.log('Info : connection opened');
 		//열리면 그동안의 데이터 가져와야한다.//이부분은 다른 부분 참고하기
 		
-	}
+	};
 
 	
 	function onMessage(evt) { 
 		console.log('onMessage');
-		var data = evt.data; 
+		var data = evt.data; 	// 전달받은 데이터이다.
 		console.log(data);
 		
-	}
+		// -----------------------------------------------
+		msgData = JSON.parse(data); 
+		
+		var sessionid = null;
+		var message = null;
+		//var sent = 
+		
+		// 현재 세션아이디 //	
+		var currentuser_session = ${myidx};					//$('#sessionuserid').val();		// ${myidx}시도해보기
+		console.log('current session id: ' + currentuser_session);
+		
+	
+			// 나와 상대방이 보낸 메세지를 구분하여 출력
+			if (msgData.m_sender == currentuser_session) {			// sender와 내 세션아이디가 같다면 내가보내는 것
+				// 오른쪽에 출력되도록하기
+				var printHTML = "<div class='well text_right'>";
+				printHTML += "<span>"+msgData.sent+"</span>";
+				printHTML += "<span id='sendermsg' class='rounded-pill'><strong>" + currentuser_session +"->"+msgData.message+"<strong></span>";
+				printHTML += "</div>";
+
+				$('#chatBox').append(printHTML);
+			} else {
+				var printHTML = "<div class='well text_left'>";
+				printHTML += "<span id='recieverphoto'>상대방사진</span>";
+				printHTML += "<span id='recievermsg' class='rounded-pill'>" + msgData.m_reciever + "-> " + msgData.message +"</span>";
+				printHTML += "<span>"+msgData.sent+"</span>";
+				printHTML += "</div>";
+
+				$('#chatBox').append(printHTML);
+			}
+
+			console.log('chatting data: ' + data);
+		
+	};
 
 	function onClose(evt) {
 		$("#data").append("연결 끊김");
-	}
+	};
 	
 	function onError(err){
 		console.log('Error:', err);
-	}
+	};
 
 	
-	// 기타관련 ------------------------------------------------------------------------------
-	
-	// 채팅 나가기
 	
 
 	

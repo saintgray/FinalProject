@@ -14,6 +14,8 @@ public interface MatchDao {
 	
 	public List<MatchInfo> selectMatchInfo(int post_idx);
 	
-	public Match updateMatchOutyn(int matchidx, int myidx);
+	public int updateMatchOutyn(int myidx, int matchidx, int menteeidx, int mentoridx);
+
+	public Match getMatchByMatchidx(int matchidx);
 	
 }

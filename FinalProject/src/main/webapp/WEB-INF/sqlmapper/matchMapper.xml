@@ -33,15 +33,18 @@
  	<update id="updateMatchOutyn">
  		update dream.match
  		set
- 		<if test="mentee_idx=#{param2}">
- 			mentee_outyn = "Y"
+ 		<if test="#{param1}==#{param3}">
+ 			mentee_outyn = 'Y'
  		</if>
- 		<if test="mentor_idx=#{param2}">
- 			mentor_outyn="N"
+ 		<if test="#{param1}==#{param4}">
+ 			mentor_outyn='Y'
  		</if>
- 		where match_idx = #{param1}
+ 		where match_idx = #{param2}
  	</update>
  	
- 	
+ 	<select id="getMatchByMatchidx"
+ 			resultType="com.alj.dream.match.domain.Match">
+ 		select * from dream.match where match_idx=#{matchidx}
+ 	</select>
  	
 </mapper>
