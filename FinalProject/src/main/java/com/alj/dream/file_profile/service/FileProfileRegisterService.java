@@ -53,10 +53,11 @@ public class FileProfileRegisterService {
 			
 			String file_nm=String.valueOf(System.nanoTime());
 			
+			File dir=new File(savePath);
 			File newfile = new File(savePath, file_nm);
-			
-			if(!newfile.exists()) {
-				newfile.mkdir();
+			System.out.println(newfile.exists());
+			if(!dir.exists()) {
+				dir.mkdir();
 			}
 			System.out.println(newfile.getAbsolutePath());
 			file.transferTo(newfile);
