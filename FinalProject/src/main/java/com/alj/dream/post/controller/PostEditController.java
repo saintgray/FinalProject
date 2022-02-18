@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alj.dream.post.domain.PostWriteRequest;
 import com.alj.dream.post.service.PostEditService;
+import com.alj.dream.profile.domain.ProfileRequest;
 
 @Controller
 @RequestMapping("/post/edit")
@@ -25,8 +26,12 @@ public class PostEditController {
 	@GetMapping
 	public String getEditForm(@RequestParam("idx")int post_idx, Model model) {
 		
-		model.addAttribute("editRequest", service.getPost(post_idx));
+		PostWriteRequest editRequest = service.getPost(post_idx);
+		model.addAttribute("editRequest", editRequest);
 		
+		ProfileRequest writerProfile = service.getWriterProfile(Integer.parseInt(editRequest.getM_idx()));
+		model.addAttribute("writerProfile", writerProfile);
+
 		return "post/editform";
 	}
 	

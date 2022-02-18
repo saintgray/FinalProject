@@ -36,10 +36,29 @@ history.go(-1);
 <!-- Container -->
 <div class="container">
 
-<!-- 프로필 출력 -->
-<div>
-프로필 정보가 출력될 영역입니다.
-</div>
+<!-- 프로필 출력 : 멘토일 때에만 -->
+	<c:if test="${type eq 'mentor'}">
+		<div class="d-flex flex-column my-3">
+			<div class="descript my-1 ms-0 me-1">프로필</div>
+			<c:if test="${writerProfile ne null}">
+				<table>
+					<tr>
+						<td rowspan="2"><img
+							src="${pageContext.request.contextPath}/resources/files/member/${writerProfile.m_photo}"
+							height="50"></td>
+						<td>${writerProfile.m_nm}/ ${writerProfile.loc_nm}</td>
+					</tr>
+					<tr>
+						<td colspan="2">${writerProfile.line}</td>
+					</tr>
+				</table>
+			</c:if>
+			
+			<c:if test="${writerProfile eq null}">
+			글쓴이의 프로필 정보가 없습니다. 프로필 등록이 필요합니다.
+			</c:if>
+		</div>
+	</c:if>
 
 <!-- 게시글 작성 -->
 <div>
@@ -52,24 +71,15 @@ history.go(-1);
 <br>
 
 <!-- 제목 -->
-<input type="text" name="post_nm" value="${editRequest.post_nm}" id="post_nm"> <br>
+<div class="input-group mb-3">
+	<span class="input-group-text" id="inputGroup-sizing-default">제목</span>
+	<input type="text" class="form-control" name="post_nm" id="post_nm" value="${editRequest.post_nm}"><br>
+</div>
 
 <!-- 내용 -->
 <textarea name="post_content" id="content">${editRequest.post_content}</textarea> <br>
 
-<!-- 카테고리 인덱스 -->
-<!-- <select id="parentCategory" onchange="selectCategory(this.value)">
-	<option value="">선택</option>
-	<option value="1">음악</option>
-	<option value="2">미술</option>
-	<option value="3">요리</option>
-</select> -->
-
-<!-- <select name="cat_idx" id="cat_idx">
-	<option value="8">실험용</option>
-	<option value="9">실험용2</option>
-</select> -->
-
+<!-- 카테고리 -->
 선택된 분야 번호 : ${editRequest.cat_idx}
 <input type="hidden" name="cat_idx" value="${editRequest.cat_idx}">
 <br>
@@ -78,8 +88,12 @@ history.go(-1);
 <input type="hidden" name="m_idx" value="${idx}">
 
 <!-- 파일업로드 -->
-<input type="file" name="attachFile" id="attachFile" multiple> 
-<br>
+<div>
+	<input type="file" name="attachFile" id="attachFile" multiple>
+<!-- 업로드한 파일 미리보기 -->
+	<div id="filePreview">
+	</div>
+</div>
 
 <button type="reset">리셋</button> <button type="button" id="ajaxBtn">작성</button>
 

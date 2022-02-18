@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 
 import com.alj.dream.post.dao.PostDao;
 import com.alj.dream.post.domain.PostWriteRequest;
+import com.alj.dream.profile.dao.ProfileDao;
+import com.alj.dream.profile.domain.ProfileRequest;
 
 @Service
 public class PostEditService {
@@ -34,6 +36,10 @@ public class PostEditService {
 		resultCnt = dao.updatePost(wRequest);
 		
 		return resultCnt;
+	}
+	
+	public ProfileRequest getWriterProfile(int m_idx) {
+		return template.getMapper(ProfileDao.class).getWriterProfile(m_idx);
 	}
 	
 }

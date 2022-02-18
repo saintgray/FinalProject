@@ -12,7 +12,7 @@ public class PostWriteRequest {
 	private int cat_idx;
 	private String wanted;
 	private String m_idx;
-	private List<MultipartFile> fileList;
+	private List<MultipartFile> fileList;	// List<PostFileRequest> 로 바꾸어야 함
 	
 	public PostWriteRequest() {}
 

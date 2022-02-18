@@ -35,7 +35,7 @@
 					<table>
 						<tr>
 							<td rowspan="2"><img
-								src="${pageContext.request.contextPath}/resources/default/${writerProfile.m_photo}"
+								src="${pageContext.request.contextPath}/resources/files/member/${writerProfile.m_photo}"
 								height="50"></td>
 							<td>${writerProfile.m_nm}/ ${writerProfile.loc_nm}</td>
 						</tr>
@@ -46,7 +46,7 @@
 				</c:if>
 
 				<c:if test="${writerProfile eq null}">
-				글쓴이의 프로필 정보가 없습니다.
+				글쓴이의 프로필 정보가 없습니다. 프로필 등록이 필요합니다.
 				</c:if>
 			</div>
 		</c:if>
@@ -58,32 +58,35 @@
 				id="writePost">
 
 				<!-- 제목 -->
-				<input type="text" name="post_nm" id="post_nm"
-					placeholder="제목을 입력하세요."><br>
-
+				<div class="input-group mb-3">
+					<span class="input-group-text" id="inputGroup-sizing-default">제목</span>
+					<input type="text" class="form-control" name="post_nm" id="post_nm" placeholder="제목을 입력하세요."><br>
+				</div>
+				
 				<!-- 내용 -->
+				<div>
 				<textarea name="post_content" id="content"></textarea>
-				<br>
+				</div>
 
 				<!-- 분야 선택 -->
 				<div class="d-flex flex-row my-3">
 					<div class="descript my-1 ms-0 me-1">분야 선택</div>
-					<button type="button" class="btn btn-grey fs-6"
-						onclick="resetCategory()">초기화</button>
+					<button type="button" class="btn btn-grey fs-6" onclick="resetCategory()">초기화</button>
 				</div>
 				<!-- 카테고리 selectbox -->
 				<div id="categoryInfos" class="d-flex flex-row flex-wrap  mb-5 mt-1">
 				</div>
 
-				<input type="hidden" name="wanted"
-					value="${type eq 'mentor'?'mentee':'mentor'}"> <input
-					type="hidden" name="m_idx" value="${idx}">
+				<input type="hidden" name="wanted" value="${type eq 'mentor'?'mentee':'mentor'}">
+				<input type="hidden" name="m_idx" value="${idx}">
 
 				<!-- 파일업로드 -->
+				<div>
 				<input type="file" name="attachFile" id="attachFile" multiple>
-				<!-- 업로드한 파일 썸네일 -->
+				<!-- 업로드한 파일 미리보기 -->
 				<div id="filePreview"></div>
-
+				</div>
+				
 				<button type="reset">리셋</button>
 				<button type="button" id="submitBtn">작성</button>
 
@@ -95,13 +98,6 @@
 
 	</div>
 
-	<script>
-		$(document).ready(function() {
-
-			/* $('button[type="submit"]'). */
-
-		})
-	</script>
 </body>
 
 </html>
