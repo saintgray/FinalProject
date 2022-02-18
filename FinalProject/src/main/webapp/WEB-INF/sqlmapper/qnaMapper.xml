@@ -7,17 +7,17 @@
  
  	<select id="getTotalNumOfQna" resultType="Integer">
  		SELECT count(*)
- 		FROM qna
- 		WHERE qna_deldate is null
+ 		FROM qna q1
+ 		WHERE q1.qna_deldate is null and <![CDATA[ (select count(*) from qna q2 join reply on reply.qna_idx=q2.qna_idx and q2.qna_idx=q1.qna_idx)<1]]>
  	</select>
  
 
 
 	<select id="getQnaList" resultType="com.alj.dream.qna.domain.Qna">
 		SELECT qna_idx, qna_title, qna_regdate
-		FROM qna
-		WHERE qna_deldate is null
-		order by qna_regdate desc
+		FROM qna q1
+		WHERE q1.qna_deldate is null and <![CDATA[(select count(*) from qna q2 join reply on reply.qna_idx=q2.qna_idx and q2.qna_idx=q1.qna_idx)<1]]>
+		order by q1.qna_regdate desc
 		limit #{arg0},#{arg1}
 		
 	

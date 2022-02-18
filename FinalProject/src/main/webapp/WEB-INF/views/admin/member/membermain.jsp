@@ -117,7 +117,7 @@
 			<div class="d-flex justify-content-center my-5">
 				<c:forEach begin="1" end="${member.totalPage}" var="pnum">
 					<a class="mx-2"
-						href="${pageContext.request.contextPath}/admin/member/list?selectPage=${pnum}&numOfMemberPerPage=5">${pnum}</a>
+						href="${pageContext.request.contextPath}/admin/member/list?selectPage=${pnum}&numOfMemberPerPage=5<c:if test="${not empty param.blacklisted}">&blacklisted=${param.blacklisted}</c:if>">${pnum}</a>
 				</c:forEach>
 			</div>
 

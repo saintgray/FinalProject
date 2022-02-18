@@ -25,8 +25,9 @@ public class MemberListService {
 	pagereq.setFirstMemberIndexOfSelectedPage(firstMemberIndexOfSelectedPage);
 	
 	
-	int totalNumOfMember = Integer.parseInt(sst.getMapper(MemberDao.class).getTotalNumOfMember());
+	int totalNumOfMember = Integer.parseInt(sst.getMapper(MemberDao.class).getTotalNumOfMember(pagereq));
 	int totalPage=totalNumOfMember/numOfMemberPerPage;
+	totalPage=totalNumOfMember%numOfMemberPerPage==0?totalPage:totalPage+1;
 	
 	System.out.println(pagereq.getFirstMemberIndexOfSelectedPage());
 	System.out.println(pagereq.getNumOfMemberPerPage());
