@@ -50,6 +50,10 @@
 #membersearch {
 	width: 500px;
 }
+#searchBtn{
+
+cursor: pointer;
+}
 </style>
 <title>회원리스트</title>
 </head>
@@ -104,31 +108,41 @@
 			<div class="d-flex justify-content-center my-5">
 				<div class="input-group inner" id="membersearch">
 					<div class="input-group-prepend">
-						<select class="form-select" aria-label="Default select example">
-							<option selected>전체</option>
-							<option value="1">이름</option>
-							<option value="2">아이디</option>
+						<select class="form-select" aria-label="Default select example" id="searchTypeBox">
+							<option value="all" selected>전체</option>
+							<option value="onlyname">이름</option>
+							<option value="onlyid">아이디</option>
 						</select> 
 					</div>
 
-					<input id="searchbar" style="border-left: 0;" type="text"
+					<input id="searchbararea" style="border-left: 0;" type="text" 
 						class="form-control" aria-label="Amount (to the nearest dollar)"
-						placeholder="검색"><img class="input-group-text" style="height: 100%"
-							src="${pageContext.request.contextPath}/resources/files/server/icons/img_searchicon.svg">
+						placeholder="검색">
+					<img class="input-group-text" style="height: 100%"
+							src="${pageContext.request.contextPath}/resources/files/server/icons/img_searchicon.svg" id="searchBtn">
 					<sec:authorize access="hasRole('ADMIN')">
 						<button type="button" class="btn btn-danger" id="blacklistbtn">블랙리스트</button>
 					</sec:authorize>
 				</div>
 			</div>
 
-			<div class="d-flex justify-content-center my-5">
+			<div class="d-flex justify-content-center my-5" id="paging">
 				<c:forEach begin="1" end="${member.totalPage}" var="pnum">
-					<a class="mx-2"
-						href="${pageContext.request.contextPath}/admin/member/list?selectPage=${pnum}&numOfMemberPerPage=5<c:if test="${not empty param.blacklisted}">&blacklisted=${param.blacklisted}</c:if>">${pnum}</a>
+					<span class="mx-2">${pnum}</span>
+						
 				</c:forEach>
 			</div>
 
 		</div>
+	</div>
+	<!-- <div class="d-none"> -->
+	<div>
+		<form method="post" id="searchParameter">
+			<input type="text" name="searchType" value="${member.searchType}">
+			<input type="text" name="selectPage" value="${member.selectPage}">
+			<input type="text" name="numOfMemberPerPage" value="${member.numOfMemberPerPage}">
+			<input type="text" name="keyword" id="searchbar2">
+		</form>
 	</div>
 	<%@ include file="/WEB-INF/views/layout/footer.jsp"%>
 </body>
@@ -141,6 +155,31 @@
 							location.href = '${pageContext.request.contextPath}/admin/member/list?selectPage=1&numOfMemberPerPage=5&blacklisted=Y';
 
 						});
+		$('#paging span').on('click',function(){
+			
+			$('#searchParameter input[name=selectPage]').val($(this).text());
+			$('#searchParameter').submit();
+			
+			
+		})
+		
+		$('#searchTypeBox').on('change',function(){
+			//console.log($('#searchTypeBox option:selected').val());
+			$('#searchParameter input[name=searchType]').val($('#searchTypeBox option:selected').val());
+			
+		})
+		
+		$('#searchBtn').on('click',function(){
+			
+			
+			
+			
+			$('#searchParameter input[name=keyword]').val($('#searchbararea').val());
+			$('#searchParameter input[name=selectPage]').val('1');
+		 	$('#searchParameter').submit();
+			
+		})
+		
 
 	})
 </script>
