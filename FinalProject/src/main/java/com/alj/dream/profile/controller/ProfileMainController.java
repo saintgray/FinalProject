@@ -59,10 +59,8 @@ public class ProfileMainController {
 			try {
 				MyProfileInfo profile=profService.getUserProfile(req, m_idx, logininfo);
 				
-				if(profile==null) {
-					model.addAttribute("profileOwnerIdx", m_idx);
-				}else {
-					
+				if(profile!=null) {
+		
 					model.addAttribute("profile", profile);
 				}
 				
@@ -71,6 +69,8 @@ public class ProfileMainController {
 			} catch (Exception e) {
 				model.addAttribute("error", "일시적인 오류가 발생했습니다. 잠시 후 다시 시도해주세요");
 				e.printStackTrace();
+			}finally {
+				model.addAttribute("profileOwnerIdx", m_idx);
 			}
 		}
 		
