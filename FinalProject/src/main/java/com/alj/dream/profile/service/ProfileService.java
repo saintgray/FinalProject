@@ -18,6 +18,8 @@ import com.alj.dream.review.dao.ReviewDao;
 import com.alj.dream.review.domain.StarsInfo;
 import com.alj.dream.util.Formatter;
 
+import security.AccountDetails;
+
 @Service
 public class ProfileService {
 	
@@ -32,7 +34,7 @@ public class ProfileService {
 	}
 	
 	@Transactional(rollbackFor = {Exception.class})
-	public MyProfileInfo getUserProfile(HttpServletRequest req,String m_idx) throws Exception {
+	public MyProfileInfo getUserProfile(HttpServletRequest req,String m_idx, AccountDetails logininfo) throws Exception {
 		
 		
 		//String avgStars = sst.getMapper(ReviewDao.class).getStars(m_idx);
@@ -79,15 +81,20 @@ public class ProfileService {
 				//System.out.println(list);
 					
 			}
-			
-			
-			//System.out.println("결과 >>> ");
-			prof.setFiles(list);
-			
-			
-			System.out.println(prof.getFiles());
 			////////////////////////////////////////////////////////////////////////////////////
 			////////////////////////////////////////////////////////////////////////////////////
+			
+			
+			
+			// 3. 해당 유저의 리뷰 리스트를 가져온다 단 본인이 본인 프로필을 볼때는 가져오지 않는다.
+			if(logininfo.getM_idx()!=m_idx) {
+				prof.setReviews(sst.getMapper(ReviewDao.class).getReviewList(m_idx));
+			}
+			
+			
+			
+			
+			
 			
 			
 		

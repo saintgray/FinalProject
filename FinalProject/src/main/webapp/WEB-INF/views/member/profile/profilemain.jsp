@@ -80,7 +80,8 @@
 				<img src="${pageContext.request.contextPath}/resources/files/member/${photo}" id="myphoto" class="mx-5">
 				<div class="d-flex flex-wrap flex-column">
 					<div class="d-flex flex-wrap mb-2 justify-content-center">
-						<div id="bg_template">
+						<div class="bg_template">
+							<span class="d-none rank">${profile.avgStars}</span>
 					        <img src="${pageContext.request.contextPath}/resources/files/server/icons/teststar.png" class="star">
 					        <img src="${pageContext.request.contextPath}/resources/files/server/icons/teststar.png" class="star">
 					        <img src="${pageContext.request.contextPath}/resources/files/server/icons/teststar.png" class="star">
@@ -187,7 +188,7 @@
 				        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				      </div>
 				      <div class="modal-body">
-				        ...ㄴㅇ라너이러나ㅣㅇ러
+				        
 				      </div>
 				      <div class="modal-footer d-flex flex-wrap justify-content-around">
 				        <button type="button" class="btn btn-grey" data-bs-dismiss="modal" id="close-modal">취소</button>
@@ -229,10 +230,14 @@
 				</div>
 				
 				<div class="d-flex flex-column justify-content-center">
-					<label for="addfiles" id="label_files">
-						<i class="fi fi-rr-add"></i>
-					</label>
-					<input multiple type="file" style="display:none" id="addfiles">
+					
+					<c:if test="${profile.m_idx eq m_idx}">
+						<label for="addfiles" id="label_files">
+							<i class="fi fi-rr-add"></i>
+						</label>
+						<input multiple type="file" style="display:none" id="addfiles">
+					</c:if>
+					
 				</div>
 			</div>
 			
@@ -244,8 +249,44 @@
 			
 			
 			
-			
-			
+			<!-- 프로필의 소유주가 파라미터로 들어온 m_idx 와 다를때만 = 다른 사람이 내 프로필을 보려고 들어올 때만
+					리뷰를 출력해준다. -->
+			<c:if test="${not empty param.m_idx}">
+				
+				
+				<c:if test="${profile.m_idx ne m_idx}">
+					<div id="revarea" class="d-flex flex-wrap my-5">
+						<c:forEach var="rev" items="${profile.reviews}">
+							<div class="d-flex flex-column rev my-3 me-2 px-3 py-3">
+								
+								<div class="text-center classes">
+									<c:out value="${rev.post_nm}" escapeXml="true"/> 
+								</div>
+								
+								<div class="d-flex my-2">
+									<span class="me-3">
+										<c:out value="${rev.mentee_nm}" escapeXml="true"/>
+									</span>
+									
+									<div class="bg_template">								
+										<span class="d-none rank">${rev.stars}</span>
+								        <img src="${pageContext.request.contextPath}/resources/files/server/icons/teststar.png" class="star">
+								        <img src="${pageContext.request.contextPath}/resources/files/server/icons/teststar.png" class="star">
+								        <img src="${pageContext.request.contextPath}/resources/files/server/icons/teststar.png" class="star">
+								        <img src="${pageContext.request.contextPath}/resources/files/server/icons/teststar.png" class="star">
+								        <img src="${pageContext.request.contextPath}/resources/files/server/icons/teststar.png" class="star">
+							    	</div>
+								</div>
+								<span class="fw-bold my-4 mx-1">
+									<c:out value="${rev.comment}" escapeXml="true"/>
+								</span>
+								
+							</div>
+						</c:forEach>
+					</div>	
+				</c:if>
+				
+			</c:if>
 			
 			
 		</c:if>

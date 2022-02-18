@@ -6,10 +6,10 @@ import org.springframework.stereotype.Component;
 
 @Component
 @EnableScheduling
-public class TestScheduler {
+public class SchedulerService{
 	
 	
-	@Scheduled(cron = "0 * * * * *")
+	@Scheduled(cron = "0 0 0 * * *")
 	public void testMethod() {
 		System.out.println("스케줄러테스트");
 	}

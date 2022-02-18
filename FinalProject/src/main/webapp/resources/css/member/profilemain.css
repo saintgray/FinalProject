@@ -36,10 +36,7 @@
 	
 }
 
-  #bg_template {
-     
-      background: url("/mnm/resources/files/server/icons/bg_yello.png");
-      background-repeat: no-repeat;
+  .bg_template {
       font-size: 0px;
       display: inline-block;    
   }
@@ -48,8 +45,24 @@
   .star{
     width:60px;  
     border-right: 15px solid white;
+    background-position: left;
 
   }
+  #revarea{
+  	cursor:default;
+  }
+  
+  #revarea .star{
+  	width:30px;
+  	border-right:8px solid #FFF;
+  }
+  #revarea .classes::after{
+  	outline: 1px solid #FCA10690;
+  	content:'';
+  	display: block;
+  	margin-top: 5px;
+  }
+  	
   .activity{
   	font-size:20px;
   }
@@ -89,4 +102,10 @@
     background-color: rgb(236,236,236);
 
   }
+  
+  .rev{
+  	background-color: rgb(249,249,249);
+  	border-radius: 15px;
+  }
+  
 
