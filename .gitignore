@@ -105,4 +105,4 @@ hs_err_pid*
 .classpath
 
 # Contributor's Server Path .xml file
-.serverpath.xml
+serverpath.xml
