@@ -154,6 +154,15 @@ $(document).ready(function(){
 			success : function(data){
 				alert('매칭 생성');
 				location.href="${pageContext.request.contextPath}/post/view?idx="+postidx;
+				// 전송에 성공하면 실행될 코드
+				if(data==0){	// 테이블이 이미 있다는 뜻 = 문의를 했던 글이라는 뜻
+					alert('이미 문의한 게시글입니다. 내 채팅목록을 확인해주세요!');
+				} else {
+					setMatchidx(data);
+					console.log(matchidx);
+					//채팅테이블 생성할 함수실행
+					alert(${member.m_idx}'님에게 보낼 멋진 첫 한마디를 작성해주세요!');
+				}
 			},
 			error: function(data){
 				console.log('통신 오류');

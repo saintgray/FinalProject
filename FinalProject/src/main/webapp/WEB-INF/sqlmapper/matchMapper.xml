@@ -6,26 +6,45 @@
  <mapper namespace="com.alj.dream.match.dao.MatchDao">
  
  
-<insert id="insertMatch"
+	<insert id="insertMatch"
  			parameterType="com.alj.dream.match.domain.Match"
  			useGeneratedKeys="true"
  			keyProperty="match_idx">
- 	INSERT INTO dream.match (post_idx, mentee_idx, mentor_idx)
-	values (#{post_idx},#{mentee_idx},#{mentor_idx});
+	 	INSERT INTO dream.match (post_idx, mentee_idx, mentor_idx)
+		values (#{post_idx},#{mentee_idx},#{mentor_idx});
  	</insert>
  	
  	<select id="selectMatch"
  			resultType="com.alj.dream.match.domain.Match">
- 	select * 
- 	from dream.match
- 	where post_idx=#{param1} and mentee_idx=#{param2} and mentor_idx=#{param3};
+	 	select * 
+	 	from dream.match
+	 	where post_idx=#{param1} and mentee_idx=#{param2} and mentor_idx=#{param3};
  	</select>
  	
  	
  	<select id="selectMatchInfo" resultType="com.alj.dream.match.domain.MatchInfo">
- 	select match_idx, post_idx, mentor_idx, mentee_idx
- 	from dream.match
- 	where post_idx=#{idx}
+	 	select match_idx, post_idx, mentor_idx, mentee_idx
+	 	from dream.match
+	 	where post_idx=#{idx}
+ 	</select>
+ 	
+ 	
+ 	<!-- 채팅방 나갈때 -->
+ 	<update id="updateMatchOutyn">
+ 		update dream.match
+ 		set
+ 		<if test="#{param1}==#{param3}">
+ 			mentee_outyn = 'Y'
+ 		</if>
+ 		<if test="#{param1}==#{param4}">
+ 			mentor_outyn='Y'
+ 		</if>
+ 		where match_idx = #{param2}
+ 	</update>
+ 	
+ 	<select id="getMatchByMatchidx"
+ 			resultType="com.alj.dream.match.domain.Match">
+ 		select * from dream.match where match_idx=#{matchidx}
  	</select>
  	
 </mapper>

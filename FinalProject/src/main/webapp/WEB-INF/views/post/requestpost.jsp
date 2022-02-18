@@ -104,7 +104,7 @@ $(document).ready(function(){
 			$.ajax({
 				url : '${pageContext.request.contextPath}/post/profilechk',
 				type : 'post',
-				data : ${myidx},
+				data : '${myidx}',
 				success : function(data){
 					if(data != null){
 						console.log("멘토확인");

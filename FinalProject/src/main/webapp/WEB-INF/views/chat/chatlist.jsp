@@ -54,6 +54,7 @@ myidx: ${myidx} myname : ${myname} myphoto : ${myphoto}$ mytype : {mytype}
 				<td>매칭 고유번호 : ${list.match_idx}</td>
 				
 				<td>
+					<!-- <button type="button" id="intoChat">이사람과채팅하기ajax</button> -->
 					<a href="${pageContext.request.contextPath}/chat/chatroom?myidx=${myidx}&matchidx=${list.match_idx}&reciever=${list.m_idx}">이사람과 채팅하기</a>
 				</td>
 			</tr>
@@ -62,10 +63,6 @@ myidx: ${myidx} myname : ${myname} myphoto : ${myphoto}$ mytype : {mytype}
 
 </table>
 
-	<!-- 여기서일단 chatroom으로 넘어가는 것으로 해보기 -->
-	
-	
-	
 	
 </body>
 </html>

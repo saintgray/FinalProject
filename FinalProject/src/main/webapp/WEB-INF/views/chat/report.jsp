@@ -88,8 +88,6 @@
 		</div>
 
 
-
-
 	
 <script>
 $(document).ready(function(){
@@ -101,10 +99,10 @@ $(document).ready(function(){
 		$("#sendReport").click(function(){
 
 			// 전송할 데이터 : 신고자/신고받는사람/채팅idx/신고내용
-			console.log(${matchidx});
+			console.log('${matchidx}');
 			console.log($('.form-check-input:checked').val());
-			console.log(${reporter});
-			console.log(${reported});
+			console.log('${reporter}');
+			console.log('${reported}');
 			var content = $('.form-check-input:checked').val();
 			
 			$.ajax({

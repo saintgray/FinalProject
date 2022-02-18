@@ -9,19 +9,19 @@ public class RequestMember {
 	private int m_idx;			// 회원 고유번호
 	private String m_nm;		// 회원 이름
 	private String m_photo;		// 회원 사진
-	private String matched_yn;	// 매칭 여부
+	private String match_yn;	// 매칭 여부
 	private String line;		// 회원 프로필 한줄소개
 	
 	public RequestMember() {}
 	
-	public RequestMember(int match_idx, int post_idx, int m_idx, String m_nm, String m_photo, String matched_yn,
+	public RequestMember(int match_idx, int post_idx, int m_idx, String m_nm, String m_photo, String match_yn,
 			String line) {
 		this.match_idx = match_idx;
 		this.post_idx = post_idx;
 		this.m_idx = m_idx;
 		this.m_nm = m_nm;
 		this.m_photo = m_photo;
-		this.matched_yn = matched_yn;
+		this.match_yn = match_yn;
 		this.line = line;
 	}
 	
@@ -67,12 +67,12 @@ public class RequestMember {
 		this.m_photo = m_photo;
 	}
 
-	public String getMatched_yn() {
-		return matched_yn;
+	public String getmatch_yn() {
+		return match_yn;
 	}
 
-	public void setMatched_yn(String matched_yn) {
-		this.matched_yn = matched_yn;
+	public void setmatch_yn(String match_yn) {
+		this.match_yn = match_yn;
 	}
 
 	public String getLine() {
@@ -86,7 +86,7 @@ public class RequestMember {
 	@Override
 	public String toString() {
 		return "RequestingMember [match_idx=" + match_idx + ", post_idx=" + post_idx + ", m_idx=" + m_idx + ", m_nm="
-				+ m_nm + ", m_photo=" + m_photo + ", matched_yn=" + matched_yn + ", line=" + line + "]";
+				+ m_nm + ", m_photo=" + m_photo + ", match_yn=" + match_yn + ", line=" + line + "]";
 	}
 	
 	

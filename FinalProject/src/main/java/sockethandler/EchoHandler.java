@@ -39,6 +39,7 @@ public class EchoHandler extends TextWebSocketHandler {
 		sessionMap.put(myidx, session);										
 		
 		logger.info("연결되었습니다", session.getId());		
+		System.out.println("채팅창입장: " + myidx);
 		System.out.println("sessionMap에 저장 : " + myidx);	
 		
 	}
@@ -70,18 +71,28 @@ public class EchoHandler extends TextWebSocketHandler {
 		chat.setMatch_idx(matchIdx);
 		chat.setM_sender(myidx);
 		chat.setM_reciever(recieverIdx);
+		
+		// chat의 시간도 여기서 저장을 해야할 듯
+		
+		//chat.setSent(sent);
 		int result = service.insertChat(chat);	// DB에 chat데이터 저장하는 메소드실행
 		System.out.println("service에 저장 확인");
 		
-		//WebSocketSession ws = sessionMap.get(recieverIdx); 	// 전달할 세션?
-		//System.out.println("WebSocketSession ws = sessionMap.get(recieverIdx) 확인");
+		//select current_timestamp from dual;
+		
+		
+		WebSocketSession ws = sessionMap.get(recieverIdx); 	// 전달할 세션?
+		System.out.println("WebSocketSession ws = sessionMap.get(recieverIdx) 확인");
 		
 		// 전달 메세지
 		TextMessage sendMsg = new TextMessage(gson.toJson(chat));
 		
-		
-		//ws.sendMessage(sendMsg);		// 상대방에 메세지 전달
 		session.sendMessage(sendMsg);	//나에게 메세지전달
+		if(ws!=null) {
+			ws.sendMessage(sendMsg); 	// 상대방에 메세지 전달
+		}
+				
+		
 		
 		// 보낼 때 컨트롤러에서 필요로하는 postidx랑 midx를 보내준다?
 	}
@@ -92,7 +103,7 @@ public class EchoHandler extends TextWebSocketHandler {
 		
 		int myIdx = (int) session.getAttributes().get("myIdx");
 		
-		sessionMap.remove(myIdx);	// 나간 사람의 세션이 삭제
+		sessionMap.remove(myIdx);		// 나간 사람의 세션이 삭제
 		
 		logger.info("{} 창을 나감", myIdx);
 		
