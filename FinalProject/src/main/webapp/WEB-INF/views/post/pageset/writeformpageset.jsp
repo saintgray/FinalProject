@@ -72,6 +72,9 @@ function selectCategory(dom){
 // 파일업로드 관련 : 용량 제한, 확장자 제한
 function checkExtension(fileName, fileSize){
 	
+	// var parts = fileName.split('.');
+	// var ext = parts[parts.length-1].toLowerCase();
+	
 	var regex = new RegExp("(.*?)\.(jpg|jpeg|png|PNG|bmp|pdf)$");
 	var maxSize = 5242880; // 5MB : 1024*1024*5
 	
@@ -112,11 +115,10 @@ $(document).ready(function(){
 
 	});
 	
+	// ROOT 카테고리의 인덱스인 30을 넣어 카테고리 검색 초기화
 	selectCategory(30);	
         
     var formData = new FormData(document.getElementById('writePost'));
-    
-	/* var formObj = $("form[role='form']"); */
 	
 	$("#attachFile").on("change", function(e){
 		console.log(e.target.files);
@@ -133,12 +135,24 @@ $(document).ready(function(){
 			}
 			formData.append("fileList", inputFile[i]);
 			
-			/*
-			파일첨부에서 없앤 뒤 프리뷰를 #filePreview div에 나타나도록 하고
-			첨부된 파일 목록을 li 로 보여준다.
-			*/
+			// 첨부된 파일 목록으로 보여주기
 			
-		}
+			
+			if (inputFile[i].type.match('image.*')) { 
+				// 이미지 파일일 경우 미리보기 만들기
+				var filesAmount = inputFile.length; 
+				for (i = 0; i < filesAmount; i++) { 
+					var reader = new FileReader(); 
+					reader.onload = function(event) { 
+						$($.parseHTML('<img>')).attr('src', event.target.result).attr('height', '200px').appendTo($('#filePreview')); 
+						} 
+					reader.readAsDataURL(inputFile[i]); 
+				}
+			} else {
+				// 이미지 파일이 아닐 경우
+			}
+			
+		};
 		
 	});
 
