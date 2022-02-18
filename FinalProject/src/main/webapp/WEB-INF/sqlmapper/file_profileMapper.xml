@@ -40,6 +40,14 @@
 		WHERE file_nm=#{arg0}
 	</update>
 	
+	
+	<!-- 삭제한 파일의 행들을 모두 가져온다 -->
+	<select id="getDeletedFiles" resultType="String">
+		SELECT fp.file_nm
+		FROM file_profile fp
+		WHERE fp.file_deldate is not null
+	</select>
+	
  	
  
  </mapper>
