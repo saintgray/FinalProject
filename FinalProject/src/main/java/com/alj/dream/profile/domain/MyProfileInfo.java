@@ -3,6 +3,7 @@ package com.alj.dream.profile.domain;
 import java.util.List;
 
 import com.alj.dream.file_profile.domain.FileInfo;
+import com.alj.dream.review.domain.Review;
 
 public class MyProfileInfo {
 	// 회원의 프로필에 필요한 정보는 다음과 같다.
@@ -20,11 +21,30 @@ public class MyProfileInfo {
 	private String matchCount;
 	private String reviewCount;
 	private List<FileInfo> files;
+	private List<Review> reviews; 
 	private String avgStars;
 	private String m_quitdate;
 	
 	public MyProfileInfo() {
-	
+		
+	}
+
+	public MyProfileInfo(String profile_idx, String m_idx, String line, String calltime, String career, String qna,
+			String profile_regdate, String matchCount, String reviewCount, List<FileInfo> files, List<Review> reviews,
+			String avgStars, String m_quitdate) {
+		this.profile_idx = profile_idx;
+		this.m_idx = m_idx;
+		this.line = line;
+		this.calltime = calltime;
+		this.career = career;
+		this.qna = qna;
+		this.profile_regdate = profile_regdate;
+		this.matchCount = matchCount;
+		this.reviewCount = reviewCount;
+		this.files = files;
+		this.reviews = reviews;
+		this.avgStars = avgStars;
+		this.m_quitdate = m_quitdate;
 	}
 
 	public String getProfile_idx() {
@@ -107,6 +127,14 @@ public class MyProfileInfo {
 		this.files = files;
 	}
 
+	public List<Review> getReviews() {
+		return reviews;
+	}
+
+	public void setReviews(List<Review> reviews) {
+		this.reviews = reviews;
+	}
+
 	public String getAvgStars() {
 		return avgStars;
 	}
@@ -122,7 +150,9 @@ public class MyProfileInfo {
 	public void setM_quitdate(String m_quitdate) {
 		this.m_quitdate = m_quitdate;
 	}
-
+	
+	
+	
 	
 	
 	

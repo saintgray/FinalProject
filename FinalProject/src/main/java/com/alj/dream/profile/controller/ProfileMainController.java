@@ -35,9 +35,9 @@ public class ProfileMainController {
 
 
 	@GetMapping("/main")
-	public String showProfileMain(HttpServletRequest req, @Param("m_idx")String m_idx, Authentication authentication, Model model) {
+	public String showProfileMain(HttpServletRequest req, @Param("m_idx")String m_idx, Authentication auth, Model model) {
 		
-		AccountDetails logininfo= (AccountDetails)authentication.getPrincipal();
+		AccountDetails logininfo= (AccountDetails)auth.getPrincipal();
 		// 다른 사람이  상대방 프로필을 보러 왔을때 => getUserProfile() 의 매개변수에는 상대방의 m_idx가 들어가고
 		// 본인이 내 프로필 관리를 선택해서 들어왔을 때 = 매개변수에 m_idx가 없을 때  >> getUserProfile() 의 매개변수에는 자기 자신의 idx 가 들어간다.
 		m_idx=m_idx==null?logininfo.getM_idx():m_idx;
@@ -57,7 +57,8 @@ public class ProfileMainController {
 			System.out.println(response);
 		}else {
 			try {
-				MyProfileInfo profile=profService.getUserProfile(req, m_idx);
+				MyProfileInfo profile=profService.getUserProfile(req, m_idx, logininfo);
+				
 				if(profile==null) {
 					model.addAttribute("profileOwnerIdx", m_idx);
 				}else {

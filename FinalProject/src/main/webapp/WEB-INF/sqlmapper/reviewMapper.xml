@@ -25,7 +25,14 @@
 		WHERE mat.mentor_idx=${arg0};
 	</select>
 
-
+	<!--  2022 02 18 종현 
+		해당 유저에 대한 리뷰들 -->
+	<select id="getReviewList" resultType="com.alj.dream.review.domain.Review">
+		SELECT concat(substr(mentee.m_nm, 1,1),'**') as mentee_nm, rev.comment, p.post_nm, stars
+		FROM dream.match mat JOIN post p JOIN review rev JOIN member mentee
+		ON mat.post_idx=p.post_idx and rev.match_idx=mat.match_idx and mentee.m_idx=mat.mentee_idx
+	    where mat.mentor_idx=#{arg0};
+	</select>
 
 </mapper>
  
