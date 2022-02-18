@@ -103,3 +103,6 @@ hs_err_pid*
 .project
 .project
 .classpath
+
+# Contributor's Server Path .xml file
+.serverpath.xml
