@@ -46,7 +46,8 @@
 	outline: 1px solid rgb(123, 123, 123);
 	background-color: rgb(197, 197, 197);
 }
-#membersearch{
+
+#membersearch {
 	width: 500px;
 }
 </style>
@@ -88,7 +89,8 @@
 							class="mx-2 subinfo"> <c:if
 									test="${item.m_blacklist eq 'N'}">
 								X
-							</c:if> <c:if test="${item.m_blacklist eq 'Y'}">
+							</c:if>
+							 <c:if test="${item.m_blacklist eq 'Y'}">
 								O
 							</c:if>
 						</span>
@@ -102,12 +104,17 @@
 			<div class="d-flex justify-content-center my-5">
 				<div class="input-group inner" id="membersearch">
 					<div class="input-group-prepend">
-						<img class="input-group-text" style="height: 100%"
-							src="${pageContext.request.contextPath}/resources/files/server/icons/img_searchicon.svg">
+						<select class="form-select" aria-label="Default select example">
+							<option selected>전체</option>
+							<option value="1">이름</option>
+							<option value="2">아이디</option>
+						</select> 
 					</div>
+
 					<input id="searchbar" style="border-left: 0;" type="text"
 						class="form-control" aria-label="Amount (to the nearest dollar)"
-						placeholder="검색">
+						placeholder="검색"><img class="input-group-text" style="height: 100%"
+							src="${pageContext.request.contextPath}/resources/files/server/icons/img_searchicon.svg">
 					<sec:authorize access="hasRole('ADMIN')">
 						<button type="button" class="btn btn-danger" id="blacklistbtn">블랙리스트</button>
 					</sec:authorize>
