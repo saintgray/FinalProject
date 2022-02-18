@@ -85,7 +85,7 @@ reciever : ${reciever}<br>
 	
 	<!-- 채팅나가기 -->
 	<!-- 미완 : 채팅목록으로 리다이렉트/그리고 ajax로 update match mentee_outyn또는 mentor_outyn Y로 하기-->
-	<button id="leaveChat">이 채팅 나가기</button>
+	<button data-bs-target="#leaveChk" data-bs-toggle="modal">이 채팅 나가기</button>
 	
 	<!-- 매칭하기 -->
 	<!-- 미완 -->
@@ -146,6 +146,28 @@ reciever : ${reciever}<br>
 		</div>
 
 
+<!-- 확인모달들 여기 모아둠 -->
+<!-- 채팅 나감 모달 -->
+		<div class="modal fade" id="leaveChk" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+		  <div class="modal-dialog modal-dialog-centered">
+		    <div class="modal-content">
+		    
+		      <div class="modal-header">
+		        <h5 class="modal-title" id="exampleModalToggleLabel2"></h5>
+		      </div>
+		      
+		      <div class="modal-body">
+		         정말로 채팅창을 나가시겠습니까?
+		      </div>
+		      
+		      <div class="modal-footer">
+		      	<button type="button" class="btn btn-danger" data-bs-dismiss="modal" id="leaveChat" >네</button>
+		        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">아니오</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+
 <script>
 
 	// 채팅관련 ------------------------------------------------------------------------------
@@ -174,29 +196,28 @@ reciever : ${reciever}<br>
 
 		});
 		
+		
 		// 채팅 나가기 누를때
-		$("leaveChat").on('click',function(){
+		$("#leaveChat").on('click',function(){
 			
-			//나가겠습니까? 모달띄우고 확인 누를시
-			
-			// ajax로 update할 데이터 보내고,
-			// 보낼 데이터 > myidx mytype matchidx
 			$.ajax({
 				url : '${pageContext.request.contextPath}/chat/leavechat',
 				type : 'POST',
 				data : {
-					matchidx : ${matchidx},
-					myidx : ${myidx},
-					mytype : ${mytype}
+					matchidx : '${matchidx}',
+					myidx : '${myidx}',
+					mytype : '${mytype}'
 				},
 				success : function(data){
 					if(data==1){
-						alert('')
+						href="${pageContext.request.contextPath}/chat/chatlist";
+						//성공했을때 > 채팅목록으로 나간다
+					}else{
+						//에러있을때
+						alert('오류입니다.');
 					}
 				}
 			})
-			// 채팅목록으로 리다이렉트
-			
 		});
 		
 	});
@@ -249,4 +270,5 @@ reciever : ${reciever}<br>
 </script>
 
 </body>
+
 </html>

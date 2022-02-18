@@ -74,9 +74,14 @@ public class ChatRoomController {
 	@RequestMapping(value="/chat/leavechat", method=RequestMethod.POST)
 	@ResponseBody
 	public int leaveChat(
+			@RequestParam("matchidx") int matchidx,
+			@RequestParam("myidx") int myidx,
+			@RequestParam("mytype") String mytype
 			) {
-				return 0;
-		// 만드는 중 
+		System.out.println("ChatRoomController : leaveChat");
+		int resultCnt = service.updateMatchOutyn(matchidx,myidx,mytype);
+		// 예외처리 미완
+		return resultCnt;
 	}
 	
 }
