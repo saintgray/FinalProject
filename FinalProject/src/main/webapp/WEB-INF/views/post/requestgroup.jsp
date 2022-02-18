@@ -40,7 +40,7 @@
 							<td>회원 고유번호 : ${member.m_idx}</td><br>
 							<td>회원 이름 : ${member.m_nm}</td><br>
 							<td>회원 사진 : ${member.m_photo}</td><br>
-							<td>매칭 여부 : ${member.matched_yn}</td><br>
+							<td>매칭 여부 : ${member.match_yn}</td><br>
 						</tr>
 					</c:forEach>
 

@@ -88,8 +88,6 @@
 		</div>
 
 
-
-
 	
 <script>
 $(document).ready(function(){
@@ -111,10 +109,10 @@ $(document).ready(function(){
 				url : '${pageContext.request.contextPath}/chat/sendreport',
 				type : 'POST',
 				data : {
-						match_idx : ${matchidx},
+						match_idx : '${matchidx}',
 						report_content : content,
-						m_report : ${reporter},
-						m_reported : ${reported}
+						m_report : '${reporter}',
+						m_reported : '${reported}'
 						},
 						
 				success : function(data){
