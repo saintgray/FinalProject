@@ -21,6 +21,7 @@ import com.alj.dream.profile.domain.ProfileRegisterData;
 public class FileProfileRegisterService {
 	
 	
+	
 	private SqlSessionTemplate sst;
 	
 	
@@ -45,7 +46,7 @@ public class FileProfileRegisterService {
 		String profile_idx=String.valueOf(data.getProfile_idx());
 		String savePath= req.getSession().getServletContext().getRealPath("/resources/files/member/profile_attachfiles");
 		
-		
+		System.out.println(savePath);
 		List<FileInfo> list = new LinkedList<FileInfo>();
 		
 		for(MultipartFile file: data.getFiles()) {
@@ -57,7 +58,7 @@ public class FileProfileRegisterService {
 			if(!newfile.exists()) {
 				newfile.mkdir();
 			}
-			
+			System.out.println(newfile.getAbsolutePath());
 			file.transferTo(newfile);
 			
 			

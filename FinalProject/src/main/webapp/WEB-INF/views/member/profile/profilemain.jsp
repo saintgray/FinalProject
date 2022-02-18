@@ -243,7 +243,7 @@
 			
 			<c:if test="${profile.m_idx eq m_idx}">
 				<div class="d-flex flex-wrap justify-content-end mb-5">
-					<button type="button" class="btn btn-danger" id="delProfile">프로필 삭제</button>
+					<button type="button" class="btn btn-danger" id="delProfile" style="border-radius: 20px">프로필 삭제</button>
 				</div>
 			</c:if>
 			

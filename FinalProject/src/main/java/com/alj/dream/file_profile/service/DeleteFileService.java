@@ -31,14 +31,15 @@ public class DeleteFileService {
 		// 1. DB에 저장된 이 파일에 대한 행의 삭제 유무 Update
 		int resultDeleteProcessDB=sst.getMapper(ProfileFilesDao.class).deleteFile(file_nm);
 		
-		// 파일 완전 삭제 처리 하지 않음 (추후 Scheduler 를 통하여 삭제한 파일들 중에서 삭제한 날짜로부터 x일이 지났다면 완전삭제할 수 있도록 처리할 것)
+	    // 파일 삭제 처리 
+		// + Scheduler 를 통하여 DB에는 삭제일이 업데이트 되었으나 삭제되지 않은 파일에 대해 삭제 처리
 		
-//		if(resultDeleteProcessDB==1) {
-//			File file = new File(savedFolder, file_nm);
-//			if(file.exists()) {
-//				file.delete();
-//			}
-//		}
+		if(resultDeleteProcessDB==1) {
+			File file = new File(savedFolder, file_nm);
+			if(file.exists()) {
+				file.delete();
+			}
+		}
 		
 		
 
