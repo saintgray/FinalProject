@@ -92,6 +92,25 @@ function checkExtension(fileName, fileSize){
 	
 }
 
+// 파일업로드 관련 : 업로드 결과 미리보기
+/* function showUploadResult(){
+	
+	
+	if (inputFile[i].type.match('image.*')) { 
+		// 이미지 파일일 경우 미리보기 만들기
+		var filesAmount = inputFile.length; 
+		for (i = 0; i < filesAmount; i++) { 
+			var reader = new FileReader(); 
+			reader.onload = function(event) { 
+				$($.parseHTML('<img>')).attr('src', event.target.result).attr('height', '200px').appendTo($('#filePreview')); 
+				} 
+			reader.readAsDataURL(inputFile[i]); 
+		}
+	} else {
+		// 이미지 파일이 아닐 경우
+	}
+} */
+
 $(document).ready(function(){	
 	
 	$('#content').summernote({
@@ -136,7 +155,7 @@ $(document).ready(function(){
 			formData.append("fileList", inputFile[i]);
 			
 			// 첨부된 파일 목록으로 보여주기
-			
+
 			
 			if (inputFile[i].type.match('image.*')) { 
 				// 이미지 파일일 경우 미리보기 만들기
@@ -152,7 +171,16 @@ $(document).ready(function(){
 				// 이미지 파일이 아닐 경우
 			}
 			
-		};
+		}
+		
+		/*
+		$.ajax({
+			url: '${pageContext.request.contextPath}/post/uploadfile',
+			type: 'post',
+			data: inputFile,
+			
+		});
+		*/
 		
 	});
 

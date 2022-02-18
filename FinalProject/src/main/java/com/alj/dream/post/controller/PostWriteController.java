@@ -29,9 +29,6 @@ public class PostWriteController {
 	@Autowired
 	private PostWriteService writeService;
 
-	@Autowired
-	private PostFileUploadService uploadService;
-
 	@GetMapping("/post/write")
 	public String getWriteForm(Authentication authentication, Model model) {
 		
@@ -61,10 +58,11 @@ public class PostWriteController {
 		List<MultipartFile> fileList = wRequest.getFileList();
 		System.out.println(fileList);
 		
-		if(fileList!=null) {
+		// 파일 업로드는 파일업로드컨트롤러 통해서		
+//		if(fileList!=null) {
 		//if (!fileList.isEmpty()) {
-			uploadService.uploadfile(request, post_idx, fileList);
-		}
+//			uploadService.uploadfile(request, post_idx, fileList);
+//		}
 
 		result.put("cnt", resultCnt);
 		result.put("idx", post_idx);

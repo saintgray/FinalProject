@@ -61,7 +61,7 @@
 	<select id="selectTotalCountBySearchParams"
 			parameterType="com.alj.dream.post.domain.SearchParams"
 			resultType="int">
-		select distinct count(p.post_idx)
+		select count(distinct p.post_idx)
 		from post p left join member on p.m_idx=member.m_idx
 				    left join dream.match m on p.post_idx=m.post_idx
 		<where>
