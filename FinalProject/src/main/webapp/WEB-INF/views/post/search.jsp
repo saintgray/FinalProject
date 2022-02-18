@@ -63,6 +63,7 @@
 
 	<script>
 		let cat_idx;
+		let cat_select;
 
 		function resetCategory() {
 			$('#categoryInfos').html('');
@@ -90,6 +91,7 @@
 						// 현재 선택한 interest 값을 cat_idx 에 저장한다.
 						cat_idx = interest;
 						console.log(cat_idx);
+						cat_select=true;
 
 					} else {
 
@@ -110,6 +112,7 @@
 
 						$('#categoryInfos').append(html);
 						console.log(html);
+						cat_idx = interest;
 
 						}
 
@@ -207,6 +210,17 @@
 
 		// 검색하기
 		function searchPost(pageNum){
+			
+			console.log('cat_idx:', cat_idx);
+			console.log('cat_select:', cat_select);
+			
+			// 아예 분야를 선택하지 않거나 / 분야를 끝까지 선택하거나
+			// 분야 선택을 시작했지만 끝까지 가지 않았을 때
+			// cat_idx 가 undefined 가 아니고 cat_select 가 true 가 아닐 때
+			if(cat_idx!==undefined && cat_select!=true){
+				alert('분야를 끝까지 선택하거나 초기화하세요.');
+				return false;
+			}
 			
 			if(pageNum==1){
 				// 새로운 검색 -> 이전 내용 삭제
