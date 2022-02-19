@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.alj.dream.member.dao.MemberDao;
-import com.alj.dream.member.domain.Emailinfos;
 
 
 @Service

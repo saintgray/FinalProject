@@ -7,10 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.alj.dream.category.dao.CategoryDao;
-import com.alj.dream.category.domain.CategoryRequested;
 import com.alj.dream.interest.dao.InterestDao;
-import com.alj.dream.interest.domain.Interest;
 
 
 @Service

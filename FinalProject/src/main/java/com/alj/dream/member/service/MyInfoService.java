@@ -12,8 +12,6 @@ import com.alj.dream.interest.dao.InterestDao;
 import com.alj.dream.member.dao.MemberDao;
 import com.alj.dream.member.domain.MyInfo;
 
-import security.MemberVO;
-
 
 @Service
 public class MyInfoService {

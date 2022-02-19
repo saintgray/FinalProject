@@ -14,7 +14,6 @@ import com.alj.dream.qna.domain.PageRequest;
 import com.alj.dream.qna.domain.Qna;
 import com.alj.dream.qna.domain.QnaPageView;
 import com.alj.dream.reply.dao.ReplyDao;
-import com.alj.dream.reply.domain.ReplyInfo;
 
 import security.AccountDetails;
 
