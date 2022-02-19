@@ -23,7 +23,7 @@
 																					) as reportCount
 		FROM member memrow
 		<where>
-			<if test="blacklisted!=null">
+			<if test='"Y".equals(blacklisted)'>
 				AND memrow.m_blacklist='Y'
 			</if>
 			<if test='"onlyid".equals(searchType)'>
@@ -32,7 +32,21 @@
 			<if test='"onlyname".equals(searchType)'>
 				AND m_nm like concat('%',#{keyword},'%')
 			</if>
+			<if test='"all".equals(searchType)'>
+				AND ( m_nm like concat('%',#{keyword},'%') OR m_email like concat('%',#{keyword},'%') )
+			</if>
 		</where>
+		<if test='"m_regdate".equals(sortType)'>
+			order by m_regdate
+		</if>
+		<if test='"asc".equals(sortBy)'>
+			asc
+		</if>
+		<if test='"desc".equals(sortBy)'>
+			desc
+		</if>
+		
+		
 		
 		limit #{firstMemberIndexOfSelectedPage}, #{numOfMemberPerPage}
 	
@@ -41,12 +55,9 @@
  	
  	<select id="getTotalNumOfMember" resultType="Integer" parameterType="com.alj.dream.member.domain.PageRequest">
  	
- 		SELECT count(*) from member
+ 		SELECT count(*) from member memrow
  		<where>
-	 		<if test="blacklisted!=null">
-	 			and m_blacklist='Y'
-	 		</if>
-			<if test="blacklisted!=null">
+			<if test='"Y".equals(blacklisted)'>
 				AND memrow.m_blacklist='Y'
 			</if>
 			<if test='"onlyid".equals(searchType)'>
@@ -55,7 +66,20 @@
 			<if test='"onlyname".equals(searchType)'>
 				AND m_nm like concat('%',#{keyword},'%')
 			</if>
+			<if test='"all".equals(searchType)'>
+				AND ( m_nm like concat('%',#{keyword},'%') OR m_email like concat('%',#{keyword},'%') )
+			</if>
  		</where>
+		<if test='"m_regdate".equals(sortType)'>
+			order by m_regdate
+		</if>
+		<if test='"asc".equals(sortBy)'>
+			asc
+		</if>
+		<if test='"desc".equals(sortBy)'>
+			desc
+		</if>
+		
  	</select>
  	
  	

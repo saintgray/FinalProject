@@ -45,6 +45,8 @@
 	
 	<div class="d-flex flex-column justify-content-center" id="globalwrap">
 	<h1 class="mx-5 banner">1대1문의 리스트</h1>
+	
+	
 	<table class="mx-auto" id="listTable">
 		
 	<tr class="indexes">
@@ -53,14 +55,27 @@
 		<td>등록일</td>
 	</tr>
 		<c:forEach var="item" items="${pageView.qnaList}">
-			<tr class="my-5 qnaRow">
+		
+			<tr class="my-2 qnaRow">
 				<td><span class="px-5">${item.qna_idx}</span></td>
-				<td>
+				<td colspan="2">
 					<a class="px-5" href="${pageContext.request.contextPath}/qna/content?qna_idx=${item.qna_idx}&selectPage=${param.selectPage}&numOfQnaPerPage=${param.numOfQnaPerPage}">${item.qna_title}</a>
 					<span class="qna_idx d-none">${item.qna_idx}</span>
 				</td>
 				<td><span class="px-5">${item.qna_regdate}</span></td>
-			</tr>			
+			</tr>
+			
+			<c:if test="${not empty item.replyInfo}">
+				<tr class="mb-5" style="background-color: rgb(210,210,210)">
+					<td>${item.replyInfo.reply_idx}</td>
+					<td>[답변] : ${item.qna_title}</td>
+					<td>${item.replyInfo.reply_regdate}</td>
+					<td>${item.replyInfo.admin_nm}</td>			
+				</tr>
+			</c:if>
+			
+				
+					
 		</c:forEach>
 	</table>
 	
@@ -90,6 +105,7 @@
 			<c:if test="${pageView.curPageIndex lt index}">
 				<i class="bi bi-caret-right pageswip" id="next"></i>
 			</c:if>
+		
 		
 		</div>
 		

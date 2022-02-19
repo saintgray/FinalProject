@@ -8,17 +8,35 @@
  	<select id="getTotalNumOfQna" resultType="Integer">
  		SELECT count(*)
  		FROM qna q1
- 		WHERE q1.qna_deldate is null and <![CDATA[ (select count(*) from qna q2 join reply on reply.qna_idx=q2.qna_idx and q2.qna_idx=q1.qna_idx)<1]]>
+ 		WHERE q1.qna_deldate is null
+ 		
+ 		<if test="m_idx==null">
+			AND <![CDATA[(select count(*) from qna q2 join reply on reply.qna_idx=q2.qna_idx and q2.qna_idx=q1.qna_idx)<1]]>
+		</if>
+		
+		<if test="m_idx!=null">
+			AND q1.m_idx=#{arg0}
+		</if>
+		
  	</select>
  
 
 
-	<select id="getQnaList" resultType="com.alj.dream.qna.domain.Qna">
+	<select id="getQnaList" resultType="com.alj.dream.qna.domain.Qna" parameterType="com.alj.dream.qna.domain.PageRequest">
 		SELECT qna_idx, qna_title, qna_regdate
 		FROM qna q1
-		WHERE q1.qna_deldate is null and <![CDATA[(select count(*) from qna q2 join reply on reply.qna_idx=q2.qna_idx and q2.qna_idx=q1.qna_idx)<1]]>
+		WHERE q1.qna_deldate is null 
+		<if test="m_idx==null">
+			AND <![CDATA[(select count(*) from qna q2 join reply on reply.qna_idx=q2.qna_idx and q2.qna_idx=q1.qna_idx)<1]]>
+		</if>
+		
+		<if test="m_idx!=null">
+			AND q1.m_idx=#{m_idx}
+		</if>
+		
+		
 		order by q1.qna_regdate desc
-		limit #{arg0},#{arg1}
+		limit #{selectPageFirstIndex},#{numOfQnaPerPage}
 		
 	
 	</select>
