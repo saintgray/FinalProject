@@ -22,7 +22,7 @@
 			<form action="${pageContext.request.contextPath}/member/login" method="post">
 				
 				<div class="my-4">
-					<input type="text" class="form-control" placeholder="이메일" name="username" id="m_email" value='<c:out value="${insertedEmail}"></c:out>'>
+					<input type="text" class="form-control" placeholder="이메일" name="username" id="m_email" value='<c:out value="${error.insertedEmail}"></c:out>'>
 					<div id="w_email" class="warning">
 					</div>
 				</div>
@@ -49,11 +49,11 @@
 				
 				<!-- authentication failed message area -->
 				<div id="auth_warning" class="warning text-center">
-					<c:if test="${msg ne null}">
-				
-						${msg}
 					
-					</c:if>
+				
+						${error.msg}
+					
+				
 				</div>
 				
 				
@@ -73,6 +73,8 @@
 	
 	</div>
 </div>
+
+<h1></h1>
 
 <%@include file="/WEB-INF/views/layout/footer.jsp" %>
 <%@include file="/WEB-INF/views/member/pageset/loginformpageset.jsp" %>

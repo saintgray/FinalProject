@@ -10,7 +10,7 @@
  	</insert>
  	
  	<select id="getReplyByQnaIdx" resultType="com.alj.dream.reply.domain.ReplyInfo">
- 		SELECT reply_idx, reply_regdate, ad.admin_nm 
+ 		SELECT reply_idx, date_format(reply_regdate,'%Y-%m-%d') AS reply_regdate, ad.admin_nm 
  		
  	    FROM
  		admin ad JOIN reply re

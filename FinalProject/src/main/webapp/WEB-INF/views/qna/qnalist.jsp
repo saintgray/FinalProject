@@ -19,6 +19,7 @@
 	border-collapse: separate;
 	border-spacing: 0 30px;
 	text-align: center;
+	min-width: 600px;
 }
 .indexes{
 	outline : 1px solid rgb(123,123,123);
@@ -36,6 +37,11 @@
 .pageNum:hover{
 	text-decoration: none;
 }
+#globalwrap{
+	margin-top:150px;
+	
+}
+
 </style>
 <title>QNA</title>
 </head>
@@ -43,104 +49,130 @@
 <div class="gw">
 	<%@ include file="/WEB-INF/views/layout/header.jsp"%>
 	
-	<div class="d-flex flex-column justify-content-center" id="globalwrap">
-	<h1 class="mx-5 banner">1대1문의 리스트</h1>
+	<div id="globalwrap">
+	
+		
 	
 	
-	<table class="mx-auto" id="listTable">
-		
-	<tr class="indexes">
-		<td>번호</td>
-		<td>제목</td>
-		<td>등록일</td>
-	</tr>
-		<c:forEach var="item" items="${pageView.qnaList}">
-		
-			<tr class="my-2 qnaRow">
-				<td><span class="px-5">${item.qna_idx}</span></td>
-				<td colspan="2">
-					<a class="px-5" href="${pageContext.request.contextPath}/qna/content?qna_idx=${item.qna_idx}&selectPage=${param.selectPage}&numOfQnaPerPage=${param.numOfQnaPerPage}">${item.qna_title}</a>
-					<span class="qna_idx d-none">${item.qna_idx}</span>
-				</td>
-				<td><span class="px-5">${item.qna_regdate}</span></td>
-			</tr>
+				<!-- <h1 class="mx-5 banner">1대1문의 리스트</h1> -->
 			
-			<c:if test="${not empty item.replyInfo}">
-				<tr class="mb-5" style="background-color: rgb(210,210,210)">
-					<td>${item.replyInfo.reply_idx}</td>
-					<td>[답변] : ${item.qna_title}</td>
-					<td>${item.replyInfo.reply_regdate}</td>
-					<td>${item.replyInfo.admin_nm}</td>			
-				</tr>
-			</c:if>
+				<div class="d-flex flex-row" style="border-top: 1px solid rgb(195,195,195)">
+						
+						<%@ include file="/WEB-INF/views/layout/aside.jsp" %>
+						
+						
+						<div class="flex-grow-1">
+								<table class="mx-auto" id="listTable">
+									
+								<tr class="indexes">
+									<td>번호</td>
+									<td>제목</td>
+									<td>등록일</td>
+								</tr>
+									<c:forEach var="item" items="${pageView.qnaList}">
+									
+										<tr class="my-2 qnaRow">
+											<td><span class="px-5">${item.qna_idx}</span></td>
+											<td>
+												<a class="px-5" href="${pageContext.request.contextPath}/qna/content?qna_idx=${item.qna_idx}&selectPage=${param.selectPage}&numOfQnaPerPage=${param.numOfQnaPerPage}">${item.qna_title}</a>
+												<span class="qna_idx d-none">${item.qna_idx}</span>
+											</td>
+											<td><span class="px-5">${item.qna_regdate}</span></td>
+										</tr>
+										
+										<c:if test="${not empty item.replyInfo}">
+											<tr style="background-color: rgb(210,210,210)">
+												<td colspan="3">
+													<div class="d-flex flex-row ps-5">
+														<i class="bi bi-arrow-return-right"></i>
+														<span class="d-none">${item.replyInfo.reply_idx}</span>
+														<span class="mx-2"><strong>[답변]</strong> : ${item.qna_title}</span>
+														<span class="mx-2">${item.replyInfo.reply_regdate}</span>
+														<span class="mx-2">${item.replyInfo.admin_nm}</span>
+													</div>
+												</td>
+											</tr>
+										</c:if>
+										
+											
+												
+									</c:forEach>
+								</table>
+							
+								<!-- 페이지 숫자 출력 영역 --------------------------------------------------- -->
+								
+								<div class="d-flex justify-content-center my-5">
+								
+									<c:if test="${pageView.curPageIndex gt 0}">
+										<i class="bi bi-caret-left pageswip" id="prev"></i>
+									</c:if>
+									
+									<c:forEach begin="${pageView.numOfPagePerPage*(pageView.curPageIndex)+1}" end="${(pageView.numOfPagePerPage*(pageView.curPageIndex)+1)+(pageView.numOfPagePerPage-1)}" var="pnum">
+									
+										<c:if test="${pnum le pageView.totalPage}">
+											<c:if test="${pnum eq pageView.selectPage}">
+												<span class="mx-2 pageNum btn btn-warning">${pnum}</span>
+											</c:if>
+											<c:if test="${pnum ne pageView.selectPage}">
+												<a class="mx-2 pageNum btn btn-grey" href="${pageContext.request.contextPath}/qna/list?selectPage=${pnum}&numOfQnaPerPage=5">${pnum}</a>
+											</c:if>
+										</c:if>
+										
+									</c:forEach>
+									
+									
+									<fmt:parseNumber var="index" integerOnly="true" value="${pageView.totalPage/10}"/>
+									<c:if test="${pageView.curPageIndex lt index}">
+										<i class="bi bi-caret-right pageswip" id="next"></i>
+									</c:if>
+								
+								
+								</div>
+								
+						</div>
 			
-				
-					
-		</c:forEach>
-	</table>
-	
-		<!-- 페이지 숫자 출력 영역 ----------------------------------------------------->
-		
-		<div class="d-flex justify-content-center my-5">
-		
-			<c:if test="${pageView.curPageIndex gt 0}">
-				<i class="bi bi-caret-left pageswip" id="prev"></i>
-			</c:if>
-			
-			<c:forEach begin="${pageView.numOfPagePerPage*(pageView.curPageIndex)+1}" end="${(pageView.numOfPagePerPage*(pageView.curPageIndex)+1)+(pageView.numOfPagePerPage-1)}" var="pnum">
-			
-				<c:if test="${pnum le pageView.totalPage}">
-					<c:if test="${pnum eq pageView.selectPage}">
-						<span class="mx-2 pageNum btn btn-warning">${pnum}</span>
-					</c:if>
-					<c:if test="${pnum ne pageView.selectPage}">
-						<a class="mx-2 pageNum btn btn-grey" href="${pageContext.request.contextPath}/qna/list?selectPage=${pnum}&numOfQnaPerPage=5">${pnum}</a>
-					</c:if>
-				</c:if>
-				
-			</c:forEach>
-			
-			
-			<fmt:parseNumber var="index" integerOnly="true" value="${pageView.totalPage/10}"/>
-			<c:if test="${pageView.curPageIndex lt index}">
-				<i class="bi bi-caret-right pageswip" id="next"></i>
-			</c:if>
-		
-		
-		</div>
-		
-		<!--------------------------------------------------------------------->
-		
+				</div>	
 		
 	</div>
+
+
 
 </div>
 <%@ include file="/WEB-INF/views/layout/footer.jsp"%>
 </body>
 
 <script>
-	$('#prev').on('click',function(){
+	$(document).ready(function(){
 		
-		if(${pageView.curPageIndex}>0){
-			var selectPage=${pageView.numOfPagePerPage*(pageView.curPageIndex-1)+1};
+		$('#sm_qna').css('color','#FCA106');
+		
+		
+		$('#prev').on('click',function(){
 			
-			location.href='${pageContext.request.contextPath}/qna/list?selectPage='+selectPage+'&numOfQnaPerPage=5';	
-		}
+			if(${pageView.curPageIndex}>0){
+				let selectPage=${pageView.numOfPagePerPage*(pageView.curPageIndex-1)+1};
+				
+				location.href='${pageContext.request.contextPath}/qna/list?selectPage='+selectPage+'&numOfQnaPerPage=5';	
+			}
+				
+		})
+		
+		
+		$('#next').on('click',function(){
 			
-	})
-	
-	
-	$('#next').on('click',function(){
-		
-		//console.log(Math.floor(${pageView.totalPage/10}));
-		//console.log(${pageView.curPageIndex});
-		if(Math.floor(${pageView.totalPage/10}) > ${pageView.curPageIndex}){
-			var selectPage=${pageView.numOfPagePerPage*(pageView.curPageIndex+1)+1};
-			location.href='${pageContext.request.contextPath}/qna/list?selectPage='+selectPage+'&numOfQnaPerPage=5';	
-		}
+			//console.log(Math.floor(${pageView.totalPage/10}));
+			//console.log(${pageView.curPageIndex});
+			if(Math.floor(${pageView.totalPage/10}) > ${pageView.curPageIndex}){
+				let selectPage=${pageView.numOfPagePerPage*(pageView.curPageIndex+1)+1};
+				location.href='${pageContext.request.contextPath}/qna/list?selectPage='+selectPage+'&numOfQnaPerPage=5';	
+			}
+			
+			
+		})
 		
 		
 	})
+
 
 
 </script>

@@ -24,12 +24,14 @@
 }
 
 #globalwrap {
-	height: 100%;
+	
+	margin-top:150px;
+	
 }
 
 .indexes {
-	outline: 1px solid rgb(123, 123, 123);
-	background: rgb(197, 197, 197);
+	outline: 1px solid rgb(150, 150, 150);
+	background-color: rgb(197, 197, 197);
 }
 
 #noticesearch {
@@ -71,14 +73,13 @@
 		${param.selectPage}
 		 --%>
 
-		<div class="d-flex flex-column junity-content-center my-4"
-			id="globalwrap">
+		<div id="globalwrap" style="border-top: 1px solid rgb(195,195,195)">
 
 
 
 
 
-			<h1 class="mx-5 banner">공지사항 리스트</h1>
+			
 
 
 			<div class="d-flex flex-row justify-content-start">
@@ -150,15 +151,19 @@
 		</div>
 	</div>
 
-	<%@ include file="/WEB-INF/views/layout/footer.jsp"%>
+<%@ include file="/WEB-INF/views/layout/footer.jsp"%>
+
+<c:set var="admin_idx">
+	<sec:authentication property="principal.admin_idx"/>
+</c:set>
+<c:if test="${not empty admin_idx}">
+	<%@ include file="/WEB-INF/views/notice/noticepageset/adminnoticemainpageset.jsp" %>
+</c:if>
+
+<%@ include file="/WEB-INF/views/notice/noticepageset/noticemainpageset.jsp" %>
+
+
 </body>
-<script>
-	$('#regnoticebtn')
-			.on(
-					'click',
-					function() {
-						location.href = "${pageContext.request.contextPath}/admin/notice/register?selectPage=${param.selectPage}&numOfNoticesPerPage=${param.numOfNoticesPerPage}";
-					})
-</script>
+
 
 </html>

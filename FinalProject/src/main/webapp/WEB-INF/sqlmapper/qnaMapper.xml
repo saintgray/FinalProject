@@ -23,7 +23,7 @@
 
 
 	<select id="getQnaList" resultType="com.alj.dream.qna.domain.Qna" parameterType="com.alj.dream.qna.domain.PageRequest">
-		SELECT qna_idx, qna_title, qna_regdate
+		SELECT qna_idx, qna_title, date_format(qna_regdate, '%Y-%m-%d') AS qna_regdate
 		FROM qna q1
 		WHERE q1.qna_deldate is null 
 		<if test="m_idx==null">

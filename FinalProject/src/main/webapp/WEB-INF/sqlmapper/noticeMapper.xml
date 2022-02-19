@@ -7,7 +7,7 @@
  
  
  	<select id="getNoticeList" resultType="com.alj.dream.notice.domain.Notice">
- 		SELECT notice_idx, notice_title, notice_regdate 
+ 		SELECT notice_idx, notice_title, date_format(notice_regdate,'%Y-%m-%d') as notice_regdate 
  		FROM notice
  		WHERE
  		notice_deldate is null

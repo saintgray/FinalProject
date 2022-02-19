@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <style>
 #sidemenu{
-	margin-top: 30px;
+	padding-top: 30px;
 	min-width:200px;
     border-right: 1px solid rgb(197,197,197);
 }
@@ -12,6 +12,8 @@
 }
 #sidemenu a{
 	cursor: pointer;
+	text-decoration: none;
+	
 }
 
 
@@ -33,9 +35,9 @@
 	<ul class="pe-2 mt-5  text-center" id="sidemenulist">
 
 
-		<li class="my-4"><a>공지사항</a></li>
-		<li class="my-4"><a>1:1 문의</a></li>
-		<li class="my-4"><a>FAQ</a></li>
+		<li class="my-4"><a id="sm_ntc" href="${pageContext.request.contextPath}/notice">공지사항</a></li>
+		<li class="my-4"><a id="sm_qna" href="${pageContext.request.contextPath}/qna/list">1:1 문의</a></li>
+		<li class="my-4"><a id="sm_faq">FAQ</a></li>
 
 
 	</ul>
