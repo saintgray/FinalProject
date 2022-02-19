@@ -62,12 +62,12 @@ public class ProfileRegisterController {
 	
 
 		int result=0;
-		int fileUploadResult=0;
+		
 		
 		try {
 			result=profileService.insertProfile(data);
 			if(result>0) {
-				fileUploadResult=fileServie.insertAttachFile(req, data);
+				fileServie.insertAttachFile(req, data);
 			}
 			
 		}catch(Exception e){

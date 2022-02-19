@@ -14,7 +14,6 @@ import com.alj.dream.member.dao.MemberDao;
 import com.alj.dream.member.domain.Emailinfos;
 import com.alj.dream.member.domain.RegisterInfo;
 import com.alj.dream.member.exception.MemberExistException;
-import com.alj.dream.util.file.UploadFileUtil;
 import com.alj.dream.util.mail.EMailUtil;
 
 @Service

@@ -3,7 +3,6 @@ package com.alj.dream.interest.dao;
 import java.util.List;
 
 import com.alj.dream.category.domain.ChildCategory;
-import com.alj.dream.interest.domain.Interest;
 
 
 public interface InterestDao {

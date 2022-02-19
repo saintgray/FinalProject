@@ -7,11 +7,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.alj.dream.category.domain.CategoryRequested;
-import com.alj.dream.interest.domain.Interest;
 import com.alj.dream.interest.service.EditInterestService;
 
 import security.AccountDetails;

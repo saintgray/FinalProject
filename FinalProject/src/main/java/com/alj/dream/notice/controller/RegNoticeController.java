@@ -11,8 +11,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.alj.dream.notice.domain.NoticeRegisterData;
 import com.alj.dream.notice.service.RegNoticeService;
 
-import security.AccountDetails;
-
 @Controller
 @RequestMapping("/admin/notice/register")
 public class RegNoticeController {
