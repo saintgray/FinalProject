@@ -11,8 +11,10 @@ public class PageRequest {
 	
 	
 	public PageRequest() {
+		this.selectPage=1;
 		this.curPageIndex=-1;
 		this.numOfPagePerPage=10;
+		this.numOfQnaPerPage=5;
 		
 	}
 	

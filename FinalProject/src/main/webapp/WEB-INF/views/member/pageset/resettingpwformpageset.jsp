@@ -34,7 +34,7 @@ $(document).ready(function(){
 				
 				//console.log($('#newPw').val());
 				formData.append('newPw',$('#newPw').val());
-				formData.append('keycode','${param.keycode}');
+				formData.append('keycode','${keycode}');
 				
 				$.ajax({
 					url:'${pageContext.request.contextPath}/resettingpassword',

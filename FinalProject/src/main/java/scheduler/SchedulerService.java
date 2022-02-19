@@ -62,4 +62,7 @@ public class SchedulerService{
 		
 		
 	}
+	
+	
+	// 2) tempcode 만료 설정
 }

@@ -1,6 +1,7 @@
 package security;
 
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.Iterator;
 
 import javax.servlet.ServletException;
@@ -17,7 +18,6 @@ import org.springframework.security.web.RedirectStrategy;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
 import org.springframework.security.web.savedrequest.RequestCache;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
 public class LoginSuccessHandler implements AuthenticationSuccessHandler {
@@ -29,6 +29,8 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 	@Override
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
 			Authentication authentication) throws IOException, ServletException {
+		
+		
 		AccountDetails logininfo= (AccountDetails)	authentication.getPrincipal();
 		
 		Iterator<GrantedAuthority> itr= logininfo.getAuthorities().iterator();
@@ -39,6 +41,7 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 		
 		
 		String redirectUrl="/";
+		String msg=null;
 		
 		
 		
@@ -68,6 +71,9 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 			
 			if(logininfo.getM_quitdate()!=null) {
 				System.out.println("called by loginsuccessHandler >> 탈퇴한 유저입니다");
+				msg="*탈퇴한 계정으로는 로그인 할 수 없습니다";
+				msg=URLEncoder.encode(msg, "UTF-8");
+				
 				// 세션 무효화
 				request.getSession().invalidate();
 				// 쿠키삭제
@@ -92,7 +98,7 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 				
 				String quit="Y";
 				String insertedEmail=logininfo.getUsername();
-				redirectUrl="/member/loginform?quit=".concat(quit).concat("&insertedEmail=".concat(insertedEmail));
+				redirectUrl="/loginfailed?msg=".concat(msg).concat("&insertedEmail=".concat(insertedEmail));
 				
 				
 
