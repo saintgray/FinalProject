@@ -8,6 +8,16 @@
  	<insert id="insertReply" parameterType="com.alj.dream.reply.domain.ReplyRegisterData">
  		insert into reply(reply_content, m_idx, admin_idx, qna_idx) values (#{reply_content}, #{m_idx}, #{admin_idx}, #{qna_idx})
  	</insert>
+ 	
+ 	<select id="getReplyByQnaIdx" resultType="com.alj.dream.reply.domain.ReplyInfo">
+ 		SELECT reply_idx, reply_regdate, ad.admin_nm 
+ 		
+ 	    FROM
+ 		admin ad JOIN reply re
+ 		ON
+ 		ad.admin_idx=re.admin_idx
+ 		WHERE re.qna_idx=#{arg0}
+ 	</select>
  		
  		
  </mapper>

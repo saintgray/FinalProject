@@ -39,6 +39,8 @@ public class MemberListService {
 	System.out.println(pagereq.getSelectPage());
 	System.out.println(pagereq.getBlacklisted());
 	System.out.println(pagereq.getSearchType());
+	System.out.println(pagereq.getSortType());
+	System.out.println(pagereq.getSortBy());
 	
 	
 	List<MemberInfo> list = sst.getMapper(MemberDao.class).getMemberList(pagereq);
@@ -57,6 +59,11 @@ public class MemberListService {
 							   numOfMemberPerPage,
 							   selectPage,
 							   searchType,
+							   pagereq.getKeyword(),
+							   pagereq.getBlacklisted(),
+							   pagereq.getSortBy(),
+							   pagereq.getSortType(),
+							  
 							   list);
 		return pageView;
 	}

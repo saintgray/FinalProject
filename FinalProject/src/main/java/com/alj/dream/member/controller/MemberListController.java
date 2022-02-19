@@ -22,8 +22,12 @@ public class MemberListController {
 	public String showMemberPage(HttpServletRequest request, PageRequest pageReq) {
 		System.out.println("selectPage>>>");
 		System.out.println(pageReq.getSelectPage());
-		request.setAttribute("member", memberListService.getMemberList(pageReq));
 		
+		try {
+			request.setAttribute("member", memberListService.getMemberList(pageReq));
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
 		
 		return "admin/member/membermain";
 		

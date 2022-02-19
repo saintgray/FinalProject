@@ -8,28 +8,34 @@ public class PageRequest {
 	private int firstMemberIndexOfSelectedPage;
 	private String searchType;
 	private String keyword;
-	
+	private String sortType;
+	private String sortBy;
 	
 	
 	
 	public PageRequest() {
 		
-		searchType="all";
+		this.sortType="m_regdate";
+		this.sortBy="desc";
+		this.searchType="all";
+		this.keyword="";
+		this.blacklisted="N";
+		
 	}
 
 
 
-
 	public PageRequest(int selectPage, int numOfMemberPerPage, String blacklisted, int firstMemberIndexOfSelectedPage,
-			String searchType, String keyword) {
+			String searchType, String keyword, String sortType, String sortBy) {
 		this.selectPage = selectPage;
 		this.numOfMemberPerPage = numOfMemberPerPage;
 		this.blacklisted = blacklisted;
 		this.firstMemberIndexOfSelectedPage = firstMemberIndexOfSelectedPage;
 		this.searchType = searchType;
 		this.keyword = keyword;
+		this.sortType = sortType;
+		this.sortBy = sortBy;
 	}
-
 
 
 
@@ -39,11 +45,9 @@ public class PageRequest {
 
 
 
-
 	public void setSelectPage(int selectPage) {
 		this.selectPage = selectPage;
 	}
-
 
 
 
@@ -53,11 +57,9 @@ public class PageRequest {
 
 
 
-
 	public void setNumOfMemberPerPage(int numOfMemberPerPage) {
 		this.numOfMemberPerPage = numOfMemberPerPage;
 	}
-
 
 
 
@@ -67,11 +69,9 @@ public class PageRequest {
 
 
 
-
 	public void setBlacklisted(String blacklisted) {
 		this.blacklisted = blacklisted;
 	}
-
 
 
 
@@ -81,11 +81,9 @@ public class PageRequest {
 
 
 
-
 	public void setFirstMemberIndexOfSelectedPage(int firstMemberIndexOfSelectedPage) {
 		this.firstMemberIndexOfSelectedPage = firstMemberIndexOfSelectedPage;
 	}
-
 
 
 
@@ -95,11 +93,9 @@ public class PageRequest {
 
 
 
-
 	public void setSearchType(String searchType) {
 		this.searchType = searchType;
 	}
-
 
 
 
@@ -109,17 +105,40 @@ public class PageRequest {
 
 
 
-
 	public void setKeyword(String keyword) {
 		this.keyword = keyword;
 	}
-	
-	
-	
-	
-	
-	
 
+
+
+	public String getSortType() {
+		return sortType;
+	}
+
+
+
+	public void setSortType(String sortType) {
+		this.sortType = sortType;
+	}
+
+
+
+	public String getSortBy() {
+		return sortBy;
+	}
+
+
+
+	public void setSortBy(String sortBy) {
+		this.sortBy = sortBy;
+	}
+
+
+
+	
+	
+	
+	
 
 
 	
