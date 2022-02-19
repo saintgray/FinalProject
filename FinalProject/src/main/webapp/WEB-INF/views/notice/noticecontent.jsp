@@ -42,14 +42,14 @@
 			</c:set>
 			
 			<div class="d-flex flex-row flex-wrap justify-content-center my-5">
-			    <button type="button" class="btn btn-general me-auto" id="listbtn">목록</button>
+			    <button type="button" class="btn btn-general" id="listbtn">목록</button>
 			    
 			    
 			    
 			    
 			    <sec:authorize access="hasRole('ADMIN')">
 				    <c:if test="${admin_idx eq content.admin_idx}">
-				    	<div class="ms-auto">
+				    	<div>
 							<button type="button" class="btn btn-general" id="editbtn">수정</button>
 							<button type="button" class="btn btn-danger" id="delbtn">삭제</button>
 						</div>		
