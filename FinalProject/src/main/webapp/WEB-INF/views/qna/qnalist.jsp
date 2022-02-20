@@ -122,7 +122,11 @@
 									
 									
 									<fmt:parseNumber var="index" integerOnly="true" value="${pageView.totalPage/10}"/>
-									<c:if test="${pageView.curPageIndex lt index}">
+									<fmt:parseNumber var="indexRest" integerOnly="true" value="${pageView.totalPage%10}"/>
+									
+									
+									<c:if test="${((pageView.curPageIndex lt index-1)) or ((indexRest gt 0) and (pageView.curPageIndex+1 eq index))}">
+										
 										<i class="bi bi-caret-right pageswip" id="next"></i>
 									</c:if>
 								
