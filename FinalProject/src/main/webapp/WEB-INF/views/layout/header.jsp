@@ -37,7 +37,8 @@
 	      			<c:set var="type">
 	      				<sec:authentication property="principal.m_type"/>
 	      			</c:set>
-
+						
+						
 	      			
 	      				<span class="inner list" id="mypost" onclick="location.href='${pageContext.request.contextPath}/post/list';">내가 쓴 글</span>
 	      			
