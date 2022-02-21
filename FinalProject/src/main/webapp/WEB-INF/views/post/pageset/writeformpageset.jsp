@@ -92,25 +92,6 @@ function checkExtension(fileName, fileSize){
 	
 }
 
-// 파일업로드 관련 : 업로드 결과 미리보기
-/* function showUploadResult(){
-	
-	
-	if (inputFile[i].type.match('image.*')) { 
-		// 이미지 파일일 경우 미리보기 만들기
-		var filesAmount = inputFile.length; 
-		for (i = 0; i < filesAmount; i++) { 
-			var reader = new FileReader(); 
-			reader.onload = function(event) { 
-				$($.parseHTML('<img>')).attr('src', event.target.result).attr('height', '200px').appendTo($('#filePreview')); 
-				} 
-			reader.readAsDataURL(inputFile[i]); 
-		}
-	} else {
-		// 이미지 파일이 아닐 경우
-	}
-} */
-
 $(document).ready(function(){	
 	
 	$('#content').summernote({
@@ -137,9 +118,10 @@ $(document).ready(function(){
 	// ROOT 카테고리의 인덱스인 30을 넣어 카테고리 검색 초기화
 	selectCategory(30);	
         
-    var formData = new FormData(document.getElementById('writePost'));
-	
+    var formData = new FormData();
+  
 	$("#attachFile").on("change", function(e){
+		
 		console.log(e.target.files);
 		var inputFile = e.target.files;
 		
@@ -147,54 +129,27 @@ $(document).ready(function(){
 		    alert("파일이 없습니다.");
 		    return;
 		}
+				
+		// 이미 등록된 미리보기를 복사한다.
+		if($('#uploadResult ul')){
+			var cloneResult = $('#uploadResult ul').clone();
+		}
+ 		
+		$('#uploadResult').html('<ul class="list-group"></ul>');
 		
+		
+		// 새로 등록한 파일을 attachfiles 에 추가한다.
 		for(var i=0; i<inputFile.length; i++){
 			if(!checkExtension(inputFile[i].name, inputFile[i].size)){
 				return false;
 			}
-			formData.append("fileList", inputFile[i]);
-			
-			// 첨부된 파일 목록으로 보여주기
-
-			
-			if (inputFile[i].type.match('image.*')) { 
-				// 이미지 파일일 경우 미리보기 만들기
-				var filesAmount = inputFile.length; 
-				for (i = 0; i < filesAmount; i++) { 
-					var reader = new FileReader(); 
-					reader.onload = function(event) { 
-						$($.parseHTML('<img>')).attr('src', event.target.result).attr('height', '200px').appendTo($('#filePreview')); 
-						} 
-					reader.readAsDataURL(inputFile[i]); 
-				}
-			} else {
-				// 이미지 파일이 아닐 경우
-			}
+			formData.append("attachfiles", inputFile[i]);
 			
 		}
+		console.log('attachfiles 를 formData 에 추가');
+		console.log('attachfiles:', formData.get('attachfiles'));
 		
-		/*
-		$.ajax({
-			url: '${pageContext.request.contextPath}/post/uploadfile',
-			type: 'post',
-			data: inputFile,
-			
-		});
-		*/
-		
-	});
-
-	$("#submitBtn").on("click", function(e){
-
-		var post_nm = $('#post_nm').val();
-	    var content = $('#content').summernote('code');
-	    /* var cat_idx = $('#cat_idx').val(); */
-	    
-	    formData.set("post_nm", post_nm);
-	    formData.set("post_content", content);
-	    formData.set("cat_idx", cat_idx);
-		
- 		/* key 확인하기 */
+		/* key 확인하기 */
 		for (let key of formData.keys()) {
 			   console.log(key);
 		}
@@ -204,19 +159,154 @@ $(document).ready(function(){
 		      console.log(value);
 		}
 		
+		
+		$.ajax({
+			url: '${pageContext.request.contextPath}/post/uploadfile',
+			type: 'post',
+			data: formData,
+			dataType: 'json',
+			processData: false,
+			contentType: false,
+			success: function(data){
+				console.log(data);
+				
+				var list = $('#uploadResult ul');
+				
+				//$(list).html(cloneResult.html());
+				
+				$(data).each(function(index, items){
+					
+					var listItem = document.createElement('li');
+					var path = '${pageContext.request.contextPath}/resources/files/post/attachfiles/'+items.file_nm+'.'+items.file_exet;
+					
+					var html = '<li class="list-group-item d-flex justify-content-between align-items-center">';
+					
+					if(items.file_exet!='pdf'){
+						html += '<img src="'+path+'">\r\n';
+					}
+					
+					// 파일 이름과 크기
+					html += '<span>'+items.file_originnm+'.'+items.file_exet+' ('+items.file_size+'kb)\r\n';
+					
+					// 파일 삭제를 위한 버튼
+					html += '<button type="button" data-file_nm="'+items.file_nm+'" data-originnm="'+items.file_originnm+'" data-exet="'+items.file_exet+'" data-size="'+items.file_size+'" class="btn btn-warning btn-circle">X</button>\r\n';
+
+					html += '</span>\r\n'
+					html += '</li>';
+					
+					console.log(html);
+					
+					list.append(html);
+					
+				});
+				
+				
+			},
+			error: function(){
+				console.log('통신 오류');
+			}
+		});
+		
+		
+	});
+	
+	// 첨부파일 삭제 이벤트
+	$('#uploadResult').on("click", "button", function(e){
+		console.log('파일 삭제를 시작합니다.');
+		
+		var file_nm = $(this).data('file_nm');
+		var file_exet = $(this).data('exet');
+		var file_originnm = $(this).data('originnm')+'.'+file_exet;
+		
+		console.log('file_nm:', file_nm);
+		console.log('file_exet:', file_exet);
+		console.log('file_originnm:', file_originnm);
+		
+		var targetLi = $(this).closest("li");
+		
+		$.ajax({
+			url: '${pageContext.request.contextPath}/post/deleteFile',
+			type: 'post',
+			data: {file_nm : file_nm, file_exet : file_exet},
+			dataType: 'text',
+			success: function(result){
+				alert(result);
+				targetLi.remove();
+				
+				// attachfiles 에서 제거
+				var attachfiles = formData.getAll('attachfiles');
+				console.log('삭제전:', attachfiles);
+				console.log('삭제대상:', file_originnm);
+				
+				for(var i=0; i<attachfiles.length; i++){
+					console.log(attachfiles[i]);
+					
+					if(attachfiles[i].name === file_originnm){
+						attachfiles.splice(i,1);
+						console.log('삭제');
+						i--;
+					}
+				}
+				
+				console.log('삭제후:', attachfiles);
+				formData.set('attachfiles', attachfiles);
+			}
+		});
+	})
+
+	$("#submitBtn").on("click", function(e){
+
+		// 첨부파일 정보 등록
+		var html='';
+		
+		$('#uploadResult button').each(function(index, items){
+			var file_nm = $(this).data('file_nm');
+			var file_exet = $(this).data('exet');
+			var file_size = $(this).data('size');
+			var file_originnm = $(this).data('originnm');
+			
+			html+='<input type="hidden" name="fileList['+index+'].file_nm" value="'+file_nm+'">\r\n';
+			html+='<input type="hidden" name="fileList['+index+'].post_idx" value="0">\r\n';
+			html+='<input type="hidden" name="fileList['+index+'].file_exet" value="'+file_exet+'">\r\n';
+			html+='<input type="hidden" name="fileList['+index+'].file_size" value="'+file_size+'">\r\n';
+			html+='<input type="hidden" name="fileList['+index+'].file_originnm" value="'+file_originnm+'">\r\n';
+		});
+		
+		$('#uploadResult').append(html);
+		
+		var formObj = new FormData(document.getElementById('writePost'));
+		
+		var post_nm = $('#post_nm').val();
+	    var content = $('#content').summernote('code');
+	    /* var cat_idx = $('#cat_idx').val(); */
+	    
+	    formObj.set("post_nm", post_nm);
+	    formObj.set("post_content", content);
+	    formObj.set("cat_idx", cat_idx);
+		
 		if(!cat_idx>0){
 			alert('분야를 반드시 선택하셔야 합니다.');
 			return;
 		}
 		
+		/* key 확인하기 */
+		for (let key of formObj.keys()) {
+			   console.log(key);
+		}
+
+		/* value 확인하기 */
+		for (let value of formObj.values()) {
+		      console.log(value);
+		}
+		
+		
 		$.ajax({
 			url: '${pageContext.request.contextPath}/post/write',
 			type: 'post',
-			data: formData,
+			data: formObj,
 			success: function(result){
 				
 				console.log(result);
-			
 				if(result.cnt==1){
 					alert('요청글을 등록하였습니다.');
 					location.href='${pageContext.request.contextPath}/post/view?idx='+result.idx;

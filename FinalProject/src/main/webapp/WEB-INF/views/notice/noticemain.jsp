@@ -72,17 +72,20 @@
 		<%--  <%= request.getParameter("selectPage") %>
 		${param.selectPage}
 		 --%>
+	
+		<div id="globalwrap">
 
-		<div id="globalwrap" style="border-top: 1px solid rgb(195,195,195)">
-
-
+			<h1 class="mx-5 banner">
+				<a href="${pageContext.request.contextPath}/notice">공지사항</a>
+			</h1>
 
 
 
 			
 
 
-			<div class="d-flex flex-row justify-content-start">
+			<div class="d-flex flex-row"
+			style="border-top: 1px solid rgb(195,195,195)">
 				<%@ include file="/WEB-INF/views/layout/aside.jsp"%>
 
 
@@ -98,7 +101,7 @@
 							<tr class="my-5">
 								<td><span class="mx-2 px-5">${items.notice_idx}</span></td>
 								<td><a class="mx-2 px-5"
-									href="${pageContext.request.contextPath}/notice/content?notice_idx=${items.notice_idx}&selectPage=${param.selectPage}&numOfNoticesPerPage=${param.numOfNoticesPerPage}">${items.notice_title}</a></td>
+									href="${pageContext.request.contextPath}/notice/content?notice_idx=${items.notice_idx}">${items.notice_title}</a></td>
 								<td><span class="mx-2 px-5">${items.notice_regdate}</span></td>
 							</tr>
 						</c:forEach>

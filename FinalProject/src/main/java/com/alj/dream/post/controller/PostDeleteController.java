@@ -27,7 +27,7 @@ public class PostDeleteController {
 		int file_yn = fileService.getCountFile(post_idx);
 		
 		if(file_yn > 0) {
-			fileService.deletePostFile(post_idx);
+			fileService.deleteFile(post_idx);
 		}
 		
 		return service.deletePost(post_idx);

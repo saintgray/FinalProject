@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.alj.dream.interest.dao.InterestDao;
 import com.alj.dream.member.dao.MemberDao;
 import com.alj.dream.member.domain.Emailinfos;
 import com.alj.dream.member.domain.RegisterInfo;
@@ -84,6 +85,14 @@ public class RegisterService {
 				}
 				
 				insertResult=sqt.getMapper(MemberDao.class).insertMember(infos);
+				
+				if(insertResult==1) {
+					
+					if(infos.getInterest()!=null) {
+						sqt.getMapper(InterestDao.class).registerUserInterest(infos.getInterest(), String.valueOf(infos.getM_idx()));
+					}
+					
+				}
 			
 				
 			

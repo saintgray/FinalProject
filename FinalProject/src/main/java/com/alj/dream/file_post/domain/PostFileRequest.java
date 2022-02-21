@@ -6,14 +6,16 @@ public class PostFileRequest {
 	private int post_idx;
 	private String file_exet;
 	private int file_size;
+	private String file_originnm;
 	
 	public PostFileRequest() {}
 
-	public PostFileRequest(String file_nm, int post_idx, String file_exet, int file_size) {
+	public PostFileRequest(String file_nm, int post_idx, String file_exet, int file_size, String file_originnm) {
 		this.file_nm = file_nm;
 		this.post_idx = post_idx;
 		this.file_exet = file_exet;
 		this.file_size = file_size;
+		this.file_originnm = file_originnm;
 	}
 
 	public String getFile_nm() {
@@ -46,6 +48,20 @@ public class PostFileRequest {
 
 	public void setFile_size(int file_size) {
 		this.file_size = file_size;
+	}
+
+	public String getFile_originnm() {
+		return file_originnm;
+	}
+
+	public void setFile_originnm(String file_originnm) {
+		this.file_originnm = file_originnm;
+	}
+
+	@Override
+	public String toString() {
+		return "PostFileRequest [file_nm=" + file_nm + ", post_idx=" + post_idx + ", file_exet=" + file_exet
+				+ ", file_size=" + file_size + ", file_originnm=" + file_originnm + "]";
 	}
 	
 }

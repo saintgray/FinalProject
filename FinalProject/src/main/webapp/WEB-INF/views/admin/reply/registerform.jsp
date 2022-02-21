@@ -118,7 +118,8 @@
 				})
 				$('#cancelbtn').click(
 						function(){
-							location.href="${pageContext.request.contextPath}/qna/list?selectPage=${param.selectPage}&numOfQnaPerPage=${param.numOfQnaPerPage}";
+							//location.href="${pageContext.request.contextPath}/qna/list?selectPage=${param.selectPage}&numOfQnaPerPage=${param.numOfQnaPerPage}";
+							history.go(-2);
 						})
 		
 		
