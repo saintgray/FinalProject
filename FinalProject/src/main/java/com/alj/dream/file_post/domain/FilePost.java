@@ -8,17 +8,19 @@ public class FilePost {
 	private String file_deldate;
 	private String file_exet;
 	private int file_size;
+	private String file_originnm;
 	
 	public FilePost() {}
 
 	public FilePost(String file_nm, int post_idx, String file_regdate, String file_deldate, String file_exet,
-			int file_size) {
+			int file_size, String file_originnm) {
 		this.file_nm = file_nm;
 		this.post_idx = post_idx;
 		this.file_regdate = file_regdate;
 		this.file_deldate = file_deldate;
 		this.file_exet = file_exet;
 		this.file_size = file_size;
+		this.file_originnm = file_originnm;
 	}
 
 	public String getFile_nm() {
@@ -67,6 +69,14 @@ public class FilePost {
 
 	public void setFile_size(int file_size) {
 		this.file_size = file_size;
+	}
+
+	public String getFile_originnm() {
+		return file_originnm;
+	}
+
+	public void setFile_originnm(String file_originnm) {
+		this.file_originnm = file_originnm;
 	}
 
 }
