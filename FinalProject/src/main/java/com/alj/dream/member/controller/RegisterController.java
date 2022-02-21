@@ -4,7 +4,6 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,7 +11,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.alj.dream.interest.service.RegisterInterestService;
 import com.alj.dream.member.domain.Emailinfos;
 import com.alj.dream.member.domain.RegisterInfo;
 import com.alj.dream.member.exception.MemberExistException;
@@ -23,16 +21,15 @@ import com.alj.dream.member.service.RegisterService;
 public class RegisterController {
 
 	private RegisterService service;
-	private RegisterInterestService interestService;
-
+	
 	public RegisterController() {
 	}
 
 	@Autowired
-	public RegisterController(RegisterService service, RegisterInterestService interestService) {
+	public RegisterController(RegisterService service) {
 
 		this.service = service;
-		this.interestService = interestService;
+		
 	}
 
 	@GetMapping
@@ -45,11 +42,9 @@ public class RegisterController {
 
 	@PostMapping
 	@ResponseBody
-	@Transactional
-//	public String registerMember(@CookieValue("authed") String authed, HttpServletRequest req, Emailinfos email,
 	public String registerMember(HttpServletRequest req, Emailinfos email, RegisterInfo infos, @CookieValue("authed") String authed) {
 		
-//		System.out.println(authed);
+
 
 		String result = null;
 
@@ -61,15 +56,7 @@ public class RegisterController {
 			try {
 				int insertResult = service.insertMember(req, email, infos);
 				if (insertResult == 1) {
-					///////////////////////
-					// 회원의 관심사 InterestCat 테이블에 추가
-
-					interestService.insertInterest(infos);
-
-					///////////////////////
-					// 회원 가입 축하 이메일 전송
-
-					////////////////////
+					
 					result = "REGISTERED";
 				} else {
 					result = "정상적으로 등록되지 않았습니다. 잠시 후 다시 시도하세요";
