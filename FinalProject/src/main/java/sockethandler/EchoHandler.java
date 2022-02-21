@@ -78,7 +78,9 @@ public class EchoHandler extends TextWebSocketHandler {
 		int result = service.insertChat(chat);	// DB에 chat데이터 저장하는 메소드실행
 		System.out.println("service에 저장 확인");
 		
-		//select current_timestamp from dual;
+		String currTime = service.selectCurTime();
+		System.out.println(currTime);
+		String sendTime = currTime.substring(11, 19);
 		
 		
 		WebSocketSession ws = sessionMap.get(recieverIdx); 	// 전달할 세션?
@@ -92,8 +94,6 @@ public class EchoHandler extends TextWebSocketHandler {
 			ws.sendMessage(sendMsg); 	// 상대방에 메세지 전달
 		}
 				
-		
-		
 		// 보낼 때 컨트롤러에서 필요로하는 postidx랑 midx를 보내준다?
 	}
 

@@ -39,4 +39,9 @@
  	</select>
  	
  	
+ 	<select id="selectCurTime"
+ 			resultType="String">
+ 		select current_timestamp from dual;
+ 	</select>
+ 	
 </mapper>

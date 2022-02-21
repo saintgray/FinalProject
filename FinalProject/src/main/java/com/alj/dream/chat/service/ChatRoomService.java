@@ -171,6 +171,16 @@ public class ChatRoomService {
 		return resultCnt;
 		
 	}
+
+
+	public String selectCurTime() {
+		
+		dao= template.getMapper(ChatDao.class);
+		
+		String time = dao.selectCurTime();
+		
+		return time;
+	}
 	
 	
 }

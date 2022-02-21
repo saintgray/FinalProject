@@ -43,6 +43,20 @@
 		color : white;
 	}
 	
+	.chattingBox{
+	margin-top : 30px;
+	border-bottom : 1px gray;
+	padding: 35px;
+	width: 100%;
+	height: 60%;
+	overflow: scroll;
+	}
+	
+	.chattingBox::-webkit-scrollbar { 
+	    display: none; 
+	}
+	
+	
 	.m_photo{
 		width:40px;
 		height:40px;
@@ -201,7 +215,7 @@ matchyn : ${match.match_yn}
 	
 	<!-- 후기쓰기 -->
 	<!-- 기능미완 -->
-	<button type="button" data-bs-target="#reviewform" data-bs-toggle="modal" id="review" disabled>후기 쓰기</button>
+	<button type="button" onclick="review()" id="review" >후기 쓰기</button>
 	<!-- class="${not(match.match_yn eq 'Y' && unmatchYN eq 'N')? 'true': ''}" -->
 <!-- chatRoom의 Body--------------------------------------------------------------------------------------------- -->
 
@@ -379,7 +393,7 @@ matchyn : ${match.match_yn}
 		      
 		      <div class="modal-footer">
 		      	<button type="button" class="btn btn-danger" data-bs-dismiss="modal" id="regReview" >등록하기</button>
-		        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">삭제하기</button>
+		        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소하기</button>
 		      </div>
 		    </div>
 		  </div>
@@ -449,17 +463,6 @@ matchyn : ${match.match_yn}
 <!-- --------------------------------------------------------------------------------------------------------------------------- -->
 <script>
 
-	//var matchdate = ${match.match_date};
-	
-	// 리뷰후기 클릭가능하도록하는것...
-	// 테스트완료
-	     window.onload = function ableReview(${match.match_yn},${unmatchYN}) {
-	    
-		if(${match.match_yn == 'Y' && unmatchYN == 'N'}){
-			$('#review').removeAttr('disabled');
-		}
-    } 
-	
 	  
 	$(document).ready(function(){
 		 	
@@ -569,6 +572,17 @@ matchyn : ${match.match_yn}
 			});
 		
 		
+		// 리뷰버튼 눌렀을 때
+		function review(){
+			
+			if(!((${match.match_yn eq 'Y'}) && (${unmatchYN eq 'N'}))){
+				alert('후기 등록은 매칭일 3일이 지나고부터 가능합니다.');
+			}else{
+				$('#reviewform').modal('show');
+			}
+		}
+
+		
 		// 리뷰 등록시
 		 $('#regReview').on('click',function(){
 			var rating = $('#rate:checked').val();
@@ -597,6 +611,8 @@ matchyn : ${match.match_yn}
 				}
 			})
 		})
+		
+		
 		
 		
 		// 신고접수를 눌렀을 시
@@ -685,7 +701,7 @@ matchyn : ${match.match_yn}
 		
 		// 현재 세션아이디 //	
 		var currentuser_session = ${myidx};					//$('#sessionuserid').val();		// ${myidx}시도해보기
-		var recievernm = ${recieverInfo.m_nm};
+		var recievernm = '${recieverInfo.m_nm}';
 		
 		console.log('current session id: ' + currentuser_session);
 		
@@ -701,7 +717,7 @@ matchyn : ${match.match_yn}
 				$('#chatBox').append(printHTML);
 			} else {
 				var printHTML = "<div class='well text_left'>";
-				printHTML += "<span id='recieverphoto'>상대방사진</span>";
+				printHTML += "<span id='recieverphoto'><img src="${pageContext.request.contextPath}/resources/files/member/${recieverInfo.m_photo}" class="m_photo"></span>";
 				printHTML += "<span id='recievermsg' class='rounded-pill'>" + recievernm + "-> " + msgData.message +"</span>";
 				printHTML += "<span>"+msgData.sent+"</span>";
 				printHTML += "</div>";
@@ -720,7 +736,8 @@ matchyn : ${match.match_yn}
 	function onError(err){
 		console.log('Error:', err);
 	};
-
+	
+	
 	
 
 </script>
