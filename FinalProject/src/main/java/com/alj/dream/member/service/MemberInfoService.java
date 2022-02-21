@@ -18,7 +18,7 @@ public class MemberInfoService {
 		
 		memberInfo=sst.getMapper(MemberDao.class).getMemberInfo(m_idx);
 		
-		memberInfo.setReportList(sst.getMapper(ReportDao.class).getReportListByIdx(m_idx));
+		
 		
 		
 		return memberInfo;

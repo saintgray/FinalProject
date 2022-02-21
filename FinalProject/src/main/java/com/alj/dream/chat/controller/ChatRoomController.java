@@ -15,7 +15,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.alj.dream.chat.domain.Chat;
 import com.alj.dream.chat.service.ChatRoomService;
-import com.alj.dream.match.service.MatchChkService;
 
 
 @Controller
@@ -26,7 +25,6 @@ public class ChatRoomController {
 	
 	// 채팅방으로 입장했을 때 : 필요한 데이터 보내주기
 	@RequestMapping(value="/chat/chatroom", method=RequestMethod.GET)
-	@ResponseBody
 	public ModelAndView intoChat(
 			ModelAndView mv,
 			@RequestParam("myidx") int myIdx,
@@ -49,11 +47,34 @@ public class ChatRoomController {
 		mv.addObject("match", service.getMatch(matchidx));
 		
 		// 채팅데이터를 확인해봐서 데이터가 있다면 가져온다.(채팅방 입장시, 채팅했던 메세지들이 출력할 수 있도록)
-		mv.addObject("chatlist", service.getChat(myIdx,matchidx,reciever));
 		
+		// 종현 수정 // getChat 메소드는 matchidx 파라미터만 필요하므로 쓸모없는 파라미터를 보내지 않습니다 
+		
+		// mv.addObject("chatlist", service.getChat(myIdx,matchidx,reciever));
+		mv.addObject("chatlist", service.getChat(matchidx));
 		System.out.println("return mv 하기 전");
 		
 		return mv;
+	}
+	
+	
+	// 종현 : 채팅 메세지들 가져오기
+	@GetMapping("/chat/room/{matchidx}")
+	@ResponseBody
+	public List<Chat> getChatList(@RequestParam String matchidx){
+		
+		
+				
+		System.out.println("getChatList()...");
+		
+		List<Chat> chatHistory=null;
+		try {
+		   chatHistory=service.getChat(Integer.parseInt(matchidx));
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return chatHistory;
 	}
 	
 	

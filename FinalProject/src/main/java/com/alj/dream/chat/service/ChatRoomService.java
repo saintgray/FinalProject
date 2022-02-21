@@ -21,7 +21,7 @@ public class ChatRoomService {
 	private SqlSessionTemplate template;
 	
 	// DB에 채팅데이터 가져오기(이전대화)
-	public List<Chat> getChat(int myIdx, int matchidx, int reciever) {
+	public List<Chat> getChat(int matchidx) {
 		
 		dao = template.getMapper(ChatDao.class);
 		

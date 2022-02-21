@@ -114,7 +114,7 @@
 										src="${pageContext.request.contextPath}/resources/files/member/${item.m_photo}"></td>
 									<td><span class="mx-2">${item.m_idx}</span></td>
 									<td><a class="mx-2 justify-content-center"
-										href="${pageContext.request.contextPath}/admin/member/info?m_idx=${item.m_idx}&selectPage=${param.selectPage}&numOfMemberPerPage=${param.numOfMemberPerPage}">${item.m_email}</a></td>
+										href="${pageContext.request.contextPath}/admin/member/info?m_idx=${item.m_idx}">${item.m_email}</a></td>
 									<td><span class="mx-2">${item.m_nm}</span></td>
 									<td><span class="mx-2 subinfo">${item.m_regdate}</span></td>
 									<td><span class="mx-2 subinfo">${item.m_quitdate}</span></td>
@@ -188,7 +188,6 @@
 			<input type="text" name="sortType" value="${member.sortType}"> 
 			<input type="text" name="sortBy" value="${member.sortBy}">
 			<input type="text" name="blacklisted" value="${member.blacklisted}">
-
 		</form>
 	</div>
 	<%@ include file="/WEB-INF/views/layout/footer.jsp"%>

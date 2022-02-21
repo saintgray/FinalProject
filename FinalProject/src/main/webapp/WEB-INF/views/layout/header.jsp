@@ -39,13 +39,15 @@
 	      			</c:set>
 						
 						
-	      			
-	      				<span class="inner list" id="mypost" onclick="location.href='${pageContext.request.contextPath}/post/list';">내가 쓴 글</span>
-	      			
-	      				<span class="inner list" id="request">받은 제의</span>
+	      				<sec:authorize access="hasRole('GENERAL')">
 	      				
-	      				<span class="inner list" id="chat">채팅</span>
-	      				
+		      				<span class="inner list" id="mypost" onclick="location.href='${pageContext.request.contextPath}/post/list';">내가 쓴 글</span>
+		      			
+		      				<span class="inner list" id="request">받은 제의</span>
+		      				
+		      				<span class="inner list" id="chat">채팅</span>
+		      				
+	      				</sec:authorize>
 	      				
 	      				<img src='${pageContext.request.contextPath}/resources/files/member/<sec:authentication property="principal.photo"/>' id="myPhoto" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expended="false">
 	      				

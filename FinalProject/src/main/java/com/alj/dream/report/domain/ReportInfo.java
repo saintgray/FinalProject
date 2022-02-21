@@ -2,46 +2,87 @@ package com.alj.dream.report.domain;
 
 public class ReportInfo {
 	
-	// member 테이블에 있음
-	private String m_nm;
-	// report 테이블에 있음
+	private String match_idx;
+	private String m_email;
+	private String m_photo;
 	private String report_content;
-	// chat 테이블에 있음
-	private String message;
-
+	private String m_report;
+	
+	
 	public ReportInfo() {
-		// TODO Auto-generated constructor stub
+		
 	}
 
-	public ReportInfo(String m_nm, String report_content, String message) {
-		this.m_nm = m_nm;
+
+	public ReportInfo(String match_idx, String m_email, String m_photo, String report_content, String m_report) {
+		this.match_idx = match_idx;
+		this.m_email = m_email;
+		this.m_photo = m_photo;
 		this.report_content = report_content;
-		this.message = message;
+		this.m_report = m_report;
 	}
 
-	public String getM_nm() {
-		return m_nm;
+
+	public String getMatch_idx() {
+		return match_idx;
 	}
 
-	public void setM_nm(String m_nm) {
-		this.m_nm = m_nm;
+
+	public void setMatch_idx(String match_idx) {
+		this.match_idx = match_idx;
 	}
+
+
+	public String getM_email() {
+		return m_email;
+	}
+
+
+	public void setM_email(String m_email) {
+		this.m_email = m_email;
+	}
+
+
+	public String getM_photo() {
+		return m_photo;
+	}
+
+
+	public void setM_photo(String m_photo) {
+		this.m_photo = m_photo;
+	}
+
 
 	public String getReport_content() {
 		return report_content;
 	}
 
+
 	public void setReport_content(String report_content) {
 		this.report_content = report_content;
 	}
 
-	public String getMessage() {
-		return message;
+
+	public String getM_report() {
+		return m_report;
 	}
 
-	public void setMessage(String message) {
-		this.message = message;
+
+	public void setM_report(String m_report) {
+		this.m_report = m_report;
 	}
+
+
+	
+	
+	
+	
+	
+
+	
+	
+	
+	
 	
 	
 	
