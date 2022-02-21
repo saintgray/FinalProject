@@ -91,7 +91,8 @@ $(document).ready(function(){
 				if(data==1){
 					alert('정상적으로 수정되었습니다');
 					
-					location.href="${pageContext.request.contextPath}/notice/content?notice_idx=${noticeContent.notice_idx}&selectPage=${param.selectPage}&numOfNoticesPerPage=${param.numOfNoticesPerPage}";
+					//location.href="${pageContext.request.contextPath}/notice/content?notice_idx=${noticeContent.notice_idx}&selectPage=${param.selectPage}&numOfNoticesPerPage=${param.numOfNoticesPerPage}";
+					history.go(-2);
 				}else{
 					alert('오류가 발생하였습니다. 잠시 후 다시 시도하세요');
 				}
@@ -104,7 +105,8 @@ $(document).ready(function(){
 	
 	$('#cancelbtn').click(
 	      	function(){
-	      	location.href="${pageContext.request.contextPath}/notice?selectPage=${param.selectPage}&numOfNoticesPerPage=${param.numOfNoticesPerPage}";
+	      	//location.href="${pageContext.request.contextPath}/notice?selectPage=${param.selectPage}&numOfNoticesPerPage=${param.numOfNoticesPerPage}";
+	      	history.go(-2);
 	      	});
 })
 </script>

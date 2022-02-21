@@ -74,7 +74,7 @@
 										<tr class="my-2 qnaRow">
 											<td><span class="px-5">${item.qna_idx}</span></td>
 											<td>
-												<a class="px-5" href="${pageContext.request.contextPath}/qna/content?qna_idx=${item.qna_idx}&selectPage=${param.selectPage}&numOfQnaPerPage=${param.numOfQnaPerPage}">${item.qna_title}</a>
+												<a class="px-5" href="${pageContext.request.contextPath}/qna/content?qna_idx=${item.qna_idx}">${item.qna_title}</a>
 												<span class="qna_idx d-none">${item.qna_idx}</span>
 											</td>
 											<td><span class="px-5">${item.qna_regdate}</span></td>
