@@ -14,7 +14,7 @@ public class MemberInfo {
 	private String m_quitdate;
 	private String m_blacklist;
 	private String reportCount;
-	private List<ReportInfo> reportList;
+	
 	
 	
 	public MemberInfo() {
@@ -22,8 +22,10 @@ public class MemberInfo {
 	}
 
 
+	
+
 	public MemberInfo(String m_idx, String m_email, String m_nm, String m_photo, String m_regdate, String m_quitdate,
-			String m_blacklist, String reportCount, List<ReportInfo> reportList) {
+			String m_blacklist, String reportCount) {
 		this.m_idx = m_idx;
 		this.m_email = m_email;
 		this.m_nm = m_nm;
@@ -32,8 +34,9 @@ public class MemberInfo {
 		this.m_quitdate = m_quitdate;
 		this.m_blacklist = m_blacklist;
 		this.reportCount = reportCount;
-		this.reportList = reportList;
 	}
+
+
 
 
 	public String getM_idx() {
@@ -116,15 +119,6 @@ public class MemberInfo {
 	}
 
 
-	public List<ReportInfo> getReportList() {
-		return reportList;
-	}
-
-
-	public void setReportList(List<ReportInfo> reportList) {
-		this.reportList = reportList;
-	}
-	
 	
 	
 	
