@@ -152,10 +152,10 @@ $(document).ready(function(){
 				wanted: wanted
 			},
 			success : function(data){
-				alert('매칭 생성');
-				location.href="${pageContext.request.contextPath}/post/view?idx="+postidx;
+				
+				//location.href="${pageContext.request.contextPath}/post/view?idx="+postidx;
 				// 전송에 성공하면 실행될 코드
-				if(data==0){	// 테이블이 이미 있다는 뜻 = 문의를 했던 글이라는 뜻
+				if(data==1){	// 테이블이 이미 있다는 뜻 = 문의를 했던 글이라는 뜻
 					alert('이미 문의한 게시글입니다. 내 채팅목록을 확인해주세요!');
 				} else {
 					setMatchidx(data);
@@ -171,7 +171,15 @@ $(document).ready(function(){
 		});
 		
 	})
-});
+	
+	
+	
+	
+	
+	
+	
+	
+})
 </script>
 
 </body>
