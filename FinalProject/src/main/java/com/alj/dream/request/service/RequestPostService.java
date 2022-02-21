@@ -39,7 +39,8 @@ public class RequestPostService {
 		
 		
 		//postidx에 맞는멤버리스트 가져오기
-		memList = dao.selectRequestMemberByPostIdx(postIdx);
+		// 종현 수정
+		memList = dao.selectRequestMemberByPostIdx(postIdx, rgroup.getWanted());
 		System.out.println("memList 정보 :"+ memList);
 		
 		

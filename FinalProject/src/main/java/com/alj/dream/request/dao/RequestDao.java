@@ -11,7 +11,7 @@ public interface RequestDao {
 
 	List<RequestGroup> selectRequestPostByMIdx(int idx, String wanted);
 
-	List<RequestMember> selectRequestMemberByPostIdx(int postidx); 																						
+	List<RequestMember> selectRequestMemberByPostIdx(int postidx, String wanted); 																						
 
 	RequestGroup selectRequestPostByPostIdx(int postidx);
 	
