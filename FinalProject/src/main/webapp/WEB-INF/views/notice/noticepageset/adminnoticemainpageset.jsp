@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <script>
 
-$(documnet).ready(function(){
+$(document).ready(function(){
 	
 	$('#regnoticebtn').on('click',function() {
 		location.href = "${pageContext.request.contextPath}/admin/notice/register?selectPage=${param.selectPage}&numOfNoticesPerPage=${param.numOfNoticesPerPage}";

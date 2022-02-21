@@ -53,7 +53,7 @@
 	width: 500px;
 }
 
-#searchBtn, i{
+#searchBtn, i, #blacklistcolumn{
 	cursor: pointer;
 }
 
