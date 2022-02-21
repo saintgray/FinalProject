@@ -8,21 +8,23 @@
  
  
  
- <select id="getReportListByIdx" resultType="com.alj.dream.report.domain.ReportInfo">
-	 SELECT mem.m_nm, rep.report_content, ch.message
-	 FROM member mem JOIN report rep JOIN chat ch
-	 ON 
-	 mem.m_idx=rep.m_report AND rep.chat_idx=ch.chat_idx
-	 WHERE rep.m_reported=#{arg0};
- </select>
- 
- <insert id="insertReport"
- 		parameterType="com.alj.dream.report.domain.Report"
- 		useGeneratedKeys="true"
-		keyProperty="report_idx">
-		INSERT INTO report (match_idx, report_content, m_report, m_reported)
-		VALUES (#{match_idx}, #{report_content}, #{m_report}, #{m_reported});
- </insert>
- 
+		 <select id="getReportListByIdx" resultType="com.alj.dream.report.domain.ReportInfo">
+		 	SELECT
+		 	mat.match_idx, m2.m_email, m2.m_photo, rep.report_content, rep.m_report
+		 	FROM 
+		 	member m1 JOIN member m2 JOIN report rep JOIN dream.match mat
+		 	ON m2.m_idx=rep.m_report AND m1.m_idx=rep.m_reported AND mat.match_idx=rep.match_idx
+		 	WHERE m1.m_idx=#{arg0}
+		 
+		 </select>
+		 
+		 <insert id="insertReport"
+		 		parameterType="com.alj.dream.report.domain.Report"
+		 		useGeneratedKeys="true"
+				keyProperty="report_idx">
+				INSERT INTO report (match_idx, report_content, m_report, m_reported)
+				VALUES (#{match_idx}, #{report_content}, #{m_report}, #{m_reported});
+		 </insert>
+		 
 </mapper>
 

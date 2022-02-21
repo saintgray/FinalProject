@@ -38,6 +38,15 @@
         $('#myinfo').on('click',function(){
         	location.href="${pageContext.request.contextPath}/member/myinfo"
         })
+        
+        $('#chat').on('click',function(){
+        	location.href="${pageContext.request.contextPath}/chat/chatlist";
+        	
+        })
+        $('#request').on('click',function(){
+        	location.href="${pageContext.request.contextPath}/post/requestgroup";
+        	
+        })
 	
 		
 	})

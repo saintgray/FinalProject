@@ -58,9 +58,13 @@ public class RequestGroupService {
 		
 		while(i<totalPostCount) {
 							
-			int postidx = rgroupList.get(i).getPost_idx();			
-	
-			rmemberList = dao.selectRequestMemberByPostIdx(postidx);	// 게시글 고유번호에 문의한 회원정보를 rmemberList리스트에 add.
+			int postidx = rgroupList.get(i).getPost_idx();
+			// 종현 수정
+			String watned=rgroupList.get(i).getWanted();
+			
+			// 게시글 고유번호에 문의한 회원정보를 rmemberList리스트에 add.
+			// 종현 수정(파라미터추가)
+			rmemberList = dao.selectRequestMemberByPostIdx(postidx, wanted);	
 			
 			rgroupList.get(i).setList(rmemberList);
 			

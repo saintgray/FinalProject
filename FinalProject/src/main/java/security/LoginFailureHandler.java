@@ -1,6 +1,8 @@
 package security;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -65,8 +67,13 @@ public class LoginFailureHandler implements AuthenticationFailureHandler {
 			forwarding="redirect:/";
 			
 		}
-		request.setAttribute("insertedEmail", request.getParameter("username"));
-		request.setAttribute("msg", msg);
+		
+		Map<String,String> info = new HashMap<String, String>();
+		info.put("insertedEmail", request.getParameter("username"));
+		info.put("msg",msg);
+		
+		request.setAttribute("error", info);
+		
 		request.getRequestDispatcher(forwarding).forward(request, response);
 		
 		

@@ -1,6 +1,7 @@
 package com.alj.dream.qna.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,7 +17,7 @@ public class QnaListController {
 	private QnaListService listService;
 	
 	public QnaListController() {
-		// TODO Auto-generated constructor stub
+		
 	}
 	@Autowired
 	public QnaListController(QnaListService listService) {
@@ -24,7 +25,7 @@ public class QnaListController {
 	}
 	
 	@GetMapping
-	public String getQnaList(PageRequest pageReq, Model model) {
+	public String getQnaList(PageRequest pageReq, Model model, Authentication auth) {
 		
 		
 		System.out.println(pageReq.getCurPageIndex());
@@ -34,7 +35,7 @@ public class QnaListController {
 		
 		
 		try {
-			model.addAttribute("pageView", listService.getQnaList(pageReq));
+			model.addAttribute("pageView", listService.getQnaList(pageReq, auth));
 			
 		}catch(Exception e) {
 			e.printStackTrace();

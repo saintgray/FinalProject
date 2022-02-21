@@ -51,11 +51,8 @@
 		
 		
 		    <button type="button" class="btn btn-general" id="listbtn">목록</button>
-		    <button type="button" class="btn btn-danger" id="reportbtn">신고보기</button>
-		   <%--  <c:if test="${m_idx eq memberinfo.m_idx}">
-				<button type="button" class="btn btn-general" id="editbtn">수정</button>
-				<button type="button" class="btn btn-danger" id="delbtn">삭제</button>	
-			</c:if> --%>	
+		    <button type="button" class="btn btn-danger" id="reportbtn">신고처리</button>
+		 
 		
 	</sec:authorize>
 	</div>
@@ -70,12 +67,12 @@
   			$('#listbtn').click(
 		      	function(){
 		      	
-		      	location.href="${pageContext.request.contextPath}/admin/member/list?selectPage=${param.selectPage}&numOfMemberPerPage=${param.numOfMemberPerPage}";
-		      	
+		      	//location.href="${pageContext.request.contextPath}/admin/member/list?selectPage=${param.selectPage}&numOfMemberPerPage=${param.numOfMemberPerPage}";
+		      		history.go(-1);
 		      	});
   			
   			$('#reportbtn').click(function(){
-  				location.href="${pageContext.request.contextPath}/admin/reported/list?m_idx=${memberinfo.m_idx}";
+  				location.href="${pageContext.request.contextPath}/admin/reported/list?m_idx=${param.m_idx}";
   			})
   			 	 
   		})

@@ -62,9 +62,9 @@
 		id="adminMainwrap">
 		
 			<div class="d-flex flex-column flex-wrap managetab">
-				<a href="${pageContext.request.contextPath}/admin/member/list?selectPage=1&numOfMemberPerPage=5">
+				<a href="${pageContext.request.contextPath}/admin/member/list">
 				<img src="${pageContext.request.contextPath}/resources/files/server/icons/adminmember.svg" class="managebtn"/></a>
-				<a class="mx" href="${pageContext.request.contextPath}/admin/member/list?selectPage=1&numOfMemberPerPage=5">회원관리</a>
+				<div class="text-center">회원관리</div>
 			</div>
 		
 		

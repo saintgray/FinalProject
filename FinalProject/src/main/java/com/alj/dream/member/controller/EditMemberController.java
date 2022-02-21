@@ -7,14 +7,11 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.alj.dream.member.domain.EditInfos;
 import com.alj.dream.member.service.EditMemberService;
-
-import security.AccountDetails;
 
 @RestController
 @RequestMapping("/member/info/edit")

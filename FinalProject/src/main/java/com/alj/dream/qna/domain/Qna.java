@@ -1,25 +1,36 @@
 package com.alj.dream.qna.domain;
 
-import java.util.List;
-
-import com.alj.dream.reply.domain.ReplyRegisterData;
+import com.alj.dream.reply.domain.ReplyInfo;
 
 public class Qna {
 	
 	private String qna_idx;
 	private String qna_title;
 	private String qna_regdate;
-	private  List<ReplyRegisterData> list;
+	private ReplyInfo replyInfo;
+
 	
 	public Qna() {
 	}
 
-	public Qna(String qna_idx, String qna_title, String qna_regdate, List<ReplyRegisterData> list) {
+	
+
+
+
+
+
+	public Qna(String qna_idx, String qna_title, String qna_regdate, ReplyInfo replyInfo) {
 		this.qna_idx = qna_idx;
 		this.qna_title = qna_title;
 		this.qna_regdate = qna_regdate;
-		this.list = list;
+		this.replyInfo = replyInfo;
 	}
+
+
+
+
+
+
 
 	public String getQna_idx() {
 		return qna_idx;
@@ -45,13 +56,20 @@ public class Qna {
 		this.qna_regdate = qna_regdate;
 	}
 
-	public List<ReplyRegisterData> getList() {
-		return list;
+	
+
+
+	public ReplyInfo getReplyInfo() {
+		return replyInfo;
 	}
 
-	public void setList(List<ReplyRegisterData> list) {
-		this.list = list;
+
+
+	public void setReplyInfo(ReplyInfo replyInfo) {
+		this.replyInfo = replyInfo;
 	}
+	
+	
 
 	
 	

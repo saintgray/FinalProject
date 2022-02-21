@@ -21,12 +21,14 @@
 		
 			<form action="${pageContext.request.contextPath}/member/login" method="post">
 				
-				<div class="my-4">
-					<input type="text" class="form-control" placeholder="이메일" name="username" id="m_email" value='<c:out value="${insertedEmail}"></c:out>'>
+				<div class="my-4 input-group">
+					<span class="input-group-text" style="background-color: #FFF"><i class="bi bi-person-fill fs-4"></i></span>
+					<input type="text" class="form-control" placeholder="이메일" name="username" id="m_email" value='<c:out value="${error.insertedEmail}"></c:out>'>
 					<div id="w_email" class="warning">
 					</div>
 				</div>
-				<div class="my-4">	
+				<div class="my-4 input-group">	
+					<span class="input-group-text" style="background-color: #FFF"><i class="bi bi-key-fill fs-4"></i></span>
 					<input type="password" class="form-control" placeholder="비밀번호" name="password" id="m_pw">
 					<div id="w_pw" class="warning">
 					</div>
@@ -49,11 +51,11 @@
 				
 				<!-- authentication failed message area -->
 				<div id="auth_warning" class="warning text-center">
-					<c:if test="${msg ne null}">
-				
-						${msg}
 					
-					</c:if>
+				
+						${error.msg}
+					
+				
 				</div>
 				
 				
@@ -73,6 +75,8 @@
 	
 	</div>
 </div>
+
+<h1></h1>
 
 <%@include file="/WEB-INF/views/layout/footer.jsp" %>
 <%@include file="/WEB-INF/views/member/pageset/loginformpageset.jsp" %>
