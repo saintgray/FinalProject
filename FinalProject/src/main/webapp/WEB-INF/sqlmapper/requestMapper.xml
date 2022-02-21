@@ -62,5 +62,22 @@
 		order by m.match_idx;
  	</select> 
  
+ 	<select id="totalRequestMemberByPostIdx"
+ 		resultType="int">
+ 		select count(mem.m_idx)
+		from 
+			post p, category c, dream.match m, member mem, profile pr
+		where 
+			p.post_idx=#{idx}
+			and m.post_idx=p.post_idx 
+			and pr.m_idx=mem.m_idx and c.cat_idx=p.cat_idx and
+			
+			case when p.wanted like 'mentor' then
+			mem.m_idx=m.mentor_idx
+			when p.wanted like 'mentee' then
+			mem.m_idx=m.mentee_idx
+			end 	
+		order by m.match_idx;
+ 	</select> 
  	
  </mapper>
