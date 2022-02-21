@@ -67,14 +67,10 @@
   </div>
   <div class="card-footer">
 	<c:if test="${mytype eq 'mentee'}">
-		<button type="button" class="btn btn-outline-success" id="rqMember">
-			<a href="${pageContext.request.contextPath}/post/requestpost?postidx=${rgroup.post_idx}">제안한 멘토보기</a>
-		</button>
+		<a class="btn btn-outline-success" id="rqMember" href="${pageContext.request.contextPath}/post/requestpost?postidx=${rgroup.post_idx}">제안한 멘토보기</a>
 	</c:if>
 	<c:if test="${mytype eq 'mentor'}">
-		<button type="button" class="btn btn-outline-success" id="rqMember">
-			<a href="${pageContext.request.contextPath}/post/requestpost?postidx=${rgroup.post_idx}">제안한 멘티보기</a>
-		</button>
+		<a class="btn btn-outline-success" id="rqMember" href="${pageContext.request.contextPath}/post/requestpost?postidx=${rgroup.post_idx}">제안한 멘티보기</a>
 	</c:if>
 	
   </div>
@@ -82,6 +78,13 @@
 
 </c:forEach><br><br>
 
+<script>
+
+
+
+
+
+</script>
 
 
 <%@include file="/WEB-INF/views/layout/footer.jsp" %>

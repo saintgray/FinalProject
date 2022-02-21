@@ -64,28 +64,44 @@
 <table>
 	
 	<c:forEach items="${requestPost.list}" var="member">
-		<div class="container">
+		
 		<tr>
-			<td class="mat-idx"><input type="hidden" id="matchidx" value="${member.match_idx}"> </td>
-			<td class="postidxRow"><input type="hidden" id="postidx" value="${member.post_idx}"><span class="postidx" style="color:red">${member.post_idx}</span></td>
-			
-			<td class="midxRow"><input type="hidden" id="rqM_idx" value="${member.m_idx}"><span class="midx" ></span></td>
-			<td>
-				<a href="${pageContext.request.contextPath}/chat/chatroom?myidx=${myidx}&matchidx=${member.match_idx}&reciever=${member.m_idx}" style="color:blue">문의한 회원 이름 : ${member.m_nm}</a>
-			</td>
-			<td><img src="${pageContext.request.contextPath}/resources/files/member/${member.m_photo}" class="m_photo">문의한 회원 사진 : ${member.m_photo}</td>
-			<td class="wantedRow"><input type="hidden" class="wanted" value="${requestPost.wanted}"></td>
-			<c:if test="${mytype eq 'mentee'}">
-			<td>프로필소개 : ${member.line}</td>
-			</c:if>
-			<td><input type="button" value="문의하기" class="rqBtn"></td>
-			<!-- <td class="msgRow">
-				<input type="text" class="msg">
-				<input type="button" value="채팅보내기" class="msgBtn">
-			</td> -->
-			<td><button data-bs-target="#deleteConfirm" data-bs-toggle="modal" id="deleteReq">삭제하기</button></td>
+				<td class="mat-idx">
+					<input type="text" class="matchidx" value="${member.match_idx}"> 
+				</td>
+				<%-- <td class="postidxRow"><input type="hidden" id="postidx" value="${member.post_idx}"><span class="postidx" style="color:red">${member.post_idx}</span></td> --%>
+				
+				<td class="midxRow">
+					<input type="hidden" id="rqM_idx" value="${member.m_idx}"/>
+					<span class="midx" ></span>
+				</td>
+				<td>
+					<a href="${pageContext.request.contextPath}/chat/chatroom?myidx=${myidx}&matchidx=${member.match_idx}&reciever=${member.m_idx}" style="color:blue">문의한 회원 이름 : ${member.m_nm}</a>
+				</td>
+				
+				<td>
+					<img src="${pageContext.request.contextPath}/resources/files/member/${member.m_photo}" class="m_photo">문의한 회원 사진 : ${member.m_photo}
+				</td>
+				
+				<td class="wantedRow">
+					<input type="hidden" class="wanted" value="${requestPost.wanted}">
+				</td>
+				
+				<c:if test="${mytype eq 'mentee'}">
+					<td>프로필소개 : ${member.line}</td>
+				</c:if>
+				<td>
+					<input type="button" value="문의하기" class="rqBtn">
+				</td>
+				<!-- <td class="msgRow">
+					<input type="text" class="msg">
+					<input type="button" value="채팅보내기" class="msgBtn">
+				</td> -->
+				<td>
+					<button data-bs-target="#deleteConfirm" data-bs-toggle="modal" class="deleteReq">삭제하기</button>
+				</td>
 		</tr>
-		</div>	
+		
 	</c:forEach>
 
 </table>
@@ -168,26 +184,29 @@
 <script>
 $(document).ready(function(){
 		
-	$('#deleteReq').on('click',function(){
+	/* $('.deleteReq').on('click',function(){
+		console.log($(this).parent().siblings('.mat-idx'));
+		console.log($(this).parent().siblings('.mat-idx').children('.matchidx').val());
+		console.log()
 		
 		var info='';
 		info+='정말로 문의한 회원을 삭제하시겠습니까?\r\n';
 		info+='<br>\r\n';
 		info+='삭제한 회원은 채팅목록에서도 삭제됩니다.';
-		info+='<span id="target-mat-idx" style="color:red">'+$(this).parent().siblings('.mat-idx').children('#matchidx').val()+'</span>';
+		info+='<span id="target-mat-idx" style="color:red">'+$(this).parent().siblings('.mat-idx').children('.matchidx').val()+'</span>';
 		
 		$('#deleteConfirm .modal-body').html(info);
 			
-	})
+	}) */
 	
-		// 회원삭제 눌렀을 시
+		/* // 회원삭제 눌렀을 시
 		$("#deleteMatch").on('click',function(){
 			
 			
 			var match_idx=$('#target-mat-idx').text();
 	        	
 			
-			console.log(${member.match_idx})
+			console.log(match_idx);
 			$.ajax({
 				url : '${pageContext.request.contextPath}/post/matchupdate',
 				type : 'post',
@@ -206,7 +225,7 @@ $(document).ready(function(){
 					console.log('비동기통신 오류');
 				}
 			})
-		})
+		}) */
 	
 	//-------------------------------------------post view에합쳐야하는 내용
 	/*ajax처리*/
