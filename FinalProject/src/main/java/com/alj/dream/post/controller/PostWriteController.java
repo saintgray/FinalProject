@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.alj.dream.file_post.domain.PostFileRequest;
 import com.alj.dream.file_post.service.PostFileUploadService;
 import com.alj.dream.post.domain.PostWriteRequest;
 import com.alj.dream.post.service.PostWriteService;
@@ -28,6 +29,9 @@ public class PostWriteController {
 
 	@Autowired
 	private PostWriteService writeService;
+	
+	@Autowired
+	private PostFileUploadService uploadService;
 
 	@GetMapping("/post/write")
 	public String getWriteForm(Authentication authentication, Model model) {
@@ -47,32 +51,14 @@ public class PostWriteController {
 
 		Map<String, Integer> result = new HashMap<String, Integer>();
 
-		int resultCnt = 0;
-
 		// 글 업로드
-		resultCnt = writeService.insertPost(wRequest);
-
-		// 파일업로드 처리
-		int post_idx = wRequest.getPost_idx();
-
-		List<MultipartFile> fileList = wRequest.getFileList();
-		System.out.println(fileList);
-		
-		// 파일 업로드는 파일업로드컨트롤러 통해서		
-//		if(fileList!=null) {
-		//if (!fileList.isEmpty()) {
-//			uploadService.uploadfile(request, post_idx, fileList);
-//		}
+		int resultCnt = writeService.writePost(wRequest);
 
 		result.put("cnt", resultCnt);
-		result.put("idx", post_idx);
+		result.put("idx", wRequest.getPost_idx());
 
 		return result;
-
-		// return "redirect:/post/list";
-		// return
-		// "redirect:".concat(request.getContextPath().concat("/post/content?post_idx").concat(String.valueOf(wRequest.getPost_idx())));
-
+		
 	}
 
 	@PostMapping("/post/checkProfile")
