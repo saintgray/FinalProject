@@ -12,18 +12,24 @@ public class RequestGroup {
 	private String wanted;				// 게시물의 요청대상
 	private String cat_nm; 				// 카테고리
 	private List<RequestMember> list;	// 게시물에 문의한 회원 리스트
+	private String overfive;			// 다섯명 넘는지 체크
 	
-	public RequestGroup() {}
-
 	public RequestGroup(int post_idx, String post_nm, String post_regdate, String wanted, String cat_nm,
-			List<RequestMember> list) {
+			List<RequestMember> list, String overfive) {
+		super();
 		this.post_idx = post_idx;
 		this.post_nm = post_nm;
 		this.post_regdate = post_regdate;
 		this.wanted = wanted;
 		this.cat_nm = cat_nm;
 		this.list = list;
+		this.overfive = overfive;
 	}
+
+
+	public RequestGroup() {}
+
+	
 
 	public int getPost_idx() {
 		return post_idx;
@@ -73,12 +79,15 @@ public class RequestGroup {
 		this.list = list;
 	}
 
-	@Override
-	public String toString() {
-		return "RequestingGroup [post_idx=" + post_idx + ", post_nm=" + post_nm + ", post_regdate=" + post_regdate
-				+ ", wanted=" + wanted + ", cat_nm=" + cat_nm + ", list=" + list + "]";
+	
+	public String getOverfive() {
+		return overfive;
 	}
-	
-	
+
+
+	public void setOverfive(String overfive) {
+		this.overfive = overfive;
+	}
+
 	
 }

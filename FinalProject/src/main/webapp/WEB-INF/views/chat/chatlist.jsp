@@ -45,6 +45,9 @@ myidx: ${myidx} myname : ${myname} myphoto : ${myphoto}$ mytype : {mytype}
 <c:forEach items="${list}" var ="list" >
 		
 			<tr>
+			<%-- <c:set var="matchYN">${list.match_yn}</c:set>
+			<c:if test="${matchYN eq 'Y'"><td>매칭 성공</td></c:if>
+			<c:if test="${matchYN eq 'N'"><td>매칭 전</td></c:if> --%>
 				<td>매칭 여부 : ${list.match_yn}</td>
 				<td>회원 번호 : ${list.m_idx}</td>
 				<td>회원 이름 : ${list.m_nm}</td>

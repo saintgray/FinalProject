@@ -29,22 +29,75 @@
  	</select>
  	
  	
- 	<!-- 채팅방 나갈때 -->
- 	<update id="updateMatchOutyn">
- 		update dream.match
- 		set
- 		<if test="#{param1}==#{param3}">
- 			mentee_outyn = 'Y'
- 		</if>
- 		<if test="#{param1}==#{param4}">
- 			mentor_outyn='Y'
- 		</if>
- 		where match_idx = #{param2}
- 	</update>
  	
  	<select id="getMatchByMatchidx"
  			resultType="com.alj.dream.match.domain.Match">
  		select * from dream.match where match_idx=#{matchidx}
  	</select>
+ 	
+ 	
+ 	<select id="getMatchDateDiff"
+ 			resultType="int">
+ 		select 
+ 			datediff(current_date ,DATE_FORMAT(match_date, '%Y-%m-%d')) 
+ 		from 
+ 			dream.match 
+ 		where 
+ 			match_idx=#{matchidx}
+ 	</select>
+ 	
+ 	
+ 	
+ 	<!-- 채팅방 나갈때 -->
+ <!-- 	<update id="updateMatchOutyn">
+ 		update dream.match
+ 		set
+ 		<if test='param1==param3'>
+ 			mentee_outyn = 'Y'
+ 		</if>
+ 		<if test='param1==param4'>
+ 			mentor_outyn='Y'
+ 		</if>
+ 		where match_idx = #{param2}
+ 	</update> -->
+ 	
+ 	<update id="updateMatchOutyn">
+ 	update dream.match
+ 		set
+ 		<choose>
+ 		<when test='param1==param3'>
+ 			mentee_outyn = 'Y'
+ 		</when>
+ 		<when test='param1==param4'>
+ 			mentor_outyn='Y'
+ 		</when>
+ 		<otherwise></otherwise>
+ 		</choose> 
+ 		where match_idx = #{param2}
+ 	</update>
+ 	
+ 	
+ 	
+ 	<!-- 매칭하기/취소 -->
+  	<update id="updateMatchYN">
+ 		update dream.match
+ 		set 
+ 		<choose>
+ 		<when test='param1=="Y"'>
+ 			match_yn = 'Y',
+ 			match_date = current_timestamp
+ 		</when>
+ 		<when test='param1=="N"'>
+ 			match_yn = 'N'
+ 		</when>
+ 		<otherwise></otherwise>
+ 		</choose>
+ 		
+ 		where match_idx = #{param2}
+ 	</update>
+ 	
+ 	
+ 	
+ 	
  	
 </mapper>
