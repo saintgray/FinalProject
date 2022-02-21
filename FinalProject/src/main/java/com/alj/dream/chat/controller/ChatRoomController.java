@@ -56,7 +56,7 @@ public class ChatRoomController {
 		
 		
 		// 채팅데이터를 확인해봐서 데이터가 있다면 가져온다.(채팅방 입장시, 채팅했던 메세지들이 출력할 수 있도록)
-		mv.addObject("chatlist", service.getChat(myIdx,matchidx,reciever));
+		mv.addObject("chatlist", service.getChat(matchidx));
 		mv.addObject("unmatchYN", service.getMatchDateDiff(matchidx, match.getMatch_date()));
 		System.out.println("return mv 하기 전");
 		

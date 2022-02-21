@@ -39,6 +39,26 @@ myidx: ${myidx} myname : ${myname} myphoto : ${myphoto}$ mytype : {mytype}
 	
 	<h2>채팅 목록</h2>
 	
+	<div class="dropdown" id="matchYN">
+    <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown">
+      	매칭
+    </button>
+    <ul class="dropdown-menu">
+      <li><a class="dropdown-item" href="#">매칭 전</a></li>
+      <li><a class="dropdown-item" href="#">매칭 완료</a></li>
+    </ul>
+  </div>
+  
+  <div class="dropdown" id="cat">
+    <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown">
+      Dropdown button
+    </button>
+    <ul class="dropdown-menu">
+      <li><a class="dropdown-item" href="#">Link 1</a></li>
+      <li><a class="dropdown-item" href="#">Link 2</a></li>
+      <li><a class="dropdown-item" href="#">Link 3</a></li>
+    </ul>
+  </div>
 	<!-- 채팅목록 가져오기 -->
 <table>
 

@@ -13,9 +13,6 @@
 		display: none;
 	}
 
-	.disabled{
-		disabled : true;
-	}
 
 	.text_right {
 		text-align: right;
@@ -204,8 +201,8 @@ matchyn : ${match.match_yn}
 	
 	<!-- 후기쓰기 -->
 	<!-- 기능미완 -->
-	<button type="button" data-bs-target="#reviewform" data-bs-toggle="modal" id="review" class="${not(match.match_yn eq 'Y' && unmatchYN eq 'N')? 'true': ''}">후기 쓰기</button>
-	
+	<button type="button" data-bs-target="#reviewform" data-bs-toggle="modal" id="review" disabled>후기 쓰기</button>
+	<!-- class="${not(match.match_yn eq 'Y' && unmatchYN eq 'N')? 'true': ''}" -->
 <!-- chatRoom의 Body--------------------------------------------------------------------------------------------- -->
 
 <div id="chatBox" class="chattingBox">
@@ -456,12 +453,12 @@ matchyn : ${match.match_yn}
 	
 	// 리뷰후기 클릭가능하도록하는것...
 	// 테스트완료
-	   /*  window.onload = function ableReview(${match.match_yn},${unmatchYN}) {
+	     window.onload = function ableReview(${match.match_yn},${unmatchYN}) {
 	    
 		if(${match.match_yn == 'Y' && unmatchYN == 'N'}){
 			$('#review').removeAttr('disabled');
 		}
-    } */
+    } 
 	
 	  
 	$(document).ready(function(){
