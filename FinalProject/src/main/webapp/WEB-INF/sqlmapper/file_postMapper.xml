@@ -19,9 +19,9 @@
 	
 	<insert id="insertPostFile"
 			parameterType="com.alj.dream.file_post.domain.PostFileRequest">
-		INSERT INTO file_post (file_nm, post_idx, file_exet, file_size)
+		INSERT INTO file_post (file_nm, post_idx, file_exet, file_size, file_originnm)
 		VALUES
-		(#{file_nm}, #{post_idx}, #{file_exet}, #{file_size})
+		(#{file_nm}, #{post_idx}, #{file_exet}, #{file_size}, #{file_originnm})
 	</insert>
 
 </mapper>

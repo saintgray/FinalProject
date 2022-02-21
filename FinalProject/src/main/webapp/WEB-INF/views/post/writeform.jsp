@@ -7,6 +7,12 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style>
+#uploadResult img{
+	height:64px;
+	order:1;
+}
+</style>
 </head>
 <body>
 	<%@ include file="/WEB-INF/views/defaultpageset.jsp"%>
@@ -82,9 +88,14 @@
 
 				<!-- 파일업로드 -->
 				<div>
-				<input type="file" name="attachFile" id="attachFile" multiple>
-				<!-- 업로드한 파일 미리보기 -->
-				<div id="filePreview"></div>
+				<div class="descript my-1 ms-0 me-1">파일 첨부</div>
+				<label>파일 선택
+				<input type="file" name="attachFile" id="attachFile" multiple style="opacity:0;">
+				</label>
+					<!-- 업로드한 결과 -->
+					<div id="uploadResult">
+						
+					</div>
 				</div>
 				
 				<button type="reset">리셋</button>

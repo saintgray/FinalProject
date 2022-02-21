@@ -1,9 +1,13 @@
 package com.alj.dream.post.service;
 
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.alj.dream.file_post.dao.PostFilesDao;
+import com.alj.dream.file_post.domain.PostFileRequest;
 import com.alj.dream.post.dao.PostDao;
 import com.alj.dream.post.domain.PostWriteRequest;
 import com.alj.dream.profile.dao.ProfileDao;
@@ -13,10 +17,35 @@ import com.alj.dream.profile.domain.ProfileRequest;
 @Service
 public class PostWriteService {
 
-	private PostDao dao;
-
 	@Autowired
 	private SqlSessionTemplate template;
+	
+	public int writePost(PostWriteRequest wRequest) {
+		
+		int resultCnt = insertPost(wRequest);
+		
+		// 글 업로드 처리
+		System.out.println("insertPost: " + resultCnt);
+		
+		// 파일업로드 처리
+		// post_idx 가져오기
+		int post_idx = wRequest.getPost_idx();
+
+		List<PostFileRequest> fileList = wRequest.getFileList();
+		System.out.println(fileList);
+				
+		// 파일 업로드	
+		if(!(fileList==null || fileList.isEmpty())) {
+			
+			for(PostFileRequest file : fileList) {
+				file.setPost_idx(post_idx);
+				template.getMapper(PostFilesDao.class).insertPostFile(file);
+			}
+			
+		}
+		
+		return resultCnt;
+	}
 	
 	public int insertPost(
 			PostWriteRequest wRequest
@@ -24,9 +53,7 @@ public class PostWriteService {
 		
 		int resultCnt = 0;
 		
-		dao = template.getMapper(PostDao.class);
-		
-		resultCnt = dao.insertPost(wRequest);
+		resultCnt = template.getMapper(PostDao.class).insertPost(wRequest);
 		
 		return resultCnt;
 		
