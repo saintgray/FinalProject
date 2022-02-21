@@ -61,7 +61,7 @@
 				<c:forEach var="item" items="${list}">
 					<div class="reportele d-flex flex-row">
 						<span class="d-none mat-idx">${item.match_idx}</span>
-						<span class="d-none m_report">${item.m_report }</span>
+						<span class="d-none m_report">${item.m_report}</span>
 						<img src="${pageContext.request.contextPath}/resources/files/member/${item.m_photo}" class="mx-2"/>
 						<div class="text-center">
 							<p class="my-2">${item.m_email}</p>
@@ -131,11 +131,11 @@
 					
 					
 					$(data).each(function(index, item){
-						if(item.m_sender == m_report){
+						if(item.m_sender != ${param.m_idx}){
 							chat+='<div class="ps-2 my-2">'+item.message+'\r\n';
 							chat+='<span class="descript">'+item.sent+'</span>\r\n';
 							chat+='</div>\r\n';
-						}else if(item.m_sender != m_report){
+						}else if(item.m_sender == ${param.m_idx}){
 							chat+='<div class="pe-2 my-2 text-end" style="color:red">'+item.message+'\r\n';
 							chat+='<span class="descript">'+item.sent+'</span>\r\n';
 							chat+='</div>\r\n';
