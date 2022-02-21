@@ -13,7 +13,7 @@
  	mat.match_idx, m2.m_email, m2.m_photo, rep.report_content, rep.m_report
  	FROM 
  	member m1 JOIN member m2 JOIN report rep JOIN dream.match mat
- 	ON m2.m_idx=rep.report_idx AND m1.m_idx=rep.m_reported AND mat.match_idx=rep.match_idx
+ 	ON m2.m_idx=rep.m_report AND m1.m_idx=rep.m_reported AND mat.match_idx=rep.match_idx
  	WHERE m1.m_idx=#{arg0}
  
 	<!--  SELECT mem.m_nm, rep.report_content, ch.message

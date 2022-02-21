@@ -17,8 +17,15 @@ public class ReportListService {
 	
 	public List<ReportInfo> getReportListByIdx(String m_idx) {
 		
-		
-		return sst.getMapper(ReportDao.class).getReportListByIdx(m_idx);
+		List<ReportInfo> repList=null;
+		repList=sst.getMapper(ReportDao.class).getReportListByIdx(m_idx);
+		for(ReportInfo inf: repList) {
+			System.out.println(inf.getM_email());
+			System.out.println(inf.getM_photo());
+			System.out.println(inf.getM_report());
+			System.out.println(inf.getMatch_idx());
+		}
+		return repList;
 		
 	}
 }
