@@ -7,6 +7,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alj.dream.request.service.RequestGroupService;
 
@@ -14,14 +17,14 @@ import com.alj.dream.request.service.RequestGroupService;
 public class RequestGroupContorller {
 
 	@Autowired
-	private RequestGroupService groupService;
+	private RequestGroupService service;
 	//받은 요청 페이지에 들어갈 그룹을 가져온다.
 	
 	@RequestMapping("/post/requestgroup")
 	public String getGroupPage(Model model,
 			Authentication auth) {
 		try {
-		model.addAttribute("requestGroup", groupService.getRequestGroup(auth));	// 그룹 리스트부분
+		model.addAttribute("requestGroup", service.getRequestGroup(auth));	// 그룹 리스트부분
 		
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -30,4 +33,17 @@ public class RequestGroupContorller {
 	}
 		
 	
+	// 매칭업데이트(멤버 삭제 눌렀을 때)
+	@RequestMapping(value="/post/matchupdate", method=RequestMethod.POST)
+	@ResponseBody
+	public int updateMatchYN(
+			@RequestParam("matchYN") String matchYN,
+			@RequestParam("matchidx") int matchidx
+			) {
+		System.out.println("ChatRoomController : updateMatchYN 진입");
+		
+		int result = service.updateMatchYN(matchYN, matchidx);
+		
+		return result;
+	}
 }

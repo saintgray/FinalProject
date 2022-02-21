@@ -8,12 +8,15 @@
 <meta charset="UTF-8">
 <title>받은제의 그룹으로 보여지는 곳</title>
 <style>
-.m_photo{
+	.m_photo{
 		width:40px;
 		height:40px;
 		border-radius: 50%;
 	}
-	
+	.card{
+		width:500px;
+		margin: 60px;
+	}
 </style>
 <%@ include file="/WEB-INF/views/defaultpageset.jsp" %>
 
@@ -45,43 +48,39 @@
 	</c:set>
 </sec:authorize>
 
-
-
-<!-- 임시 테스트  -->
 <c:forEach items="${requestGroup}" var="rgroup">
-<tr>
-<br>
---그룹리스트
-<br>
-<td>게시글 고유번호 : ${rgroup.post_idx}</td><br>
-<td>게시글 타이틀 : ${rgroup.post_nm}</td><br>
-<td>게시글 생성일자 : ${rgroup.post_regdate}</td><br>
-<td>게시글 카테고리 : ${rgroup.cat_nm}</td><br>
-</tr>
-<br>
---멤버리스트
-<br>
-<td><c:forEach items="${rgroup.list}" var="member" begin="0" end="3">
-						
-	<span><img src="${pageContext.request.contextPath}/resources/files/member/${member.m_photo}" class="m_photo">회원 사진 : ${member.m_photo}</span><br>
-		
-</c:forEach>
 
-	<c:if test="${rgroup.overfive eq 'Y'}">
-			<img src="${pageContext.request.contextPath}/resources/files/member/threedots" class="m_photo">
+<div class="card">
+  <div class="card-header">
+        게시글 고유번호 : ${rgroup.post_idx}
+	게시글 타이틀 : ${rgroup.post_nm}
+	게시글 생성일자 : ${rgroup.post_regdate}
+	게시글 카테고리 : ${rgroup.cat_nm}
+  </div>
+  <div class="card-body">
+  	<c:forEach items="${rgroup.list}" var="member" begin="0" end="3">
+  			<span><img src="${pageContext.request.contextPath}/resources/files/member/${member.m_photo}" class="m_photo"></span>
+  	</c:forEach>
+  	<c:if test="${rgroup.overfive eq 'Y'}">
+			<img src="${pageContext.request.contextPath}/resources/files/member/threedots.png" class="m_photo">
 	</c:if>
-	
+  </div>
+  <div class="card-footer">
 	<c:if test="${mytype eq 'mentee'}">
-		<a href="${pageContext.request.contextPath}/post/requestpost?postidx=${rgroup.post_idx}">제안한 멘토보기</a>
+		<button type="button" class="btn btn-outline-success" id="rqMember">
+			<a href="${pageContext.request.contextPath}/post/requestpost?postidx=${rgroup.post_idx}">제안한 멘토보기</a>
+		</button>
 	</c:if>
 	<c:if test="${mytype eq 'mentor'}">
-		<a href="${pageContext.request.contextPath}/post/requestpost?postidx=${rgroup.post_idx}">제안한 멘티보기</a>
+		<button type="button" class="btn btn-outline-success" id="rqMember">
+			<a href="${pageContext.request.contextPath}/post/requestpost?postidx=${rgroup.post_idx}">제안한 멘티보기</a>
+		</button>
 	</c:if>
 	
+  </div>
+</div>
+
 </c:forEach><br><br>
-
-
-
 
 
 

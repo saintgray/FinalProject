@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
+import com.alj.dream.match.dao.MatchDao;
 import com.alj.dream.request.dao.RequestDao;
 import com.alj.dream.request.domain.RequestGroup;
 import com.alj.dream.request.domain.RequestMember;
@@ -19,7 +20,7 @@ import security.AccountDetails;
 public class RequestGroupService {
 	
 	private RequestDao dao;
-	
+	private MatchDao mdao;
 	@Autowired 
 	private SqlSessionTemplate template;
 	
@@ -82,5 +83,14 @@ public class RequestGroupService {
 	}
 	
 	
+	// 매칭 여부 업데이트
+	public int updateMatchYN(String matchYN, int matchidx) {
+		
+		mdao = template.getMapper(MatchDao.class);
+		
+		int resultCnt = mdao.updateMatchYN(matchYN, matchidx);
+		System.out.println("매칭업뎃확인");
+		return resultCnt;
+	}
 	
 }
