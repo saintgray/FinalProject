@@ -45,7 +45,7 @@
  	<!-- 매칭테이블을 가지고있는 회원 -->
 	<select id="selectRequestMemberByPostIdx"
  		resultType="com.alj.dream.request.domain.RequestMember">
- 		select 
+ 		<!-- select 
  			mem.m_photo, mem.m_idx, p.post_idx, mem.m_nm, pr.line, m.match_idx, m.match_yn, pr.line
 		from 
 			post p, category c, dream.match m, member mem, profile pr
@@ -59,7 +59,20 @@
 			when p.wanted like 'mentee' then
 			mem.m_idx=m.mentee_idx
 			end 	
-		order by m.match_idx;
+		order by m.match_idx; -->
+		SELECT match_idx, post_idx, m_nm, m_photo, match_yn, m_idx
+		FROM dream.match mat join member mem
+		ON
+		<if test='"mentor".equals(arg1)'>
+		mem.m_idx=mat.mentor_idx
+		</if>
+		<if test='"mentee".equals(arg1)'>
+		mem.m_idx=mat.mentee_idx
+		</if>
+		WHERE mat.post_idx=#{arg0}
+		
+		
+			
  	</select> 
  
  	<select id="totalRequestMemberByPostIdx"
