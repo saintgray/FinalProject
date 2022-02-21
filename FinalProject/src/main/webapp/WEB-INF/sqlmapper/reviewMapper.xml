@@ -34,5 +34,11 @@
 	    where mat.mentor_idx=#{arg0};
 	</select>
 
+
+	<insert id="insertReview">
+		insert into review (stars , comment, match_idx)
+		values(#{param1}, #{param2}, #{param3});
+	</insert>
+
 </mapper>
  

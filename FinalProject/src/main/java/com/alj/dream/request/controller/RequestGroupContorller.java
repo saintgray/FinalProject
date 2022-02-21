@@ -22,6 +22,7 @@ public class RequestGroupContorller {
 			Authentication auth) {
 		try {
 		model.addAttribute("requestGroup", groupService.getRequestGroup(auth));	// 그룹 리스트부분
+		
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
