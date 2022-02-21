@@ -17,5 +17,9 @@ public interface MatchDao {
 	public int updateMatchOutyn(int myidx, int matchidx, int menteeidx, int mentoridx);
 
 	public Match getMatchByMatchidx(int matchidx);
+
+	public int getMatchDateDiff(int matchidx);
+
+	public int updateMatchYN(String matchYN, int matchidx);
 	
 }
