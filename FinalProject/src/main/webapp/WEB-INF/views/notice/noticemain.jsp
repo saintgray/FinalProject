@@ -72,17 +72,20 @@
 		<%--  <%= request.getParameter("selectPage") %>
 		${param.selectPage}
 		 --%>
+	
+		<div id="globalwrap">
 
-		<div id="globalwrap" style="border-top: 1px solid rgb(195,195,195)">
-
-
+			<h1 class="mx-5 banner">
+				<a href="${pageContext.request.contextPath}/notice">공지사항</a>
+			</h1>
 
 
 
 			
 
 
-			<div class="d-flex flex-row justify-content-start">
+			<div class="d-flex flex-row"
+			style="border-top: 1px solid rgb(195,195,195)">
 				<%@ include file="/WEB-INF/views/layout/aside.jsp"%>
 
 
