@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 
 import com.alj.dream.member.dao.MemberDao;
 import com.alj.dream.member.domain.MemberInfo;
-import com.alj.dream.report.dao.ReportDao;
 
 @Service
 public class MemberInfoService {

@@ -45,17 +45,29 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 		
 		
 		
+		
+		
 		// 로그인에 성공시 기본으로 이동활 화면은 홈 화면
 		// 1. 인증이 필요한 페이지를 사용하려다 로그인페이지로 들어와서 로그인에 성공한 케이스		
 		// 2. 직접 로그인 창을 클릭해서 로그인에 성공한 케이스
-		
+		System.out.println("getRequest(req,resp)...");
+		System.out.println(rc.getRequest(request, response));
 		if(rc.getRequest(request, response)==null) {
+			
 			// 2번 경우
 			redirectUrl="/";
+			
 					
 		}else {
 			// 1번 경우
 			redirectUrl=rc.getRequest(request, response).getRedirectUrl();
+			
+			// 문제점 : 예를들어 관리자 메인페이지 url 을 직접 입력해서들어가려다 로그인 창으로 들어왔다고 하면
+			// ReqeustCache 의 DefaultSavedRequest에는 http://localhost:8080/mnm/admin/manage 가 저장된다.
+			// 이때, 로그인을 하지 않고 다시 홈 화면으로 돌아가 직접 로그인 화면을 눌러 로그인을 할 경우 1번 경우에 해당 되지만
+			// RequestCache 가 비워지질 않아서 rc.getRequest(request, response) != null 이기 때문에
+			// 관리자 페이지로 들어가려고 함
+			
 		}
 		
 		// 로그인한 사람이 관리자라면 관리자 메인페이지로 이동한다.
@@ -88,6 +100,7 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 					
 				}
 				
+				
 				SecurityContext context = SecurityContextHolder.getContext();
 				context.setAuthentication((Authentication)null);
 				SecurityContextHolder.clearContext();
@@ -96,9 +109,18 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 				
 				// loginform 에 보여줄 메시지
 				
-				String quit="Y";
+				
 				String insertedEmail=logininfo.getUsername();
 				redirectUrl="/loginfailed?msg=".concat(msg).concat("&insertedEmail=".concat(insertedEmail));
+				
+				// 캐시 비움 막음
+				String intercepted=request.getParameter("intercepted");
+				System.out.println("intercepted...");
+				System.out.println(intercepted);
+				if(intercepted!=null){
+						redirectUrl=redirectUrl.concat("&intercepted=true");
+		    	};
+				
 				
 				
 
@@ -106,7 +128,7 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 		}	
 		
 		
-		
+		System.out.println("보내는 페이지:".concat(redirectUrl));
 		rs.sendRedirect(request, response, redirectUrl);
 		
 		
