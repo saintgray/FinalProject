@@ -2,6 +2,11 @@
     pageEncoding="UTF-8"%>
 <script>
 	$(document).ready(function(){
+		
+		
+		
+		
+		
 		$('#findMe').on('click',function(){
 			console.log($('#email').val().indexOf('@'));
 			if($('#email').val().indexOf(' ')>=0 || $('#email').val().indexOf('@')==-1){
@@ -25,11 +30,16 @@
 								showWarning($('#email'),'*계정 정보가 없습니다 이메일을 다시 확인하세요');
 							}else{
 								
+								
+								$('#findaccountarea').append('<div class="text-center"><img src="${pageContext.request.contextPath}/resources/files/server/icons/loading/loading.svg" id="loading"></div>');
+								
+								
 								$.ajax({
 									url:'${pageContext.request.contextPath}/findaccount',
 									type:'POST',
 									data:{email:$('#email').val().trim()},
 									success:function(data){
+										$('#loading').parent().remove();
 										if(data==1){
 											alert('등록하신 계정으로 이메일을 발송했습니다');
 										}else{

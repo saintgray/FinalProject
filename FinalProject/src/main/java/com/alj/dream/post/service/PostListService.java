@@ -2,12 +2,19 @@ package com.alj.dream.post.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.alj.dream.category.domain.CategoryRequested;
+import com.alj.dream.category.domain.ChildCategory;
+import com.alj.dream.interest.dao.InterestDao;
+import com.alj.dream.interest.domain.Interest;
+import com.alj.dream.loc.dao.LocDao;
+import com.alj.dream.loc.domain.Location;
 import com.alj.dream.post.dao.PostDao;
 import com.alj.dream.post.domain.PostListInfo;
 import com.alj.dream.post.domain.PostListView;
@@ -83,16 +90,28 @@ public class PostListService {
 		
 		dao = template.getMapper(PostDao.class);
 		
-		HashMap<String, Integer> map = getLocInterest(m_idx);
-		System.out.println("result>>");
-		System.out.println(map);
+		// HashMap<String, Integer> map = getLocInterest(m_idx);
+		// 회원의 지역은 단 하나
+		List<Location> userLoc=template.getMapper(LocDao.class).getLocations(String.valueOf(m_idx));
+		int locCode=userLoc==null?0:Integer.parseInt(userLoc.get(0).getLoc_idx());
+		
+		
+		List<ChildCategory> userInterest=template.getMapper(InterestDao.class).getUserInterest(String.valueOf(m_idx));
+		List<Integer> interests = new LinkedList<Integer>();
+		
+		for(ChildCategory item : userInterest) {
+			interests.add(new Integer(item.getCat_idx()));
+		}
+		
+		// System.out.println("result>>");
+		// System.out.println(map);
 		
 		// 회원가입시 관심분야를 선택하지 않을 수 있으므로 선택하지 않았을 경우 SearchParams 의 cat_idx 를 0으로 지정
-		SearchParams params = new SearchParams(m_idx, wanted, map.get("cat_idx")==null?0:map.get("cat_idx"), map.get("loc_idx"));
-		params.setIndex(0);
-		params.setCount(5);
+		// SearchParams params = new SearchParams(m_idx, wanted, interests, locCode);
+		// params.setIndex(0);
+		// params.setCount(5);
 		
-		return dao.selectRecommendedList(params);
+		return dao.selectRecommendedList(m_idx,wanted,interests,locCode);
 		
 	}
 

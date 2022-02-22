@@ -6,6 +6,6 @@ import com.alj.dream.loc.domain.Location;
 
 public interface LocDao {
 	
-	List<Location> getLocations();
+	List<Location> getLocations(String m_idx);
 
 }

@@ -142,8 +142,8 @@
       <div class="offcanvas-body">
         <ul class="container d-flex flex-column">
         	<sec:authorize access="isAnonymous()">
-        		<li><h4 class="fs-5 my-2">회원가입</h4></li>
-        		<li><h4 class="fs-5 my-2">로그인</h4></li>
+        		<li><h4 class="fs-5 my-2 oc-reg">회원가입</h4></li>
+        		<li><h4 class="fs-5 my-2 oc-login">로그인</h4></li>
         	</sec:authorize>
         	<sec:authorize access="isAuthenticated()">
         		<li><h4 class="fs-5 my-2 logoutbtn">로그아웃</h4></li>

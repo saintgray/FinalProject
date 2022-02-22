@@ -28,11 +28,11 @@ public class LocationListController {
 
 
 	@PostMapping
-	public List<Location> getLocations(){
+	public List<Location> getLocations(String m_idx){
 		
 		List<Location> list =null;
 		try {
-			list=locService.getLocations();
+			list=locService.getLocations(m_idx);
 			
 			
 		}catch(Exception e) {
