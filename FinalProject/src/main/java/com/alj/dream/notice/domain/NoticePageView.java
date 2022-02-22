@@ -12,18 +12,26 @@ public class NoticePageView {
 	private int totalPage;
 	private int numOfNoticesPerPage;
 	private int selectPage;
+	private String keyword;
 	private List<Notice> noticeList;
 	
 	public NoticePageView() {
 		
 	}
 
-	public NoticePageView(int totalPage, int numOfNoticesPerPage, int selectPage, List<Notice> noticeList) {
+	
+
+	public NoticePageView(int totalPage, int numOfNoticesPerPage, int selectPage, String keyword,
+			List<Notice> noticeList) {
+		super();
 		this.totalPage = totalPage;
 		this.numOfNoticesPerPage = numOfNoticesPerPage;
 		this.selectPage = selectPage;
+		this.keyword = keyword;
 		this.noticeList = noticeList;
 	}
+
+
 
 	public int getTotalPage() {
 		return totalPage;
@@ -55,6 +63,18 @@ public class NoticePageView {
 
 	public void setNoticeList(List<Notice> noticeList) {
 		this.noticeList = noticeList;
+	}
+
+
+
+	public String getKeyword() {
+		return keyword;
+	}
+
+
+
+	public void setKeyword(String keyword) {
+		this.keyword = keyword;
 	}
 
 	

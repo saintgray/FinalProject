@@ -145,8 +145,8 @@
 			
 								<input id="searchbararea" style="border-left: 0;" type="text"
 									class="form-control" aria-label="Amount (to the nearest dollar)"
-									placeholder="검색"> <img class="input-group-text"
-									style="height: 100%"
+									placeholder="검색">
+									 <img class="input-group-text" style="height: 100%"
 									src="${pageContext.request.contextPath}/resources/files/server/icons/img_searchicon.svg"
 									id="searchBtn">
 								
