@@ -24,17 +24,18 @@ public class NoticeListService {
 		
 		
 		int firstNoticeIndexOfSelectedPage = numOfNoticesPerPage*(selectPage-1);
-		int totalNumOfNotices=Integer.parseInt(sst.getMapper(NoticeDao.class).getTotalNumOfNotice());
+		int totalNumOfNotices=Integer.parseInt(sst.getMapper(NoticeDao.class).getTotalNumOfNotice(pagereq.getKeyword()));
 		int totalPage=totalNumOfNotices/numOfNoticesPerPage;
 		totalPage=totalNumOfNotices%numOfNoticesPerPage==0?totalPage:totalPage+1;
 		
-		List<Notice> list = sst.getMapper(NoticeDao.class).getNoticeList(firstNoticeIndexOfSelectedPage, numOfNoticesPerPage);
+		List<Notice> list = sst.getMapper(NoticeDao.class).getNoticeList(firstNoticeIndexOfSelectedPage, numOfNoticesPerPage,pagereq.getKeyword());
 		
 		//////////////////////////////////////////////////
 		NoticePageView pageView= 
 				new NoticePageView(totalPage, 
 								   numOfNoticesPerPage, 
-								   selectPage, 
+   								   selectPage,
+   								   pagereq.getKeyword(),
 								   list);
 		//////////////////////////////////////////////////
 		return pageView;
