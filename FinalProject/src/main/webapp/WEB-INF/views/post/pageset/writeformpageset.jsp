@@ -130,13 +130,16 @@ $(document).ready(function(){
 		    return;
 		}
 				
-		// 이미 등록된 미리보기를 복사한다.
+		// 첫 업로드가 아닐 경우, 이미 등록된 파일을 재업로드하지 않기 위해 사전작업을 한다.
 		if($('#uploadResult ul')){
+			// 이미 등록된 미리보기를 복사한다.
 			var cloneResult = $('#uploadResult ul').clone();
+			
+			// 이미 등록된 파일을 목록에서 지운다.
+			formData.delete('attachfiles');
 		}
  		
 		$('#uploadResult').html('<ul class="list-group"></ul>');
-		
 		
 		// 새로 등록한 파일을 attachfiles 에 추가한다.
 		for(var i=0; i<inputFile.length; i++){
@@ -147,7 +150,7 @@ $(document).ready(function(){
 			
 		}
 		console.log('attachfiles 를 formData 에 추가');
-		console.log('attachfiles:', formData.get('attachfiles'));
+		console.log('attachfiles:', formData.getAll('attachfiles'));
 		
 		/* key 확인하기 */
 		for (let key of formData.keys()) {
@@ -172,7 +175,7 @@ $(document).ready(function(){
 				
 				var list = $('#uploadResult ul');
 				
-				//$(list).html(cloneResult.html());
+				$(list).html(cloneResult.html());
 				
 				$(data).each(function(index, items){
 					
