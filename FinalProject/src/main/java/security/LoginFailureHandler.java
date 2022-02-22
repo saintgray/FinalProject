@@ -36,7 +36,10 @@ public class LoginFailureHandler implements AuthenticationFailureHandler {
 		String msg=null;
 		
 		
-		String forwarding="/member/loginform?error=true";
+		String forwarding="/member/loginform";
+		if(request.getParameter("intercepted").equals("true")) {
+			forwarding=forwarding.concat("?interecpted=true");
+		}
 
 		
 	  

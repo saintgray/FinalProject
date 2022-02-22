@@ -10,6 +10,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import com.alj.dream.file_profile.dao.ProfileFilesDao;
+import com.alj.dream.member.dao.MemberDao;
 
 @Component
 @EnableScheduling
@@ -50,19 +51,24 @@ public class SchedulerService{
 		// filenm=PK
 		for(String filenm : list) {
 			File file=new File(serverPath.profileFilesPath,filenm);
+			
 			System.out.println(file.exists());
-			// 삭제처리
 			
-			///////////////////////////////
-			
-		}
-		
-		// 2. 컨텍스트경로/resources/files/member/profile_attachfiles 경로 내에 해당 파일이 있으면
-		// 	  = 삭제된 파일인데 서버에 존재한다면 >> 삭제한다.
-		
-		
+			// 2. 컨텍스트경로/resources/files/member/profile_attachfiles 경로 내에 해당 파일이 있으면
+			// 	  = 삭제된 파일인데 서버에 존재한다면 >> 삭제한다.
+			if(file.exists()) {
+				file.delete();
+			}
+			///////////////////////////////	
+		}		
 	}
 	
 	
 	// 2) tempcode 만료 설정
+	// 매주 일요일 새벽 2시에 실행되는 메소드
+	@Scheduled(cron = "0 0 2 */1 * *")
+	public void expireTempCodes() {
+		sst.getMapper(MemberDao.class).expireTempCode();
+	}
+	
 }

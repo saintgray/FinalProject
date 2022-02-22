@@ -1,7 +1,6 @@
 package com.alj.dream.post.controller;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,10 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 
-import com.alj.dream.file_post.domain.PostFileRequest;
-import com.alj.dream.file_post.service.PostFileUploadService;
 import com.alj.dream.post.domain.PostWriteRequest;
 import com.alj.dream.post.service.PostWriteService;
 import com.alj.dream.profile.domain.MyProfileInfo;
@@ -29,9 +25,6 @@ public class PostWriteController {
 
 	@Autowired
 	private PostWriteService writeService;
-	
-	@Autowired
-	private PostFileUploadService uploadService;
 
 	@GetMapping("/post/write")
 	public String getWriteForm(Authentication authentication, Model model) {

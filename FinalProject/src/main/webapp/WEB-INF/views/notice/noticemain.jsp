@@ -114,6 +114,7 @@
 						style="position: relative">
 
 						<div class="input-group inner" id="noticesearch">
+
 							<sec:authorize access="hasRole('ADMIN')">
 								<button type="button" class="btn btn-general" id="regnoticebtn">공지사항
 									등록</button>

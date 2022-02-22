@@ -23,8 +23,8 @@ public class LocationListService {
 	}
 	
 	
-	public List<Location> getLocations(){
-		return sst.getMapper(LocDao.class).getLocations();
+	public List<Location> getLocations(String m_idx){
+		return sst.getMapper(LocDao.class).getLocations(m_idx);
 		
 	}
 	
