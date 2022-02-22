@@ -1,9 +1,5 @@
 package com.alj.dream.member.domain;
 
-import java.util.List;
-
-import com.alj.dream.report.domain.ReportInfo;
-
 public class MemberInfo {
 	
 	private String m_idx;
