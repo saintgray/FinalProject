@@ -23,5 +23,12 @@
 		VALUES
 		(#{file_nm}, #{post_idx}, #{file_exet}, #{file_size}, #{file_originnm})
 	</insert>
+	
+	<select id="selectByPostIdx"
+			resultType="com.alj.dream.file_post.domain.PostFileRequest">
+		select file_nm, post_idx, file_exet, file_size, file_originnm
+		from file_post
+		where post_idx=#{idx} and file_deldate is null
+	</select>
 
 </mapper>
