@@ -177,16 +177,18 @@ $(document).ready(function(){
 				$(data).each(function(index, items){
 					
 					var listItem = document.createElement('li');
-					var path = '${pageContext.request.contextPath}/resources/files/post/attachfiles/'+items.file_nm+'.'+items.file_exet;
+					var fileName = items.file_nm+'.'+items.file_exet;
 					
 					var html = '<li class="list-group-item d-flex justify-content-between align-items-center">';
 					
-					if(items.file_exet!='pdf'){
-						html += '<img src="'+path+'">\r\n';
+					if(items.file_exet=='pdf'){
+						html += '<span><i class="bi bi-filetype-pdf fs-4"></i>';
+					} else {
+						html += '<img src="${pageContext.request.contextPath}/post/display?fileName='+fileName+'">\r\n<span>';
 					}
 					
 					// 파일 이름과 크기
-					html += '<span>'+items.file_originnm+'.'+items.file_exet+' ('+items.file_size+'kb)\r\n';
+					html += items.file_originnm+'.'+items.file_exet+' ('+items.file_size+'kb)\r\n';
 					
 					// 파일 삭제를 위한 버튼
 					html += '<button type="button" data-file_nm="'+items.file_nm+'" data-originnm="'+items.file_originnm+'" data-exet="'+items.file_exet+'" data-size="'+items.file_size+'" class="btn btn-warning btn-circle">X</button>\r\n';

@@ -15,10 +15,35 @@ history.go(-1);
 <head>
 <meta charset="UTF-8">
 <title></title>
+<style>
+#attachedfiles img{
+	max-height:64px;
+	max-width: 100px;
+	width:auto;
+	order:1;
+}
+#imageWrapper{
+	position: absolute;
+	display: none;
+	justify-content: center;
+	align-items: center;
+	top: 0%;
+	width: 100%;
+	height: 100%;
+	z-index: 100;
+}
+#bigImage{
+	position: relative;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+</style>
 </head>
 <body>
 
 <%@ include file="/WEB-INF/views/defaultpageset.jsp" %>
+<%@ include file="/WEB-INF/views/post/pageset/viewpageset.jsp"%>
 
 <!-- Header -->
 <%@ include file="/WEB-INF/views/layout/header.jsp" %>
@@ -82,6 +107,37 @@ history.go(-1);
 ${viewRequest.post_content}
 </div>
 
+<!-- 첨부파일 -->
+<div id="attachedfiles">
+	<c:if test="${viewRequest.fileList ne null}">
+	<ul class="list-group">
+	<c:forEach var="postFile" items="${viewRequest.fileList}">
+		<li class="list-group-item d-flex justify-content-between align-items-center"
+			data-file_nm="${postFile.file_nm}" data-exet="${postFile.file_exet}">
+			
+		<c:if test="${postFile.file_exet ne 'pdf'}">
+		
+		<img src="${pageContext.request.contextPath}/post/display?fileName=${postFile.file_nm}.${postFile.file_exet}">
+		<span>${postFile.file_originnm}.${postFile.file_exet} (${postFile.file_size} kb)</span>
+		
+		</c:if>
+		
+		<c:if test="${postFile.file_exet eq 'pdf'}">
+		<span><i class="bi bi-filetype-pdf fs-4"></i>
+		${postFile.file_originnm}.${postFile.file_exet} (${postFile.file_size} kb)</span>
+		</c:if>
+		
+		</li>
+	</c:forEach>
+	</ul>
+	</c:if>
+</div>
+
+<!-- 첨부파일 이미지 크게 보기 -->
+<div id="imageWrapper">
+	<div id="bigImage"></div>
+</div>
+
 <!-- 매칭정보/문의하기 -->
 <div class="row">
 <c:if test="${viewRequest.m_idx ne idx && viewRequest.wanted eq type}">
@@ -101,78 +157,6 @@ ${viewRequest.post_content}
 </div>
 
 </div>
-
-<script>
-function deletePost(idx){
-	
-	if(confirm('글이 삭제됩니다. 계속 진행하시겠습니까?')){
-		
-		$.ajax({
-			url: '${pageContext.request.contextPath}/post/delete',
-			type: 'post',
-			data: {post_idx : idx},
-			success: function(data){
-				if(data==1){
-					alert('게시글이 삭제되었습니다.');
-					location.href="${pageContext.request.contextPath}/post/list";
-				} else {
-					console.log('삭제 실패');
-				}
-			},
-			error: function(){
-				console.log('비동기 통신 오류');
-			}
-		});
-		
-	}
-	
-}
-
-$(document).ready(function(){
-	
-	$('#matchBtn').on('click', function(){
-		
-		var postidx=$('#postidx').val();
-		var wanted=$('#wanted').val();
-		var midx=$('#midx').val();
-		var myidx=$('#myidx').val();
-		
-		console.log('postidx:', postidx);
-		console.log('wanted:', wanted);
-		console.log('midx:', midx);
-		console.log('myidx:', myidx);
-		
-		$.ajax({
-			url: "${pageContext.request.contextPath}/post/matchchk",
-			type: "post",
-			data: {
-				postidx : postidx,
-				midx : midx,
-				myidx : myidx,
-				wanted: wanted
-			},
-			success : function(data){
-				alert('매칭 생성');
-				location.href="${pageContext.request.contextPath}/post/view?idx="+postidx;
-				// 전송에 성공하면 실행될 코드
-				if(data==0){	// 테이블이 이미 있다는 뜻 = 문의를 했던 글이라는 뜻
-					alert('이미 문의한 게시글입니다. 내 채팅목록을 확인해주세요!');
-				} else {
-					setMatchidx(data);
-					console.log(matchidx);
-					//채팅테이블 생성할 함수실행
-					alert(${member.m_idx}'님에게 보낼 멋진 첫 한마디를 작성해주세요!');
-				}
-			},
-			error: function(data){
-				console.log('통신 오류');
-				console.log(data);
-			}
-		});
-		
-	})
-});
-</script>
 
 </body>
 </html>
