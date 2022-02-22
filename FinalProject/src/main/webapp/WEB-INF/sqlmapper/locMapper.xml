@@ -8,6 +8,11 @@
 	 <select id="getLocations" resultType="com.alj.dream.loc.domain.Location">
 	 
 		 	select*from dream.loc
+		 	<if test="arg0!=null">
+		 		JOIN member mem
+		 		ON mem.loc_idx=loc.loc_idx
+		 		WHERE mem.m_idx=#{arg0}
+		 	</if>
 	 
 	 
 	 </select>
