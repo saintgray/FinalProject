@@ -159,24 +159,19 @@
 	
 	</update>
 	
-	<!-- 스케쥴러를 통해 임시 코드가 삭제되었는지 확인 (count) -->
+	<!-- 스케쥴러를 통해 일주일에 한번 임시키코드 삭제 -->
+	<update id="expireTempCode">
+		Update member
+		SET tempcode=null where tempcode is not null AND m_quitdate is null
+	</update>
+	
+	<!-- 비밀번호 재설정을 위한 keyCode 가 있는지 확인 -->
 	<select id="getCountByKeyCode" resultType="Integer">
 		SELECT count(*) FROM member
 		WHERE tempcode=#{arg0} AND m_quitdate is null
 	</select>
 	
 	
- 	<!-- <select id="" parameterType="com.alj.dream.member.domain.PageRequest">
- 		<if test="onlyid">
- 			SELECT * FROM member
-			WHERE m_nm like concat('%',#{searched},'%')
- 		</if>
- 		<if test="onlyname">
- 			SELECT * FROM member
-			WHERE m_email like concat('%',#{searched},'%')
- 		</if>
- 	</select> -->
- 	
  	
  	
  	
