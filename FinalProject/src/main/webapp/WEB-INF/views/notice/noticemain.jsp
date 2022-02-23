@@ -53,28 +53,6 @@
 	<div class="gw">
 		<%@ include file="/WEB-INF/views/layout/header.jsp"%>
 
-		<!--  List<Notice> 객체가 Model 에 notices 라는 포장지로 감싸져있음 -->
-		<!--  c:forEach 태그의 items 속성은 List<Notice> 를 의미함 -->
-		<!-- var 속성은 그 리스트 안의 Notice 를 의미함 -->
-
-		<%-- 	<%
-		NoticePageView  notice = (NoticePageView)request.getAttribute("notices");
-		List<Notice> notices = notice.getNoticeList();
-		for(int i =0 ; i < notices.size(); i++){
-			Notice item = notices.get(i);
-		%>
-			<div class="d-flex flex-row flex-wrap" id="noticeList">
-			<span><%=item.getNotice_idx()%></span> 
-			<span><%=item.getNotice_title()%></span>
-			</div>
-		<% 
-		}
-		%> --%>
-
-
-		<%--  <%= request.getParameter("selectPage") %>
-		${param.selectPage}
-		 --%>
 	
 		<div id="globalwrap">
 
