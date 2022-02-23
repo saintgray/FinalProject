@@ -97,9 +97,9 @@
 					<input type="text" class="msg">
 					<input type="button" value="채팅보내기" class="msgBtn">
 				</td> -->
-				<td>
+				<!-- <td>
 					<button data-bs-target="#deleteConfirm" data-bs-toggle="modal" class="deleteReq">삭제하기</button>
-				</td>
+				</td> -->
 		</tr>
 		
 	</c:forEach>
