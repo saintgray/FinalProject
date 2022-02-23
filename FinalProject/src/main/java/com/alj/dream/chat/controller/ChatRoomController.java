@@ -7,7 +7,6 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -18,9 +17,8 @@ import com.alj.dream.chat.domain.Chat;
 import com.alj.dream.chat.service.ChatRoomService;
 
 import com.alj.dream.match.domain.Match;
-import com.alj.dream.match.service.MatchChkService;
-import com.alj.dream.member.domain.MemberInfo;
-import com.alj.dream.report.domain.Report;
+
+import sockethandler.EchoHandler;
 
 
 
@@ -34,7 +32,7 @@ public class ChatRoomController {
 	@RequestMapping(value="/chat/chatroom", method=RequestMethod.GET)
 	public ModelAndView intoChat(
 			ModelAndView mv,
-			@RequestParam("myidx") int myIdx,
+			@RequestParam("myidx") int myidx,
 			@RequestParam("matchidx") int matchidx,
 			@RequestParam("reciever") int reciever,
 			HttpSession session
@@ -42,36 +40,33 @@ public class ChatRoomController {
 			
 		System.out.println("ChatRoomController : intoChat진입");
 		
-		session.setAttribute("myIdx", myIdx);			// 에코핸들러에서 사용하기 위해 필요한 정보들 세션에 저장.
+		// 에코핸들러에서 사용하기 위해 필요한 정보들 세션에 저장.
+		session.setAttribute("myIdx", myidx);			
 		session.setAttribute("matchidx", matchidx);
 		session.setAttribute("reciever", reciever);
 		
-		// 채팅 시 필요한 정보 보내주기
-		mv.addObject("matchidx", matchidx);
+		// 채팅 시 필요한 기본정보 보내주기
 		mv.addObject("reciever", reciever);
+		mv.addObject("matchidx", matchidx);
+		
+		mv.addObject("recieverInfo",service.getMemInfo(reciever));
 		
 		Match match = service.getMatch(matchidx);
 		mv.addObject("match", match);
 		
+		// 매칭취소가능여부
+		mv.addObject("unmatchYN", service.getMatchDateDiff(matchidx, match.getMatch_date()));
 		
-		mv.addObject("recieverInfo",service.getMemInfo(reciever));
-		
-		
-		// 채팅데이터를 확인해봐서 데이터가 있다면 가져온다.(채팅방 입장시, 채팅했던 메세지들이 출력할 수 있도록)
-
-
-		
+		// 채팅데이터
 		// 종현 수정 // getChat 메소드는 matchidx 파라미터만 필요하므로 쓸모없는 파라미터를 보내지 않습니다 
-		
 		// mv.addObject("chatlist", service.getChat(myIdx,matchidx,reciever));
 		mv.addObject("chatlist", service.getChat(matchidx));
-
 		
-
-		mv.addObject("unmatchYN", service.getMatchDateDiff(matchidx, match.getMatch_date()));
-
-		System.out.println("return mv 하기 전");
+		// 신고가능여부와 후기작성여부
+		mv.addObject("ableRprt", service.getAbleRprt(myidx, matchidx));
+		mv.addObject("ableRv", service.getAbleReview(matchidx));
 		
+	
 		return mv;
 	}
 	
@@ -130,6 +125,7 @@ public class ChatRoomController {
 		return resultCnt;
 	}
 	
+	
 	// 채팅 매칭업데이트 할때
 	@RequestMapping(value="/chat/matchupdate", method=RequestMethod.POST)
 	@ResponseBody
@@ -144,33 +140,7 @@ public class ChatRoomController {
 		return result;
 	}
 	
-	// 리뷰 등록할때
-	@RequestMapping(value="/chat/regreview", method=RequestMethod.POST)
-	@ResponseBody
-	public int regReview(
-			@RequestParam("rating") int rating,
-			@RequestParam("comment") String comment,
-			@RequestParam("matchidx") int matchidx
-			) {
-		
-		int resultCnt = service.regReview(rating,comment,matchidx);
-		
-		return resultCnt;
-	}
 	
 	
-	// 신고 등록할 때
-	@RequestMapping(value="/chat/sendreport", method=RequestMethod.POST)
-	@ResponseBody
-	public int insertReport(Report r) {
-		
-		System.out.println("ReportInsertController : insertReport메소드진입");
-		
-		int resultCnt = service.insertReport(r);
-		
-		
-		System.out.println("ReportInsertController : insertReport메소드 resultCnt리턴 전");
-		return resultCnt;
-		
-	}
+
 }
