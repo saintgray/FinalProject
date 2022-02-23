@@ -18,24 +18,82 @@
 	
 	
 		SELECT child.cat_idx, child.cat_nm,  (SELECT count(*) from category cp JOIN category cc 
-											  ON cp.cat_nm=cc.cat_type 
+											  ON cp.cat_idx=cc.parent_idx 
 											  WHERE cp.cat_nm=child.cat_nm) AS childNodeCount
 											  
 		FROM category parent JOIN category child 
-		ON parent.cat_nm=child.cat_type
+		ON parent.cat_idx=child.parent_idx
 		
-		WHERE parent.cat_idx
+		WHERE
 		<if test="arg0==null">
-			=(SELECT cat_idx FROM category WHERE cat_nm='취미')
+			 parent.cat_idx=(SELECT cat_idx FROM category WHERE cat_nm='취미')
 		</if>
 		<if test="arg0!=null">
-			IN
+			 parent.cat_idx IN
 			<foreach collection="list" item="cat_idx" open="(" close=")" separator=",">
 				#{cat_idx}
 			</foreach>
 		</if>
+		AND child.cat_deldate is null
 		
 	</select>
+	
+	<select id="selectAll" resultType="com.alj.dream.category.domain.CategoryInfo">
+	
+		SELECT child.cat_idx as child_idx, child.cat_nm, parent.cat_idx as parent_idx
+											  
+		FROM category parent right JOIN category child 
+		ON parent.cat_idx=child.parent_idx
+		
+		WHERE child.cat_deldate is null and parent.cat_deldate is null
+		
+		
+	</select>
+	
+	<select id="getSiblings" resultType="com.alj.dream.category.domain.ChildCategory">
+	SELECT c.cat_idx, c.cat_nm, (SELECT count(*) from category cp JOIN category cc 
+											  ON cp.cat_idx=cc.parent_idx 
+											  WHERE cp.cat_nm=c.cat_nm) AS childNodeCount  
+	FROM category c JOIN category p 
+	ON c.parent_idx=p.cat_idx 
+	WHERE p.cat_idx=(SELECT p2.cat_idx FROM category c1 JOIN category p2 ON c1.parent_idx=p2.cat_idx WHERE c1.cat_idx=#{arg0})
+
+	
+	
+	
+	</select>
+	
+	
+	
+	<select id="getCatIdxByName" resultType="String">
+		Select cat_idx from category where cat_nm=#{arg0}
+	
+	</select>
+	
+	
+	<select id="getParentInfo" resultType="com.alj.dream.category.domain.Category">
+		select p.cat_idx, p.cat_nm from category c join category p on c.parent_idx=p.cat_idx where c.cat_idx=#{arg0};
+	</select>
+	
+
+	
+	<!-- 카테고리 삭제와 수정, 추가 -->
+	<update id="editCategory">
+		UPDATE category set cat_nm=#{arg0} where cat_idx=#{arg1}
+	</update>
+	
+	
+	<update id="deleteCategory">
+		UPDATE category set cat_deldate=current_timestamp where cat_idx=#{arg0}
+	</update>
+	
+	
+	<insert id="register" parameterType="com.alj.dream.category.domain.Category">
+		INSERT INTO category(cat_nm,cat_type) values(#{cat_nm},#{cat_type})
+	
+	</insert>
+	
+	
 	
 	
  </mapper>
