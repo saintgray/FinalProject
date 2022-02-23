@@ -59,6 +59,7 @@
 						function() {
 							//location.href = "${pageContext.request.contextPath}/qna/list?selectPage=${param.selectPage}&numOfMemberPerPage=${param.numOfQnaPerPage}";
 							history.go(-1);
+							
 						});
 		$('#replybtn')
 				.click(
