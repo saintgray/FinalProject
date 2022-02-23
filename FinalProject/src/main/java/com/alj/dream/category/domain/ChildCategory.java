@@ -5,6 +5,7 @@ public class ChildCategory {
 	String cat_idx;
 	String cat_nm;
 	String childNodeCount;
+	String parent_catnm;
 	
 	public ChildCategory() {
 		
@@ -13,13 +14,23 @@ public class ChildCategory {
 	
 	
 	
-	public ChildCategory(String cat_idx, String cat_nm, String childNodeCount) {
+	
+	
+	
+
+	public ChildCategory(String cat_idx, String cat_nm, String childNodeCount, String parent_catnm) {
 		this.cat_idx = cat_idx;
 		this.cat_nm = cat_nm;
 		this.childNodeCount = childNodeCount;
+		this.parent_catnm = parent_catnm;
 	}
-	
-	
+
+
+
+
+
+
+
 
 	public String getCat_idx() {
 		return cat_idx;
@@ -59,6 +70,29 @@ public class ChildCategory {
 	public void setChildNodeCount(String childNodeCount) {
 		this.childNodeCount = childNodeCount;
 	}
+
+	
+
+
+
+	public String getParent_catnm() {
+		return parent_catnm;
+	}
+
+
+
+
+
+
+
+
+	public void setParent_catnm(String parent_catnm) {
+		this.parent_catnm = parent_catnm;
+	}
+
+
+
+
 
 
 

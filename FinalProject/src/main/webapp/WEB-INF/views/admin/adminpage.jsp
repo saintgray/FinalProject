@@ -74,9 +74,9 @@
 				<a class="mx" href="" >게시글관리</a>
 			</div>
 			<div class="d-flex flex-column flex-wrap managetab">
-				<a href="">
+				<a href="${pageContext.request.contextPath}/admin/categorymanage">
 				<img src="${pageContext.request.contextPath}/resources/files/server/icons/category.png" class="managebtn"></a>
-				<a class="mx" href="" >분야관리</a>
+				<a class="mx" href="${pageContext.request.contextPath}/admin/categorymanage" >분야관리</a>
 			</div>
 			<div class="d-flex flex-column flex-wrap managetab">
 				<a href="${pageContext.request.contextPath}/notice?selectPage=1&numOfNoticesPerPage=5">
