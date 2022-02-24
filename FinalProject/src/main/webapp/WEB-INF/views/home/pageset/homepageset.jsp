@@ -94,8 +94,8 @@
     	
   	          
   	          
-  	          $('#findmentorbtn, #findmenteebtn').on('click',function(){
-  	        	 console.log('검색!'); 
+  	          $('#findbtn').on('click',function(){
+  	        	  
   	        	 
   	        	 location.href="${pageContext.request.contextPath}/post/search"
   	          })

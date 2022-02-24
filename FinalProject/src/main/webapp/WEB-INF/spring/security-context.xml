@@ -28,6 +28,9 @@
 		<security:intercept-url pattern="/register" access="permitAll"/>
 		<security:intercept-url pattern="/chk_email" access="permitAll"/>
 		
+		<!-- SUPERADMIN 이라는 권한을 가진 사람만 = 슈퍼관리자만 접근 가능한 경로 -->
+		<security:intercept-url pattern="/superadmin/**" access="hasRole('SUPERADMIN')"/>
+		
 		<!-- ADMIN 이라는 권한을 가진 사람만 = 관리자만   접근 가능한 경로 --> 
 		<security:intercept-url pattern="/admin/**" access="hasRole('ADMIN')"/> 
 		

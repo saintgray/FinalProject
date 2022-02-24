@@ -33,12 +33,22 @@
 	    background-color: #142B6F;
 	    border-color: #142B6F;
     }
+    
     .btn-general:hover{
     	 color: #FFF;
     	 background-color: #051c5a;
     	 border-color: #051c5a;
     }
-    
+    .btn-orange{
+    	color:#000;
+    	background-color:#FCA106;
+    	border-color:#FCA106;
+    }
+    .btn-orange:hover{
+    	color:#FFF;
+    	background-color:#FCA106;
+    	border-color:#FCA106;
+    }
      
    .banner{
    	font-size:30px;
