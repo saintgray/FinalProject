@@ -32,7 +32,7 @@ public class RequestPostService {
 		// 가져올때 : postidx에 맞는 게시글을 가져오고, 그 게시글idx를 가지고있는 매칭테이블들을 가져온다.
 		
 		RequestGroup rgroup = null;
-		List<RequestMember> memList = null;
+		List<RequestMember> memList = new ArrayList<RequestMember>();
 		
 		//postidx에 맞는 게시글 가져오기
 		rgroup = dao.selectRequestPostByPostIdx(postIdx);

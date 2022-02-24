@@ -21,15 +21,21 @@ public class NoticeController {
 
 	@GetMapping
 	public String showNoticePage(HttpServletRequest request, PageRequest pageReq) {
-
+		//데이터의 처리는 서비스에서
+		//System.out.println(model);
+		//System.out.println(pageReq);
 		
-		try {
-			request.setAttribute("notices", noticeListService.getNoticeList(pageReq));
-		} catch (Exception e) {
-			//에러페이지 출력
-			e.printStackTrace();
-		}
-						
+//		List<Notice> list =null;
+//		
+//		list=noticeListService.getNoticeList();
+//		
+//		model.addAttribute("notices", list);
+		
+		
+		request.setAttribute("notices", noticeListService.getNoticeList(pageReq));
+		//model.addAttribute("notices", );
+		
+		
 		//경로만 반환
 		return "notice/noticemain";
 	}

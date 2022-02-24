@@ -21,12 +21,12 @@ public class RegisterCategoryService {
 	}
 	
 	
-	public Category register(Category data) {
+	public int register(Category data) {
 		
 		
-		sst.getMapper(CategoryDao.class).register(data);
+		int result=sst.getMapper(CategoryDao.class).register(data);
 		
-		return data;
+		return result;
 	}
 	
 

@@ -7,20 +7,6 @@ public class Report {
 	private String report_content;
 	private int m_report;
 	private int m_reported;
-	private String report_date;
-	
-	public Report(int report_idx, int match_idx, String report_content, int m_report, int m_reported,
-			String report_date) {
-		this.report_idx = report_idx;
-		this.match_idx = match_idx;
-		this.report_content = report_content;
-		this.m_report = m_report;
-		this.m_reported = m_reported;
-		this.report_date = report_date;
-	}
-	
-	public Report() {
-	}
 	
 	public int getReport_idx() {
 		return report_idx;
@@ -52,19 +38,23 @@ public class Report {
 	public void setM_reported(int m_reported) {
 		this.m_reported = m_reported;
 	}
-	public String getReport_date() {
-		return report_date;
+	
+	public Report(int report_idx, int match_idx, String report_content, int m_report, int m_reported) {
+		
+		this.report_idx = report_idx;
+		this.match_idx = match_idx;
+		this.report_content = report_content;
+		this.m_report = m_report;
+		this.m_reported = m_reported;
 	}
-	public void setReport_date(String report_date) {
-		this.report_date = report_date;
-	}
+	
+	public Report() {}
 	
 	@Override
 	public String toString() {
 		return "Report [report_idx=" + report_idx + ", match_idx=" + match_idx + ", report_content=" + report_content
-				+ ", m_report=" + m_report + ", m_reported=" + m_reported + ", report_date=" + report_date + "]";
+				+ ", m_report=" + m_report + ", m_reported=" + m_reported + "]";
 	}
-	
 	
 	
 	

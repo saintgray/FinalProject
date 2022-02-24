@@ -45,21 +45,27 @@ public class EchoHandler extends TextWebSocketHandler {
 	}
 
 	
-	
 	// 채팅메세지 전달
 	@Override
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
+		
+		System.out.println("handleTextMessage" + session);
+		
 		
 		// chatDB에 저장할 데이터들
 		int myidx = (int)session.getAttributes().get("myIdx");
 		int matchIdx = (int)session.getAttributes().get("matchidx");
 		int recieverIdx = (int)session.getAttributes().get("reciever");		// 전달받을 상대방idx
 		
+		System.out.println("myIdx"+myidx);
+		System.out.println("matchIdx"+matchIdx);
+		System.out.println("recieverIdx"+recieverIdx);
 		
 		logger.info("{}로부터 {}를 전달받았습니다", myidx, message.getPayload());		// 입력해서 sendMessage(웹소켓으로 메세지를 보내려던)에서 받은 메세지
 		Gson gson = new Gson();
 		Chat chat = gson.fromJson(message.getPayload(), Chat.class);
 		
+		System.out.println(chat);
 		
 		// chat객체에 데이터저장
 		chat.setMatch_idx(matchIdx);
@@ -70,6 +76,9 @@ public class EchoHandler extends TextWebSocketHandler {
 		
 		//chat.setSent(sent);
 		int result = service.insertChat(chat);	// DB에 chat데이터 저장하는 메소드실행
+		System.out.println("service에 저장 확인");
+		
+		//select current_timestamp from dual;
 		
 		
 		WebSocketSession ws = sessionMap.get(recieverIdx); 	// 전달할 세션?
@@ -83,12 +92,11 @@ public class EchoHandler extends TextWebSocketHandler {
 			ws.sendMessage(sendMsg); 	// 상대방에 메세지 전달
 		}
 				
+		
+		
 		// 보낼 때 컨트롤러에서 필요로하는 postidx랑 midx를 보내준다?
 	}
 
-	
-	
-	
 	// 채팅창에 나갔을때
 	@Override
 	public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {

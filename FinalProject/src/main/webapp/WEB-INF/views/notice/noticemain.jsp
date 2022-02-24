@@ -140,16 +140,12 @@
 
 <%@ include file="/WEB-INF/views/layout/footer.jsp"%>
 
-<sec:authorize access="isAuthenticated()">
-	<c:set var="admin_idx">
-		<sec:authentication property="principal.admin_idx"/>
-	</c:set>
-	<c:if test="${not empty admin_idx}">
-		<%@ include file="/WEB-INF/views/notice/noticepageset/adminnoticemainpageset.jsp" %>
-	</c:if>
-
-
-</sec:authorize>
+<c:set var="admin_idx">
+	<sec:authentication property="principal.admin_idx"/>
+</c:set>
+<c:if test="${not empty admin_idx}">
+	<%@ include file="/WEB-INF/views/notice/noticepageset/adminnoticemainpageset.jsp" %>
+</c:if>
 
 <%@ include file="/WEB-INF/views/notice/noticepageset/noticemainpageset.jsp" %>
 
@@ -184,7 +180,7 @@
 		})
 		$('.pageNum').on('click',function(){
 			var keyword=$('#searchbararea').val();
-			location.href='${pageContext.request.contextPath}/notice?selectPage='+$(this).text()+'&numOfNoticesPerPage=5&keyword='+keyword;
+			location.href='${pageContext.request.contextPath}/notice?selectPage=${pnum}&numOfNoticesPerPage=5&keyword='+keyword;
 		})
 		
 		
