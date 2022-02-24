@@ -60,6 +60,9 @@
 		</div>
 
 	</div>
+	
+<!-- Footer -->
+<%@ include file="/WEB-INF/views/layout/footer.jsp" %>
 
 	<script>
 		let cat_idx;
