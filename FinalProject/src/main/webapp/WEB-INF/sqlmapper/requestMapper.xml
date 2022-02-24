@@ -6,27 +6,29 @@
  <mapper namespace="com.alj.dream.request.dao.RequestDao">
  
  
- 	<select id="selectTotalPost"
+ 	<!-- <select id="selectTotalPost"
 		resultType="int">
 		select count(distinct p.post_idx)
 		from post p, category c, dream.match m
 		where p.m_idx=#{param1} and c.cat_idx=p.cat_idx and p.wanted=#{param2} and
 			m.post_idx=p.post_idx;
-	</select> 
+	</select>  -->
  
  	<!-- 매칭테이블을 가지고있는 게시물 -->
  	<select id="selectRequestPostByMIdx" 
  		resultType="com.alj.dream.request.domain.RequestGroup">	
- 		select distinct 
- 			p.post_nm, 
- 			p.post_idx, 
- 			c.cat_nm, 
- 			p.post_regdate
-		from 
-			post p join category c on  c.cat_idx=p.cat_idx, dream.match m 
-		where 
-			p.m_idx=#{param1} and p.wanted=#{param2} and m.post_idx=p.post_idx ;
+	 	select p.post_nm, p.post_idx, c.cat_nm,  DATE_FORMAT(p.post_regdate, '%Y년 %m월 %d일') as post_regdate
+		FROM
+		post p join category c 
+		ON c.cat_idx=p.cat_idx
+		WHERE 
+		p.m_idx=#{param1} and p.wanted=#{param2}
+		and p.post_deldate is null AND
+		(SELECT count(*) FROM post p2 JOIN dream.match mat ON p2.post_idx=p.post_idx
+		AND mat.post_idx=p2.post_idx) &gt; 0
  	</select>
+ 	
+ 	
  	
  	<select id="selectRequestPostByPostIdx" 
  		resultType="com.alj.dream.request.domain.RequestGroup">	
@@ -34,7 +36,7 @@
  			p.post_nm, 
  			p.post_idx, 
  			c.cat_nm, 
- 			p.post_regdate,
+ 			 DATE_FORMAT(p.post_regdate, '%Y년 %m월 %d일') as post_regdate,
  			p.wanted
 		from 
 			post p join category c on  c.cat_idx=p.cat_idx
@@ -70,27 +72,8 @@
 		mem.m_idx=mat.mentee_idx
 		</if>
 		WHERE mat.post_idx=#{arg0}
-		
-		
-			
  	</select> 
  
- 	<select id="totalRequestMemberByPostIdx"
- 		resultType="int">
- 		select count(mem.m_idx)
-		from 
-			post p, category c, dream.match m, member mem, profile pr
-		where 
-			p.post_idx=#{idx}
-			and m.post_idx=p.post_idx 
-			and pr.m_idx=mem.m_idx and c.cat_idx=p.cat_idx and
-			
-			case when p.wanted like 'mentor' then
-			mem.m_idx=m.mentor_idx
-			when p.wanted like 'mentee' then
-			mem.m_idx=m.mentee_idx
-			end 	
-		order by m.match_idx;
- 	</select> 
+ 
  	
  </mapper>

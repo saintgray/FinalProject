@@ -9,4 +9,6 @@ public interface ReportDao {
 	
 	List<ReportInfo> getReportListByIdx(String m_idx);
 	int insertReport(Report r);
+	Report selectReportByMatchidx(int myidx, int matchidx);
+	int todayReportByMyidx(int myidx, int matchidx);
 }
