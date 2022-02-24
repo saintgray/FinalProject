@@ -22,9 +22,8 @@ public class PostWriteService {
 	
 	public int writePost(PostWriteRequest wRequest) {
 		
-		int resultCnt = insertPost(wRequest);
-		
 		// 글 업로드 처리
+		int resultCnt = insertPost(wRequest);
 		System.out.println("insertPost: " + resultCnt);
 		
 		// 파일업로드 처리

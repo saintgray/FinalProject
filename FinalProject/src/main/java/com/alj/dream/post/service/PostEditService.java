@@ -1,5 +1,6 @@
 package com.alj.dream.post.service;
 
+import java.io.File;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -23,25 +24,52 @@ public class PostEditService {
 	
 	public PostWriteRequest getPost(int post_idx) {
 		
+		// 글 가져오기
 		PostWriteRequest wRequest = template.getMapper(PostDao.class).selectWriteRequestByPostIdx(post_idx);
+
+		// 첨부파일 가져오기
+		List<PostFileRequest> fileList = template.getMapper(PostFilesDao.class).selectByPostIdx(post_idx);
 		
-		// 첨부파일 있는지 확인
-		int file_count = template.getMapper(PostFilesDao.class).selectCountByPostIdx(post_idx);
-		
-		if(file_count>0) {
-			// 파일이 있을 경우 첨부파일리스트 추가하기
-			List<PostFileRequest> fileList = template.getMapper(PostFilesDao.class).selectByPostIdx(post_idx);
-			wRequest.setFileList(fileList);
-		}
-		
+		wRequest.setFileList(fileList);
+				
 		return wRequest;
 	}
 
-	public int editPost(PostWriteRequest wRequest) {
+	public int editPost(PostWriteRequest wRequest, String saveDir) {
 		int resultCnt = 0;
 		
-		dao = template.getMapper(PostDao.class);
-		resultCnt = dao.updatePost(wRequest);
+		// 글 수정
+		resultCnt = template.getMapper(PostDao.class).updatePost(wRequest);
+		
+		if(resultCnt>0) {
+			// 파일 수정
+			List<PostFileRequest> fileList = wRequest.getFileList();
+			
+			for(PostFileRequest attachfile : fileList) {
+				if(attachfile.getUpdate_status().equalsIgnoreCase("E")) {
+					// 파일 삭제, db에 deldate 추가
+					String filename = attachfile.getFile_nm() + "." + attachfile.getFile_exet();
+					
+					File file;
+
+					file = new File(saveDir, filename);
+					file.delete();
+					
+					System.out.println("파일 삭제");
+					
+					resultCnt = template.getMapper(PostFilesDao.class).deleteOneFile(attachfile.getPost_idx(), attachfile.getFile_nm());
+					
+				} else if(attachfile.getUpdate_status().equalsIgnoreCase("N")) {
+					// 새로운 파일이라면 저장
+					resultCnt = template.getMapper(PostFilesDao.class).insertPostFile(attachfile);
+					
+				} else if(attachfile.getUpdate_status().equalsIgnoreCase("I")) {
+					// 이미 존재하는 파일 -> 넘기기
+					
+				}
+			}
+			
+		}
 		
 		return resultCnt;
 	}

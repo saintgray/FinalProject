@@ -24,6 +24,12 @@
 		(#{file_nm}, #{post_idx}, #{file_exet}, #{file_size}, #{file_originnm})
 	</insert>
 	
+	<update id="deleteOneFile">
+		update file_post
+		set file_deldate=current_timestamp()
+		where post_idx=#{post_idx} and file_nm=#{file_nm}
+	</update>
+	
 	<select id="selectByPostIdx"
 			resultType="com.alj.dream.file_post.domain.PostFileRequest">
 		select file_nm, post_idx, file_exet, file_size, file_originnm

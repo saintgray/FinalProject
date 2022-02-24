@@ -40,6 +40,11 @@ public class PostFileDeleteService {
 		return dao.deletePostFile(post_idx);
 
 	}
+	
+	// 개별 파일 삭제 : post_idx와 file_nm 필요, deldate 추가
+	public int deleteOneFile(int post_idx, String file_nm) {
+		return template.getMapper(PostFilesDao.class).deleteOneFile(post_idx, file_nm);
+	}
 
 	// 파일 삭제
 	public int deletePostFile(String saveDir, String filename) {

@@ -3,6 +3,8 @@ package com.alj.dream.post.controller;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,27 +31,30 @@ public class PostEditController {
 		PostWriteRequest editRequest = service.getPost(post_idx);
 		model.addAttribute("editRequest", editRequest);
 		
+		System.out.println("editRequest : ");
+		System.out.println(editRequest);
+		
 		ProfileRequest writerProfile = service.getWriterProfile(Integer.parseInt(editRequest.getM_idx()));
 		model.addAttribute("writerProfile", writerProfile);
+		
+		System.out.println("writerProfile : ");
+		System.out.println(writerProfile);
 
 		return "post/editform";
 	}
 	
 	@PostMapping
 	@ResponseBody
-	public Map<String, Integer> editPost(PostWriteRequest wRequest) {		
+	public Map<String, Integer> editPost(HttpServletRequest request, PostWriteRequest wRequest) {		
 		
-		System.out.println(wRequest);
+		System.out.println("수정내용 확인 : " + wRequest);
 		
 		Map<String, Integer> result = new HashMap<String, Integer>();
 		
+		String saveDir = request.getSession().getServletContext().getRealPath("/resources/files/post/attachfiles");
+		
 		// 글 수정
-		result.put("cnt", service.editPost(wRequest));
-		
-		// 파일업로드 수정 처리
-		//List<MultipartFile> list = wRequest.getFileList();
-		//System.out.println(list);
-		
+		result.put("cnt", service.editPost(wRequest, saveDir));
 		result.put("idx", wRequest.getPost_idx());
 		
 		System.out.println("cnt: " + result.get("cnt"));
