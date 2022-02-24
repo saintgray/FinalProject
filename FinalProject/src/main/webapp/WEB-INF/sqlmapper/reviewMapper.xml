@@ -40,5 +40,13 @@
 		values(#{param1}, #{param2}, #{param3});
 	</insert>
 
+	<select id="chkReview" resultType="com.alj.dream.review.domain.Review">
+		select * 
+		from review 
+		where match_idx=#{matchidx}
+	</select>
+
+
+
 </mapper>
  

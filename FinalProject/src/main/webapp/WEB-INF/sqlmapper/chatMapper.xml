@@ -14,28 +14,46 @@
  	
  	
  	<select id="selectChatRoomByIdx"
- 			resultType="com.alj.dream.chat.domain.ChatRoom">
+ 			resultType="com.alj.dream.chat.domain.ChatRoom"><!--  -->
  	select
-		m.match_idx, m.match_yn, 
-		mem.m_idx, mem.m_nm, mem.m_photo,
-		c.cat_nm, c.cat_type
+		mat.match_idx, mat.match_yn, c.cat_nm,
+		(select p.cat_nm from category p join category c2 on p.cat_idx=c.parent_idx and c2.cat_idx=c.cat_idx) as cat_type,
+		<if test='param1 eq "mentee"'>
+			mat.mentee_idx as sender_idx, mat.mentor_idx as reciever_idx
+		</if>
+		<if test='param1 eq "mentor"'>
+			mat.mentor_idx as sender_idx, mat.mentee_idx as reciever_idx
+		</if>
 	from 
-		dream.match m join member mem on m.mentor_idx = mem.m_idx, 
+		dream.match mat,
 		post p join category c on c.cat_idx=p.cat_idx
 	where 
-		m.post_idx = p.post_idx and
-		
-	case when #{param1} like'mentor' then
-		m.mentor_idx = #{param2}
-		when #{param1} like'mentee' then
-		m.mentee_idx = #{param2}
-		end;
+		<if test='param1 eq "mentee"'>
+		mentee_idx=#{param2} and
+		mentee_outyn ='N'
+		</if>
+		<if test='param1 eq "mentor"'>
+		mentor_idx=#{param2} and
+		mentor_outyn ='N'
+		</if>
+		and mat.post_idx = p.post_idx 
  	</select>
+ 	
  	
  	<select id="selectChatByMatchidx"
  			resultType="com.alj.dream.chat.domain.Chat">
- 	select * from chat where match_idx = #{matchidx} order by sent asc;
-	
+ 	select 
+ 		match_idx, message, (select concat((select MONTH(sent)),'월 ',(select DAY(sent)),'일',' ',(select time_format(sent, '%H:%i'))))as sent, m_sender, m_reciever
+ 	from 
+ 		chat 
+ 	where 
+ 		match_idx = #{matchidx} order by sent asc;
+ 	</select>
+ 	
+ 	
+ 	<select id="selectCurTime"
+ 			resultType="String">
+ 		select current_timestamp from dual;
  	</select>
  	
  	

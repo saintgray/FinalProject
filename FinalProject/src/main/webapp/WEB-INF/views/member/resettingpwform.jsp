@@ -42,7 +42,6 @@
 
 
 <%@include file="/WEB-INF/views/layout/footer.jsp" %>
-<%@include file="/WEB-INF/views/member/pageset/resettingpwformpageset.jsp" %>
 </body>
 
 
