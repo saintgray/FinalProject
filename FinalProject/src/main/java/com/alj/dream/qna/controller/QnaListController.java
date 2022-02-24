@@ -16,6 +16,7 @@ public class QnaListController {
 	
 	private QnaListService listService;
 	
+	//오류 찾기
 	public QnaListController() {
 		
 	}
