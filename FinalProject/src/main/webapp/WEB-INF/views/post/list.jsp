@@ -56,5 +56,8 @@
 
 	</div>
 
+<!-- Footer -->
+<%@ include file="/WEB-INF/views/layout/footer.jsp" %>
+
 </body>
 </html>
