@@ -30,7 +30,7 @@
 		
 		
 		$('#m_email, #m_pw').on('focus',function(){
-			$(this).siblings('.warning').css('visibility','hidden');
+			$(this).parent().next().css('visibility','hidden');
 			$('#auth_warning').text('');
 		})
 		

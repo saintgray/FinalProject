@@ -7,7 +7,7 @@ import org.springframework.stereotype.Controller;
 
 @Controller
 @RequestMapping("/admin/manage")
-public class AdminMainPageController {
+public class MainPageController {
 	
 	
 	

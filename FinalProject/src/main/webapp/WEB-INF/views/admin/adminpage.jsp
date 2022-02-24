@@ -69,11 +69,6 @@
 		
 		
 			<div class="d-flex flex-column flex-wrap managetab">
-				<a href="">
-				<img src="${pageContext.request.contextPath}/resources/files/server/icons/post.png" class="managebtn"></a>
-				<a class="mx" href="" >게시글관리</a>
-			</div>
-			<div class="d-flex flex-column flex-wrap managetab">
 				<a href="${pageContext.request.contextPath}/admin/categorymanage">
 				<img src="${pageContext.request.contextPath}/resources/files/server/icons/category.png" class="managebtn"></a>
 				<a class="mx" href="${pageContext.request.contextPath}/admin/categorymanage" >분야관리</a>
@@ -83,6 +78,17 @@
 					<img src="${pageContext.request.contextPath}/resources/files/server/icons/customerservice.svg" class="managebtn"/></a>
 					<a class="mx" href="${pageContext.request.contextPath}/notice?selectPage=1&numOfNoticesPerPage=5">고객센터</a>
 			</div>
+			
+			
+			<sec:authorize access="hasRole('SUPERADMIN')"> 
+				
+				<div class="d-flex flex-column flex-wrap managetab">
+					<a href="${pageContext.request.contextPath}/superadmin/admin/register">
+					<img src="${pageContext.request.contextPath}/resources/files/server/icons/manager.jpg" class="managebtn"></a>
+					<a class="mx" href="${pageContext.request.contextPath}/superadmin/admin/register" >관리자</a>
+				</div>
+			
+			</sec:authorize>
 		</div>
 
 
