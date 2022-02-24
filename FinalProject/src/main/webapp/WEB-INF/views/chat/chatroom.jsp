@@ -511,7 +511,7 @@ $(document).ready(function(){
 			},
 			success : function(data){
 				if(data==1){
-					var mngMsg = $('#myname').text()+'님이 채팅방을 나가셨습니다.';
+					var mngMsg = "$('#myname').text()님이 채팅방을 나가셨습니다.";
 					sendMngMessage(mngMsg);
 					
 					location.href="${pageContext.request.contextPath}/chat/chatlist";
@@ -539,7 +539,7 @@ $(document).ready(function(){
 		document.getElementById("unmatch").style.display="inline-block"; 
 		
 		// ${reciever}님과 ${myidx}님이 매칭되었습니다! 화면에 채팅으로 올라간다(중앙에)
-		var mngMsg = myname+'님과 ${recieverInfo.m_nm} 님의 매칭이 성사되었습니다!';
+		var mngMsg = "$('#myname').text()님과 ${recieverInfo.m_nm} 님의 매칭이 성사되었습니다!";
 		console.log(mngMsg);
 		
 		sendMngMessage(mngMsg);
@@ -558,7 +558,7 @@ $(document).ready(function(){
 		document.getElementById("unmatch").style.display="none";
 		
 		// ${reciever}님과  ${myidx}님의 매칭이 취소되었습니다. 화면에 채팅으로 올라간다(중앙에)
-		var mngMsg = myname+'님과 ${recieverInfo.m_nm} 님의 매칭이 취소되었습니다. 더이상의 매칭이 불가합니다.';
+		var mngMsg = "$('#myname').text()님과 ${recieverInfo.m_nm} 님의 매칭이 취소되었습니다. 더이상의 매칭이 불가합니다.";
 		console.log(mngMsg);
 		
 		sendMngMessage(mngMsg);
@@ -597,13 +597,18 @@ $(document).ready(function(){
 		
 		var sysMsg ='###aljdream###'+mngMsg;
 		console.log(sysMsg);
-		
+		// 현재 시간
+		var today = new Date();
+		var todaysMnth = today.getMonth()+1;
+		console.log(todaysMnth);
+		var time = todaysMnth+"월 "+today.getDate()+"일 " +today.getHours() + ":" + today.getMinutes();
 		
 		var msg = {
 			reciever : ${reciever},
 			matchidx : ${matchidx},
 			// 시스템 상 메세지는 특정 문자열을 넣어서 진행하도록한다
-			message : sysMsg
+			message : sysMsg,
+			sent : time
 		};
 		console.log(msg);
 		console.log('매니저메세지발송');
@@ -845,8 +850,6 @@ $(document).ready(function(){
 			}
 		})
 	};
-	// 채팅관련 함수------------------------------------------------------------------------------------------------
- 
 	
 	
 	
@@ -855,7 +858,7 @@ $(document).ready(function(){
 	
 	
 </script>
-${myname}
+
 </body>
 
 </html>

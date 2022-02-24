@@ -42,6 +42,9 @@
 	line-height: 36px;
 	
 }
+#searchBtn{
+	cursor: pointer;
+}
 </style>
 <title>공지사항</title>
 </head>
@@ -111,19 +114,23 @@
 						style="position: relative">
 
 						<div class="input-group inner" id="noticesearch">
-							<div class="input-group-prepend">
-								<img class="input-group-text" style="height: 100%"
-									src="${pageContext.request.contextPath}/resources/files/server/icons/img_searchicon.svg">
-							</div>
-							<input id="searchbar" style="border-left: 0;" type="text"
-								class="form-control" aria-label="Amount (to the nearest dollar)"
-								placeholder="검색">
 
 							<sec:authorize access="hasRole('ADMIN')">
 								<button type="button" class="btn btn-general" id="regnoticebtn">공지사항
 									등록</button>
 								<!-- button 안에 <a> 태그는 쓰지 않으므로 이 버튼을 눌렀을때 스크립트로 해당 url 로 들어가게끔 할 것 -->
 							</sec:authorize>
+							
+							<input id="searchbararea" style="border-left: 0;" type="text"
+								class="form-control" aria-label="Amount (to the nearest dollar)"
+								placeholder="검색" value="${notices.keyword}">
+								<div class="input-group-append">
+								<img class="input-group-text" style="height: 100%"
+									src="${pageContext.request.contextPath}/resources/files/server/icons/img_searchicon.svg"
+									id="searchBtn">
+							</div>
+
+							
 						</div>
 
 
@@ -137,8 +144,7 @@
 								<span class="mx-2 pageNum btn btn-warning">${pnum}</span>
 							</c:if>
 							<c:if test="${pnum ne notices.selectPage}">
-								<a class="mx-2 pageNum btn btn-grey"
-									href="${pageContext.request.contextPath}/notice?selectPage=${pnum}&numOfNoticesPerPage=5">${pnum}</a>
+								<span class="mx-2 pageNum btn btn-grey">${pnum}</span>
 							</c:if>
 						</c:forEach>
 					</div>
@@ -167,6 +173,49 @@
 
 
 </body>
-
+<script>
+	$(function(){
+		/* $('#searchbararea').val($('#searchParameter input[name=keyword]').val());
+		
+		$('#sortbyregdate').on('click','i',function() {
+			$('#searchParameter input[name=selectPage]').val(1);
+			$('#searchParameter input[name=sortType]').val('notice_regdate');
+			
+			if($(this).attr('id')=='sortbyasc'){
+				$('#searchParameter input[name=sortBy]').val('asc');
+			}else{
+				$('#searchParameter input[name=sortBy]').val('desc');
+			}
+			$('#searchParameter').submit();
+		})
+		
+		$('searchBtn').on('click',function(){
+			$('#searchParameter input[name=keyword]').val($('#searchbararea').val());
+			$('#searchParameter input[name=selectPage]').val(1);
+			$('#searchParameter').submit();
+		}) */
+		
+		$('#searchBtn').on('click',function(){
+			var keyword=$('#searchbararea').val();
+			location.href='${pageContext.request.contextPath}/notice?selectPage=1&numOfNoticesPerPage=5&keyword='+keyword;
+			
+		})
+		$('.pageNum').on('click',function(){
+			var keyword=$('#searchbararea').val();
+			location.href='${pageContext.request.contextPath}/notice?selectPage=${pnum}&numOfNoticesPerPage=5&keyword='+keyword;
+		})
+		
+		
+		$('#searchbararea').on('keydown',function(e){
+			if(e.keyCode==13){
+				
+				$('#searchBtn').trigger('click');
+			}
+			
+		})
+		
+		
+	})
+</script>
 
 </html>

@@ -27,8 +27,11 @@ public class LoginFailureRedirectController {
 		ra.addFlashAttribute("error", info);
 		
 		
+		String redirect="redirect:/member/loginform";
+		if(req.getParameter("intercepted")!=null) {
+			redirect+="?intercepted=true";
+		}
 		
-		
-		return "redirect:/member/loginform";
+		return redirect;
 	}
 }

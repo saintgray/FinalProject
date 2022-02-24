@@ -17,7 +17,7 @@
  	<!-- 매칭테이블을 가지고있는 게시물 -->
  	<select id="selectRequestPostByMIdx" 
  		resultType="com.alj.dream.request.domain.RequestGroup">	
-	 	select p.post_nm, p.post_idx, c.cat_nm, p.post_regdate
+	 	select p.post_nm, p.post_idx, c.cat_nm,  DATE_FORMAT(p.post_regdate, '%Y년 %m월 %d일') as post_regdate
 		FROM
 		post p join category c 
 		ON c.cat_idx=p.cat_idx
@@ -36,7 +36,7 @@
  			p.post_nm, 
  			p.post_idx, 
  			c.cat_nm, 
- 			p.post_regdate,
+ 			 DATE_FORMAT(p.post_regdate, '%Y년 %m월 %d일') as post_regdate,
  			p.wanted
 		from 
 			post p join category c on  c.cat_idx=p.cat_idx

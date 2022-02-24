@@ -6,6 +6,7 @@ public class CategoryRequested {
 	
 	private List<String> interest;
 	
+	
 	public CategoryRequested() {
 		
 	}
@@ -22,6 +23,7 @@ public class CategoryRequested {
 	public void setInterest(List<String> interest) {
 		this.interest = interest;
 	}
+
 	
 	
 

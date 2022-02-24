@@ -48,6 +48,7 @@
 					</div>
 				</div>		
 				
+				<input type="text" name="intercepted" class="d-none" value="${param.intercepted}">
 				
 				<!-- authentication failed message area -->
 				<div id="auth_warning" class="warning text-center">

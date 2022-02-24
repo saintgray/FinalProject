@@ -130,13 +130,16 @@ $(document).ready(function(){
 		    return;
 		}
 				
-		// 이미 등록된 미리보기를 복사한다.
+		// 첫 업로드가 아닐 경우, 이미 등록된 파일을 재업로드하지 않기 위해 사전작업을 한다.
 		if($('#uploadResult ul')){
+			// 이미 등록된 미리보기를 복사한다.
 			var cloneResult = $('#uploadResult ul').clone();
+			
+			// 이미 등록된 파일을 목록에서 지운다.
+			formData.delete('attachfiles');
 		}
  		
 		$('#uploadResult').html('<ul class="list-group"></ul>');
-		
 		
 		// 새로 등록한 파일을 attachfiles 에 추가한다.
 		for(var i=0; i<inputFile.length; i++){
@@ -147,7 +150,7 @@ $(document).ready(function(){
 			
 		}
 		console.log('attachfiles 를 formData 에 추가');
-		console.log('attachfiles:', formData.get('attachfiles'));
+		console.log('attachfiles:', formData.getAll('attachfiles'));
 		
 		/* key 확인하기 */
 		for (let key of formData.keys()) {
@@ -172,21 +175,23 @@ $(document).ready(function(){
 				
 				var list = $('#uploadResult ul');
 				
-				//$(list).html(cloneResult.html());
+				$(list).html(cloneResult.html());
 				
 				$(data).each(function(index, items){
 					
 					var listItem = document.createElement('li');
-					var path = '${pageContext.request.contextPath}/resources/files/post/attachfiles/'+items.file_nm+'.'+items.file_exet;
+					var fileName = items.file_nm+'.'+items.file_exet;
 					
 					var html = '<li class="list-group-item d-flex justify-content-between align-items-center">';
 					
-					if(items.file_exet!='pdf'){
-						html += '<img src="'+path+'">\r\n';
+					if(items.file_exet=='pdf'){
+						html += '<span><i class="bi bi-filetype-pdf fs-4"></i>';
+					} else {
+						html += '<img src="${pageContext.request.contextPath}/post/display?fileName='+fileName+'">\r\n<span>';
 					}
 					
 					// 파일 이름과 크기
-					html += '<span>'+items.file_originnm+'.'+items.file_exet+' ('+items.file_size+'kb)\r\n';
+					html += items.file_originnm+'.'+items.file_exet+' ('+items.file_size+'kb)\r\n';
 					
 					// 파일 삭제를 위한 버튼
 					html += '<button type="button" data-file_nm="'+items.file_nm+'" data-originnm="'+items.file_originnm+'" data-exet="'+items.file_exet+'" data-size="'+items.file_size+'" class="btn btn-warning btn-circle">X</button>\r\n';

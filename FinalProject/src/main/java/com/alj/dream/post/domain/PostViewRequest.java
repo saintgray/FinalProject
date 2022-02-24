@@ -2,6 +2,7 @@ package com.alj.dream.post.domain;
 
 import java.util.List;
 
+import com.alj.dream.file_post.domain.PostFileRequest;
 import com.alj.dream.match.domain.MatchInfo;
 
 public class PostViewRequest {
@@ -17,6 +18,7 @@ public class PostViewRequest {
 	private int match_count;
 	private String wanted;
 	private List<MatchInfo> matchInfos;
+	private List<PostFileRequest> fileList;
 	
 	public PostViewRequest() {}
 
@@ -68,4 +70,12 @@ public class PostViewRequest {
 		this.matchInfos = matchInfos;
 	}
 
+	public List<PostFileRequest> getFileList() {
+		return fileList;
+	}
+
+	public void setFileList(List<PostFileRequest> fileList) {
+		this.fileList = fileList;
+	}
+	
 }

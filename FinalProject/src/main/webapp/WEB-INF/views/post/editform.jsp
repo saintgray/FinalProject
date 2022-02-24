@@ -25,6 +25,14 @@ history.go(-1);
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style>
+#attachedfiles img{
+	max-height:64px;
+	max-width: 100px;
+	width:auto;
+	order:1;
+}
+</style>
 </head>
 <body>
 <%@ include file="/WEB-INF/views/defaultpageset.jsp" %>
@@ -87,12 +95,35 @@ history.go(-1);
 <input type="hidden" name="wanted" value="${type eq 'mentor'?'mentee':'mentor'}">
 <input type="hidden" name="m_idx" value="${idx}">
 
-<!-- 파일업로드 -->
-<div>
-	<input type="file" name="attachFile" id="attachFile" multiple>
-<!-- 업로드한 파일 미리보기 -->
-	<div id="filePreview">
-	</div>
+<!-- 첨부파일 -->
+<div id="attachedfiles">
+	<c:if test="${editRequest.fileList ne null}">
+	<ul class="list-group">
+	<c:forEach var="postFile" items="${editRequest.fileList}">
+		<li class="list-group-item d-flex justify-content-between align-items-center"
+			data-file_nm="${postFile.file_nm}" data-exet="${postFile.file_exet}">
+			
+		<c:if test="${postFile.file_exet ne 'pdf'}">
+		
+		<img src="${pageContext.request.contextPath}/post/display?fileName=${postFile.file_nm}.${postFile.file_exet}">
+		<span>${postFile.file_originnm}.${postFile.file_exet} (${postFile.file_size} kb)
+		<button type="button" data-file_nm="${postFile.file_nm}" data-originnm="${postFile.file_originnm}" data-exet="${postFile.file_exet}" data-size="${postFile.file_size}" class="btn btn-warning btn-circle">X</button>
+		</span>
+		
+		</c:if>
+		
+		<c:if test="${postFile.file_exet eq 'pdf'}">
+		<span><i class="bi bi-filetype-pdf fs-4"></i>
+		${postFile.file_originnm}.${postFile.file_exet} (${postFile.file_size} kb)
+		<button type="button" data-file_nm="${postFile.file_nm}" data-originnm="${postFile.file_originnm}" data-exet="${postFile.file_exet}" data-size="${postFile.file_size}" class="btn btn-warning btn-circle">X</button>
+		
+		</span>
+		</c:if>
+		
+		</li>
+	</c:forEach>
+	</ul>
+	</c:if>
 </div>
 
 <button type="reset">리셋</button> <button type="button" id="ajaxBtn">작성</button>

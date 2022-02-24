@@ -34,6 +34,6 @@ public interface PostDao {
 	
 	HashMap<String, Integer> selectLocInterest(int m_idx);
 	
-	List<PostListInfo> selectRecommendedList(SearchParams params);
+	List<PostListInfo> selectRecommendedList(int m_idx, String wanted, List<Integer> interests, int locCode);
 
 }

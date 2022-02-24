@@ -3,8 +3,6 @@ package com.alj.dream.request.service;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
-
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -43,28 +41,30 @@ public class RequestGroupService {
 		}else if(mytype.equalsIgnoreCase("mentor")) {
 			wanted="mentee";
 		}
-		
+
+
 		String overfive = null;
 		
 		List<RequestMember> rmemberList = new ArrayList<RequestMember>();
 		List<RequestGroup> rgroupList = dao.selectRequestPostByMIdx(myidx, wanted);	
 		
-		
-		for(RequestGroup post/*받은제의*/ : rgroupList) {
-			
+		for(RequestGroup post : rgroupList) {
+
+			// 게시글 고유번호에 문의한 회원정보를 rmemberList리스트에 add.
 			rmemberList = dao.selectRequestMemberByPostIdx(post.getPost_idx(), wanted);	
 			
 			post.setList(rmemberList);
-			
-			
-			int totalMember = rmemberList.size();
-			
+		
+			int totalMember =rmemberList.size();
+
 			// 화면에 표시할  멤버수는 최대 4명이다. 그 이상은 ...으로 표기할 예정
 			if(totalMember > 4) {
 				overfive = "Y";
 			}else {
 				overfive = "N";
 			}
+			post.setOverfive(overfive);
+
 			post.setOverfive(overfive);
 			
 		}

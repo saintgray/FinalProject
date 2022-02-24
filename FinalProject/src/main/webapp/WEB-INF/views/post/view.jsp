@@ -15,10 +15,35 @@ history.go(-1);
 <head>
 <meta charset="UTF-8">
 <title></title>
+<style>
+#attachedfiles img{
+	max-height:64px;
+	max-width: 100px;
+	width:auto;
+	order:1;
+}
+#imageWrapper{
+	position: absolute;
+	display: none;
+	justify-content: center;
+	align-items: center;
+	top: 0%;
+	width: 100%;
+	height: 100%;
+	z-index: 100;
+}
+#bigImage{
+	position: relative;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+</style>
 </head>
 <body>
 
 <%@ include file="/WEB-INF/views/defaultpageset.jsp" %>
+<%@ include file="/WEB-INF/views/post/pageset/viewpageset.jsp"%>
 
 <!-- Header -->
 <%@ include file="/WEB-INF/views/layout/header.jsp" %>
@@ -82,6 +107,37 @@ history.go(-1);
 ${viewRequest.post_content}
 </div>
 
+<!-- 첨부파일 -->
+<div id="attachedfiles">
+	<c:if test="${viewRequest.fileList ne null}">
+	<ul class="list-group">
+	<c:forEach var="postFile" items="${viewRequest.fileList}">
+		<li class="list-group-item d-flex justify-content-between align-items-center"
+			data-file_nm="${postFile.file_nm}" data-exet="${postFile.file_exet}">
+			
+		<c:if test="${postFile.file_exet ne 'pdf'}">
+		
+		<img src="${pageContext.request.contextPath}/post/display?fileName=${postFile.file_nm}.${postFile.file_exet}">
+		<span>${postFile.file_originnm}.${postFile.file_exet} (${postFile.file_size} kb)</span>
+		
+		</c:if>
+		
+		<c:if test="${postFile.file_exet eq 'pdf'}">
+		<span><i class="bi bi-filetype-pdf fs-4"></i>
+		${postFile.file_originnm}.${postFile.file_exet} (${postFile.file_size} kb)</span>
+		</c:if>
+		
+		</li>
+	</c:forEach>
+	</ul>
+	</c:if>
+</div>
+
+<!-- 첨부파일 이미지 크게 보기 -->
+<div id="imageWrapper">
+	<div id="bigImage"></div>
+</div>
+
 <!-- 매칭정보/문의하기 -->
 <div class="row">
 <c:if test="${viewRequest.m_idx ne idx && viewRequest.wanted eq type}">
@@ -102,6 +158,7 @@ ${viewRequest.post_content}
 
 </div>
 
+<<<<<<< HEAD
 <script>
 function deletePost(idx){
 	
@@ -182,6 +239,8 @@ $(document).ready(function(){
 })
 </script>
 
+=======
+>>>>>>> branch 'master' of https://github.com/saintgray/FinalProject.git
 </body>
 </html>
 

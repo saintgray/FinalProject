@@ -7,6 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.alj.dream.category.dao.CategoryDao;
+import com.alj.dream.category.domain.Category;
+import com.alj.dream.category.domain.CategoryInfo;
+import com.alj.dream.category.domain.CategorySiblingsInfo;
 import com.alj.dream.category.domain.ChildCategory;
 
 @Service
@@ -29,6 +32,8 @@ public class CategoryListService {
 		
 		
 		List<ChildCategory> list=null;
+		
+		
 		list=sst.getMapper(CategoryDao.class).getChildCategory(interest);
 		
 		
@@ -38,5 +43,30 @@ public class CategoryListService {
 		return list;
 			
 		
+	}
+	
+	
+	
+	
+	public CategorySiblingsInfo getSiblings(String idx){
+		List<ChildCategory> list =sst.getMapper(CategoryDao.class).getSiblings(idx);
+		Category parent=sst.getMapper(CategoryDao.class).getParentInfo(idx);
+		
+		
+		CategorySiblingsInfo info=new CategorySiblingsInfo(parent, list);
+		
+		return info;
+	}
+	
+	
+	
+	public List<CategoryInfo> selectAll(){
+		return sst.getMapper(CategoryDao.class).selectAll();
+	}
+	
+	
+	
+	public String getCategoryIdxByName(String name) {
+		return sst.getMapper(CategoryDao.class).getCatIdxByName(name);
 	}
 }

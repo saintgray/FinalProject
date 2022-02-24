@@ -9,7 +9,9 @@
 <title>Insert title here</title>
 <style>
 #uploadResult img{
-	height:64px;
+	max-height:64px;
+	max-width: 100px;
+	width:auto;
 	order:1;
 }
 </style>

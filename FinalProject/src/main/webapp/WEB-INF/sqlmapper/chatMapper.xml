@@ -16,7 +16,8 @@
  	<select id="selectChatRoomByIdx"
  			resultType="com.alj.dream.chat.domain.ChatRoom"><!--  -->
  	select
-		mat.match_idx, mat.match_yn, c.cat_nm, c.cat_type,
+		mat.match_idx, mat.match_yn, c.cat_nm,
+		(select p.cat_nm from category p join category c2 on p.cat_idx=c.parent_idx and c2.cat_idx=c.cat_idx) as cat_type,
 		<if test='param1 eq "mentee"'>
 			mat.mentee_idx as sender_idx, mat.mentor_idx as reciever_idx
 		</if>

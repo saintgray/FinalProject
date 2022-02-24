@@ -2,6 +2,7 @@ package com.alj.dream.file_profile.service;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -71,7 +72,20 @@ public class FileProfileRegisterService {
 			
 		}
 		
-	    int result= sst.getMapper(ProfileFilesDao.class).insertProfileFiles(list);
+	    int result=0;
+	    
+	    try{
+	    	result=sst.getMapper(ProfileFilesDao.class).insertProfileFiles(list);
+	    }catch(Exception e) {
+	    	e.printStackTrace();
+	    	for(FileInfo info : list) {
+	    		File delfile=new File(savePath,info.getFile_nm());
+	    		if(delfile.exists()) {
+	    			delfile.delete();
+	    		}
+	    	}
+	    
+	    }
 		
 		
 		
