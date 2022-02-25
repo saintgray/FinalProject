@@ -18,7 +18,8 @@
  	select
 		m.match_idx, m.match_yn, 
 		mem.m_idx, mem.m_nm, mem.m_photo,
-		c.cat_nm,  (select p.cat_nm from category p join category c2 on p.cat_idx=c.parent_idx and c2.cat_idx=c.cat_idx) as cat_type
+		c.cat_nm,  (select p.cat_nm from category p join category c2 on p.cat_idx=c.parent_idx and c2.cat_idx=c.cat_idx) as cat_type,
+		mem.m_idx as reciever_idx
 	from 
 		dream.match m join member mem 
 		
@@ -40,7 +41,7 @@
 			mentor_idx=#{param2} and
 			mentor_outyn ='N'
 		</if>
-			AND mat.post_idx = p.post_idx 
+			AND m.post_idx = p.post_idx 
  	</select>
  	
  	<select id="selectChatByMatchidx"

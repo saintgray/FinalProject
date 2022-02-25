@@ -52,6 +52,7 @@ public class ChatRoomListService {
 			// memInfo= mdao.getMemberInfo(test);	
 			mdao=template.getMapper(MemberDao.class);
 			room.setMemberInfo(mdao.getMemberInfo(r));
+			room.setSender_idx(myidx);
 
 
 		}
