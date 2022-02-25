@@ -31,10 +31,17 @@ public class CategoryRegisterController {
 
 
 	@PostMapping
-	public int registerCategory(@RequestBody Category data) {
+	public Category registerCategory(@RequestBody Category data) {
+
 		
-		int result=regService.register(data);
-		
+		Category result=null;
+
+		try {
+		  result=regService.register(data);
+
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
 		return result;
 	}
 
