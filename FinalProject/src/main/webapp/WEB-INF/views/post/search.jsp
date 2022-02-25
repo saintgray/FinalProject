@@ -58,6 +58,9 @@
 			<div class="descript mb-2">검색 결과</div>
 			
 		</div>
+		
+		<nav id="paging">
+		</nav>
 
 	</div>
 	
@@ -284,7 +287,8 @@
 						html+='등록된 요청글이 없습니다.\r\n';
 					} else {
 						// 검색 결과가 있을 때
-						
+						html+='<div id="searchResult" class="list-group">\r\n';
+						html+='<div class="descript mb-2">검색 결과</div>\r\n';
 						$(list).each(function(index, item) { 
 							html+='		<a href="view?idx='+item.post_idx+'" class="list-group-item list-group-item-action">\r\n';
 						 	html+='			<div class="d-flex w-100 justify-content-between">\r\n';
@@ -293,19 +297,29 @@
 						 	html+='			<p class="mb-1">'+item.cat_nm+' / '+item.loc_nm+'</p>\r\n';
 						 	html+='		</a>\r\n';
 						})
+						html+='</div>\r\n';
 						
-						if(data.totalPageCount>data.currentPage){
+						if(data.totalPageCount>=0){
 							// 현재 페이지보다 총 페이지 수가 많을 경우 -> 더보기 버튼 출력
-							var page = data.currentPage+1;
-							html+='<button type="button" id="moreBtn" class="btn btn-outline-dark" onclick="searchPost('+page+')">더보기</button>';
+							// var page = data.currentPage+1;
+							// html+='<button type="button" id="moreBtn" class="btn btn-outline-dark" onclick="searchPost('+page+')">더보기</button>';
+							
+							var paging='';
+								paging+='<nav id="paging" aria-label="paging">\r\n';
+								paging+='<ul class="pagination justify-content-center">\r\n';
+							for(var i=1; i<=data.totalPageCount; i++){
+								paging+='<li class="page-item"><a class="page-link" href="javascript:searchPost('+i+')">'+i+'</a></li>\r\n';
+							}
+								paging+='</ul>\r\n</nav>\r\n';
 							
 						}
 						
 					}
 					
-					$('#searchResult').append(html);
+					$('#searchResult').html(html);
+					$('#paging').html(paging);
 					// history.pushState(data, header, url);
-					//history.pushState({m_idx:m_idx, wanted:wanted, cat_idx:cat_idx, loc_idx:loc_idx, pageNum:pageNum}, null);
+					//history.pushState({m_idx:m_idx, wanted:wanted, cat_idx:cat_idx, loc_idx:loc_idx, pageNum:pageNum}, null); */
 					
 				},
 				error: function(){
