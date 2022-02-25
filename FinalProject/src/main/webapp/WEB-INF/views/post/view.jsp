@@ -163,6 +163,7 @@ ${viewRequest.post_content}
 <%@ include file="/WEB-INF/views/layout/footer.jsp" %>
 
 </body>
+
 </html>
 
 </c:if>

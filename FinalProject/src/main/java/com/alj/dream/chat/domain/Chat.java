@@ -9,17 +9,23 @@ public class Chat {
 	private int m_sender;	// 보낸사람idx
 	private int m_reciever;	// 받는사람idx
 	private String message;	// 채팅내용
+	private String sysmsgYN;// 시스템메세지여부
 	
-	public Chat(int match_idx, String sent, int m_sender, int m_reciever, String message) {
-		
+	
+
+	public Chat() {	}
+
+	
+
+	public Chat(int match_idx, String sent, int m_sender, int m_reciever, String message, String sysmsgYN) {
 		this.match_idx = match_idx;
 		this.sent = sent;
 		this.m_sender = m_sender;
 		this.m_reciever = m_reciever;
 		this.message = message;
+		this.sysmsgYN = sysmsgYN;
 	}
 
-	public Chat() {	}
 
 	
 	public int getMatch_idx() {
@@ -61,11 +67,25 @@ public class Chat {
 	public void setMessage(String message) {
 		this.message = message;
 	}
+	
+	
+
+	public String getSysmsgYN() {
+		return sysmsgYN;
+	}
+
+
+
+	public void setSysmsgYN(String sysmsgYN) {
+		this.sysmsgYN = sysmsgYN;
+	}
+
+
 
 	@Override
 	public String toString() {
-		return "Chat [match_idx=" + match_idx + ", sent=" + sent + ", m_sender=" + m_sender
-				+ ", m_reciever=" + m_reciever + ", message=" + message + "]";
+		return "Chat [match_idx=" + match_idx + ", sent=" + sent + ", m_sender=" + m_sender + ", m_reciever="
+				+ m_reciever + ", message=" + message + ", sysmsgYN=" + sysmsgYN + "]";
 	}
 	
 	

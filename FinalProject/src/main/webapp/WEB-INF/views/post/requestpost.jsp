@@ -130,42 +130,45 @@
 		
 		<div class="rqMemList">
 		
-			<c:forEach items="${requestPost.list}" var="member">
+			
 				<div class="oneMember">
-				<table class="memTable">
-				<tr>
-					<td rowspan="3"><input type="hidden" class="matchidx" value="${member.match_idx}"> </td>
-					<td rowspan="3" class="midxRow"><input type="hidden" id="rqM_idx" value="${member.m_idx}"/></td>
-					<td rowspan="3">
-						<img src="${pageContext.request.contextPath}/resources/files/member/${member.m_photo}" class="m_photo">
-					</td>		
-					<td>
-						<span class="rqMname">${member.m_nm}</span>
-						<button type="button" class="btn btn-light" id="goChat">
-							<a style="color: #FFD601"  href="${pageContext.request.contextPath}/chat/chatroom?myidx=${myidx}&matchidx=${member.match_idx}&reciever=${member.m_idx}" >채팅 하기 </a>
-						</button>
-					</td>			
-				</tr>
-				<tr>
-					<td>
-						<c:if test="${mytype eq 'mentee'}">
-							<span style="padding-left: 15px; font-weight: 500;">프로필소개 : ${member.line}</span>
-						</c:if>
-					</td>		
-				</tr>
-				<tr>	
-					<td>후기 가져오면 좋을듯..?</td>		
-				</tr>
-				</table>
-				</div>	
-			</c:forEach>
-		
+					<table class="memTable">
+						<c:forEach items="${requestPost.list}" var="member">
+							<tr>
+								<td rowspan="3"><input type="hidden" class="matchidx" value="${member.match_idx}"> </td>
+								<td rowspan="3" class="midxRow"><input type="hidden" id="rqM_idx" value="${member.m_idx}"/></td>
+								<td rowspan="3">
+									<img src="${pageContext.request.contextPath}/resources/files/member/${member.m_photo}" class="m_photo">
+								</td>		
+								<td>
+									<span class="rqMname">${member.m_nm}</span>
+									<button type="button" class="btn btn-light" id="goChat">
+										<a style="color: #FFD601"  href="${pageContext.request.contextPath}/chat/chatroom?myidx=${myidx}&matchidx=${member.match_idx}&reciever=${member.m_idx}" >채팅 하기 </a>
+									</button>
+								</td>			
+							</tr>
+							<tr>
+								<td>
+									<c:if test="${mytype eq 'mentee'}">
+										<span style="padding-left: 15px; font-weight: 500;">프로필소개 : ${member.line}</span>
+									</c:if>
+								</td>		
+							</tr>
+							<tr>	
+								<td>후기 가져오면 좋을듯..?</td>		
+							</tr>
+							
+						</c:forEach>
+					</table>
+				</div>
+				
+				
 		</div>
 
 </article>
 
 
-</table>
+
 
 	
 	

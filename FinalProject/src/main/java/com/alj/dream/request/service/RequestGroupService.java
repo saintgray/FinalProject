@@ -43,12 +43,6 @@ public class RequestGroupService {
 		}
 		
 		
-		// 회원이 올린 게시글의 총 개수(문의를 받은 게시글만)
-		// int totalPostCount = dao.selectTotalPost(myidx, wanted);
-		// int i =0;
-		// int totalMember = 0;
-		
-		
 		
 		String overfive = null;
 		
@@ -57,20 +51,10 @@ public class RequestGroupService {
 		List<RequestMember> rmemberList = new ArrayList<RequestMember>();
 		List<RequestGroup> rgroupList = dao.selectRequestPostByMIdx(myidx, wanted);	
 		
-		// i를 totalPostCount 전까지 while문을 돌리기 위해서만 사용한다면 
-		// 그냥 rgroupList에 대해 For 문만 돌리면 됨
 		
-		
-		//while(i<totalPostCount) {
 		for(RequestGroup post : rgroupList) {
 			
 			
-			// int postidx = rgroupList.get(i).getPost_idx();
-			
-			
-			
-			// 게시글 고유번호에 문의한 회원정보를 rmemberList리스트에 add.
-			// 종현 수정(파라미터추가)
 			rmemberList = dao.selectRequestMemberByPostIdx(post.getPost_idx(), wanted);	
 			
 			post.setList(rmemberList);
@@ -94,10 +78,9 @@ public class RequestGroupService {
 				overfive = "N";
 			}
 			
-			// rgroupList.get(i).setOverfive(overfive);
+			
 			post.setOverfive(overfive);
 			
-			//System.out.println(i+"번째 : "+overfive);
 			
 			// i++;
 		}

@@ -11,4 +11,5 @@ public interface ChatDao {
 	public int insertChat(Chat chat);
 	public List<ChatRoom> selectChatRoomByIdx(String mytype, int myidx);
 	public List<Chat> selectChatByMatchidx(int matchidx);
+	public String selectCurTime();
 }
