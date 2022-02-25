@@ -17,6 +17,13 @@
 		width:500px;
 		margin: 60px;
 	}
+	#rqMember{
+		color: #000000;
+	}
+	#rqMember:hover{
+		color:#FFF;
+	}
+	
 </style>
 <%@ include file="/WEB-INF/views/defaultpageset.jsp" %>
 
@@ -67,13 +74,15 @@
   </div>
   <div class="card-footer">
 	<c:if test="${mytype eq 'mentee'}">
-		<button type="button" class="btn btn-outline-success" id="rqMember">
-			<a href="${pageContext.request.contextPath}/post/requestpost?postidx=${rgroup.post_idx}">제안한 멘토보기</a>
+		<span class="d-none">${rgroup.post_idx}</span>
+		<button type="button" class="btn btn-outline-success rqMember">
+			제안한 멘토보기
 		</button>
 	</c:if>
 	<c:if test="${mytype eq 'mentor'}">
-		<button type="button" class="btn btn-outline-success" id="rqMember">
-			<a href="${pageContext.request.contextPath}/post/requestpost?postidx=${rgroup.post_idx}">제안한 멘티보기</a>
+		<span class="d-none">${rgroup.post_idx}</span>
+		<button type="button" class="btn btn-outline-success rqMember">
+			제안한 멘티보기
 		</button>
 	</c:if>
 	
@@ -86,4 +95,15 @@
 
 <%@include file="/WEB-INF/views/layout/footer.jsp" %>
 </body>
+
+<script>
+	$(document).ready(function(){
+		
+		$('.rqMember').on('click',function(){
+			location.href='${pageContext.request.contextPath}/post/requestpost?postidx='+$(this).prev().text();
+		})
+		
+	})
+
+</script>
 </html>
