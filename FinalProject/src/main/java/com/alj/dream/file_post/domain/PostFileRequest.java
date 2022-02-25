@@ -64,4 +64,8 @@ public class PostFileRequest {
 				+ ", file_size=" + file_size + ", file_originnm=" + file_originnm + "]";
 	}
 	
+	public String getFileName() {
+		return file_nm + "." + file_exet;
+	}
+	
 }

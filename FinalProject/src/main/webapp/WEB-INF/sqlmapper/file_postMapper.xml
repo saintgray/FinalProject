@@ -44,5 +44,10 @@
 		where
 		<![CDATA[date(file_deldate) < date(now())]]>
 	</select>
+	
+	<select id="checkExistence"
+			resultType="int">
+		select exists(select * from file_post where file_nm=#{file_nm})
+	</select>
 
 </mapper>
