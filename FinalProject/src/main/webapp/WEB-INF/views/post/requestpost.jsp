@@ -9,12 +9,79 @@
 <link rel="shortcut icon" href="#">
 <title>받은 제의 리스트</title>
 <style>
-.m_photo{
-		width:40px;
-		height:40px;
-		border-radius: 50%;
+
+	
+	/* 윗부분 */
+	.body{
+		height: 100%;
+    	position: relative;
+    	margin: 50px 0px 60px;
+    	min-height: 100%;
+	}
+	.container{
+		width : 70%;
+	}
+	.post{
+		background-color: #FFD601;
+		height: 250px;
+		width : 100%;
+		margin : 0 auto;
+		padding : 30px 30px 30px 30px; 
+	}
+	#goPostBtn{
+		font-weight: 200;
+		color : #E1DEE6;
+		width: 100px;
+		height: 30px;
+		padding : 0px 6px 0px 6px;	
 	}
 	
+	.post-regdate{
+		float : right;
+		color : #142B6F;
+	}
+	.post-title{
+		font-size: 2.25em;
+		font-weight: bold;
+		margin : 40px 0px 20px 0px;
+	}
+	.post-cat{
+		font-size: 1.8em;
+		font-weight: 550;
+	}
+	
+	/* 중앙부분 */
+	.rqMemList{
+		width : 80%;
+		margin : 0 auto;
+		padding : 10px 8% 10px 8% ; 
+	}
+	.memTable{
+		border-collapse: separate;
+  		border-spacing: 0 7px;
+	}
+	.oneMember{
+		padding : 15px 0px 15px 0px;
+		border-bottom: 1pt solid #E1DEE6;
+	}
+	.m_photo{
+		width:110px;
+		height:110px;
+		border-radius: 50%;
+	}
+	.rqMname{
+		padding : 0px 5px 0px 15px;
+		font-size: 1.625em;
+		font-weight: bold;	
+	}
+	#goChat{
+		background-color: #142B6F!important;
+		height: 30px;
+		vertical-align: baseline;
+		padding : 0px 6px 0px 6px;		
+	}
+	
+
 </style>
  
 </head>
@@ -47,46 +114,56 @@
 </sec:authorize>
 
 
+<div class="body">
 
-<h1>그룹리스트</h1>
 
-<div class="container" id="rqpost">
-	<button type="button" class="btn btn-light">
-		<a href="${pageContext.request.contextPath}/post/view?idx=${requestPost.post_idx}">작성한게시글보기 </a>
-	</button>
-	<h3>게시글 타이틀 : ${requestPost.post_nm}</h3>
-	<h3>게시글 생성일자 : ${requestPost.post_regdate}</h3>
-	<h3>게시글 카테고리 : ${requestPost.cat_nm}</h3>
-</div>
+<article class="container">
 
-<h2>멤버리스트</h2>
+		<div class="post" id="rqpost">
+			<button type="button" class="btn btn-light" id="goPostBtn">
+				<a href="${pageContext.request.contextPath}/post/view?idx=${requestPost.post_idx}">작성 게시글 </a>
+			</button>
+			<span class="post-regdate">${requestPost.post_regdate}</span>
+			<div class="post-title">${requestPost.post_nm}</div>
+			<div class="post-cat">${requestPost.cat_nm}</div>
+		</div>
+		
+		<div class="rqMemList">
+		
+			<c:forEach items="${requestPost.list}" var="member">
+				<div class="oneMember">
+				<table class="memTable">
+				<tr>
+					<td rowspan="3"><input type="hidden" class="matchidx" value="${member.match_idx}"> </td>
+					<td rowspan="3" class="midxRow"><input type="hidden" id="rqM_idx" value="${member.m_idx}"/></td>
+					<td rowspan="3">
+						<img src="${pageContext.request.contextPath}/resources/files/member/${member.m_photo}" class="m_photo">
+					</td>		
+					<td>
+						<span class="rqMname">${member.m_nm}</span>
+						<button type="button" class="btn btn-light" id="goChat">
+							<a style="color: #FFD601"  href="${pageContext.request.contextPath}/chat/chatroom?myidx=${myidx}&matchidx=${member.match_idx}&reciever=${member.m_idx}" >채팅 하기 </a>
+						</button>
+					</td>			
+				</tr>
+				<tr>
+					<td>
+						<c:if test="${mytype eq 'mentee'}">
+							<span style="padding-left: 15px; font-weight: 500;">프로필소개 : ${member.line}</span>
+						</c:if>
+					</td>		
+				</tr>
+				<tr>	
+					<td>후기 가져오면 좋을듯..?</td>		
+				</tr>
+				</table>
+				</div>	
+			</c:forEach>
+		
+		</div>
 
-<table>
-	
-	<c:forEach items="${requestPost.list}" var="member">
-		<div class="container">
-		<tr>
-			<td class="mat-idx"><input type="hidden" id="matchidx" value="${member.match_idx}"> </td>
-			<td class="postidxRow"><input type="hidden" id="postidx" value="${member.post_idx}"><span class="postidx" style="color:red">${member.post_idx}</span></td>
-			
-			<td class="midxRow"><input type="hidden" id="rqM_idx" value="${member.m_idx}"><span class="midx" ></span></td>
-			<td>
-				<a href="${pageContext.request.contextPath}/chat/chatroom?myidx=${myidx}&matchidx=${member.match_idx}&reciever=${member.m_idx}" style="color:blue">문의한 회원 이름 : ${member.m_nm}</a>
-			</td>
-			<td><img src="${pageContext.request.contextPath}/resources/files/member/${member.m_photo}" class="m_photo">문의한 회원 사진 : ${member.m_photo}</td>
-			<td class="wantedRow"><input type="hidden" class="wanted" value="${requestPost.wanted}"></td>
-			<c:if test="${mytype eq 'mentee'}">
-			<td>프로필소개 : ${member.line}</td>
-			</c:if>
-			<td><input type="button" value="문의하기" class="rqBtn"></td>
-			<!-- <td class="msgRow">
-				<input type="text" class="msg">
-				<input type="button" value="채팅보내기" class="msgBtn">
-			</td> -->
-			<td><button data-bs-target="#deleteConfirm" data-bs-toggle="modal" id="deleteReq">삭제하기</button></td>
-		</tr>
-		</div>	
-	</c:forEach>
+</article>
+
 
 </table>
 
@@ -162,6 +239,12 @@
 		    </div>
 		  </div>
 		</div>	
+  
+  
+  
+  
+  
+  <%@include file="/WEB-INF/views/layout/footer.jsp" %>
 	
 
 	
@@ -241,6 +324,7 @@ $(document).ready(function(){
 		}
 	})
 
+
 	
 	function sendrq(dom){
 		
@@ -319,7 +403,8 @@ $(document).ready(function(){
 </script>
 	
 	
-<%@include file="/WEB-INF/views/layout/footer.jsp" %>
+
+
 </body>
 
 </html>

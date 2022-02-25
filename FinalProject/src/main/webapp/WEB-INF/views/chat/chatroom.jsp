@@ -9,11 +9,65 @@
 <title>채팅창</title>
 <style>
 
+	.chatRoom-whole{
+		width: 70%;
+		margin: 0 auto;
+	}
+	
+	/* 헤더부분 */
+	.chatRoom-header{
+		/* height : */
+		border-bottom: 1px solid #E1DEE6;
+		margin-top: 50px;
+	}
+	.recieverName{
+		/* background-color: #FFD601; */
+		padding: 20px 30px 10px 40px;
+	}
+	.profile_photo{
+		width:80px;
+		height:80px;
+		border-radius: 50%;
+		margin-bottom: 15px;
+		border: 1px solid #FCA106;
+	}
+	#profileBtn{
+		margin: 15px 0px 10px 10px;
+		font-size:1.2em;
+		font-weight: 500;
+		color: white; 
+	}
+	#profileBtn>a{
+		font-size:1.2em;
+		font-weight: 500;
+		color: white; 
+	}
+	
+	
+	/* 버튼 부분 */
+	.btns{
+		padding : 10px 20px 5px 20px; 
+	}
 	.hide {
 		display: none;
 	}
-
-
+	.rightBtn{
+		float: right;
+	}
+	
+	
+	/* 채팅박스 부분 */
+	.chattingBox{
+	margin-top : 20px;
+	border-bottom : 1px gray;
+	padding: 35px;
+	width: 100%;
+	height: 40%	;
+	overflow: scroll;
+	}
+	.chattingBox::-webkit-scrollbar { 
+	    display: none; 
+	}
 	.text_right {
 		text-align: right;
 	}
@@ -25,7 +79,21 @@
 	.text_center {
 		text-align: center;
 	}
-	
+
+	.m_photo{
+		width:40px;
+		height:40px;
+		border-radius: 50%;
+	}
+	#sysmsg {
+		padding : 15px;
+		display: inline-block;
+		height: 50px;
+		margin: 6px;
+		background-color: #e9ecef;
+		color : blue;
+	}
+
 	#sendermsg {	  
 		padding : 15px;
 		display: inline-block;
@@ -33,7 +101,6 @@
 		margin: 6px;
 		border : 1px solid orange;
 	}
-	
 	#recievermsg {
 		padding : 15px;
 		display: inline-block;
@@ -43,11 +110,6 @@
 		color : white;
 	}
 	
-	.m_photo{
-		width:40px;
-		height:40px;
-		border-radius: 50%;
-	}
 	
 	/* 별점작성부분 */
 	.rating {
@@ -123,9 +185,11 @@
 <body>
 
 <!-- Header -->
-	<%@ include file="/WEB-INF/views/layout/header.jsp" %>
 
-<h3>현로그인 정보</h3>
+<%@ include file="/WEB-INF/views/layout/header.jsp" %>
+
+
+
 <sec:authorize access="isAuthenticated()">
 <sec:authentication property="principal.m_idx"/>
 <sec:authentication property="principal.name"/>
@@ -153,104 +217,107 @@ reciever : ${reciever}<br>
 matchyn : ${match.match_yn}
 
 
-
-<!-- chatRoom의 Header--------------------------------------------------------------------------------------------- -->
-<h2>Chatting Page (채팅방번호: ${matchidx})</h2>
+<div class="chatRoom-whole">
 
 
-
-	<!-- 상대방 프로필로 이동하기 -->
-	<!-- 미완 -->
-	<c:if test="${mytype=='mentee'}">
-	<h3><a href="${pageContext.request.contextPath}/main?m_idx=${reciever}">${recieverInfo.m_nm}</a></h3>
-	</c:if>
-	<c:if test="${mytype=='mentor'}">
-	<h3>${recieverInfo.m_nm}</h3>
-	</c:if>
-	<!-- 더보기 -->
-	
-	
-	<!-- 신고하기버튼  -->
-	<!-- 합치기만하면됨 -->
-	<button data-bs-target="#reportForm" data-bs-toggle="modal">신고하기</button>
-
-	
-	<!-- 채팅나가기 -->
-	<!-- 미완 : 채팅목록으로 리다이렉트/그리고 ajax로 update match mentee_outyn또는 mentor_outyn Y로 하기-->
-	<button data-bs-target="#leaveChk" data-bs-toggle="modal">이 채팅 나가기</button>
-	
-
-	<!-- 매칭하기 -->
-	<!-- 보이는 조건 : 매칭여부 N & 매칭날짜가null이어야함-->
-	
-	<button type="button" data-bs-target="#matchChk" data-bs-toggle="modal" id="match"  class="${not(match.match_yn eq 'N' && match.match_date eq null)? 'hide': ''}">매칭 하기</button>
-	
-	
-	
-	<!-- 매칭취소하기 -->
-	<!-- 보이는 조건 : 매칭여부 Y && 매칭날짜가 현재보다 3일이전이어야한다 -->
-	
-	<button type="button" data-bs-target="#matchCancleChk" data-bs-toggle="modal" id="unmatch" class="${not(match.match_yn eq 'Y' && unmatchYN eq'Y')? 'hide': ''}" >매칭 취소</button>
-	
-	
-	
-	<!-- 매칭완료 -->
-	<!-- 보이는 조건 : 매칭여부 Y && 매칭날짜가 현재보다 3일이후 -->
-	<button id="matched" disabled="true" class="${not(match.match_yn eq 'Y' && unmatchYN eq'N')? 'hide': ''}">매칭 완료</button>
-	
-	
-	<!-- 후기쓰기 -->
-	<!-- 기능미완 -->
-	<button type="button" data-bs-target="#reviewform" data-bs-toggle="modal" id="review" disabled>후기 쓰기</button>
-	<!-- class="${not(match.match_yn eq 'Y' && unmatchYN eq 'N')? 'true': ''}" -->
-<!-- chatRoom의 Body--------------------------------------------------------------------------------------------- -->
-
-<div id="chatBox" class="chattingBox">
-<c:forEach items ="${chatlist}" var="c">
-	<c:set var="presender" value="${c.m_sender}"/>
-	<c:set var="prereciever" value="${c.m_reciever}"/>
-	<c:set var="present" value="${c.sent}"/>
-	<c:set var="premessage" value="${c.message}"/>
-	
-	
-	<!-- 내 메세지 창 -->
-	<c:if test="${presender==myidx}">
-		<div class='well text_right'>
-			<span>${c.sent}</span>
-			<span id="sendermsg" class="rounded-pill"><strong>${premessage}</strong></span>
+	<!-- chatRoom Header--------------------------------------------------------------------------------------------- -->
+	<div class="chatRoom-header">
+		<div class="recieverName">
+		<img src="${pageContext.request.contextPath}/resources/files/member/${recieverInfo.m_photo}" class="profile_photo">
+			<!-- 상대방 프로필로 이동하기 -->
+			<c:if test="${mytype=='mentee'}">
+				<button type="button" class="btn btn-success" id="profileBtn"><a href="${pageContext.request.contextPath}/member/profile/main?m_idx=${reciever}">${recieverInfo.m_nm}님의 프로필 보기</a></button>
+			</c:if>
+			<c:if test="${mytype=='mentor'}">
+				<button type="button" class="btn btn-success" id="profileBtn">${recieverInfo.m_nm}님과의 채팅방</button>
+			</c:if>
 		</div>
-	</c:if>
-	
-	<!-- 상대방 메세지 창 -->
-	<c:if test="${presender!=myidx}">
-		<div class='well text_left'>
-			<span id="recieverphoto"><img src="${pageContext.request.contextPath}/resources/files/member/${recieverInfo.m_photo}" class="m_photo"></span>
-			<span id="recievermsg" class="rounded-pill">${recieverInfo.m_nm} -> ${premessage}</span>
-			<span>${c.sent}</span>
-		</div>
-	</c:if>	
-	
-	
-</c:forEach>	
-
-</div>
 
 
-<br>보내는 사람 : ${myidx} 받는사람 : ${reciever}<br>
+
+		<div class="btns">
+				<!-- 채팅나가기 -->
+				<!-- 미완 : 채팅목록으로 리다이렉트/그리고 ajax로 update match mentee_outyn또는 mentor_outyn Y로 하기-->
+				<button class="btn btn-light" data-bs-target="#leaveChk" data-bs-toggle="modal">채팅 </span>나가기</button>		
+				
+				<!-- 신고하기버튼  -->
+				<button class="btn btn-light" data-bs-target="#reportForm" data-bs-toggle="modal" id="report" >신고하기</button>
+			<span class="rightBtn">
+				<!-- 매칭하기 -->
+				<!-- 보이는 조건 : 매칭여부 N & 매칭날짜가null이어야함(작동)-->
+				<!-- 보이는 조건 : 매칭여부 N & 매칭날짜가 있어야함(비작동)-->
+				<button type="button" data-bs-target="#matchChk" data-bs-toggle="modal" id="match"  class="${not(match.match_yn eq 'N' && match.match_date eq null)? 'hide': ''} btn btn-primary">매칭 하기</button>
+				<button type="button" disabled="true" class="${not(match.match_yn eq 'N' && match.match_date ne null)? 'hide': ''} btn btn-primary">매칭 하기</button>
+			
+				<!-- 매칭취소 -->
+				<!-- 보이는 조건 : 매칭여부 Y && 매칭날짜가 현재보다 3일이전이어야한다 -->
+				<button type="button" data-bs-target="#matchCancleChk" data-bs-toggle="modal" id="unmatch" class="${not(match.match_yn eq 'Y' && unmatchYN eq'Y')? 'hide': ''} btn btn-primary" >매칭 취소</button>
+				
+				<!-- 매칭완료 -->
+				<!-- 보이는 조건 : 매칭여부 Y && 매칭날짜가 현재보다 3일이후 -->
+				<button id="matched" disabled="true" class="${not(match.match_yn eq 'Y' && unmatchYN eq'N')? 'hide': ''} btn btn-primary">매칭 완료</button>
+			
+				<!-- 후기쓰기 -->
+				<button type="button" class="btn btn-primary" onclick="review()" id="reviewing">후기 쓰기</button>
+			</span>
+		</div>	
+	</div>	
+	<!-- chat Message--------------------------------------------------------------------------------------------- -->
 	
+	<div id="chatBox" class="chattingBox">
+	
+		<c:forEach items ="${chatlist}" var="c">
+			<c:set var="presender" value="${c.m_sender}"/>
+			<c:set var="prereciever" value="${c.m_reciever}"/>
+			<c:set var="present" value="${c.sent}"/>
+			<c:set var="premessage" value="${c.message}"/>
+			<c:set var="sysmsgYN" value="${c.sysmsgYN}"/>
+			
+			<!-- 시스템 메세지 창 -->
+			<c:if test="${sysmsgYN eq'Y'}">
+				<div class='well text_center'>
+					<span>${c.sent}</span>
+					<span id="sysmsg" class="rounded-pill"><strong>${premessage}</strong></span>
+				</div>
+			</c:if>
+			
+			<!-- 일반회원 창 -->
+			<c:if test="${sysmsgYN eq'N'}">
+			
+				<!-- 내 메세지 창 -->
+				<c:if test="${presender==myidx}">
+					<div class='well text_right'>
+						<span>${c.sent}</span>
+						<span id="sendermsg" class="rounded-pill"><strong>${premessage}</strong></span>
+					</div>
+				</c:if>
+				
+				<!-- 상대방 메세지 창 -->
+				<c:if test="${presender!=myidx}">
+					<div class='well text_left'>
+						<span id="recieverphoto"><img src="${pageContext.request.contextPath}/resources/files/member/${recieverInfo.m_photo}" class="m_photo"></span>
+						<span id="recievermsg" class="rounded-pill">${recieverInfo.m_nm} -> ${premessage}</span>
+						<span>${c.sent}</span>
+					</div>
+				</c:if>	
+			</c:if>
+		</c:forEach>	
+	</div>
+		
+	<!-- input Message--------------------------------------------------------------------------------------------- -->
+	
+	<div class="inputMsg">
 		<div>
-			<div>
-				<input type="text" id="message" />
-				<input type="button" id="sendBtn" value="전송" />
-			</div>
-			<br>
-			<div class="well" id="chatdata">
-				<!-- User Session Info Hidden -->
-				<input type="hidden" value='${myidx}' id="sessionuseridx">
-			</div>
+			<input type="text" id="message" />
+			<input type="button" id="sendBtn" value="전송" />
 		</div>
-	
-
+		<br>
+		<div class="well" id="chatdata">
+			<!-- User Session Info Hidden -->
+			<input type="hidden" value='${myidx}' id="sessionuseridx">
+		</div>
+	</div>
+</div>	
 
 
 <!-- 확인모달들 여기 모아둠--------------------------------------------------------------------------------------------- -->
@@ -724,7 +791,7 @@ matchyn : ${match.match_yn}
 	
 
 </script>
-
+<%@include file="/WEB-INF/views/layout/footer.jsp" %>
 </body>
 
 </html>
