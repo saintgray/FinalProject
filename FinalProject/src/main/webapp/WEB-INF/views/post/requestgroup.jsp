@@ -195,7 +195,7 @@
 
 </div>
 
-</c:forEach><br><br>
+<br><br>
 
 
 
