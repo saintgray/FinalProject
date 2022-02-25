@@ -15,8 +15,7 @@ public class ReportController {
 
 	@Autowired
 	private ReportService service;
-	
-	
+
 	// 하루 신고횟수확인
 		@RequestMapping(value="/report/maxrprt", method=RequestMethod.POST)
 		@ResponseBody
@@ -24,32 +23,36 @@ public class ReportController {
 				@RequestParam("myidx")int myidx,
 				@RequestParam("matchidx")int matchidx
 				) {
-			
+
+
 			System.out.println("ReportInsertController : chkReport메소드진입");
-			
+
 			int resultCnt = service.chkReport(myidx,matchidx);
-			
-			
+
+
 			System.out.println("ReportInsertController : insertReport메소드 resultCnt리턴 전");
 			return resultCnt;
-			
+
 		}
-	
-	
+
+
+
 	// 신고 등록할 때
 	@RequestMapping(value="/report/sendreport", method=RequestMethod.POST)
 	@ResponseBody
 	public int insertReport(Report r) {
-		
+
+
 		System.out.println("ReportInsertController : insertReport메소드진입");
-		
+
 		int resultCnt = service.insertReport(r);
-		
-		
+
+
 		System.out.println("ReportInsertController : insertReport메소드 resultCnt리턴 전");
 		return resultCnt;
-		
+
 	}
-	
-	
+
+
 }
+

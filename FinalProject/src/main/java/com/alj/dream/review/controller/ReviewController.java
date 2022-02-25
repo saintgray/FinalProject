@@ -11,11 +11,15 @@ import com.alj.dream.review.service.ReviewService;
 
 @Controller
 public class ReviewController {
-	
+
+
 	@Autowired
 	private ReviewService service;
+
+
+
 	
-	
+
 	// 리뷰 등록할때
 	@RequestMapping(value="/review/regreview", method=RequestMethod.POST)
 	@ResponseBody
@@ -24,9 +28,10 @@ public class ReviewController {
 			@RequestParam("comment") String comment,
 			@RequestParam("matchidx") int matchidx
 			) {
-		
+
 		int resultCnt = service.regReview(rating,comment,matchidx);
-		
+
 		return resultCnt;
 	}
 }
+

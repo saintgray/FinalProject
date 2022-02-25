@@ -10,18 +10,20 @@ import com.alj.dream.review.dao.ReviewDao;
 public class ReviewService {
 
 	private ReviewDao dao;
-	
+
 	@Autowired 
 	private SqlSessionTemplate template;
 
 	// 리뷰 등록할 때
 	public int regReview(int rating, String comment, int matchidx) {
-		
+
+
 		dao = template.getMapper(ReviewDao.class);
-		
+
 		int resultCnt = dao.insertReview(rating, comment, matchidx);
-		
+
 		return resultCnt;
 	}
 
 }
+

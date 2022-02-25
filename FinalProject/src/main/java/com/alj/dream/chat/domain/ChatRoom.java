@@ -1,29 +1,39 @@
 package com.alj.dream.chat.domain;
 
+import com.alj.dream.member.domain.MemberInfo;
+
 public class ChatRoom {
 
 	// 채팅방에 필요한  데이터들
 	
 	private int match_idx;
 	private String match_yn;
-	private int m_idx;
-	private String m_nm;
-	private String m_photo;
-	private String cat_nm;
+	private int sender_idx;
+	private int reciever_idx;
 	private String cat_type;
+	private String cat_nm;
+	private MemberInfo memberInfo;
 	
-	public ChatRoom(int match_idx, String match_yn, int m_idx, String m_nm, String m_photo, String cat_nm,
-			String cat_type) {
+	
+	
+	
+	
+	public ChatRoom() {}
+
+	public ChatRoom(int match_idx, String match_yn, int sender_idx, int reciever_idx, String cat_type, String cat_nm,
+			MemberInfo memberInfo) {
 		this.match_idx = match_idx;
 		this.match_yn = match_yn;
-		this.m_idx = m_idx;
-		this.m_nm = m_nm;
-		this.m_photo = m_photo;
-		this.cat_nm = cat_nm;
+		this.sender_idx = sender_idx;
+		this.reciever_idx = reciever_idx;
 		this.cat_type = cat_type;
+		this.cat_nm = cat_nm;
+		this.memberInfo = memberInfo;
 	}
 
-	public ChatRoom() {}
+	
+
+	
 
 	public int getMatch_idx() {
 		return match_idx;
@@ -31,14 +41,6 @@ public class ChatRoom {
 
 	public void setMatch_idx(int match_idx) {
 		this.match_idx = match_idx;
-	}
-
-	public int getM_idx() {
-		return m_idx;
-	}
-
-	public void setM_idx(int m_idx) {
-		this.m_idx = m_idx;
 	}
 
 	public String getMatch_yn() {
@@ -49,28 +51,20 @@ public class ChatRoom {
 		this.match_yn = match_yn;
 	}
 
-	public String getM_nm() {
-		return m_nm;
+	public int getSender_idx() {
+		return sender_idx;
 	}
 
-	public void setM_nm(String m_nm) {
-		this.m_nm = m_nm;
+	public void setSender_idx(int sender_idx) {
+		this.sender_idx = sender_idx;
 	}
 
-	public String getM_photo() {
-		return m_photo;
+	public int getReciever_idx() {
+		return reciever_idx;
 	}
 
-	public void setM_photo(String m_photo) {
-		this.m_photo = m_photo;
-	}
-
-	public String getCat_nm() {
-		return cat_nm;
-	}
-
-	public void setCat_nm(String cat_nm) {
-		this.cat_nm = cat_nm;
+	public void setReciever_idx(int reciever_idx) {
+		this.reciever_idx = reciever_idx;
 	}
 
 	public String getCat_type() {
@@ -81,10 +75,27 @@ public class ChatRoom {
 		this.cat_type = cat_type;
 	}
 
+	public String getCat_nm() {
+		return cat_nm;
+	}
+
+	public void setCat_nm(String cat_nm) {
+		this.cat_nm = cat_nm;
+	}
+
+	public MemberInfo getMemberInfo() {
+		return memberInfo;
+	}
+
+	public void setMemberInfo(MemberInfo memberInfo) {
+		this.memberInfo = memberInfo;
+	}
+
 	@Override
 	public String toString() {
-		return "ChatList [match_idx=" + match_idx + ", m_idx=" + m_idx + ", match_yn=" + match_yn + ", m_nm="
-				+ m_nm + ", m_photo=" + m_photo + ", cat_nm=" + cat_nm + ", cat_type=" + cat_type + "]";
+		return "ChatRoom [match_idx=" + match_idx + ", match_yn=" + match_yn + ", sender_idx=" + sender_idx
+				+ ", reciever_idx=" + reciever_idx + ", cat_type=" + cat_type + ", cat_nm=" + cat_nm + ", memberInfo="
+				+ memberInfo + "]";
 	}
 	
 	

@@ -10,4 +10,6 @@ public interface ReviewDao {
 	StarsInfo getStars(String m_idx);
 	List<Review> getReviewList(String mentor_idx);
 	int insertReview(int rating, String comment, int matchidx);
+	Review chkReview(int matchidx);
+	
 }

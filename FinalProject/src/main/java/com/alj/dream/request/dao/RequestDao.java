@@ -7,7 +7,7 @@ import com.alj.dream.request.domain.RequestMember;
 
 public interface RequestDao {
 
-	int selectTotalPost(int idx, String wanted); 								
+	/* int selectTotalPost(int idx, String wanted); */						
 
 	List<RequestGroup> selectRequestPostByMIdx(int idx, String wanted);
 

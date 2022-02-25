@@ -1,0 +1,171 @@
+@charset "UTF-8";
+
+	.chatRoom-whole{
+		width: 70%;
+		margin: 0 auto;
+	}
+	
+	/* 헤더부분 */
+	.chatRoom-header{
+		/* height : */
+		border-bottom: 1px solid #E1DEE6;
+		margin-top: 50px;
+	}
+	.recieverName{
+		/* background-color: #FFD601; */
+		padding: 20px 30px 10px 40px;
+	}
+	.profile_photo{
+		width:80px;
+		height:80px;
+		border-radius: 50%;
+		margin-bottom: 15px;
+		border: 1px solid #FCA106;
+	}
+	#profileBtn{
+		margin: 15px 0px 10px 10px;
+		font-size:1.2em;
+		font-weight: 500;
+		color: white; 
+	}
+	#profileBtn>a{
+		font-size:1.2em;
+		font-weight: 500;
+		color: white; 
+	}
+	
+	
+	/* 버튼 부분 */
+	.btns{
+		padding : 10px 20px 5px 20px; 
+	}
+	.hide {
+		display: none;
+	}
+	.rightBtn{
+		float: right;
+	}
+	
+	
+	/* 채팅박스 부분 */
+	.chattingBox{
+	margin-top : 20px;
+	border-bottom : 1px gray;
+	padding: 35px;
+	width: 100%;
+	height: 40%	;
+	overflow: scroll;
+	}
+	.chattingBox::-webkit-scrollbar { 
+	    display: none; 
+	}
+	.text_right {
+		text-align: right;
+	}
+	
+	.text_left {
+		text-align: left;
+	}
+	
+	.text_center {
+		text-align: center;
+	}
+	
+	.m_photo{
+		width:40px;
+		height:40px;
+		border-radius: 50%;
+	}
+	#sysmsg {
+		padding : 15px;
+		display: inline-block;
+		height: 50px;
+		margin: 6px;
+		background-color: #e9ecef;
+		color : blue;
+	}
+	
+	#sendermsg {	  
+		padding : 15px;
+		display: inline-block;
+		height: 50px;
+		margin: 6px;
+		border : 1px solid orange;
+	}
+	
+	#recievermsg {
+		padding : 15px;
+		display: inline-block;
+		height: 50px;
+		margin: 6px;
+		background-color: navy;
+		color : white;
+	}
+	
+	/* 별점작성부분 */
+	.rating {
+	  display: inline-block;
+	  position: relative;
+	  height: 50px;
+	  line-height: 50px;
+	  font-size: 50px;
+	}
+	
+	.rating label {
+	  position: absolute;
+	  top: 0;
+	  left: 0;
+	  height: 100%;
+	  cursor: pointer;
+	}
+	
+	.rating label:last-child {
+	  position: static;
+	}
+	
+	.rating label:nth-child(1) {
+	  z-index: 5;
+	}
+	
+	.rating label:nth-child(2) {
+	  z-index: 4;
+	}
+	
+	.rating label:nth-child(3) {
+	  z-index: 3;
+	}
+	
+	.rating label:nth-child(4) {
+	  z-index: 2;
+	}
+	
+	.rating label:nth-child(5) {
+	  z-index: 1;
+	}
+	
+	.rating label input {
+	  position: absolute;
+	  top: 0;
+	  left: 0;
+	  opacity: 0;
+	}
+	
+	.rating label .icon {
+	  float: left;
+	  color: transparent;
+	}
+	
+	.rating label:last-child .icon {
+	  color: #000;
+	}
+	
+	.rating:not(:hover) label input:checked ~ .icon,
+	.rating:hover label:hover input ~ .icon {
+	  color: yellow;
+	}
+	
+	.rating label input:focus:not(:checked) ~ .icon:last-child {
+	  color: #000;
+	  text-shadow: 0 0 5px #09f;
+	} 
+	
