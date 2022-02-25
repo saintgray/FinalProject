@@ -9,6 +9,8 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import com.alj.dream.file_post.dao.PostFilesDao;
+import com.alj.dream.file_post.domain.PostFileRequest;
 import com.alj.dream.file_profile.dao.ProfileFilesDao;
 import com.alj.dream.member.dao.MemberDao;
 
@@ -69,6 +71,56 @@ public class SchedulerService{
 	@Scheduled(cron = "0 0 2 */1 * *")
 	public void expireTempCodes() {
 		sst.getMapper(MemberDao.class).expireTempCode();
+	}
+	
+	// 요청글 파일 삭제 메소드
+	@Scheduled(cron = "0 0 2 * * *")	// 초 분 시 일 월 요일 , * 모든수
+	public void checkFiles() {
+		System.out.println("파일 확인 중...");
+		System.out.println("----------------------------");
+		
+		// deldate가 어제 이전인 파일 목록 가져오기
+		List<PostFileRequest> list = sst.getMapper(PostFilesDao.class).selectDeletedFiles();
+		System.out.println(list);
+		
+		// db에는 deldate가 추가되었으나 서버에 아직 파일이 남아있는 경우 삭제
+		for(PostFileRequest deletedFile : list) {
+			File file = new File(serverPath.postFilesPath, deletedFile.getFileName());
+			
+			System.out.println("존재여부: " + file.exists());
+			
+			if(file.exists()) {
+				file.delete();
+				
+				System.out.println("삭제 후 존재여부: " + file.exists());
+			}
+			
+			System.out.println("---------------");
+		}
+		
+		// 글작성이 정상적으로 완료되지 않아 db에 존재하지 않으나 서버에 파일이 남아있는 경우
+		System.out.println("파일 확인 중...");
+		
+		File dir = new File(serverPath.postFilesPath);
+		String[] files = dir.list();
+		for(String filenm : files) {
+			
+			String file_nm = filenm.substring(0, filenm.lastIndexOf("."));
+			
+			System.out.println(filenm + " : " + file_nm);
+			
+			if(sst.getMapper(PostFilesDao.class).checkExistence(file_nm)==0) {
+				// db에 존재하지 않는 파일 -> 삭제
+				File file = new File(serverPath.postFilesPath, filenm);
+				file.delete();
+				System.out.println("파일 삭제: " + filenm);
+			}
+			
+		}
+		
+		System.out.println("----------------------------");
+		System.out.println("파일 삭제 완료");
+		
 	}
 	
 }

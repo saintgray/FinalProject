@@ -17,5 +17,9 @@ public interface PostFilesDao {
 	int deleteOneFile(@Param("post_idx")int post_idx, @Param("file_nm")String file_nm);
 	
 	List<PostFileRequest> selectByPostIdx(int post_idx);
+	
+	List<PostFileRequest> selectDeletedFiles();
+	
+	int checkExistence(String file_nm);
 
 }
