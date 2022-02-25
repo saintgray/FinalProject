@@ -14,7 +14,7 @@ public interface CategoryDao {
 	String getCatIdxByName(String cat_nm);
 	Category getParentInfo(String idx);
 	int editCategory(String name,String idx);
-	int deleteCategory(String idx);
+	int deleteCategory(List<Category> allChildren);
 	int register(Category data);
-
+	List<Category> getAllChildrens(String idx);
 }
