@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.alj.dream.post.domain.PostEditRequest;
 import com.alj.dream.post.domain.PostWriteRequest;
 import com.alj.dream.post.service.PostEditService;
 import com.alj.dream.profile.domain.ProfileRequest;
@@ -45,7 +46,7 @@ public class PostEditController {
 	
 	@PostMapping
 	@ResponseBody
-	public Map<String, Integer> editPost(HttpServletRequest request, PostWriteRequest wRequest) {		
+	public Map<String, Integer> editPost(HttpServletRequest request, PostEditRequest wRequest) {		
 		
 		System.out.println("수정내용 확인 : " + wRequest);
 		
