@@ -233,9 +233,9 @@
 			}
 			
 			if($('#moreBtn')){
-				// 더보기 버튼이 있을 경우 -> 삭제
+				// 더보기 버튼이 있을 경우 (이전 검색내용이 있을 경우) -> 삭제
 				$('#moreBtn').remove();
-				
+				cloneObj=$('#searchResult').clone();
 			}
 			
 			var loc_idx=0;
@@ -304,6 +304,8 @@
 					}
 					
 					$('#searchResult').append(html);
+					// history.pushState(data, header, url);
+					//history.pushState({m_idx:m_idx, wanted:wanted, cat_idx:cat_idx, loc_idx:loc_idx, pageNum:pageNum}, null);
 					
 				},
 				error: function(){
@@ -318,6 +320,9 @@
 			recommendList();
 		});
 	 
+		/* window.onpopstate = function(event) {
+			  console.log("location: " + document.location + ", state: " + JSON.stringify(event.state));
+		}; */
 	</script>
 
 

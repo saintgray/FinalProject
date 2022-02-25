@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -29,7 +30,8 @@ public class PostSearchController {
 	@PostMapping("/post/search")
 	@ResponseBody
 	public PostListView searchResult(
-			@RequestBody Map<String, String> searchParams
+			@RequestBody Map<String, String> searchParams,
+			Model model
 			) {
 		
 		int m_idx = Integer.parseInt(searchParams.get("m_idx"));
@@ -42,6 +44,8 @@ public class PostSearchController {
 		SearchParams params = new SearchParams(m_idx, wanted, cat_idx, loc_idx);
 		params.setPageNum(pageNum);
 		System.out.println(params);
+		
+		model.addAttribute("searchParams", params);
 		
 		return service.getSearchResult(params);
 
