@@ -194,8 +194,7 @@ $(document).ready(function(){
 					html += items.file_originnm+'.'+items.file_exet+' ('+items.file_size+'kb)\r\n';
 					
 					// 파일 삭제를 위한 버튼
-					// update_status : N (New), 새로 등록하는 파일
-					html += '<button type="button" data-file_nm="'+items.file_nm+'" data-originnm="'+items.file_originnm+'" data-exet="'+items.file_exet+'" data-size="'+items.file_size+'" data-update_status="N" class="btn btn-warning btn-circle">X</button>\r\n';
+					html += '<button type="button" data-file_nm="'+items.file_nm+'" data-originnm="'+items.file_originnm+'" data-exet="'+items.file_exet+'" data-size="'+items.file_size+'" class="btn btn-warning btn-circle">X</button>\r\n';
 
 					html += '</span>\r\n'
 					html += '</li>';
@@ -276,7 +275,6 @@ $(document).ready(function(){
 			html+='<input type="hidden" name="fileList['+index+'].file_exet" value="'+file_exet+'">\r\n';
 			html+='<input type="hidden" name="fileList['+index+'].file_size" value="'+file_size+'">\r\n';
 			html+='<input type="hidden" name="fileList['+index+'].file_originnm" value="'+file_originnm+'">\r\n';
-			html+='<input type="hidden" name="fileList['+index+'].update_status" value="N">\r\n';
 		});
 		
 		$('#uploadResult').append(html);
