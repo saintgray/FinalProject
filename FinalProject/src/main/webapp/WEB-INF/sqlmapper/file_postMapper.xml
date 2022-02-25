@@ -36,5 +36,13 @@
 		from file_post
 		where post_idx=#{idx} and file_deldate is null
 	</select>
+	
+	<!-- deldate 가 어제 이전인 파일 목록 불러오기 -->
+	<select id="selectDeletedFiles"
+			resultType="com.alj.dream.file_post.domain.PostFileRequest">
+		select * from file_post
+		where
+		<![CDATA[date(file_deldate) < date(now())]]>
+	</select>
 
 </mapper>

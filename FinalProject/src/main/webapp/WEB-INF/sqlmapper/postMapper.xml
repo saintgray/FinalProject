@@ -15,7 +15,7 @@
 
 	<!-- 게시물 수정 -->
 	<update id="updatePost"
-			parameterType="com.alj.dream.post.domain.PostWriteRequest">
+			parameterType="com.alj.dream.post.domain.PostEditRequest">
 		UPDATE post
 		SET post_nm = #{post_nm},
 			post_content = #{post_content},

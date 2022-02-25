@@ -7,10 +7,12 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.alj.dream.file_post.dao.PostFilesDao;
+import com.alj.dream.file_post.domain.PostFileEditRequest;
 import com.alj.dream.file_post.domain.PostFileRequest;
 import com.alj.dream.post.dao.PostDao;
+import com.alj.dream.post.domain.PostEditRequest;
 import com.alj.dream.post.domain.PostWriteRequest;
-import com.alj.dream.file_post.dao.PostFilesDao;
 import com.alj.dream.profile.dao.ProfileDao;
 import com.alj.dream.profile.domain.ProfileRequest;
 
@@ -35,7 +37,7 @@ public class PostEditService {
 		return wRequest;
 	}
 
-	public int editPost(PostWriteRequest wRequest, String saveDir) {
+	public int editPost(PostEditRequest wRequest, String saveDir) {
 		int resultCnt = 0;
 		
 		// 글 수정
@@ -43,9 +45,9 @@ public class PostEditService {
 		
 		if(resultCnt>0) {
 			// 파일 수정
-			List<PostFileRequest> fileList = wRequest.getFileList();
+			List<PostFileEditRequest> fileList = wRequest.getFileList();
 			
-			for(PostFileRequest attachfile : fileList) {
+			for(PostFileEditRequest attachfile : fileList) {
 				if(attachfile.getUpdate_status().equalsIgnoreCase("E")) {
 					// 파일 삭제, db에 deldate 추가
 					String filename = attachfile.getFile_nm() + "." + attachfile.getFile_exet();
@@ -61,7 +63,7 @@ public class PostEditService {
 					
 				} else if(attachfile.getUpdate_status().equalsIgnoreCase("N")) {
 					// 새로운 파일이라면 저장
-					resultCnt = template.getMapper(PostFilesDao.class).insertPostFile(attachfile);
+					resultCnt = template.getMapper(PostFilesDao.class).insertPostFile(attachfile.getFileRequest());
 					
 				} else if(attachfile.getUpdate_status().equalsIgnoreCase("I")) {
 					// 이미 존재하는 파일 -> 넘기기
