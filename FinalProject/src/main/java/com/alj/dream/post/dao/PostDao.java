@@ -23,7 +23,7 @@ public interface PostDao {
 	
 	PostWriteRequest selectWriteRequestByPostIdx(int post_idx);
 
-	List<PostListInfo> selectListByMemberIdx(@Param("m_idx")int m_idx, @Param("wanted")String wanted, @Param("index")int index, @Param("count")int count);
+	List<PostListInfo> selectListByMemberIdx(SearchParams params);
 
 	int selectCountByIdx(int m_idx);
 

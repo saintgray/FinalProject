@@ -43,7 +43,13 @@ public class PostListService {
 
 		List<PostListInfo> list = new ArrayList<PostListInfo>();
 		
-		list = dao.selectListByMemberIdx(m_idx, wanted, index, COUNT_PER_PAGE);
+		SearchParams params = new SearchParams();
+		params.setM_idx(m_idx);
+		params.setWanted(wanted);
+		params.setIndex(index);
+		params.setCount(COUNT_PER_PAGE);
+		
+		list = dao.selectListByMemberIdx(params);
 		
 		return new PostListView(totalCount, COUNT_PER_PAGE, pageNum, list);
 	}
