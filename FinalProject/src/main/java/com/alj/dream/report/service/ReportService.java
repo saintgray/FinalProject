@@ -12,8 +12,10 @@ public class ReportService {
 
 	private ReportDao dao;
 
+
 	@Autowired 
 	private SqlSessionTemplate template;
+
 
 	// 하루 신고횟수 확인
 	public int chkReport(int myidx, int matchidx) {
@@ -25,11 +27,14 @@ public class ReportService {
 
 		// 오늘 이회원의 신고횟수가 하루에 다섯번 이상이라면 더이상의 신고는 불가능하다.
 
+
+	
 		if (todayRprt <6){ 
 			resultCnt = 1;  //신고해도 괜찮은사람
 		}else{
 			resultCnt = 0;   //신고해도 안괜찮은 사람 
 		}
+
 
 
 		return resultCnt;
@@ -48,3 +53,4 @@ public class ReportService {
 		}
 
 }
+

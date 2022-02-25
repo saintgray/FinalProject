@@ -12,9 +12,13 @@ import com.alj.dream.review.service.ReviewService;
 @Controller
 public class ReviewController {
 
+
 	@Autowired
 	private ReviewService service;
 
+
+
+	
 
 	// 리뷰 등록할때
 	@RequestMapping(value="/review/regreview", method=RequestMethod.POST)
@@ -30,3 +34,4 @@ public class ReviewController {
 		return resultCnt;
 	}
 }
+
