@@ -9,11 +9,8 @@
 <link rel="shortcut icon" href="#">
 <title>받은 제의 리스트</title>
 <style>
-	.m_photo{
-		width:110px;
-		height:110px;
-		border-radius: 50%;
-	}
+	
+	/* 윗부분 */
 	.post{
 		background-color: #FFD601;
 		height: 250px;
@@ -42,6 +39,8 @@
 		font-size: 1.8em;
 		font-weight: 550;
 	}
+	
+	/* 중앙부분 */
 	.rqMemList{
 		width : 80%;
 		margin : 0 auto;
@@ -55,12 +54,17 @@
 		padding : 15px 0px 15px 0px;
 		border-bottom: 1pt solid #E1DEE6;
 	}
+	.m_photo{
+		width:110px;
+		height:110px;
+		border-radius: 50%;
+	}
 	.rqMname{
 		padding : 0px 5px 0px 15px;
 		font-size: 1.625em;
 		font-weight: bold;	
 	}
-	#reBtn{
+	#goChat{
 		background-color: #142B6F!important;
 		height: 30px;
 		vertical-align: baseline;
@@ -113,7 +117,7 @@
 			</td>		
 			<td>
 				<span class="rqMname">${member.m_nm}</span>
-				<button type="button" class="btn btn-light" id="reBtn">
+				<button type="button" class="btn btn-light" id="goChat">
 					<a style="color: #FFD601"  href="${pageContext.request.contextPath}/chat/chatroom?myidx=${myidx}&matchidx=${member.match_idx}&reciever=${member.m_idx}" >채팅 하기 </a>
 				</button>
 			</td>			
