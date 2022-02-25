@@ -36,7 +36,7 @@
 		select distinct p.post_idx, post_nm, post_content, post_regdate, post_editdate, p.cat_idx, c.cat_nm, m_idx, (select count(*) from dream.match where post_idx=#{idx}) as match_count, wanted
 		from post p left join category c on p.cat_idx=c.cat_idx
 				left join dream.match m on p.post_idx=m.post_idx
-		where p.post_idx=#{idx};
+		where p.post_deldate is null and p.post_idx=#{idx};
 	</select>
 
 	<select id="selectWriteRequestByPostIdx"
@@ -47,6 +47,7 @@
 	</select>
 
 	<select id="selectListByMemberIdx"
+			parameterType="com.alj.dream.post.domain.SearchParams"
 			resultType="com.alj.dream.post.domain.PostListInfo">
 		select p.post_idx, p.post_nm, p.m_idx, c.cat_idx, c.cat_nm, (select count(*)  from dream.match m JOIN post p2 on p2.post_idx= m.post_idx and p2.post_idx=p.post_idx) as match_count
 		from post p left join category c on p.cat_idx=c.cat_idx
@@ -55,7 +56,7 @@
 	</select>
 
 	<select id="selectTotalCountByIdx" resultType="int">
-		select count(*) from post where m_idx=#{m_idx} and wanted=#{wanted}
+		select count(*) from post where post_deldate is null and m_idx=#{m_idx} and wanted=#{wanted}
 	</select>
 	
 	<select id="selectTotalCountBySearchParams"

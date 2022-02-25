@@ -1,7 +1,5 @@
 package com.alj.dream.post.domain;
 
-import java.util.List;
-
 public class SearchParams {
 
 	private int m_idx;
