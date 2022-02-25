@@ -8,6 +8,7 @@
 <meta charset="UTF-8">
 <title>받은제의 그룹으로 보여지는 곳</title>
 <style>
+
 	#body{
 		height: 100%;
 		width: 100%;
@@ -93,6 +94,7 @@
 	
 	.photo-list{
 		padding-left : 80px; 
+
 	}
 	.m_photo{
 		width:40px;
@@ -101,12 +103,17 @@
 	}
 	
 	#rqMember{
+
 		width : 300px;
 		margin : 10px 50px 10px 50px;
 		heigth : 20px;
 	}
 	.card-body{
 		padding : 0px 15px 0px 15px;
+
+	}
+	#rqMember:hover{
+		color:#FFF;
 	}
 	
 </style>
@@ -120,18 +127,26 @@
 
 
 <!-- 현 로그인 정보 -->
-
+<h1>현로그인 정보</h1>
 <sec:authorize access="isAuthenticated()">
+<sec:authentication property="principal.m_idx"/>
+<sec:authentication property="principal.name"/>
+<sec:authentication property="principal.photo"/>
+<sec:authentication property="principal.m_type"/>
 	<c:set var="myidx">
 		<sec:authentication property="principal.m_idx"/>
 	</c:set>
 	<c:set var="myname">
 		<sec:authentication property="principal.name"/>
 	</c:set>
+	<c:set var="myphoto">
+		<sec:authentication property="principal.photo"/>
+	</c:set>
 	<c:set var="mytype">
 		<sec:authentication property="principal.m_type"/>
 	</c:set>
 </sec:authorize>
+
 
 <div id="body">
 
@@ -163,10 +178,10 @@
 		  </div>
 		  <div class="card-footer">
 			<c:if test="${mytype eq 'mentee'}">
-				<a class="btn btn-outline-success" id="rqMember" href="${pageContext.request.contextPath}/post/requestpost?postidx=${rgroup.post_idx}"><strong>제안한 멘토보기</strong></a>
+				<a class="btn btn-outline-success rqMember" href="${pageContext.request.contextPath}/post/requestpost?postidx=${rgroup.post_idx}"><strong>제안한 멘토보기</strong></a>
 			</c:if>
 			<c:if test="${mytype eq 'mentor'}">
-				<a class="btn btn-outline-success" id="rqMember" href="${pageContext.request.contextPath}/post/requestpost?postidx=${rgroup.post_idx}"><strong>제안한 멘티보기</strong></a>
+				<a class="btn btn-outline-success rqMember" href="${pageContext.request.contextPath}/post/requestpost?postidx=${rgroup.post_idx}"><strong>제안한 멘티보기</strong></a>
 			</c:if>
 		  </div>
 		</div>
@@ -180,9 +195,21 @@
 
 </div>
 
-<div class="rqg-footer">
-<%@include file="/WEB-INF/views/layout/footer.jsp" %>
-</div>
+</c:forEach><br><br>
 
+
+
+<%@include file="/WEB-INF/views/layout/footer.jsp" %>
 </body>
+
+<script>
+	$(document).ready(function(){
+		
+		$('.rqMember').on('click',function(){
+			location.href='${pageContext.request.contextPath}/post/requestpost?postidx='+$(this).prev().text();
+		})
+		
+	})
+
+</script>
 </html>

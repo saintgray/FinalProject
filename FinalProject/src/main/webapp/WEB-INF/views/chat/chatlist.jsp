@@ -70,9 +70,11 @@
 </head>
 <body>
 
-<%@include file="/WEB-INF/views/layout/header.jsp" %>	
 <!-- 현 로그인 정보 -->
+<h1>현로그인 정보</h1>
 <sec:authorize access="isAuthenticated()">
+<sec:authentication property="principal.m_idx"/>
+<sec:authentication property="principal.m_type"/>
 	<c:set var="myidx">
 		<sec:authentication property="principal.m_idx"/>
 	</c:set>
@@ -80,6 +82,8 @@
 		<sec:authentication property="principal.m_type"/>
 	</c:set>
 </sec:authorize>
+myidx: ${myidx} myname : ${myname} myphoto : ${myphoto}$ mytype : {mytype}
+
 
 <div class="chatlist-whole">
 	<div class="chatlist-title">채팅</div>
@@ -120,7 +124,7 @@
 	</div>
 </div>
 
-<%@include file="/WEB-INF/views/layout/footer.jsp" %>
+</table>
 
 </body>
 </html>

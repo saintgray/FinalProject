@@ -43,7 +43,7 @@
 		    <!-- banner area -->
 		    <!-- 관리자는 배너(광고창) 등록 기능을 사용할 수 있습니다. 우선순위 10 -->
 		    <!-- 홈페이지 로딩 후 DB의 광고 테이블에서 활성화된 광고들을 받아와 출력할 수 있습니다. -->
-		     <div class="d-flex flex-row" id="bannerarea" >
+		     <div class="shadow d-flex flex-row" id="bannerarea" >
 		    	  
 			      <img src="${pageContext.request.contextPath}/resources/files/server/bannerimg/banner1.png">
 			      <img src="${pageContext.request.contextPath}/resources/files/server/bannerimg/banner2.png">
@@ -52,26 +52,30 @@
 		
 		     </div>
 		     
-		     <sec:authorize access="isAuthenticated()">
-		     	<c:set var="type">
-		     		<sec:authentication property="principal.m_type"/>
-		     	</c:set>
-		     	<c:set var="idx">
-		     		<sec:authentication property="principal.m_idx"/>
-		     	</c:set>
-		     	
-		     	<%-- <input type="hidden" name="type" value="${type}"> --%>
-		     	<%-- <input type="hidden" name="idx" value="${idx}"> --%>
+		     <sec:authorize access="hasRole('GENERAL')">
+		     
+		     	 <c:set var="type">
+		     		 <sec:authentication property="principal.m_type"/>
+		     	 </c:set>
+		     	 <c:set var="idx">
+		     		 <sec:authentication property="principal.m_idx"/>
+		     	 </c:set>
 
 			     <div class="d-flex flex-column justify-content-around" id="mnmbtn">
-			     	<button id="writepostbtn" class="btn btn-general my-2">요청서 작성</button>
-			     	<c:if test="${type eq 'mentor'}">
-			     		<button id="findmentorbtn" class="btn btn-general my-2">멘티찾기</button>
-			     	</c:if>
-			     	<c:if test="${type eq 'mentee'}">
-			     		<button id="findmenteebtn" class="btn btn-general my-2">멘토찾기</button>
-			     	</c:if>
+			     
+			     	<button id="writepostbtn" class="btn btn-general my-2 shadow-lg">요청서 작성</button>
+			     	
+		     		<button id="findbtn" class="btn btn-general my-2 shadow-lg">
+		     			<c:if test="${type eq 'mentor'}">
+		     				멘티찾기
+		     			</c:if>
+		     			<c:if test="${type eq 'mentee'}">
+		     				멘토찾기
+		     			</c:if>
+		     		</button>		
+			     	
 			     </div>
+			     
 		     </sec:authorize>
 
 		     <div id="countarea">
@@ -106,19 +110,19 @@
 		  	 </h1>
 		  	 <div class="d-flex flex-row flex-nowrap justify-content-between mb-5" id="catarea">
 		  	 
-		  	 	<div class="d-flex flex-column cat-card mx-auto">
+		  	 	<div class="d-flex flex-column cat-card mx-auto shadow">
 		  	 		<a href="#">
 		  	 			<img src="${pageContext.request.contextPath}/resources/files/server/category/piano.jpg">
 		  	 		</a>
 		  	 		<span class="descript ms-2 my-1">음악</span>
 		  	 	</div>
-		  	 	<div class="d-flex flex-column cat-card mx-auto">
+		  	 	<div class="d-flex flex-column cat-card mx-auto shadow">
 		  	 		<a href="#">
 		  	 			<img src="${pageContext.request.contextPath}/resources/files/server/category/draw.png">
 		  	 		</a>
 		  	 		<span class="descript ms-2 my-1">미술</span>
 		  	 	</div>
-		  	 	<div class="d-flex flex-column cat-card mx-auto">
+		  	 	<div class="d-flex flex-column cat-card mx-auto shadow">
 		  	 		<a href="#">
 		  	 			<img src="${pageContext.request.contextPath}/resources/files/server/category/cook.jpg">
 		  	 		</a>

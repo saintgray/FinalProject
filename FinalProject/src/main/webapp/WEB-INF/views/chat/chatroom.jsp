@@ -79,6 +79,7 @@
 	.text_center {
 		text-align: center;
 	}
+
 	.m_photo{
 		width:40px;
 		height:40px;
@@ -92,6 +93,7 @@
 		background-color: #e9ecef;
 		color : blue;
 	}
+
 	#sendermsg {	  
 		padding : 15px;
 		display: inline-block;
@@ -176,19 +178,22 @@
 	  text-shadow: 0 0 5px #09f;
 	} 
 	
-	
 </style>
-<!-- 채팅을 위해 필요 -->
 <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+
 </head>
 <body>
 
 <!-- Header -->
+
 <%@ include file="/WEB-INF/views/layout/header.jsp" %>
 
 
-<sec:authorize access="isAuthenticated()">
 
+<sec:authorize access="isAuthenticated()">
+<sec:authentication property="principal.m_idx"/>
+<sec:authentication property="principal.name"/>
+<sec:authentication property="principal.m_type"/>
 	<c:set var="myidx">
 		<sec:authentication property="principal.m_idx"/>
 	</c:set>
@@ -199,12 +204,21 @@
 		<sec:authentication property="principal.m_type"/>
 	</c:set>
 </sec:authorize>
+myidx: ${myidx} / myname : ${myname} / myphoto : ${myphoto} / mytype : ${mytype}
 
+<h3>참여자 정보</h3>
 
-<span id="myname" class="d-none">${myname}</span>
+matchidx : ${matchidx}<br>
+sender	 : ${myidx}<br>
+reciever : ${reciever}<br>
+
+<img src="${pageContext.request.contextPath}/resources/files/member/${recieverInfo.m_photo}" class="m_photo"><br>
+
+matchyn : ${match.match_yn}
 
 
 <div class="chatRoom-whole">
+
 
 	<!-- chatRoom Header--------------------------------------------------------------------------------------------- -->
 	<div class="chatRoom-header">
@@ -218,6 +232,8 @@
 				<button type="button" class="btn btn-success" id="profileBtn">${recieverInfo.m_nm}님과의 채팅방</button>
 			</c:if>
 		</div>
+
+
 
 		<div class="btns">
 				<!-- 채팅나가기 -->
@@ -327,6 +343,7 @@
 		</div>
 
 
+
 <!-- 매칭 확인  -->
 	<div class="modal fade" id="matchChk" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
 		  <div class="modal-dialog modal-dialog-centered">
@@ -337,7 +354,7 @@
 		      </div>
 		      
 		      <div class="modal-body">
-		        <h3>${recieverInfo.m_nm}님과 매칭하시겠습니까?</h3>
+		        <h3>${reciever}님과 매칭하시겠습니까?</h3>
 		         (매칭 후 3일동안만 매칭취소가 가능합니다. 3일이후에는 자동으로 매칭이 확정됩니다.)
 		      </div>
 		      
@@ -348,6 +365,7 @@
 		    </div>
 		  </div>
 		</div>
+
 
 
 <!-- 매칭취소 확인  -->
@@ -371,7 +389,6 @@
 		    </div>
 		  </div>
 		</div>
-
 
 
 <!-- 리뷰 작성 모달 -->
@@ -423,18 +440,19 @@
 						</form>
 		         	</div>
 		         	<div>
-						<textarea class="form-control" rows="5" id="comment" name="text" placeholder="리뷰를 작성해주세요."></textarea>
+						<textarea class="form-control" rows="5" id="comment" name="text"></textarea>
 					</div>
 		      </div>
 		      
 		      <div class="modal-footer">
 		      	<button type="button" class="btn btn-danger" data-bs-dismiss="modal" id="regReview" >등록하기</button>
-		        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소하기</button>
+		        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">삭제하기</button>
 		      </div>
 		    </div>
 		  </div>
 		</div>
 		
+
 
 <!-- 신고하기폼(모달창) -->
 		<div class="modal fade" id="reportForm" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
@@ -449,24 +467,23 @@
 		      <div class="modal-body">
 		      
 		           <div>신고하기 사유 확인이 불가할 경우 해당 신고건은 미조치됩니다.</div>
-		          	<div>
+		          
 						<div class="form-check">
 			              <label class="form-check-label">
-			                <input type="radio" class="form-check-input" name="rprt"  value="add" >서비스와 관련없는 광고/홍보
+			                <input type="radio" class="form-check-input" name="input-type" value="add">서비스와 관련없는 광고/홍보
 			              </label>
 			            </div>
 			            <div class="form-check">
 			              <label class="form-check-label">
-			                <input type="radio" class="form-check-input" name="rprt" value="assert" >부적절한 언어(욕설/성희롱 등) 사용
+			                <input type="radio" class="form-check-input" name="input-type" value="assert">부적절한 언어(욕설/성희롱 등) 사용
 			              </label>
 			            </div>
-			         </div>
 			            <div>서비스 진행중 문제가 생겼다면 증빙자료(대화내역, 문자메세지, 녹취, 사진 등)과 함께 숨고 이메일 admin1@aljdream.com으로 접수해주세요. 신고 결과는 별도안내되지 않습니다.</div>
 		            
 		      </div>
 		      
 		      <div class="modal-footer">
-		        <button type="button" class="btn btn-primary" onclick="showConfirmRprt()">신고접수</button>
+		        <button type="button" class="btn btn-primary" data-bs-target="#confirm" data-bs-toggle="modal">신고접수</button>
 		        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">삭제</button>
 		      </div>
 		    </div>
@@ -495,126 +512,217 @@
 		    </div>
 		  </div>
 		</div>
-		
+
 <!-- --------------------------------------------------------------------------------------------------------------------------- -->
 <script>
-//채팅관련 ------------------------------------------------------------------------------
 
-//websocket을 지정한 URL로 연결
-var sock = new SockJS("<c:url value="/echo"/>");
-
-
-sock.onopen = onOpen;
-sock.onmessage = onMessage;
-sock.onclose = onClose;
-sock.onerror = onError;
-
-
-$(document).ready(function(){
+	//var matchdate = ${match.match_date};
 	
+	// 리뷰후기 클릭가능하도록하는것...
+	// 테스트완료
+	     window.onload = function ableReview(${match.match_yn},${unmatchYN}) {
+	    
+		if(${match.match_yn == 'Y' && unmatchYN == 'N'}){
+			$('#review').removeAttr('disabled');
+		}
+    } 
 	
-	var myname=$('#myname').text();
-	console.log(myname);
-	
-	// 메세지를 보낼 때
-	$('#sendBtn').on('click',function(evt){
-		
-		console.log('메세지 버튼 클릭');
-		sendMessage();	// 메세지 보내는 함수 실행
-		
-		$('#message').val('');	
-		$('#message').focus();
-	})
-	
-	
-	// 채팅 나가기 누를때
-	 $('#leaveChat').on('click',function(){
-		
-		$.ajax({
-			url : '${pageContext.request.contextPath}/chat/leavechat',
-			type : 'POST',
-			data : {
-				matchidx : ${matchidx},
-				myidx : ${myidx},
-				reciever : ${reciever},
-				mytype : '${mytype}'
-			},
-			success : function(data){
-				if(data==1){
-					var mngMsg = "$('#myname').text()님이 채팅방을 나가셨습니다.";
-					sendMngMessage(mngMsg);
-					
-					location.href="${pageContext.request.contextPath}/chat/chatlist";
-					//성공했을때 > 채팅목록으로 나간다
-				}else{
-					//에러있을때
-					alert('오류입니다.');
-				}
-			}, 
-			error : function(){
-				console.log('비동기통신 오류');
-			}
-		})
-	})
-	
-	
-	// 매칭하기 확인 누를때
-	$("#matchY").on('click',function(){
-		// ajax로 matchyn y으로 update
-		var matchYN = 'Y';
-		
-		matchUpdate(matchYN);
-		
-		document.getElementById("match").style.display="none";
-		document.getElementById("unmatch").style.display="inline-block"; 
-		
-		// ${reciever}님과 ${myidx}님이 매칭되었습니다! 화면에 채팅으로 올라간다(중앙에)
-		var mngMsg = "$('#myname').text()님과 ${recieverInfo.m_nm} 님의 매칭이 성사되었습니다!";
-		console.log(mngMsg);
-		
-		sendMngMessage(mngMsg);
-	})
-	
-	
-	// 매칭취소 확인 누를때
-	$('#matchCancleY').on('click', function(){
-		
-		var matchYN = 'N';
-		
-		matchUpdate(matchYN);
-		
-		document.getElementById("match").style.display="inline-block";
-		document.getElementById("match").disabled = true;
-		document.getElementById("unmatch").style.display="none";
-		
-		// ${reciever}님과  ${myidx}님의 매칭이 취소되었습니다. 화면에 채팅으로 올라간다(중앙에)
-		var mngMsg = "$('#myname').text()님과 ${recieverInfo.m_nm} 님의 매칭이 취소되었습니다. 더이상의 매칭이 불가합니다.";
-		console.log(mngMsg);
-		
-		sendMngMessage(mngMsg);
-	})
-})
 	  
-	// 연결되었을 때
-	function onOpen(){
-		console.log('Info : connection opened');
-	};
+	$(document).ready(function(){
+		 	
+		 
+		// 메세지를 보낼 때
+		$('#sendBtn').on('click',function(evt){
+			
+			console.log('메세지 버튼 클릭');
+			sendMessage();	// 메세지 보내는 함수 실행
+			
+			$('#message').val('');	
+			
+			$('#message').focus();
+
+		})
+		
+		
+		// 채팅 나가기 누를때
+		 $('#leaveChat').on('click',function(){
+			
+			$.ajax({
+				url : '${pageContext.request.contextPath}/chat/leavechat',
+				type : 'POST',
+				data : {
+					matchidx : ${matchidx},
+					myidx : ${myidx},
+					reciever : ${reciever},
+					mytype : '${mytype}'
+				},
+				success : function(data){
+					if(data==1){
+						location.href="${pageContext.request.contextPath}/chat/chatlist";
+						//성공했을때 > 채팅목록으로 나간다
+					}else{
+						//에러있을때
+						alert('오류입니다.');
+					}
+				}, 
+				error : function(){
+					console.log('비동기통신 오류');
+				}
+			})
+		})
+		
+		
+		// 매칭하기 확인 누를때
+		$("#matchY").on('click',function(){
+			// ajax로 matchyn y으로 update
+			var matchYN = 'Y';
+			
+			matchUpdate(matchYN);
+			
+			document.getElementById("match").style.display="none";
+			document.getElementById("unmatch").style.display="inline-block"; 
+			
+			
+			// ${reciever}님과 ${myidx}님이 매칭되었습니다! 화면에 채팅으로 올라간다(중앙에)
+		})
+			
+		
+		// 매칭취소 확인 누를때
+		$('#matchCancleY').on('click', function(){
+			
+			var matchYN = 'N';
+			
+			matchUpdate(matchYN);
+			
+			document.getElementById("match").style.display="inline-block";
+			document.getElementById("match").disabled = true;
+			document.getElementById("unmatch").style.display="none";
+			 
+			 
+			// ${reciever}님과  ${myidx}님의 매칭이 취소되었습니다. 화면에 채팅으로 올라간다(중앙에)
+		});
+		
+		
+		
+		// match여부 업데이트할 시
+		function matchUpdate(matchYN){
+			
+			console.log(matchYN);		//넘어오는것 확인했습니다.
+			console.log(${matchidx});	//넘어오는것 확인했습니다.
+			$.ajax({
+				url : '${pageContext.request.contextPath}/chat/matchupdate',
+				type : 'post',
+				data : {
+					matchYN : matchYN,
+					matchidx : ${matchidx}
+					},
+				success : function(data){
+					if(data==1){
+						console.log('match 업데이트 성공');
+					}else{
+						console.log('match 업데이트 실패');
+					}
+				}, 
+				error : function(){
+					console.log('비동기통신 오류');
+				}
+			})
+			
+		}
+		
+		// 별점 작성시 함수
+		$(':radio').change(function() {
+			  console.log('New star rating: ' + this.value);
+			});
+		
+		
+		// 리뷰 등록시
+		 $('#regReview').on('click',function(){
+			var rating = $('#rate:checked').val();
+			console.log(rating);
+			var comment = $('#comment').val();
+			console.log(comment);
+			$.ajax({
+				url : '${pageContext.request.contextPath}/chat/regreview',
+				type : 'POST',
+				data : {
+					rating : rating,
+					comment : comment,
+					matchidx : ${matchidx}
+				},
+				success : function(data){
+					if(data==1){
+						alert('리뷰가 등록되었습니다');
+						document.getElementById("review").disabled = true;
+					}else{
+						//에러있을때
+						alert('오류입니다.');
+					}
+				}, 
+				error : function(){
+					console.log('비동기통신 오류');
+				}
+			})
+		})
+		
+		
+		// 신고접수를 눌렀을 시
+		$("#sendReport").click(function(){
+
+			// 전송할 데이터 : 신고자/신고받는사람/채팅idx/신고내용
+			var content = $('.form-check-input:checked').val();
+			
+			$.ajax({
+				url : '${pageContext.request.contextPath}/chat/sendreport',
+				type : 'POST',
+				data : {
+						match_idx : ${matchidx},
+						report_content : content,
+						m_report : ${myidx},
+						m_reported : ${reciever}
+						},
+						
+				success : function(data){
+					// 전송에 성공하면 실행될 코드
+					if(data==1){															
+						alert('신고접수가 완료되었습니다.');
+						
+					} else {
+						alert('전송오류');
+					}
+				}, 
+				error : function(){
+					console.log('비동기통신 오류');
+				}
+		})
+	});
+		
+		
+	});
 	
-	// 메세지 보낼때
+    
+    
+    
+	// 채팅관련 함수------------------------------------------------------------------------------------------------
+	
+	// 채팅관련 ------------------------------------------------------------------------------
+	//websocket을 지정한 URL로 연결
+	var sock = new SockJS("<c:url value="/echo"/>");
+
+
+	sock.onopen = onOpen;
+	sock.onmessage = onMessage;
+	sock.onclose = onClose;
+	sock.onerror = onError;
+	
+	
 	function sendMessage() {
 		//websocket으로 메시지를 보내기
-		
-		// 현재 시간
-		var today = new Date();
-		var todaysMnth = today.getMonth()+1;
-		console.log(todaysMnth);
-		var time = todaysMnth+"월 "+today.getDate()+"일 " +today.getHours() + ":" + today.getMinutes();
 		
 		var msg = {
 			reciever : ${reciever},
 			matchidx : ${matchidx},
-			message : $("#message").val(),
-			sent : time
+			message : $("#message").val()
 		};
 		console.log(msg);
 		console.log('sendMessage');
@@ -622,31 +730,14 @@ $(document).ready(function(){
 	};
 
 	
-	 // 시스템메세지
-	 function sendMngMessage(mngMsg) {
+
+	function onOpen(){
+		console.log('Info : connection opened');
+		//열리면 그동안의 데이터 가져와야한다.//이부분은 다른 부분 참고하기
 		
-		var sysMsg ='###aljdream###'+mngMsg;
-		console.log(sysMsg);
-		// 현재 시간
-		var today = new Date();
-		var todaysMnth = today.getMonth()+1;
-		console.log(todaysMnth);
-		var time = todaysMnth+"월 "+today.getDate()+"일 " +today.getHours() + ":" + today.getMinutes();
-		
-		var msg = {
-			reciever : ${reciever},
-			matchidx : ${matchidx},
-			// 시스템 상 메세지는 특정 문자열을 넣어서 진행하도록한다
-			message : sysMsg,
-			sent : time
-		};
-		console.log(msg);
-		console.log('매니저메세지발송');
-		sock.send(JSON.stringify(msg));
 	};
 
 	
-	// 메세지 받을 때
 	function onMessage(evt) { 
 		console.log('onMessage');
 		var data = evt.data; 	// 전달받은 데이터이다.
@@ -657,31 +748,15 @@ $(document).ready(function(){
 		
 		var sessionid = null;
 		var message = null;
+		//var sent = 
 		
 		// 현재 세션아이디 //	
-		var currentuser_session = ${myidx};					
-		var recievernm = '${recieverInfo.m_nm}';
-		console.log('current session id: ' + currentuser_session);
-			
-		// 1차로, 받은메세지가 시스템메세지인지아닌지 확인한다.
-		var msg = msgData.message;
-		var sysdistinct = msg.slice(0,14);
+		var currentuser_session = ${myidx};					//$('#sessionuserid').val();		// ${myidx}시도해보기
+		var recievernm = ${recieverInfo.m_nm};
 		
-		if(sysdistinct =='###aljdream###'){
-			
-			// 매니저 메세지를 송출
-			var systemMessage = msg.slice(16);
-			console.log(systemMessage);
-
-			var printHTML = "<div class='well text_center'>";
-			printHTML += "<span>"+msgData.sent+"</span>";
-			printHTML += "<span id='sysmsg' class='rounded-pill'><strong>" +systemMessage+ "<strong></span>";
-			printHTML += "</div>";
-
-			$('#chatBox').append(printHTML);
-			
-		}else{
-			// 회원메세지를 송출
+		console.log('current session id: ' + currentuser_session);
+		
+	
 			// 나와 상대방이 보낸 메세지를 구분하여 출력
 			if (msgData.m_sender == currentuser_session) {			// sender와 내 세션아이디가 같다면 내가보내는 것
 				// 오른쪽에 출력되도록하기
@@ -689,22 +764,22 @@ $(document).ready(function(){
 				printHTML += "<span>"+msgData.sent+"</span>";
 				printHTML += "<span id='sendermsg' class='rounded-pill'><strong>" +msgData.message+"<strong></span>";
 				printHTML += "</div>";
-	
+
 				$('#chatBox').append(printHTML);
 			} else {
 				var printHTML = "<div class='well text_left'>";
-				printHTML += "<span id='recieverphoto'><img src='${pageContext.request.contextPath}/resources/files/member/${recieverInfo.m_photo}'class='m_photo'></span>";
+				printHTML += "<span id='recieverphoto'>상대방사진</span>";
 				printHTML += "<span id='recievermsg' class='rounded-pill'>" + recievernm + "-> " + msgData.message +"</span>";
 				printHTML += "<span>"+msgData.sent+"</span>";
 				printHTML += "</div>";
-				
+
 				$('#chatBox').append(printHTML);
 			}
-		} 
-		console.log('chatting data: ' + data);
+
+			console.log('chatting data: ' + data);
 		
 	};
-	
+
 	function onClose(evt) {
 		$("#data").append("연결 끊김");
 	};
@@ -713,180 +788,8 @@ $(document).ready(function(){
 		console.log('Error:', err);
 	};
 
-//채팅관련 끝------------------------------------------------------------------------------
-	  
-	  
-	
-	
-	
-	
-	// match여부 업데이트할 시
-	function matchUpdate(matchYN){
-		
-		console.log(matchYN);		//넘어오는것 확인했습니다.
-		console.log(${matchidx});	//넘어오는것 확인했습니다.
-		$.ajax({
-			url : '${pageContext.request.contextPath}/chat/matchupdate',
-			type : 'post',
-			data : {
-				matchYN : matchYN,
-				matchidx : ${matchidx}
-				},
-			success : function(data){
-				if(data==1){
-					console.log('match 업데이트 성공');
-				}else{
-					console.log('match 업데이트 실패');
-				}
-			}, 
-			error : function(){
-				console.log('비동기통신 오류');
-			}
-		})
-		
-	};
-
-	
-	// 리뷰버튼 눌렀을 때
-	function review(){
-		<!-- 후기등록 조건 : match_yn(매칭여부) Y && unmatchYN(매칭취소가능여부)N -->
-		<!-- 후기등록 조건 : ableRv(작성가능여부)Y -->
-		
-		if(!((${match.match_yn eq 'Y'}) && (${unmatchYN eq 'N'}))){
-			alert('후기 등록은 매칭일 3일이 지나고부터 가능합니다.');
-		}else if(!${ableRv eq'Y'}){
-			alert('이미 후기를 등록한 매칭입니다. 후기 등록은 한번만 가능합니다.');
-		}else{
-			$('#reviewform').modal('show');
-		}
-	};
-	
-	
-	// 별점 작성시 함수
-	$(':radio').change(function() {
-		  console.log('New star rating: ' + this.value);
-		});
-	
-	
-	// 리뷰 등록시
-	 $('#regReview').on('click',function(){
-		var stars = $('#rate:checked').val();
-		if(!$('#rate').prop('checked')) {
-		    // 별점이 체크되지않았다면
-		  alert('리뷰작성시 별점은 필수입니다. 확인해주세요!');
-		}
-		console.log(rating);
-		var comment = $('#comment').val();
-		console.log(comment);
-		$.ajax({
-			url : '${pageContext.request.contextPath}/review/regreview',
-			type : 'POST',
-			data : {
-				rating : stars,
-				comment : comment,
-				matchidx : ${matchidx}
-			},
-			success : function(data){
-				if(data==1){
-					alert('리뷰가 등록되었습니다');
-					document.getElementById("reviewing").disabled = true;
-				}else{
-					//에러있을때
-					alert('오류입니다.');
-				}
-			}, 
-			error : function(){
-				console.log('비동기통신 오류');
-			}
-		})
-	});
-
-	
-	// 신고접수하기 눌렀을 때
-	function showConfirmRprt(){
-		if(!($('input[name=rprt]:checked').length>0)) {
-			// 체크되지않았다면
-		  alert('접수할 내용을 체크하지 않으셨습니다. 신고내용을 체크해주세요!');
-		}else{
-			// 확인 모달 보여줌
-			$('#confirm').modal('show');
-		}
-	}
-	
-    	
-	// 신고접수를 눌렀을 시
-	 $("#sendReport").click(function(){
-		var content = $('.form-check-input:checked').val();
-		console.log(content);
-	 	
-		// 먼저 이 매칭에서 신고한 적이 없는지 확인
-	 	if(!${ableRprt eq 'Y'}){
-			 alert('신고는 한 채팅방에 한번만 가능합니다. 기타 문의는 알려드림 이메일 admin1@aljdream.com으로 접수바랍니다.');
-		}else{
-			chkTodayRprt(content);
-		}
-	});
-	
-	// 하루 신고 최대치를 넘지않았는지 확인
-	function chkTodayRprt(content){
-		
-		$.ajax({
-			url : '${pageContext.request.contextPath}/report/maxrprt',
-			type : 'post',
-			data : {
-				matchidx : ${matchidx},
-				myidx : ${myidx}
-			},
-			success : function(data){
-				if(data==1){
-					console.log('신고접수 가능');
-					reporting(content);
-				}else{
-					$('#reportForm').modal('hide');	
-					alert('하루에 신고 가능한 횟수(5회)를 초과히였습니다.');
-				}
-			}, 
-			error : function(){
-				console.log('비동기통신 오류');
-			}
-		})
-	};
-	
-	// 신고내용 전송
-	function reporting(content){
-		console.log(content);
-		$.ajax({
-			url : '${pageContext.request.contextPath}/report/sendreport',
-			type : 'POST',
-			data : {
-					match_idx : ${matchidx},
-					report_content : content,
-					m_report : ${myidx},
-					m_reported : ${reciever}
-					},
-					
-			success : function(data){
-				// 전송에 성공하면 실행될 코드
-				if(data==1){	
-					$('#reportForm').modal('hide');														
-					alert('신고접수가 완료되었습니다.');
-					document.getElementById("report").disabled = true;
-				} else {
-					alert('전송오류');
-				}
-			}, 
-			error : function(){
-				console.log('비동기통신 오류');
-			}
-		})
-	};
-	
-	
-	
 	
 
-	
-	
 </script>
 <%@include file="/WEB-INF/views/layout/footer.jsp" %>
 </body>

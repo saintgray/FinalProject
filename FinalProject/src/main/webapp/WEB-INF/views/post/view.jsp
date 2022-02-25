@@ -158,89 +158,10 @@ ${viewRequest.post_content}
 
 </div>
 
-<<<<<<< HEAD
-<script>
-function deletePost(idx){
-	
-	if(confirm('글이 삭제됩니다. 계속 진행하시겠습니까?')){
-		
-		$.ajax({
-			url: '${pageContext.request.contextPath}/post/delete',
-			type: 'post',
-			data: {post_idx : idx},
-			success: function(data){
-				if(data==1){
-					alert('게시글이 삭제되었습니다.');
-					location.href="${pageContext.request.contextPath}/post/list";
-				} else {
-					console.log('삭제 실패');
-				}
-			},
-			error: function(){
-				console.log('비동기 통신 오류');
-			}
-		});
-		
-	}
-	
-}
 
-$(document).ready(function(){
-	
-	$('#matchBtn').on('click', function(){
-		
-		var postidx=$('#postidx').val();
-		var wanted=$('#wanted').val();
-		var midx=$('#midx').val();
-		var myidx=$('#myidx').val();
-		
-		console.log('postidx:', postidx);
-		console.log('wanted:', wanted);
-		console.log('midx:', midx);
-		console.log('myidx:', myidx);
-		
-		$.ajax({
-			url: "${pageContext.request.contextPath}/post/matchchk",
-			type: "post",
-			data: {
-				postidx : postidx,
-				midx : midx,
-				myidx : myidx,
-				wanted: wanted
-			},
-			success : function(data){
-				
-				//location.href="${pageContext.request.contextPath}/post/view?idx="+postidx;
-				// 전송에 성공하면 실행될 코드
-				if(data==1){	// 테이블이 이미 있다는 뜻 = 문의를 했던 글이라는 뜻
-					alert('이미 문의한 게시글입니다. 내 채팅목록을 확인해주세요!');
-				} else {
-					setMatchidx(data);
-					console.log(matchidx);
-					//채팅테이블 생성할 함수실행
-					alert(${member.m_idx}'님에게 보낼 멋진 첫 한마디를 작성해주세요!');
-				}
-			},
-			error: function(data){
-				console.log('통신 오류');
-				console.log(data);
-			}
-		});
-		
-	})
-	
-	
-	
-	
-	
-	
-	
-	
-})
-</script>
+<!-- Footer -->
+<%@ include file="/WEB-INF/views/layout/footer.jsp" %>
 
-=======
->>>>>>> branch 'master' of https://github.com/saintgray/FinalProject.git
 </body>
 </html>
 

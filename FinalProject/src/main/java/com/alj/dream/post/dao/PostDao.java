@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.alj.dream.post.domain.PostEditRequest;
 import com.alj.dream.post.domain.PostListInfo;
 import com.alj.dream.post.domain.PostViewRequest;
 import com.alj.dream.post.domain.PostWriteRequest;
@@ -14,7 +15,7 @@ public interface PostDao {
 
 	int insertPost(PostWriteRequest wRequest);
 	
-	int updatePost(PostWriteRequest wRequest);
+	int updatePost(PostEditRequest wRequest);
 	
 	int deletePost(int post_idx);
 

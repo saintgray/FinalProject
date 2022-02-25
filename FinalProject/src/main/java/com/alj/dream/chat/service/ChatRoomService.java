@@ -15,7 +15,6 @@ import com.alj.dream.member.domain.MemberInfo;
 import com.alj.dream.report.dao.ReportDao;
 import com.alj.dream.report.domain.Report;
 import com.alj.dream.review.dao.ReviewDao;
-import com.alj.dream.review.domain.Review;
 
 @Service
 public class ChatRoomService {
@@ -23,8 +22,8 @@ public class ChatRoomService {
 	private ChatDao dao;
 	private MatchDao mdao;
 	private MemberDao memdao;
-	private ReportDao rpdao;
 	private ReviewDao rvdao;
+	private ReportDao rpdao;
 	
 	@Autowired 
 	private SqlSessionTemplate template;
@@ -33,51 +32,8 @@ public class ChatRoomService {
 	public List<Chat> getChat(int matchidx) {
 		
 		dao = template.getMapper(ChatDao.class);
-
+		
 		List<Chat> chatlist = dao.selectChatByMatchidx(matchidx);
-		String sysmsgYN = "N";
-		int size = chatlist.size();
-		int i =0;
-		int msglength = 0;
-		
-		
-		while(i<size) {
-			System.out.println(i+"번째채팅");
-			//메세지가 15글자이상을 넘었는지 확인한다.
-			msglength = chatlist.get(i).getMessage().length();
-			
-			if(msglength>15) {
-				System.out.println("15글자넘음>>>");
-				
-				// 시스템메세지 확인여부용 스트링
-				String distinctSYS = "###aljdream###";
-				
-				// 메세지에서 앞부분에 넣었을 확인여부용스트링을 찾아온다.
-				String isitSYS = chatlist.get(i).getMessage().substring(0, 14);
-				System.out.println("isitSYS :"+isitSYS);
-				
-				if(isitSYS.equalsIgnoreCase(distinctSYS)) {
-					// 시스템 메세지여부=Y
-					sysmsgYN = "Y";
-					chatlist.get(i).setSysmsgYN(sysmsgYN);
-					
-					// 확인용메세지는 공백으로 바꿔준다.
-					String msg = chatlist.get(i).getMessage().replace(distinctSYS, "");
-					
-					// 확인용메세지가 없는 일반메세지로 저장.
-					chatlist.get(i).setMessage(msg);
-					System.out.println(sysmsgYN + " : " + chatlist.get(i).getMessage());
-				}
-			}else {
-				sysmsgYN="N";
-				chatlist.get(i).setSysmsgYN(sysmsgYN);
-				System.out.println(sysmsgYN+" : "+chatlist.get(i).getMessage());
-			}
-			
-			i++;
-		}
-		// 가져온 메세지가 시스템상메세지인지 아닌지 확인해서 보냄
-		
 		System.out.println("ChatRoomService : getChat :"+chatlist);
 		return chatlist;
 	}
@@ -182,7 +138,7 @@ public class ChatRoomService {
 		return resultCnt;
 	}
 
-	// 회원 정보 가져오기
+
 	public MemberInfo getMemInfo(int myIdx) {
 		
 		memdao = template.getMapper(MemberDao.class);
@@ -194,54 +150,26 @@ public class ChatRoomService {
 		return memInfo;
 	}
 
-
-
-	public String selectCurTime() {
+	// 리뷰 등록할 때
+	public int regReview(int rating, String comment, int matchidx) {
 		
-		dao= template.getMapper(ChatDao.class);
+		rvdao = template.getMapper(ReviewDao.class);
 		
-		String time = dao.selectCurTime();
+		int resultCnt = rvdao.insertReview(rating, comment, matchidx);
 		
-		return time;
+		return resultCnt;
 	}
 
-	// 신고가능여부 확인하기(이 매칭에서 한번)
-	public String getAbleRprt(int myidx, int matchidx) {
+
+	// 신고 등록할 때
+	public int insertReport(Report r) {
 		
 		rpdao = template.getMapper(ReportDao.class);
 		
-		Report report = rpdao.selectReportByMatchidx(myidx, matchidx);
-		String ableRprt = null;
+		int resultCnt = rpdao.insertReport(r);
 		
-		// 이 리시버를 이 매칭에서 신고한 기록이 있다면 더이상의 신고는 불가능하다
+		return resultCnt;
 		
-		if(report != null) {
-			ableRprt = "N";
-		}else {
-			ableRprt = "Y";
-		}
-		
-		System.out.println("ableRprt:"+ableRprt);
-		
-		return ableRprt;
-	}
-
-
-	// 후기 가능여부 확인하기
-	public String getAbleReview(int matchidx) {
-
-		rvdao = template.getMapper(ReviewDao.class);
-		
-		Review review = rvdao.chkReview(matchidx);
-		String ableReview = null;
-		
-		if(review == null) {
-			ableReview = "Y";
-		}else {
-			ableReview = "N";
-		}
-		System.out.println("ableReview:"+ableReview);
-		return ableReview;
 	}
 	
 	
