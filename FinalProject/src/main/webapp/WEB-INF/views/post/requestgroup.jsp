@@ -8,25 +8,72 @@
 <meta charset="UTF-8">
 <title>받은제의 그룹으로 보여지는 곳</title>
 <style>
+	#body{
+		height: 100%;
+		width: 100%;
+    	margin: 50px 0px 60px 0px;
+    	min-height: 100%;
+	}
+
+	article{
+		margin: 50px 0px 60px 0px;
+		height: 100%;
+	}
+	#rqg-whole{
+		width: 100%;
+		padding : 0px 10px;
+	}
 	.head-title{
-		margin : 60px 20px 10px 20px;
+		margin : 0px 0px 50px;
+		padding-left :40px; 
 		font-size: 2.1em;
 		font-weight: bold;
 	}
-	.m_photo{
-		width:40px;
-		height:40px;
-		border-radius: 50%;
+	.ul-card{
+		padding:0% 3%;
+		height: 100%;
+	}
+	
+	.ul-card>li{
+		margin : 0% 4%;
+		padding : 0px 10px 100px 10px; 
+		position: relative;
+		display: inline-block;
+	}
+	.li-card:nth-child(2n-1){
+		float: left;
+	}
+	.li-card:nth-child(2n){
+		float: right;
+	}
+	
+	@media screen and (max-width: 1400px) {
+		 .ul-card>li{
+		 	max-width : 470px;
+			margin-left: auto;
+			margin-right: auto;
+			padding : 0px 10px 80px 10px; 
+			display: block;
+		}
+		
+		.li-card:nth-child(2n-1){
+			float: none;
+		}
+		.li-card:nth-child(2n){
+			float: none;
+		}
+	}
+	
+	#rqcard{
+		width: 430px;
+		display: block;
+		border: 1px solid #142B6F;
 		
 	}
-	#rqcard{
-		width:450px;
-		margin: 60px;
-		float:left;
-		border: 1px solid #142B6F;
-	}
+	
 	.card-header{	 
 		background-color: #FFD601!important;
+		height: 120px;
 	}
 	.post-title{
 		text-align: center;
@@ -43,25 +90,25 @@
 		font-size: 1.45em;
 		font-weight: bold;
 	}
-	.rqg-whole{
-		margin :0% 5% 0% 5%;
-	}
+	
 	.photo-list{
-		padding-left : 100px; 
+		padding-left : 80px; 
 	}
+	.m_photo{
+		width:40px;
+		height:40px;
+		border-radius: 50%;
+	}
+	
 	#rqMember{
 		width : 300px;
-		margin : 10px 60px 10px 60px;
+		margin : 10px 50px 10px 50px;
 		heigth : 20px;
 	}
 	.card-body{
-		padding : ,15px,,15px;
+		padding : 0px 15px 0px 15px;
 	}
-	.rqg-footer{
-		clear: both;
-   		position: relative;
-   		margin-top: -200px;
-	}
+	
 </style>
 <%@ include file="/WEB-INF/views/defaultpageset.jsp" %>
 
@@ -86,14 +133,18 @@
 	</c:set>
 </sec:authorize>
 
-<div class="rqg-whole">
+<div id="body">
+
+<article>
+
+<section class="container" id="rqg-whole">
 	<div class="head-title">
 		받은 제의
 	</div>
 	
-	<div>
+	<ul class="ul-card">
 	<c:forEach items="${requestGroup}" var="rgroup">
-	
+		<li class="li-card">
 		<div class="card" id="rqcard">
 		  <div class="card-header">
 		  	<div class="post-date">${rgroup.post_regdate}</div>
@@ -119,10 +170,14 @@
 			</c:if>
 		  </div>
 		</div>
-	
+		</li>
 	</c:forEach>
-	</div>
+	</ul>
 	
+</section>
+
+</article>
+
 </div>
 
 <div class="rqg-footer">

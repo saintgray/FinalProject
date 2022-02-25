@@ -11,10 +11,19 @@
 <style>
 	
 	/* 윗부분 */
+	.body{
+		height: 100%;
+    	position: relative;
+    	margin: 50px 0px 60px;
+    	min-height: 100%;
+	}
+	.container{
+		width : 70%;
+	}
 	.post{
 		background-color: #FFD601;
 		height: 250px;
-		width : 80%;
+		width : 100%;
 		margin : 0 auto;
 		padding : 30px 30px 30px 30px; 
 	}
@@ -70,11 +79,7 @@
 		vertical-align: baseline;
 		padding : 0px 6px 0px 6px;		
 	}
-	.rqp-footer{
-		clear: both;
-   		position: relative;
-   		margin-top: -200px;
-	}
+	
 </style>
 
 </head>
@@ -94,54 +99,60 @@
 </sec:authorize>
 
 
+<div class="body">
 
-<div class="post" id="rqpost">
-	<button type="button" class="btn btn-light" id="goPostBtn">
-		<a href="${pageContext.request.contextPath}/post/view?idx=${requestPost.post_idx}">작성 게시글 </a>
-	</button>
-	<span class="post-regdate">${requestPost.post_regdate}</span>
-	<div class="post-title">${requestPost.post_nm}</div>
-	<div class="post-cat">${requestPost.cat_nm}</div>
+<article class="container">
+
+		<div class="post" id="rqpost">
+			<button type="button" class="btn btn-light" id="goPostBtn">
+				<a href="${pageContext.request.contextPath}/post/view?idx=${requestPost.post_idx}">작성 게시글 </a>
+			</button>
+			<span class="post-regdate">${requestPost.post_regdate}</span>
+			<div class="post-title">${requestPost.post_nm}</div>
+			<div class="post-cat">${requestPost.cat_nm}</div>
+		</div>
+		
+		<div class="rqMemList">
+		
+			<c:forEach items="${requestPost.list}" var="member">
+				<div class="oneMember">
+				<table class="memTable">
+				<tr>
+					<td rowspan="3"><input type="hidden" class="matchidx" value="${member.match_idx}"> </td>
+					<td rowspan="3" class="midxRow"><input type="hidden" id="rqM_idx" value="${member.m_idx}"/></td>
+					<td rowspan="3">
+						<img src="${pageContext.request.contextPath}/resources/files/member/${member.m_photo}" class="m_photo">
+					</td>		
+					<td>
+						<span class="rqMname">${member.m_nm}</span>
+						<button type="button" class="btn btn-light" id="goChat">
+							<a style="color: #FFD601"  href="${pageContext.request.contextPath}/chat/chatroom?myidx=${myidx}&matchidx=${member.match_idx}&reciever=${member.m_idx}" >채팅 하기 </a>
+						</button>
+					</td>			
+				</tr>
+				<tr>
+					<td>
+						<c:if test="${mytype eq 'mentee'}">
+							<span style="padding-left: 15px; font-weight: 500;">프로필소개 : ${member.line}</span>
+						</c:if>
+					</td>		
+				</tr>
+				<tr>	
+					<td>후기 가져오면 좋을듯..?</td>		
+				</tr>
+				</table>
+				</div>	
+			</c:forEach>
+		
+		</div>
+
+</article>
+
 </div>
 
-<div class="rqMemList">
 
-	<c:forEach items="${requestPost.list}" var="member">
-		<div class="oneMember">
-		<table class="memTable">
-		<tr>
-			<td rowspan="3"><input type="hidden" class="matchidx" value="${member.match_idx}"> </td>
-			<td rowspan="3" class="midxRow"><input type="hidden" id="rqM_idx" value="${member.m_idx}"/></td>
-			<td rowspan="3">
-				<img src="${pageContext.request.contextPath}/resources/files/member/${member.m_photo}" class="m_photo">
-			</td>		
-			<td>
-				<span class="rqMname">${member.m_nm}</span>
-				<button type="button" class="btn btn-light" id="goChat">
-					<a style="color: #FFD601"  href="${pageContext.request.contextPath}/chat/chatroom?myidx=${myidx}&matchidx=${member.match_idx}&reciever=${member.m_idx}" >채팅 하기 </a>
-				</button>
-			</td>			
-		</tr>
-		<tr>
-			<td>
-				<c:if test="${mytype eq 'mentee'}">
-					<span style="padding-left: 15px; font-weight: 500;">프로필소개 : ${member.line}</span>
-				</c:if>
-			</td>		
-		</tr>
-		<tr>	
-			<td>후기 가져오면 좋을듯..?</td>		
-		</tr>
-		</table>
-		</div>	
-	</c:forEach>
-
-</div>
-
-
-<div class="rqp-footer">
 <%@include file="/WEB-INF/views/layout/footer.jsp" %>
-</div>
+
 </body>
 
 </html>
