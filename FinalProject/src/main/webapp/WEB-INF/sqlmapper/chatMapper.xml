@@ -18,9 +18,16 @@
  	select
 		m.match_idx, m.match_yn, 
 		mem.m_idx, mem.m_nm, mem.m_photo,
-		c.cat_nm, c.cat_type
+		c.cat_nm,  (select p.cat_nm from category p join category c2 on p.cat_idx=c.parent_idx and c2.cat_idx=c.cat_idx) as cat_type
 	from 
-		dream.match m join member mem on m.mentor_idx = mem.m_idx, 
+		dream.match m join member mem 
+		
+		<if test='"mentor".equals(param1)'>
+			on m.mentee_idx = mem.m_idx,
+		</if>
+		<if test='"mentee".equals(param1)'>
+			on m.mentor_idx = mem.m_idx,
+		</if>
 		post p join category c on c.cat_idx=p.cat_idx
 	where 
 		m.post_idx = p.post_idx and
