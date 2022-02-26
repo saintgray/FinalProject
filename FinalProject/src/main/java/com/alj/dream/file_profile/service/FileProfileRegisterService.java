@@ -2,7 +2,6 @@ package com.alj.dream.file_profile.service;
 
 import java.io.File;
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 

@@ -1,5 +1,7 @@
 package com.alj.dream.notice.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -29,19 +31,19 @@ public class RegNoticeController {
 	
 	@PostMapping
 	@ResponseBody
-	public int insertNotice(Authentication auth, NoticeRegisterData data) {
+	public int insertNotice(Authentication auth, NoticeRegisterData data, HttpServletRequest req) {
 		
 		
 		int result=0;
 		
 		try {
-		  result=regNoticeService.insertNotice(auth, data);
+		  result=regNoticeService.insertNotice(auth, data, req);
 		}catch(Exception e) {
 			
 			e.printStackTrace();
 		}
 		
-		System.out.println(result);
+	
 		
 		
 		return result;

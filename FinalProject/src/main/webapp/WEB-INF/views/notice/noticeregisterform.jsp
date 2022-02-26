@@ -29,141 +29,77 @@
 #btnarea {
 	margin-top: 40px;
 }
+
+.delRow{
+		width:15px;
+		height:15px;
+		border-radius: 50%;
+		border: 1px solid rgb(195,195,195);
+		cursor:pointer;
+}
+
+#selected{
+	border: 1px solid black;
+	border-radius: 10px;
+	height:150px;
+	
+}
 </style>
 <title>공지사항등록</title>
 </head>
 <body>
-	<%@ include file="/WEB-INF/views/notice/noticepageset/writeformpageset.jsp"%>
+	
 
 	<div class="gw">
 		<%@ include file="/WEB-INF/views/layout/header.jsp"%>
 		<div id="registerarea" class="container">
 			<h1 class="banner">공지사항 등록</h1>
 
-			<input type="text" placeholder="제목" id="notice_title"
-				class="form-control input-group">
+			<input type="text" placeholder="제목" id="notice_title" class="form-control input-group">
 
 
 			<div class="notice_content"></div>
+			
+			
+			
+			
+			
+			
+			
 
-			<div class="d-flex justify-content-center" id="btnarea">
-				<form role="form" method="post" enctype="multipart/form-data"
-				id="writeNotice">
+			
+				
 				<!-- 파일업로드 -->
-				<div>
-					<div class="descript my-1 ms-0 me-1">파일 첨부</div>
-					<label>파일 선택 <input type="file" name="attachFile"
-						id="attachFile" multiple style="opacity: 0;">
+				<div class="mt-5">
+					
+					<label for="myfiles" class="my-1">
+						<span class="btn btn-general">파일 선택</span> 
 					</label>
+					
+					<input type="file" class="d-none" id="myfiles" multiple>
 					<!-- 업로드한 결과 -->
-					<div id="uploadResult"></div>
+					
 				</div>
 
-				<button type="reset">리셋</button>
-				<button type="button" id="submitBtn">작성</button>
-				</form>
-				<button type="button" class="btn btn-general" id="registerbtn">등록</button>
-				<button type="button" class="btn btn-general" id="cancelbtn">취소</button>
+				<div id="selected" class="d-flex flex-row flex-wrap">
+				
+				
+				</div>
+				
+				
+			
+
+			<div class="d-flex justify-content-center" id="btnarea">
+				<button type="button" class="btn btn-general mx-2" id="registerbtn">등록</button>
+				<button type="button" class="btn btn-general mx-2" id="cancelbtn">취소</button>
 			</div>
-
-
-			<!-- <input type="text" name="notice_title" placeholder="제목 입력"><br>
-	<input type="text" name="notice_content" placeholder="내용 입력"><br>
-	<input type="button" value="등록" id="registerbtn"> -->
-
 
 		</div>
 	</div>
 
 	<%@ include file="/WEB-INF/views/layout/footer.jsp"%>
 </body>
-<script>
-	$(document)
-			.ready(
-					function() {
 
-						$('.notice_content')
-								.summernote(
-										{
-											toolbar : [
-													// [groupName, [list of button]]
-													[
-															'style',
-															[
-																	'bold',
-																	'italic',
-																	'underline',
-																	'clear' ] ],
-													[
-															'font',
-															[
-																	'strikethrough',
-																	'superscript',
-																	'subscript' ] ],
-													[ 'fontsize',
-															[ 'fontsize' ] ],
-													/* ['color', ['color']], */
-													[
-															'para',
-															[ 'ul', 'ol',
-																	'paragraph' ] ],
-													[ 'height', [ 'height' ] ],
-													[
-															'insert',
-															[ 'link',
-																	'picture',
-																	'video' ] ], ],
+<%@ include file="/WEB-INF/views/notice/noticepageset/noticeregisterformpageset.jsp"%>
 
-											minHeight : 500,
-											maxHeight : 500,
-											codemirror : {
-												theme : 'monokai'
-											},
-											lang : 'ko-KR',
-											placeholder : '내용'
-										})
-
-						$('#registerbtn')
-								.on(
-										'click',
-										function() {
-
-											console.log($('.notice_content')
-													.summernote('code'));
-											$
-													.ajax({
-
-														url : '${pageContext.request.contextPath}/admin/notice/register',
-														type : 'POST',
-														// 보낼 data : form 태그 내에 있는 모든 name 속성 요소의 값을 파라미터로 만들어줌
-														data : {
-															notice_title : $(
-																	'#notice_title')
-																	.val(),
-															notice_content : $(
-																	'.notice_content')
-																	.summernote(
-																			'code')
-														},
-														success : function(data) {
-															if (data == 1) {
-																alert('정상적으로 등록되었습니다');
-																location.href = "${pageContext.request.contextPath}/notice?selectPage=1&numOfNoticesPerPage=5";
-															} else {
-																alert('오류가 발생하였습니다. 잠시 후 다시 시도하세요');
-															}
-														},
-														error : function(data) {
-															console.log(data);
-														}
-													})
-										})
-
-						$('#cancelbtn')
-								.click(
-										function() {
-											location.href = "${pageContext.request.contextPath}/notice?selectPage=${param.selectPage}&numOfNoticesPerPage=${param.numOfNoticesPerPage}";
-										})
-					})
-</script>
 </html>

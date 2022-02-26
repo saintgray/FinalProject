@@ -1,5 +1,9 @@
 package com.alj.dream.notice.domain;
 
+import java.util.List;
+
+import com.alj.dream.file_notice.domain.NoticeFileInfo;
+
 public class NoticeContent {
 	
 	private String notice_idx;
@@ -9,7 +13,7 @@ public class NoticeContent {
 	private String notice_editdate;
 	private String admin_nm;
 	private String admin_idx;
-	
+	List<NoticeFileInfo> files;
 	
 	
 	public NoticeContent() {
@@ -17,8 +21,10 @@ public class NoticeContent {
 	}
 
 
+	
+
 	public NoticeContent(String notice_idx, String notice_title, String notice_content, String notice_regdate,
-			String notice_editdate, String admin_nm, String admin_idx) {
+			String notice_editdate, String admin_nm, String admin_idx, List<NoticeFileInfo> files) {
 		this.notice_idx = notice_idx;
 		this.notice_title = notice_title;
 		this.notice_content = notice_content;
@@ -26,7 +32,10 @@ public class NoticeContent {
 		this.notice_editdate = notice_editdate;
 		this.admin_nm = admin_nm;
 		this.admin_idx = admin_idx;
+		this.files = files;
 	}
+
+
 
 
 	public String getNotice_idx() {
@@ -99,6 +108,21 @@ public class NoticeContent {
 	}
 
 
+
+
+	public List<NoticeFileInfo> getFiles() {
+		return files;
+	}
+
+
+
+
+	public void setFiles(List<NoticeFileInfo> files) {
+		this.files = files;
+	}
+
+
+	
 	
 	
 

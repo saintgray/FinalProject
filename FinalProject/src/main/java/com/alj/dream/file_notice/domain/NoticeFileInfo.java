@@ -3,10 +3,10 @@ package com.alj.dream.file_notice.domain;
 public class NoticeFileInfo {
 	
 	private String file_nm;
-	private int file_size;
+	private String file_size;
 	private String file_exet;
 	private String file_originnm;
-	private int notice_idx;
+	private String notice_idx;
 	
 	
 	public NoticeFileInfo() {
@@ -14,8 +14,7 @@ public class NoticeFileInfo {
 	}
 
 
-	public NoticeFileInfo(String file_nm, int file_size, String file_exet, String file_originnm, int notice_idx) {
-		super();
+	public NoticeFileInfo(String file_nm, String file_size, String file_exet, String file_originnm, String notice_idx) {
 		this.file_nm = file_nm;
 		this.file_size = file_size;
 		this.file_exet = file_exet;
@@ -34,12 +33,12 @@ public class NoticeFileInfo {
 	}
 
 
-	public int getFile_size() {
+	public String getFile_size() {
 		return file_size;
 	}
 
 
-	public void setFile_size(int file_size) {
+	public void setFile_size(String file_size) {
 		this.file_size = file_size;
 	}
 
@@ -64,16 +63,18 @@ public class NoticeFileInfo {
 	}
 
 
-	public int getNotice_idx() {
+	public String getNotice_idx() {
 		return notice_idx;
 	}
 
 
-	public void setNotice_idx(int notice_idx) {
+	public void setNotice_idx(String notice_idx) {
 		this.notice_idx = notice_idx;
 	}
 
-
 	
 
+
+
+	
 }

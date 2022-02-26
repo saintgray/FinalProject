@@ -1,5 +1,7 @@
 package com.alj.dream.notice.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,12 +17,12 @@ public class NoticeDeleteController {
 	private NoticeDeleteService noticedeleteService;
 	
 	@PostMapping
-	public int NoticeDeletePage(String notice_idx) {
+	public int NoticeDeletePage(String notice_idx, HttpServletRequest req) {
 		
 		int result=0;
 		
 		try {
-			result= noticedeleteService.deleteNotice(notice_idx);
+			result= noticedeleteService.deleteNotice(notice_idx, req);
 		}catch(Exception e) {
 			e.printStackTrace();
 		}

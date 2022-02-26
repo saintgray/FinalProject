@@ -1,7 +1,6 @@
 package com.alj.dream.file_profile.controller;
 
 import java.io.IOException;
-import java.sql.SQLException;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -10,7 +9,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.alj.dream.file_profile.service.DeleteFileService;
 import com.alj.dream.file_profile.service.FileProfileRegisterService;
 import com.alj.dream.profile.domain.ProfileRegisterData;
 
@@ -19,17 +17,19 @@ import com.alj.dream.profile.domain.ProfileRegisterData;
 public class RegisterProfileFileController {
 	
 	private FileProfileRegisterService frService;
-	private DeleteFileService fdService;
+	
 	
 	public RegisterProfileFileController() {
 
 	}
 	
 	@Autowired
-	public RegisterProfileFileController(FileProfileRegisterService frService, DeleteFileService fdService) {
+	public RegisterProfileFileController(FileProfileRegisterService frService) {
 		this.frService = frService;
-		this.fdService = fdService;
 	}
+
+	
+	
 
 
 
