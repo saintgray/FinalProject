@@ -6,6 +6,7 @@ public class NoticeFileInfo {
 	private int file_size;
 	private String file_exet;
 	private String file_originnm;
+	private int notice_idx;
 	
 	
 	public NoticeFileInfo() {
@@ -13,12 +14,13 @@ public class NoticeFileInfo {
 	}
 
 
-	public NoticeFileInfo(String file_nm, int file_size, String file_exet, String file_originnm) {
+	public NoticeFileInfo(String file_nm, int file_size, String file_exet, String file_originnm, int notice_idx) {
 		super();
 		this.file_nm = file_nm;
 		this.file_size = file_size;
 		this.file_exet = file_exet;
 		this.file_originnm = file_originnm;
+		this.notice_idx = notice_idx;
 	}
 
 
@@ -62,9 +64,16 @@ public class NoticeFileInfo {
 	}
 
 
-	
-	
-	
+	public int getNotice_idx() {
+		return notice_idx;
+	}
 
+
+	public void setNotice_idx(int notice_idx) {
+		this.notice_idx = notice_idx;
+	}
+
+
+	
 
 }

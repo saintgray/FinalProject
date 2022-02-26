@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.alj.dream.file_notice.domain.NoticeFileInfo;
-import com.alj.dream.file_post.domain.PostFileRequest;
 
 @Controller
 @RequestMapping("/notice/uploadfile")
@@ -52,7 +51,7 @@ public class NoticeFileUploadController {
 				multipartFile.transferTo(saveFile);
 				System.out.println("파일 업로드 성공");
 				
-				NoticeFileInfo noticeFile = new NoticeFileInfo(file_nm, file_size, file_exet, file_originnm);
+				NoticeFileInfo noticeFile = new NoticeFileInfo(file_nm,file_size, file_exet, file_originnm,0);
 				
 				System.out.println(noticeFile);
 				
