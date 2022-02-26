@@ -12,38 +12,41 @@
 
 	
 	/* 윗부분 */
-	.body{
-		height: 100%;
-    	position: relative;
-    	margin: 50px 0px 60px;
-    	min-height: 100%;
-	}
-	.container{
-		width : 70%;
+	
+	
+	
+	article{
+		margin-top: 150px;
+		margin-bottom: 80px;
+		padding-left: 100px;
+		padding-right: 100px;
 	}
 	.post{
 		background-color: #FFD601;
 		height: 250px;
-		width : 100%;
-		margin : 0 auto;
+		width : 70%;
+		margin-left: auto;
+		margin-right: auto;
+		margin-bottom: 30px;
 		padding : 30px 30px 30px 30px; 
 	}
 	#goPostBtn{
+		font-size : 1.1em;
 		font-weight: 200;
 		color : #E1DEE6;
-		width: 100px;
-		height: 30px;
-		padding : 0px 6px 0px 6px;	
+		width: 120px;
+    	height: 35px;
 	}
 	
 	.post-regdate{
 		float : right;
 		color : #142B6F;
+		font-size: 1.2em;
 	}
 	.post-title{
 		font-size: 2.25em;
 		font-weight: bold;
-		margin : 40px 0px 20px 0px;
+		margin : 30px 0px 20px 0px;
 	}
 	.post-cat{
 		font-size: 1.8em;
@@ -52,13 +55,14 @@
 	
 	/* 중앙부분 */
 	.rqMemList{
-		width : 80%;
+		width : 70%;
 		margin : 0 auto;
 		padding : 10px 8% 10px 8% ; 
 	}
 	.memTable{
 		border-collapse: separate;
   		border-spacing: 0 7px;
+  		
 	}
 	.oneMember{
 		padding : 15px 0px 15px 0px;
@@ -87,26 +91,12 @@
 </head>
 <body>
 
-<!-- Header -->
-	<%@ include file="/WEB-INF/views/layout/header.jsp" %>
-
-
 
 <!-- 현 로그인 정보 -->
-<h1>현로그인 정보</h1>
+
 <sec:authorize access="isAuthenticated()">
-<sec:authentication property="principal.m_idx"/>
-<sec:authentication property="principal.name"/>
-<sec:authentication property="principal.photo"/>
-<sec:authentication property="principal.m_type"/>
 	<c:set var="myidx">
 		<sec:authentication property="principal.m_idx"/>
-	</c:set>
-	<c:set var="myname">
-		<sec:authentication property="principal.name"/>
-	</c:set>
-	<c:set var="myphoto">
-		<sec:authentication property="principal.photo"/>
 	</c:set>
 	<c:set var="mytype">
 		<sec:authentication property="principal.m_type"/>
@@ -114,26 +104,26 @@
 </sec:authorize>
 
 
-<div class="body">
+<div class="gw">
 
-
-<article class="container">
-
-		<div class="post" id="rqpost">
-			<button type="button" class="btn btn-light" id="goPostBtn">
-				<a href="${pageContext.request.contextPath}/post/view?idx=${requestPost.post_idx}">작성 게시글 </a>
-			</button>
-			<span class="post-regdate">${requestPost.post_regdate}</span>
-			<div class="post-title">${requestPost.post_nm}</div>
-			<div class="post-cat">${requestPost.cat_nm}</div>
-		</div>
-		
-		<div class="rqMemList">
-		
+	<!-- Header -->
+	<%@ include file="/WEB-INF/views/layout/header.jsp" %>
+	
+	<article >
+	
+			<div class="post" id="rqpost">
+				<button type="button" class="btn btn-light" id="goPostBtn">
+					<a href="${pageContext.request.contextPath}/post/view?idx=${requestPost.post_idx}">작성 게시글 </a>
+				</button>
+				<span class="post-regdate">${requestPost.post_regdate}</span>
+				<div class="post-title">${requestPost.post_nm}</div>
+				<div class="post-cat">${requestPost.cat_type} / ${requestPost.cat_nm}</div>
+			</div>
 			
-				<div class="oneMember">
-					<table class="memTable">
-						<c:forEach items="${requestPost.list}" var="member">
+			<div class="rqMemList">
+				<c:forEach items="${requestPost.list}" var="member">
+					<div class="oneMember">	
+						<table class="memTable">
 							<tr>
 								<td rowspan="3"><input type="hidden" class="matchidx" value="${member.match_idx}"> </td>
 								<td rowspan="3" class="midxRow"><input type="hidden" id="rqM_idx" value="${member.m_idx}"/></td>
@@ -143,7 +133,7 @@
 								<td>
 									<span class="rqMname">${member.m_nm}</span>
 									<button type="button" class="btn btn-light" id="goChat">
-										<a style="color: #FFD601"  href="${pageContext.request.contextPath}/chat/chatroom?myidx=${myidx}&matchidx=${member.match_idx}&reciever=${member.m_idx}" >채팅 하기 </a>
+										<a style="color: white"  href="${pageContext.request.contextPath}/chat/chatroom?myidx=${myidx}&matchidx=${member.match_idx}&reciever=${member.m_idx}" >채팅 하기 </a>
 									</button>
 								</td>			
 							</tr>
@@ -155,22 +145,21 @@
 								</td>		
 							</tr>
 							<tr>	
-								<td>후기 가져오면 좋을듯..?</td>		
+								<td >후기 가져오면 좋을듯..?</td>		
 							</tr>
-							
-						</c:forEach>
-					</table>
-				</div>
-				
-				
-		</div>
-
-</article>
-
-
-
-
+						</table>
+					</div>	
+				</c:forEach>
+			</div>
 	
+	</article>
+
+
+</div>
+
+  
+  <%@include file="/WEB-INF/views/layout/footer.jsp" %>
+		
 	
 <!-- 삭제하기 모달 -->
 		<div class="modal fade" id="deleteConfirm" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
@@ -244,11 +233,6 @@
 		</div>	
   
   
-  
-  
-  
-  <%@include file="/WEB-INF/views/layout/footer.jsp" %>
-	
 
 	
 <script>
