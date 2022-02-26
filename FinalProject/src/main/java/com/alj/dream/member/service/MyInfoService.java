@@ -20,7 +20,7 @@ public class MyInfoService {
 	
 	
 	public MyInfoService() {
-		// TODO Auto-generated constructor stub
+		
 	}
 
 	@Autowired

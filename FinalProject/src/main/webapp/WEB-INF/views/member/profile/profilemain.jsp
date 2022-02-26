@@ -77,7 +77,7 @@
 			
 			<!-- 프로필 사진, 별점, 매칭수, 리뷰수 -->
 			<div id="maininfo" class="d-flex flex-wrap my-5 justify-content-center">
-				<img src="${pageContext.request.contextPath}/resources/files/member/${photo}" id="myphoto" class="mx-5">
+				<img src="${pageContext.request.contextPath}/resources/files/member/${profile.m_photo}" id="myphoto" class="mx-5">
 				<div class="d-flex flex-wrap flex-column">
 					<div class="d-flex flex-wrap mb-2 justify-content-center">
 						<div class="bg_template">
