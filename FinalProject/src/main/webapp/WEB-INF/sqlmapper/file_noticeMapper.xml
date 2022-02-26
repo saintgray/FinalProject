@@ -5,36 +5,29 @@
 
 <mapper namespace="com.alj.dream.file_notice.dao.NoticeFileDao">
 
-	<select id="selectCountByNoticeIdx" resultType="int">
-		select count(*)
-		from file_notice
-		where notice_idx=#{idx} and file_deldate is null
-	</select>
+		
 	
-	<update id="deleteNoticeFile">
-		update file_notice
-		set file_deldate=current_timestamp()
-		where notice_idx=#{idx} and file_deldate is null
-	</update>
 	
-	<insert id="insertNoticeFile"
+	<insert id="insertNoticeFiles"
 			parameterType="com.alj.dream.file_notice.domain.NoticeFileInfo">
 		INSERT INTO file_notice (file_nm, file_size, file_exet, file_originnm, notice_idx)
 		VALUES
-		(#{file_nm}, #{file_size}, #{file_exet}, #{file_originnm}, #{notice_idx})
+		<foreach collection="list" separator="," item="file" >
+			(#{file.file_nm}, #{file.file_size}, #{file.file_exet}, #{file.file_originnm}, #{file.notice_idx})
+		</foreach>
 	</insert>
 	
-	<update id="deleteOneFile">
-		update file_notice
-		set file_deldate=current_timestamp()
-		where notice_idx=#{notice_idx} and file_nm=#{file_nm}
-	</update>
 	
-	<select id="selectByNoticeIdx"
+	
+	<select id="getFilesByNoticeIdx"
 			resultType="com.alj.dream.file_notice.domain.NoticeFileInfo">
 		select file_nm, file_size, file_exet, file_originnm, notice_idx
 		from file_notice
-		where notice_idx=#{idx} and file_deldate is null
+		where notice_idx=#{arg0} and file_deldate is null
 	</select>
+
+
+
+
 
 </mapper>

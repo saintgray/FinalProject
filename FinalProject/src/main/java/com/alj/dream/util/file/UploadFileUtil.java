@@ -78,15 +78,5 @@ public class UploadFileUtil {
 		}
 	}
 	
-	// 이렇게 만들면?
-	private static void makeDir2(String uploadPath, String fullDate) {
-		if(new File(fullDate).exists()) {
-			return;
-		}else {
-			File dirPath = new File(uploadPath+fullDate);
-			dirPath.mkdir();
-		}
-		
-	}
 
 }

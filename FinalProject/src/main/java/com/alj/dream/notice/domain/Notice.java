@@ -4,17 +4,16 @@ public class Notice{
 	
 	private String notice_idx;
 	private String notice_title;
-	private String notice_regdate;
+	private String regdate;
 	
 	public Notice() {
 	
 	}
-	
-	public Notice(String notice_idx, String notice_title, String notice_regdate) {
-		
+
+	public Notice(String notice_idx, String notice_title, String regdate) {
 		this.notice_idx = notice_idx;
 		this.notice_title = notice_title;
-		this.notice_regdate = notice_regdate;
+		this.regdate = regdate;
 	}
 
 	public String getNotice_idx() {
@@ -33,14 +32,13 @@ public class Notice{
 		this.notice_title = notice_title;
 	}
 
-	public String getNotice_regdate() {
-		return notice_regdate;
+	public String getRegdate() {
+		return regdate;
 	}
 
-	public void setNotice_regdate(String notice_regdate) {
-		this.notice_regdate = notice_regdate;
+	public void setRegdate(String regdate) {
+		this.regdate = regdate;
 	}
-	
 	
 	
 	

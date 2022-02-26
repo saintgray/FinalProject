@@ -7,7 +7,7 @@
  
  
  	<select id="getNoticeList" resultType="com.alj.dream.notice.domain.Notice">
- 		SELECT notice_idx, notice_title, date_format(notice_regdate,'%Y-%m-%d') as notice_regdate 
+ 		SELECT notice_idx, notice_title, date_format(notice_regdate,'%Y-%m-%d') as regdate
  		FROM notice
  		WHERE
  		notice_deldate is null
@@ -29,7 +29,7 @@
  		
  	</select>
  	
-  	<insert id="insertNotice" parameterType="com.alj.dream.notice.domain.NoticeRegisterData">
+  	<insert id="insertNotice" parameterType="com.alj.dream.notice.domain.NoticeRegisterData" useGeneratedKeys="true" keyProperty="notice_idx">
  		insert into notice
  		(admin_idx, notice_title, notice_content) 
  		values

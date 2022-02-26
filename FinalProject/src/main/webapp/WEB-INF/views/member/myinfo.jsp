@@ -24,7 +24,14 @@
 	
 	<div id="controlarea">
 		<div id="controlbtn" class="d-flex justify-content-center">
-				<span class="mx-2 u_txt_chk">회원정보</span>
+				<span class="mx-2 u_txt_chk">
+					<sec:authorize access="hasRole('GENERAL')">
+					회원정보
+					</sec:authorize>
+					<sec:authorize access="hasAnyRole('ADMIN','SUPERADMIN')">
+					관리자정보
+					</sec:authorize>
+				</span>
 				<div class="form-check form-switch">
 					<input class="form-check-input" type="checkbox" role="switch" id="switchSettings">		  
 				</div>

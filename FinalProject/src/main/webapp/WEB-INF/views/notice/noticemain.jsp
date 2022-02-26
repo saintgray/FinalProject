@@ -83,7 +83,7 @@
 								<td><span class="mx-2 px-5">${items.notice_idx}</span></td>
 								<td><a class="mx-2 px-5"
 									href="${pageContext.request.contextPath}/notice/content?notice_idx=${items.notice_idx}">${items.notice_title}</a></td>
-								<td><span class="mx-2 px-5">${items.notice_regdate}</span></td>
+								<td><span class="mx-2 px-5">${items.regdate}</span></td>
 							</tr>
 						</c:forEach>
 					</table>

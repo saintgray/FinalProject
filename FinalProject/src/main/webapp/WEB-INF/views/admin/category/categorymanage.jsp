@@ -9,9 +9,8 @@
 <title>분야관리</title>
 <style>
 	canvas{
-		position: relative !important;
-		/* width:100% !important;
-		height:100% !important; */
+		 position: relative !important;
+		
 	}
 	
 	#wrap{
@@ -26,13 +25,15 @@
 	
 	@media(min-width:576px){
 	
-		#modal-dialog-category{
-			max-width: 500px; 
-		    max-width: 630px; 
+		.modal-dialog-centered{
+			max-width: 1500px;  
 		    margin: 1.75rem auto;
 	    }
 	    
 	    
+	}
+	#overviewBody{
+		padding:0;
 	}
 
 </style>
@@ -60,7 +61,7 @@
 				
 				
 				</div>
-				<span id="depth" class="mx-2 fw-bold" style="color:red">0</span>
+				<span id="depth" class="mx-2 fw-bold d-none" style="color:red">0</span>
 				<!-- modal area -->
 				<div class="modal fade" id="overview" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
 						<div class="modal-dialog modal-dialog-centered">
@@ -69,7 +70,7 @@
 						        <h5 class="modal-title" id="staticBackdropLabel">조직도</h5>
 						        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 						      </div>
-						      <div class="modal-body" id="overviewBody" style="width:1500px; height:500px; background-color: #DAE4E4; margin:20px auto">
+						      <div class="modal-body" id="overviewBody" style="width:100%; height:1500px; margin:20px auto">
 						      
 						      	<!-- 조직도 영역 -->
 						       		
@@ -79,7 +80,7 @@
 						</div>	
 					</div>
 				
-				<input type="text" id="thiscat">
+				<input type="text" id="thiscat" class="d-none">
 		
 		
 		</div>
@@ -202,7 +203,7 @@ $('#catmanagemain').on('click',function(){
 							/* $(data.list).each(function(index,item){ */
 								var html='';
 								html+='<div class="d-flex">\r\n';
-									html+='<span class="mx-2 itemIdx">'+data.cat_idx+'</span>\r\n';
+									html+='<span class="mx-2 itemIdx d-none">'+data.cat_idx+'</span>\r\n';
 									
 									
 									
@@ -252,17 +253,17 @@ $('#catmanagemain').on('click',function(){
 	
 	
 	
-	var categories=[];
+
 	
 	
 	
 	var myDiagram = new go.Diagram("overviewBody",{
 		"undoManager.isEnabled": true,
 		"allowVerticalScroll": false,
-		layout: new go.TreeLayout({ angle: 90, layerSpacing: 35 })
-	});
+		layout: new go.TreeLayout({ angle: 90, layerSpacing: 100 })
+	})
 	
-	
+		
 	myDiagram.nodeTemplate =
 		  new go.Node("Horizontal",{ background: "#142B6F" })
 		    	.add(new go.TextBlock(
@@ -270,16 +271,11 @@ $('#catmanagemain').on('click',function(){
 		      			.bind("text", "name"));
 		      
 		      
-    myDiagram.linkTemplate =
-  	  new go.Link(
-  	    // default routing is go.Link.Normal
-  	    // default corner is 0
-  	    { routing: go.Link.Orthogonal, corner: 5 })
-  	    // the link path, a Shape
-  	    .add( new go.Shape({ strokeWidth: 3, stroke: "#555" }))
+     myDiagram.linkTemplate =
+  	  new go.Link({ routing: go.Link.Orthogonal, corner: 5 }).add( new go.Shape({ strokeWidth: 2, stroke: "#000000" }))
     
     
-	
+	var categories=[]
 	
 	
 	$.ajax({
@@ -519,7 +515,7 @@ function getSiblings(idx){
 			html+='<div class="d-flex flex-row justify-content-around" id="catItems">\r\n';
 			$(data.list).each(function(index,item){
 				html+='<div class="d-flex">\r\n';
-					html+='<span class="mx-2 itemIdx">'+item.cat_idx+'</span>\r\n';
+					html+='<span class="mx-2 itemIdx d-none">'+item.cat_idx+'</span>\r\n';
 					
 					
 					
@@ -606,7 +602,7 @@ function getList(idx,name){
 				html+='<div class="d-flex flex-row justify-content-around" id="catItems">\r\n';
 				$(data).each(function(index,item){
 					html+='<div class="d-flex">\r\n';
-						html+='<span class="mx-2 itemIdx">'+item.cat_idx+'</span>\r\n';
+						html+='<span class="mx-2 itemIdx d-none">'+item.cat_idx+'</span>\r\n';
 						
 						
 						

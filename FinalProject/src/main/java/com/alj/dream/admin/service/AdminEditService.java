@@ -14,7 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.alj.dream.admin.dao.AdminDao;
-import com.alj.dream.member.dao.MemberDao;
 import com.alj.dream.member.domain.EditInfos;
 
 import security.AccountDetails;
