@@ -46,7 +46,7 @@
 			</div>
 			<input type="hidden" id="m_idx" value="${idx}">
 			<input type="hidden" id="wanted" value="${type}">
-			<button id="searchBtn" onclick="searchPost(1)">검색</button>
+			<button id="searchBtn">검색</button>
 
 		</div>
 
@@ -56,10 +56,35 @@
 
 		<div id="searchResult" class="list-group">
 			<div class="descript mb-2">검색 결과</div>
+			<c:if test="${not empty listView}">
+				<c:forEach items="${listView.list}" var="listInfo">
+
+					<a href="view?idx=${listInfo.post_idx}" class="list-group-item list-group-item-action">
+						<div class="d-flex w-100 justify-content-between">
+							<h5 class="mb-1">
+								<c:out value="${listInfo.post_nm}" escapeXml="true" />
+							</h5>
+						</div>
+						<p class="mb-1">${listInfo.cat_nm}/${listInfo.loc_nm}</p>
+					</a>
+
+				</c:forEach>
+			</c:if>
+			
+			<c:if test="${empty listView}">
+				검색 결과가 없습니다.
+			</c:if>
 			
 		</div>
 		
-		<nav id="paging">
+		<nav aria-label="paging">
+			<c:if test="${listView.totalPageCount > 0}">
+				<ul class="pagination justify-content-center">
+					<c:forEach begin="1" end="${listView.totalPageCount}" var="pnum">
+						<li class="page-item"><a class="page-link" href="searchTest?cat=${cat}&loc=${loc}&p=${pnum}">${pnum}</a></li>
+					</c:forEach>
+				</ul>
+			</c:if>
 		</nav>
 
 	</div>
@@ -213,130 +238,55 @@
 				}
 			});
 		}
-
-		// 검색하기
-		function searchPost(pageNum){
-			
-			console.log('cat_idx:', cat_idx);
-			console.log('cat_select:', cat_select);
-			
-			// 아예 분야를 선택하지 않거나 / 분야를 끝까지 선택하거나
-			// 분야 선택을 시작했지만 끝까지 가지 않았을 때
-			// cat_idx 가 undefined 가 아니고 cat_select 가 true 가 아닐 때
-			if(cat_idx!==undefined && cat_select!=true){
-				alert('분야를 끝까지 선택하거나 초기화하세요.');
-				return false;
-			}
-			
-			if(pageNum==1){
-				// 새로운 검색 -> 이전 내용 삭제
-				$('#searchResult').empty();
-				$('#searchResult').append('<div class="descript mb-2">검색 결과</div>\r\n');
-				
-			}
-			
-			if($('#moreBtn')){
-				// 더보기 버튼이 있을 경우 (이전 검색내용이 있을 경우) -> 삭제
-				$('#moreBtn').remove();
-				cloneObj=$('#searchResult').clone();
-			}
-			
-			var loc_idx=0;
-			var m_idx=$('#m_idx').val();
-			var wanted=$('#wanted').val();
-			
-			console.log($('#locarea .inp_loc:checked').val());
-			
-			if($('#locarea .inp_loc:checked').val()>0){
-				loc_idx=$('#locarea .inp_loc:checked').val();
-			}
-			
-			console.log('m_idx:', m_idx);
-			console.log('wanted:', wanted);
-			console.log('cat_idx:', cat_idx);
-			console.log('loc_idx:', loc_idx);
-			
-			var searchParams={};
-			searchParams.m_idx=m_idx;
-			searchParams.wanted=wanted;
-			searchParams.cat_idx=cat_idx;
-			searchParams.loc_idx=loc_idx;
-			searchParams.pageNum=pageNum;
-			
-			console.log(searchParams);
-			
-			$.ajax({
-				url: '${pageContext.request.contextPath}/post/search',
-				type: 'post',
-				data: JSON.stringify(searchParams),
-				dataType: 'json',
-				contentType:'application/json; charset=UTF-8',
-				processData: false,
-				success: function(data){
-					
-					console.log(data);
-					
-					var list=data.list;
-					
-					console.log(list);
-					
-					var html='';
-					
-					if(list.length==0){
-						// 검색 결과가 없을 때
-						html+='등록된 요청글이 없습니다.\r\n';
-					} else {
-						// 검색 결과가 있을 때
-						html+='<div id="searchResult" class="list-group">\r\n';
-						html+='<div class="descript mb-2">검색 결과</div>\r\n';
-						$(list).each(function(index, item) { 
-							html+='		<a href="view?idx='+item.post_idx+'" class="list-group-item list-group-item-action">\r\n';
-						 	html+='			<div class="d-flex w-100 justify-content-between">\r\n';
-						 	html+='				<h5 class="mb-1">'+item.post_nm+'</h5>\r\n';
-						 	html+='			</div>\r\n';
-						 	html+='			<p class="mb-1">'+item.cat_nm+' / '+item.loc_nm+'</p>\r\n';
-						 	html+='		</a>\r\n';
-						})
-						html+='</div>\r\n';
-						
-						if(data.totalPageCount>=0){
-							// 현재 페이지보다 총 페이지 수가 많을 경우 -> 더보기 버튼 출력
-							// var page = data.currentPage+1;
-							// html+='<button type="button" id="moreBtn" class="btn btn-outline-dark" onclick="searchPost('+page+')">더보기</button>';
-							
-							var paging='';
-								paging+='<nav id="paging" aria-label="paging">\r\n';
-								paging+='<ul class="pagination justify-content-center">\r\n';
-							for(var i=1; i<=data.totalPageCount; i++){
-								paging+='<li class="page-item"><a class="page-link" href="javascript:searchPost('+i+')">'+i+'</a></li>\r\n';
-							}
-								paging+='</ul>\r\n</nav>\r\n';
-							
-						}
-						
-					}
-					
-					$('#searchResult').html(html);
-					$('#paging').html(paging);
-					// history.pushState(data, header, url);
-					//history.pushState({m_idx:m_idx, wanted:wanted, cat_idx:cat_idx, loc_idx:loc_idx, pageNum:pageNum}, null); */
-					
-				},
-				error: function(){
-					console.log('통신오류');
-				}
-			})
-		}
-			
+		
 		$(document).ready(function() {
 			selectCategory(30);
 			getLocations();
 			recommendList();
+			
+			$('#searchBtn').on("click", function(){
+				// 검색하기
+	
+				console.log('cat_idx:', cat_idx);
+				console.log('cat_select:', cat_select);
+					
+				// 아예 분야를 선택하지 않거나 / 분야를 끝까지 선택하거나
+				// 분야 선택을 시작했지만 끝까지 가지 않았을 때
+				// cat_idx 가 undefined 가 아니고 cat_select 가 true 가 아닐 때
+				if(cat_idx!==undefined && cat_select!=true){
+					alert('분야를 끝까지 선택하거나 초기화하세요.');
+					return false;
+				}
+				
+				if(cat_idx===undefined){
+					cat_idx=0;
+				}
+					
+				var loc_idx=0;
+					
+				console.log($('#locarea .inp_loc:checked').val());
+					
+				if($('#locarea .inp_loc:checked').val()>0){
+					loc_idx=$('#locarea .inp_loc:checked').val();
+				}
+					
+				console.log('cat_idx:', cat_idx);
+				console.log('loc_idx:', loc_idx);
+				
+				var searchParams={
+						cat : cat_idx,
+						loc : loc_idx,
+						p : 1
+				};
+					
+				console.log(searchParams);
+				
+				const queryString = new URLSearchParams(searchParams).toString();
+					
+				location.href=location.pathname + '?' + queryString;
+			});
 		});
-	 
-		/* window.onpopstate = function(event) {
-			  console.log("location: " + document.location + ", state: " + JSON.stringify(event.state));
-		}; */
+
 	</script>
 
 
