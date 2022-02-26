@@ -24,14 +24,16 @@ public class MyProfileInfo {
 	private List<Review> reviews; 
 	private String avgStars;
 	private String m_quitdate;
+	private String m_photo;
 	
 	public MyProfileInfo() {
 		
 	}
 
+	
 	public MyProfileInfo(String profile_idx, String m_idx, String line, String calltime, String career, String qna,
 			String profile_regdate, String matchCount, String reviewCount, List<FileInfo> files, List<Review> reviews,
-			String avgStars, String m_quitdate) {
+			String avgStars, String m_quitdate, String m_photo) {
 		this.profile_idx = profile_idx;
 		this.m_idx = m_idx;
 		this.line = line;
@@ -45,7 +47,9 @@ public class MyProfileInfo {
 		this.reviews = reviews;
 		this.avgStars = avgStars;
 		this.m_quitdate = m_quitdate;
+		this.m_photo = m_photo;
 	}
+
 
 	public String getProfile_idx() {
 		return profile_idx;
@@ -149,6 +153,16 @@ public class MyProfileInfo {
 
 	public void setM_quitdate(String m_quitdate) {
 		this.m_quitdate = m_quitdate;
+	}
+
+
+	public String getM_photo() {
+		return m_photo;
+	}
+
+
+	public void setM_photo(String m_photo) {
+		this.m_photo = m_photo;
 	}
 	
 	

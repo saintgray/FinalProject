@@ -1,4 +1,4 @@
-package com.alj.dream.member.service;
+package com.alj.dream.admin.service;
 
 import java.io.File;
 import java.io.IOException;
@@ -13,29 +13,35 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.alj.dream.admin.dao.AdminDao;
 import com.alj.dream.member.dao.MemberDao;
 import com.alj.dream.member.domain.EditInfos;
 
 import security.AccountDetails;
-
 @Service
-public class EditMemberService {
-
+public class AdminEditService {
+	
 	private SqlSessionTemplate sst;
 	private BCryptPasswordEncoder encoder;
 	
 	
-	public EditMemberService() {
-		
-	}
+	public AdminEditService() {
 
+	}
+	
+	
+	
+	
 	@Autowired
-	public EditMemberService(SqlSessionTemplate sst, BCryptPasswordEncoder encoder) {
+	public AdminEditService(SqlSessionTemplate sst, BCryptPasswordEncoder encoder) {
 		this.sst = sst;
 		this.encoder = encoder;
 	}
-	
-	
+
+
+
+
+
 	@Transactional
 	public int editInfos(EditInfos info, Authentication auth, HttpServletRequest req) throws IllegalStateException, IOException {
 		
@@ -51,7 +57,7 @@ public class EditMemberService {
 		String path=null;
 		String newPhotoName=null;
 		
-		info.setM_idx(logininfo.getM_idx());
+		info.setM_idx(logininfo.getAdmin_idx());
 				
 		
 		
@@ -74,7 +80,7 @@ public class EditMemberService {
 		
 		
 		try {
-			result=sst.getMapper(MemberDao.class).editMember(info);
+			result=sst.getMapper(AdminDao.class).editAdmin(info);
 			
 			
 			
@@ -88,6 +94,7 @@ public class EditMemberService {
 				}
 			}
 			
+
 			if(info.getM_nm()!=null) {
 				logininfo.setName(info.getM_nm());
 			}
@@ -111,9 +118,7 @@ public class EditMemberService {
 		return result;
 	}
 	
+
 	
-	
-	
-	
-	
+
 }

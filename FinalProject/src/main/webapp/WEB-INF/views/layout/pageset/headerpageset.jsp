@@ -36,7 +36,7 @@
         })
         
         $('#myinfo').on('click',function(){
-        	location.href="${pageContext.request.contextPath}/member/myinfo"
+        	location.href="${pageContext.request.contextPath}/myinfo"
         })
         
         $('#chat').on('click',function(){

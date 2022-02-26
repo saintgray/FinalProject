@@ -15,6 +15,7 @@
  				   qna, 
  				   date_format(profile_regdate,'%Y년 %m월 %d일') AS profile_regdate, 
  				   m.m_quitdate,
+ 				   m.m_photo,
  				   (SELECT count(*) 
  				   		FROM 
 						member m2 JOIN dream.match mat 
