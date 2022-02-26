@@ -10,26 +10,25 @@ public class RequestGroup {
 	private String post_nm;				// 게시물의 타이틀
 	private String post_regdate;		// 게시물의 생성일자
 	private String wanted;				// 게시물의 요청대상
-	private String cat_nm; 				// 카테고리
+	private String cat_nm; 		
+	private String cat_type;// 카테고리
 	private List<RequestMember> list;	// 게시물에 문의한 회원 리스트
 	private String overfive;			// 다섯명 넘는지 체크
 	
 	public RequestGroup(int post_idx, String post_nm, String post_regdate, String wanted, String cat_nm,
-			List<RequestMember> list, String overfive) {
-		super();
+			String cat_type, List<RequestMember> list, String overfive) {
 		this.post_idx = post_idx;
 		this.post_nm = post_nm;
 		this.post_regdate = post_regdate;
 		this.wanted = wanted;
 		this.cat_nm = cat_nm;
+		this.cat_type = cat_type;
 		this.list = list;
 		this.overfive = overfive;
 	}
 
-
-	public RequestGroup() {}
-
-	
+	public RequestGroup() {
+	}
 
 	public int getPost_idx() {
 		return post_idx;
@@ -71,6 +70,14 @@ public class RequestGroup {
 		this.cat_nm = cat_nm;
 	}
 
+	public String getCat_type() {
+		return cat_type;
+	}
+
+	public void setCat_type(String cat_type) {
+		this.cat_type = cat_type;
+	}
+
 	public List<RequestMember> getList() {
 		return list;
 	}
@@ -79,15 +86,20 @@ public class RequestGroup {
 		this.list = list;
 	}
 
-	
 	public String getOverfive() {
 		return overfive;
 	}
-
 
 	public void setOverfive(String overfive) {
 		this.overfive = overfive;
 	}
 
+	@Override
+	public String toString() {
+		return "RequestGroup [post_idx=" + post_idx + ", post_nm=" + post_nm + ", post_regdate=" + post_regdate
+				+ ", wanted=" + wanted + ", cat_nm=" + cat_nm + ", cat_type=" + cat_type + ", list=" + list
+				+ ", overfive=" + overfive + "]";
+	}
+	
 	
 }
