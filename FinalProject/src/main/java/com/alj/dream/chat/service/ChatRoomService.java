@@ -140,13 +140,13 @@ public class ChatRoomService {
 			menteeidx = myidx;
 			mentoridx = reciever;
 		
-			resultCnt = mdao.updateMatchOutyn(matchidx, myidx, menteeidx, mentoridx);
+			resultCnt = mdao.updateMatchOutyn(myidx, matchidx, menteeidx, mentoridx);
 			
 		}else if(mytype.equalsIgnoreCase("mentor")){
 			menteeidx = reciever;
 			mentoridx = myidx;
 			
-			resultCnt = mdao.updateMatchOutyn(matchidx, myidx, menteeidx, mentoridx);
+			resultCnt = mdao.updateMatchOutyn(myidx, matchidx, menteeidx, mentoridx);
 			
 		}
 		return resultCnt;
@@ -256,6 +256,6 @@ public class ChatRoomService {
 			return ableReview;
 		}
 	
-	
+
 	
 }
