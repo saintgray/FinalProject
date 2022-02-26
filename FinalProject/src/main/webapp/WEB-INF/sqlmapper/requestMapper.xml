@@ -22,12 +22,12 @@
  	
  	<select id="selectRequestPostByPostIdx" 
  		resultType="com.alj.dream.request.domain.RequestGroup">	
- 		select p.post_nm, p.post_idx, c.cat_nm, p.post_regdate
+ 		select p.post_nm, p.post_idx, c.cat_nm, p.post_regdate, p.wanted
 		FROM
 		post p join category c 
 		ON c.cat_idx=p.cat_idx
 		WHERE 
-		p.m_idx=#{param1} and p.wanted=#{param2}
+		p.post_idx=#{param1} and p.wanted=#{param2}
 		and p.post_deldate is null AND
 		(SELECT count(*) FROM post p2 JOIN dream.match mat ON p2.post_idx=p.post_idx
 		AND mat.post_idx=p2.post_idx) &gt; 0

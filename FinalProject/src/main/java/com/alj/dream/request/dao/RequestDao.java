@@ -13,7 +13,7 @@ public interface RequestDao {
 
 	List<RequestMember> selectRequestMemberByPostIdx(int postidx, String wanted); 																						
 
-	RequestGroup selectRequestPostByPostIdx(int postidx);
+	RequestGroup selectRequestPostByPostIdx(int myidx, String wanted);
 	
 	int totalRequestMemberByPostIdx(int postidx);
 }
