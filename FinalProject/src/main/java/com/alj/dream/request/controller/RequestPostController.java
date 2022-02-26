@@ -3,6 +3,7 @@ package com.alj.dream.request.controller;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,12 +26,13 @@ public class RequestPostController {
 	public void getRequestPost(
 				HttpSession session,
 				@RequestParam("postidx") int postidx,
+				Authentication auth,
 				Model model
 				) {
 			//modelattribute에 객체 추가하기
 		System.out.println(postidx);
 		
-		model.addAttribute("requestPost", service.getRequestPost(postidx));
+		model.addAttribute("requestPost", service.getRequestPost(postidx,auth));
 		
 		System.out.println("서비스에 getRequestPost메소드실행 성공");
 	}
