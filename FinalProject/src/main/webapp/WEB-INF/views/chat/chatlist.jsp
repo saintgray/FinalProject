@@ -36,7 +36,8 @@
 	.matchYNfont{
 		font-size: 1.0em;
 		font-weight: 500;
-		color : #142B6F;
+		padding-left: 10px;
+		padding-right: 10px;
 	}
 	.m_photo{
 		width:110px;
@@ -62,7 +63,7 @@
 		background-color: #142B6F!important;
 	}
 	#goChat>a{
-		color: #FFD601;
+		color: #FFF;
 	}
 	
 	
@@ -102,8 +103,8 @@
 					<tr>
 						<td colspan="2" >
 							<div class="matchYN">
-							<c:if test="${list.match_yn eq 'Y'}"><div class="matchYNfont">매칭 성공</div></c:if>
-							<c:if test="${list.match_yn eq 'N'}"><div class="matchYNfont">매칭 전</div></c:if>
+							<c:if test="${list.match_yn eq 'Y'}"><span class="matchYNfont badge bg-success" style="background-color: #F84C0B!important">매칭 중</span></c:if>
+							<c:if test="${list.match_yn eq 'N'}"><span class="matchYNfont badge bg-dark">매칭 전</span></c:if>
 							</div>
 						</td>
 					</tr>
