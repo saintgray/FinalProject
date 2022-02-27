@@ -8,7 +8,7 @@ import com.alj.dream.match.domain.MatchInfo;
 public interface MatchDao {
 
 	
-	public int insertMatch(Match match);
+	public int insertMatch(int postidx, int menteeidx, int mentoridx);
 	
 	public Match selectMatch(int postidx, int menteeidx, int mentoridx);
 	

@@ -35,7 +35,42 @@ function showImage(fileName){
 
 $(document).ready(function(){
 	
-	$('#matchBtn').on('click', function(){
+	// 문의하기 눌렀을 시 멘토멘티 타입확인
+	$('#matchBtn').click(function(){	
+		
+		var mentor = "mentor";
+		var mentee = "mentee";	
+		var mytype = $('#mytype').val();
+		console.log(mytype);
+		var myidx = $('#myidx').val();
+		console.log(myidx);
+		console.log('확인중');
+		if(mytype == mentor){
+			//멘토면프로필을 확인한다 > 프로필 있을경우 그대로 진행 , 없으면 프로필을 작성해주세요
+			console.log('멘토');
+			$.ajax({
+				url : '${pageContext.request.contextPath}/post/profilechk',
+				type : 'post',
+				data : {myidx : myidx},
+				success : function(data){
+					if(data != null){
+						console.log("멘토확인");
+						$('#requestYN').modal('show');
+					}else{
+						// 프로필작성하기로 보내기
+						alert('작성된 프로필이 없습니다. 프로필을 먼저 등록해주세요!');
+						location.href = '${pageContext.request.contextPath}/member/profile/profilemain';
+					}
+				}
+			})
+		}else if(mytype == mentee) {
+			console.log("멘티확인");
+			$('#requestYN').modal('show');
+		}
+	})
+	
+	// 문의하기 매칭테이블 유무 체크하기
+	$('#rqYes').on('click', function(){
 		
 		var postidx=$('#postidx').val();
 		var wanted=$('#wanted').val();
@@ -57,16 +92,13 @@ $(document).ready(function(){
 				wanted: wanted
 			},
 			success : function(data){
-				
-				//location.href="${pageContext.request.contextPath}/post/view?idx="+postidx;
-				// 전송에 성공하면 실행될 코드
-				if(data==1){	// 테이블이 이미 있다는 뜻 = 문의를 했던 글이라는 뜻
+				if(data==1){
 					alert('이미 문의한 게시글입니다. 내 채팅목록을 확인해주세요!');
-				} else {
-					setMatchidx(data);
-					console.log(matchidx);
-					//채팅테이블 생성할 함수실행
-					alert(${member.m_idx}'님에게 보낼 멋진 첫 한마디를 작성해주세요!');
+				}else if(data==2) {
+					console.log('insertMatch오류');
+				}else{
+					// 문의하기 가능 : 시스템메세지 보낸 후 > 채팅모달 띄움
+					sysMsg();
 				}
 			},
 			error: function(data){
@@ -77,6 +109,79 @@ $(document).ready(function(){
 		
 	})
 	
+	
+
+	// 문의 후 시스템 메세지 자동으로 보내지게하기
+	function sysMsg(){
+		var msg = "###aljdream###${name}님에게서 문의가 도착했습니다. 자유롭게 대화해보세요!";
+		sysMsgYN = 'Y';
+		console.log(msg);
+		
+		isnertChat(msg, sysMsgYN);
+		// 채팅모달 띄움
+		$('#sendchat').modal('show');
+	} 
+	
+	// 채팅 입력했을 시
+	$('.msgBtn').click(function(){
+		
+		// 채팅창이 비어있을 경우 경고
+		// 안비어있을 경우에만 데이터전송
+		// 비어있는데 모달을 끄려고 하면 경고
+		
+		var msg = $('.msg').val();
+		console.log(msg);
+		var sysMsgYN = 'N';
+		
+		if(!(msg.length>0)){
+			alert('채팅 입력내용이 없습니다. 확인해주세요.')
+		}else{
+			isnertChat(msg, sysMsgYN);
+			alert('채팅을 전송했습니다! 채팅내용은 내 채팅목록에서 확인해주세요.');
+		}
+	})
+	
+	
+	// chat을 insert하는 메소드
+	function isnertChat(msg, sysMsgYN){
+		
+		console.log('insertChat메소드 들어옴');
+		
+		var mytype = $('#mytype').val();
+		var postidx=$('#postidx').val();
+		var midx=$('#midx').val();
+		var myidx=$('#myidx').val();
+
+		console.log(mytype);
+		console.log(postidx);
+		console.log(midx);
+		console.log(myidx);
+		console.log('insertChat : ajax전송전');
+		
+		$.ajax({
+			url : '${pageContext.request.contextPath}/chat/insertchat',
+			type : 'post',
+			data : {
+			post_idx 	: postidx,
+			m_reciever	: midx,
+			m_sender	: myidx,
+			mytype		: mytype,
+			message 	: msg,
+			sysMsgYN	: sysMsgYN
+			},
+			success : function(data){
+				// 전송에 성공하면 실행될 코드
+				if(data=='1'){	
+					console.log('insertchat성공')
+				} else {
+					alert('전송오류');
+				}
+			}
+		})
+	
+	}
+	
+		
 	$('#attachedfiles').on("click", "li", function(event){
 		
 		var liObj = $(this);
@@ -98,7 +203,6 @@ $(document).ready(function(){
  		} else {
  		// 이미지의 경우 원본 출력
  			showImage(fileName);
- 			
 		}
 
 	})
