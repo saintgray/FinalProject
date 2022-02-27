@@ -41,8 +41,8 @@
 
 	<select id="selectWriteRequestByPostIdx"
 			resultType="com.alj.dream.post.domain.PostWriteRequest">
-		select post_idx, post_nm, post_content, cat_idx, wanted, m_idx
-		from post
+		select post_idx, post_nm, post_content, p.cat_idx, c.cat_nm, wanted, m_idx
+		from post p join category c on p.cat_idx=c.cat_idx
 		where post_idx=#{idx}
 	</select>
 
