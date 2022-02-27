@@ -73,12 +73,7 @@ history.go(-1);
 <!-- 제목 -->
 <div class="input-group mb-3">
   <span class="input-group-text">${viewRequest.cat_nm}</span>
-  <span class="form-control">${viewRequest.post_nm}</span>
-  
-  <c:if test="${viewRequest.m_idx eq idx}">
-  	<span class="form-control">문의 ${viewRequest.match_count} 건</span>
-  </c:if>
-  
+  <span class="form-control">${viewRequest.post_nm}</span>  
 </div>
 
 <!-- 프로필 영역 -->
@@ -150,8 +145,17 @@ ${viewRequest.post_content}
 </c:if>
 
 <c:if test="${viewRequest.m_idx eq idx}">
-	매칭정보 : match테이블에서 가져온 정보 출력 <br>
-	${viewRequest.matchInfos}
+	<div class="descript my-1 ms-0 me-1 text-start">문의현황</div>
+	<div id="matchInfos">
+	
+		<c:if test="${viewRequest.match_count eq 0}">
+		들어온 문의가 없습니다.
+		</c:if>
+		<c:if test="${viewRequest.match_count gt 0}">
+		들어온 문의는 총 ${viewRequest.match_count} 건입니다. 상세 내용은 받은제의를 확인하세요.
+		</c:if>
+	
+	</div>
 	
 	<div class="btn-group" role="group" class="col text-center">
 		<button type="button" class="btn btn-outline-dark" onclick="location.href='${pageContext.request.contextPath}/post/edit?idx=${viewRequest.post_idx}'">수정</button>

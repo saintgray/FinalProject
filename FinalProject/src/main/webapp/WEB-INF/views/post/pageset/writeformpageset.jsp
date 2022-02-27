@@ -94,6 +94,9 @@ function checkExtension(fileName, fileSize){
 
 $(document).ready(function(){	
 	
+	var contentForm = $('#content');
+	contentForm.html('<p><b>1. 희망 수업 방식</b> : 개인 / 그룹 / 화상 / 무관 / 기타 (직접 입력)</p><p><b>2. 희망 진행 장소</b> :&nbsp;</p><p><b>3. 자세한 설명</b> :&nbsp;</p>');
+	
 	$('#content').summernote({
 		toolbar: [
 		    
