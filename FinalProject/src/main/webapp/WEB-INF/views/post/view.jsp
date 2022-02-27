@@ -213,6 +213,7 @@ ${viewRequest.post_content}
 		      
 		      <div class="modal-footer">
 		      	${writerProfile.m_nm}님에게 보낸 첫마디는 내 채팅목록에서 확인해주세요.
+
 		      </div>
 		    </div>
 		  </div>

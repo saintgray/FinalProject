@@ -8,7 +8,9 @@
  
 	<insert id="insertMatch">
 	 	INSERT INTO dream.match (post_idx, mentee_idx, mentor_idx)
+
 		values (#{param1},#{param2},#{param3})
+
  	</insert>
  	
  	<select id="selectMatch"
