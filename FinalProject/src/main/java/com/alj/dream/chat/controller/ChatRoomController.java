@@ -104,14 +104,23 @@ public class ChatRoomController {
 	
 	
 	// 채팅메세지 DB에 저장하는 메소드
-	@RequestMapping(value="/post/insertchat", method=RequestMethod.POST)
+	@RequestMapping(value="/chat/insertchat", method=RequestMethod.POST)
 	@ResponseBody
-	public int insertChat(Chat chat
+	public int insertChat(
+			@RequestParam("postidx") int postidx,
+			@RequestParam("m_reciever") int m_reciever,
+			@RequestParam("m_sender") int m_sender,
+			@RequestParam("mytype") String mytype,
+			@RequestParam("msg") String msg,
+			@RequestParam("sysMsgYN") String sysMsgYN
 			){
+
+		System.out.println("ChatRoomController : insertChat진입성공");
+		//getmatchidx해야한다는 거죠
+		//이것도 서비스에서 만들어서 하는게 나은거네
+		Chat chat = service.getChatRequest(postidx,m_reciever,m_sender,mytype,msg,sysMsgYN);
 		
 		//서비스에서 채팅 바로 insert
-		System.out.println("ChatController진입성공");
-		
 		int resultCnt=service.insertChat(chat);
 		
 		return resultCnt;
@@ -133,7 +142,7 @@ public class ChatRoomController {
 		
 		
 		int resultCnt = service.updateMatchOutyn(matchidx,myidx,reciever,mytype);
-		// 예외처리 미완
+		
 		return resultCnt;
 	}
 	

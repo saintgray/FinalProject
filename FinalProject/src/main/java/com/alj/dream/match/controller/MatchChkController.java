@@ -24,20 +24,11 @@ public class MatchChkController {
 			@RequestParam("wanted") String wanted
 			) {
 		
-		//확인용
 		System.out.println("MatchChkController : matchChk진입성공");
-		
-		System.out.println("postidx" + postidx);
-		System.out.println("midx"+ midx);
-		System.out.println("myidx" + myidx);
-		System.out.println("wanted" + wanted);
-		
-		
-		int matchIdx = service.getMatch(postidx, midx, myidx, wanted);
-		
-		System.out.println("MatchChkController : MatchChkService다녀온 후");
-		System.out.println("matchIdx : "+ matchIdx);
-		
-		return matchIdx;
+			
+		int resultCnt = service.chkMatch(postidx, midx, myidx, wanted);
+			
+		return resultCnt;
 	}
+	
 }

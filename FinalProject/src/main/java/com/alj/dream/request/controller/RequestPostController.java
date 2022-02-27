@@ -44,6 +44,8 @@ public class RequestPostController {
 			@RequestParam("myidx") int myidx
 			) {
 		
+		System.out.println("RequestPostController : MyProfileInfo 진입");
+		
 		MyProfileInfo info=service.chkProfile(myidx);
 		
 		return info;

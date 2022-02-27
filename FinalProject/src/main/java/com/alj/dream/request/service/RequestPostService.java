@@ -60,6 +60,7 @@ public class RequestPostService {
 	
 	
 	public MyProfileInfo chkProfile(int myidx) {
+		System.out.println("RequestPostService : chkProfile진입");
 		
 		String m_idx = Integer.toString(myidx);
 		

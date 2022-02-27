@@ -6,12 +6,9 @@
  <mapper namespace="com.alj.dream.match.dao.MatchDao">
  
  
-	<insert id="insertMatch"
- 			parameterType="com.alj.dream.match.domain.Match"
- 			useGeneratedKeys="true"
- 			keyProperty="match_idx">
+	<insert id="insertMatch">
 	 	INSERT INTO dream.match (post_idx, mentee_idx, mentor_idx)
-		values (#{post_idx},#{mentee_idx},#{mentor_idx});
+		values (#{param1},#{param2},#{param3});
  	</insert>
  	
  	<select id="selectMatch"

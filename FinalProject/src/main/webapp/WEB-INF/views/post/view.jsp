@@ -58,12 +58,17 @@ history.go(-1);
 	<c:set var="type">
 	   <sec:authentication property="principal.m_type" />
 	</c:set>
+	<c:set var="name">
+	   <sec:authentication property="principal.name" />
+	</c:set>
 </sec:authorize>
 
 <input type="hidden" id="postidx" value="${viewRequest.post_idx}">
 <input type="hidden" id="wanted" value="${viewRequest.wanted}">
 <input type="hidden" id="midx" value="${viewRequest.m_idx}">
 <input type="hidden" id="myidx" value="${idx}">
+<input type="hidden" id="mytype" value="${type}">
+<input type="hidden" id="myname" value="${name}">
 
 <!-- 제목 -->
 <div class="input-group mb-3">
@@ -162,6 +167,58 @@ ${viewRequest.post_content}
 <!-- Footer -->
 <%@ include file="/WEB-INF/views/layout/footer.jsp" %>
 
+
+
+
+<!-- 문의하기 모달 -->
+		<div class="modal fade" id="requestYN" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+		  <div class="modal-dialog modal-dialog-centered">
+		    <div class="modal-content">
+		    
+		      <div class="modal-header">
+		        <h5 class="modal-title"></h5>
+		      </div>
+		      
+		      <div class="modal-body">
+		        	<h4>${writerProfile.m_nm} 님에게 문의하시겠습니까?</h4>
+		      </div>
+		      
+		      <div class="modal-footer">
+		      	<button type="button" class="btn btn-danger" data-bs-dismiss="modal" id="rqYes" >네</button>
+		        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">아니오</button>
+		      </div>
+		    </div>
+		  </div>
+		</div>		
+
+
+<!-- 채팅보내기 모달 -->
+		<div class="modal fade" id="sendchat" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+		  <div class="modal-dialog modal-dialog-centered">
+		    <div class="modal-content">
+		    
+		      <div class="modal-header">
+		        <h5 class="modal-title"></h5>
+		      </div>
+		      
+		      <div class="modal-body">
+		        	 성공적으로 문의가 이루어졌습니다! <br>
+		        	 근사한 첫인상을 남길 첫마디를 작성해주세요!
+	        	<div class="msgRow">
+					<input type="text" class="msg">
+					<input type="button" value="채팅보내기" class="msgBtn">
+				</div>
+				
+		      </div>
+		      
+		      <div class="modal-footer">
+		      	()님에게 보낸 첫마디는 내 채팅목록에서 확인해주세요.
+		      </div>
+		    </div>
+		  </div>
+		</div>	
+  
+ 
 </body>
 
 </html>

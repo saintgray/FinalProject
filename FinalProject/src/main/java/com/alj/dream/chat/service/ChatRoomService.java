@@ -111,7 +111,7 @@ public class ChatRoomService {
 		System.out.println(chat.getMessage());
 		System.out.println(chat.getMatch_idx());
 		
-		System.out.println("ChatInsertService : insertChat메소드");
+		System.out.println("ChatRoomService : insertChat메소드");
 		
 		dao = template.getMapper(ChatDao.class);
 		int resultCnt = dao.insertChat(chat);
@@ -254,6 +254,40 @@ public class ChatRoomService {
 			}
 			System.out.println("ableReview:"+ableReview);
 			return ableReview;
+		}
+
+		// 문의하기 후, 채팅에 insert하기 위해서 필요한 정보를 정리하는 메서드
+		public Chat getChatRequest(int postidx, int m_reciever, int m_sender, String mytype, String msg, String sysMsgYN) {
+			
+			System.out.println("ChatRoomService : getChatRequest메소드");
+			
+			dao = template.getMapper(ChatDao.class);
+			
+			//matchidx가져와야함
+			int menteeIdx = 0;
+			int mentorIdx = 0;
+			
+			if (mytype.equalsIgnoreCase("mentee")) {				
+				mentorIdx = m_reciever;
+				menteeIdx = m_sender;
+			}else if(mytype.equalsIgnoreCase("mentor")) {
+				menteeIdx = m_reciever;
+				mentorIdx = m_sender;
+			}
+			System.out.println("menteeIdx : "+menteeIdx);
+			System.out.println("mentorIdx : "+mentorIdx);
+			
+			
+			Match match= mdao.selectMatch(postidx, menteeIdx, mentorIdx);	
+			System.out.println("매칭테이블가져오기성공 : "+match);
+			
+			int matchidx = match.getMatch_idx();
+			
+			Chat chat =new Chat(matchidx, null, m_sender, m_reciever, msg, sysMsgYN);
+			
+			System.out.println("getChatRequest성공. 리턴합니다");
+			
+			return chat;
 		}
 	
 
