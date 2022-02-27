@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -40,6 +41,7 @@ public class RequestPostController {
 	
 	// 문의하기 누를 때 멘토라면 > 프로필 체크하기
 	@PostMapping("/post/profilechk")
+	@ResponseBody
 	public MyProfileInfo chkProfile(
 			@RequestParam("myidx") int myidx
 			) {

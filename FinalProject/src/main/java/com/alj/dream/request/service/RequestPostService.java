@@ -68,6 +68,7 @@ public class RequestPostService {
 		
 		MyProfileInfo info = pdao.getProfile(m_idx);  
 		
+		System.out.println("info:"+info);
 		return info;
 		
 	}

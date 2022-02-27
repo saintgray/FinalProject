@@ -8,14 +8,14 @@
  
 	<insert id="insertMatch">
 	 	INSERT INTO dream.match (post_idx, mentee_idx, mentor_idx)
-		values (#{param1},#{param2},#{param3});
+		values (#{param1},#{param2},#{param3})
  	</insert>
  	
  	<select id="selectMatch"
  			resultType="com.alj.dream.match.domain.Match">
 	 	select * 
 	 	from dream.match
-	 	where post_idx=#{param1} and mentee_idx=#{param2} and mentor_idx=#{param3};
+	 	where post_idx=#{param1} and mentee_idx=#{param2} and mentor_idx=#{param3}
  	</select>
  	
  	

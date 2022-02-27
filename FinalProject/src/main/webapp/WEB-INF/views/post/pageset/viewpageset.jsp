@@ -35,6 +35,9 @@ function showImage(fileName){
 
 $(document).ready(function(){
 	
+	var myname=$('#myname').text();
+	console.log(myname);
+	
 	// 문의하기 눌렀을 시 멘토멘티 타입확인
 	$('#matchBtn').click(function(){	
 		
@@ -56,7 +59,7 @@ $(document).ready(function(){
 					if(data != null){
 						console.log("멘토확인");
 						$('#requestYN').modal('show');
-					}else{
+					}else if(data == null){
 						// 프로필작성하기로 보내기
 						alert('작성된 프로필이 없습니다. 프로필을 먼저 등록해주세요!');
 						location.href = '${pageContext.request.contextPath}/member/profile/profilemain';
@@ -113,7 +116,7 @@ $(document).ready(function(){
 
 	// 문의 후 시스템 메세지 자동으로 보내지게하기
 	function sysMsg(){
-		var msg = "###aljdream###${name}님에게서 문의가 도착했습니다. 자유롭게 대화해보세요!";
+		var msg = '###aljdream###'+$('#myname').val()+'님에게서 문의가 도착했습니다. 자유롭게 대화해보세요!';
 		sysMsgYN = 'Y';
 		console.log(msg);
 		
@@ -123,11 +126,10 @@ $(document).ready(function(){
 	} 
 	
 	// 채팅 입력했을 시
-	$('.msgBtn').click(function(){
+	$('#msgBtn').click(function(){
 		
 		// 채팅창이 비어있을 경우 경고
 		// 안비어있을 경우에만 데이터전송
-		// 비어있는데 모달을 끄려고 하면 경고
 		
 		var msg = $('.msg').val();
 		console.log(msg);
@@ -137,6 +139,7 @@ $(document).ready(function(){
 			alert('채팅 입력내용이 없습니다. 확인해주세요.')
 		}else{
 			isnertChat(msg, sysMsgYN);
+			$('#sendchat').modal('hide');
 			alert('채팅을 전송했습니다! 채팅내용은 내 채팅목록에서 확인해주세요.');
 		}
 	})
@@ -162,16 +165,16 @@ $(document).ready(function(){
 			url : '${pageContext.request.contextPath}/chat/insertchat',
 			type : 'post',
 			data : {
-			post_idx 	: postidx,
+			postidx 	: postidx,
 			m_reciever	: midx,
 			m_sender	: myidx,
 			mytype		: mytype,
-			message 	: msg,
+			msg 		: msg,
 			sysMsgYN	: sysMsgYN
 			},
 			success : function(data){
 				// 전송에 성공하면 실행될 코드
-				if(data=='1'){	
+				if(data==1){	
 					console.log('insertchat성공')
 				} else {
 					alert('전송오류');
