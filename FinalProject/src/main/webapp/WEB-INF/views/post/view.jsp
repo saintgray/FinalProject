@@ -202,17 +202,18 @@ ${viewRequest.post_content}
 		      </div>
 		      
 		      <div class="modal-body">
-		        	 성공적으로 문의가 이루어졌습니다! <br>
-		        	 근사한 첫인상을 남길 첫마디를 작성해주세요!
+		        	 <h4>성공적으로 문의가 이루어졌습니다.</h4>
+		        	 <div style="margin-bottom: 10px; font-size: 1.2em">${writerProfile.m_nm} 님에게 근사한 첫인상을 남길 첫마디를 작성해주세요!</div>
 	        	<div class="msgRow">
-					<input type="text" class="msg">
-					<input type="button" value="채팅보내기" class="msgBtn">
+					<input type="text" class="msg" placeholder="내용을입력해주세요." style="width: 100%; margin-bottom: 10px">
+					<input type="button" value="채팅보내기" class="btn btn-primary" id="msgBtn"style="float: right">
 				</div>
 				
 		      </div>
 		      
 		      <div class="modal-footer">
-		      	()님에게 보낸 첫마디는 내 채팅목록에서 확인해주세요.
+		      	${writerProfile.m_nm}님에게 보낸 첫마디는 내 채팅목록에서 확인해주세요.
+
 		      </div>
 		    </div>
 		  </div>

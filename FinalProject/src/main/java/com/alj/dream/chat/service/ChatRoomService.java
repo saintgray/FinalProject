@@ -261,7 +261,9 @@ public class ChatRoomService {
 			
 			System.out.println("ChatRoomService : getChatRequest메소드");
 			
-			dao = template.getMapper(ChatDao.class);
+
+			mdao = template.getMapper(MatchDao.class);
+
 			
 			//matchidx가져와야함
 			int menteeIdx = 0;
@@ -276,7 +278,8 @@ public class ChatRoomService {
 			}
 			System.out.println("menteeIdx : "+menteeIdx);
 			System.out.println("mentorIdx : "+mentorIdx);
-			
+			System.out.println("postidx : "+postidx);
+
 			
 			Match match= mdao.selectMatch(postidx, menteeIdx, mentorIdx);	
 			System.out.println("매칭테이블가져오기성공 : "+match);

@@ -10,7 +10,7 @@ public interface MatchDao {
 	
 	public int insertMatch(int postidx, int menteeidx, int mentoridx);
 	
-	public Match selectMatch(int postidx, int menteeidx, int mentoridx);
+	public Match selectMatch(int post_idx, int mentee_idx, int mentor_idx);
 	
 	public List<MatchInfo> selectMatchInfo(int post_idx);
 	
