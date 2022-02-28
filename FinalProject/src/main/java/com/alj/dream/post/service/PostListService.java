@@ -65,13 +65,17 @@ public class PostListService {
 		
 		
 		// catDao 로 부터 선택한 파라미터의 모든 하위 카테고리를 가져와서 cat_idx 리스트에 추가한다.
+
 		List<Category> allChildren =catDao.getAllChildrens(String.valueOf(params.getCat_idx()));
+
 		System.out.println("allChildren >>> ");
 		System.out.println(allChildren);
 		System.out.println(allChildren.size());
 		
+
 		
 		params.setChildrens(allChildren);
+
 		
 		
 		

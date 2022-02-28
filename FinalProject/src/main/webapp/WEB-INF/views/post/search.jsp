@@ -64,6 +64,7 @@
 				<input type="hidden" id="wanted" value="${type}">
 				<button id="searchBtn" class="btn btn-general shadow-sm fs-5 fw-bold my-auto mx-2">검색</button>
 	
+
 			</div>
 	
 			<div id="recommendList" class="list=group">
@@ -110,6 +111,7 @@
 	
 	<!-- Footer -->
 	<%@ include file="/WEB-INF/views/layout/footer.jsp" %>
+
 </body>
 
 <%@include file="/WEB-INF/views/post/pageset/searchpageset.jsp" %>

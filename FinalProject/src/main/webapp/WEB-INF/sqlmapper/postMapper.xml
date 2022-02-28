@@ -71,10 +71,12 @@
 			<!-- <if test="cat_idx>0">
 				and cat_idx=#{cat_idx}
 			</if> -->
+
 			<if test="childrens != null">
 				AND cat_idx IN
 				<foreach collection="childrens" item="category" open="(" close=")" separator=",">
 					#{category.cat_idx}
+
 				</foreach>
 			</if>
 			<if test="loc_idx>0">
@@ -95,10 +97,12 @@
 			<!-- <if test="cat_idx>0">
 				and p.cat_idx=#{cat_idx}
 			</if> -->
+
 			<if test="childrens!=null">
 				AND c.cat_idx IN
 				<foreach collection="childrens" item="category" open="(" close=")" separator=",">
 					#{category.cat_idx}
+
 				</foreach>
 			</if>
 			<if test="loc_idx>0">

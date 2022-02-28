@@ -1,14 +1,13 @@
 package com.alj.dream.post.domain;
 
 import java.util.List;
-
 import com.alj.dream.category.domain.Category;
 
 public class SearchParams {
 
 	private int m_idx;
 	private String wanted;
-	private int cat_idx;
+	private List<Integer> cat_idx;
 	private int loc_idx;
 	private int index;
 	private int count;
@@ -16,16 +15,18 @@ public class SearchParams {
 	
 	private List<Category> childrens;
 
+
 	public SearchParams() {
 	}
 
-	public SearchParams(int m_idx, String wanted, int cat_idx, int loc_idx) {
+	public SearchParams(int m_idx, String wanted, List<Integer> cat_idx, int loc_idx) {
 		this.m_idx = m_idx;
 		this.wanted = wanted;
 		this.cat_idx = cat_idx;
 		this.loc_idx=loc_idx;
 		
 	}
+
 
 
 	public int getM_idx() {
@@ -43,6 +44,7 @@ public class SearchParams {
 	public void setWanted(String wanted) {
 		this.wanted = wanted;
 	}
+
 
 	public int getCat_idx() {
 		return cat_idx;
@@ -70,6 +72,7 @@ public class SearchParams {
 	public void setChildrens(List<Category> childrens) {
 		this.childrens = childrens;
 	}
+
 
 	public void setLoc_idx(int loc_idx) {
 		this.loc_idx = loc_idx;
