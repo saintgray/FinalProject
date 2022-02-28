@@ -64,7 +64,7 @@
 					$(data).each(function(index, item){
 						var html='<div class="mx-3 my-2">\r\n';
 							html+='<span>'+item.loc_idx+'<span>\r\n';
-							html+='<a href="" class="loclink">'+item.loc_nm+'</a>\r\n';
+							html+='<a href="${pageContext.request.contextPath}/post/search?cat=0&loc='+item.loc_idx+'&p=1" class="loclink">'+item.loc_nm+'</a>\r\n';
 							html+='</div>\r\n';
 						
 						
