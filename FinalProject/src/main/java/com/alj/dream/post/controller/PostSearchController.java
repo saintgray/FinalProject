@@ -33,8 +33,6 @@ public class PostSearchController {
 			Model model
 			) {
 		
-		
-		
 		AccountDetails logininfo= (AccountDetails)authentication.getPrincipal();
 		
 		int m_idx = Integer.parseInt(logininfo.getM_idx());
