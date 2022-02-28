@@ -100,7 +100,7 @@
 					success:function(data){
 						console.log(data);
 						if(data==1){
-							location.href= "${pageContext.request.contextPath}/qna/list?selectPage=${param.selectPage}&numOfQnaPerPage=${param.numOfQnaPerPage}";
+							history.go(-2);
 						}else{
 							
 							alert('오류가 발생하였습니다 잠시 후 다시 시도하세요');
