@@ -23,7 +23,7 @@
 	
 	margin-top:150px;
 	}
-
+	
 </style>
 <title>알려드림 : 검색</title>
 </head>
@@ -82,7 +82,7 @@
 
 			</div>
 	
-			<div id="recommendList" class="list=group">
+			<div id="recommendList" class="list-group">
 				
 			</div>
 	
