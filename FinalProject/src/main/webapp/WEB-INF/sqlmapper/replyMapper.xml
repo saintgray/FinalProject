@@ -18,6 +18,13 @@
  		ad.admin_idx=re.admin_idx
  		WHERE re.qna_idx=#{arg0}
  	</select>
+ 	
+ 	<select id="getContent" resultType="com.alj.dream.reply.domain.Reply">
+ 		SELECT r.reply_content, r.reply_regdate, r.reply_editdate, r.m_idx, ad.admin_nm, q.qna_title
+ 		FROM reply r join qna q join admin ad
+ 		ON r.qna_idx=q.qna_idx AND r.admin_idx=ad.admin_idx
+ 		WHERE r.reply_idx=#{arg0}
+ 	</select> 
  		
  		
  </mapper>
