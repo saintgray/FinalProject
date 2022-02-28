@@ -111,19 +111,19 @@
 		  	 <div class="d-flex flex-row flex-nowrap justify-content-between mb-5" id="catarea">
 		  	 
 		  	 	<div class="d-flex flex-column cat-card mx-auto shadow">
-		  	 		<a href="#">
+		  	 		<a>
 		  	 			<img src="${pageContext.request.contextPath}/resources/files/server/category/piano.jpg">
 		  	 		</a>
 		  	 		<span class="descript ms-2 my-1">음악</span>
 		  	 	</div>
 		  	 	<div class="d-flex flex-column cat-card mx-auto shadow">
-		  	 		<a href="#">
+		  	 		<a>
 		  	 			<img src="${pageContext.request.contextPath}/resources/files/server/category/draw.png">
 		  	 		</a>
 		  	 		<span class="descript ms-2 my-1">미술</span>
 		  	 	</div>
 		  	 	<div class="d-flex flex-column cat-card mx-auto shadow">
-		  	 		<a href="#">
+		  	 		<a>
 		  	 			<img src="${pageContext.request.contextPath}/resources/files/server/category/cook.jpg">
 		  	 		</a>
 		  	 		<span class="descript ms-2 my-1">요리</span>
