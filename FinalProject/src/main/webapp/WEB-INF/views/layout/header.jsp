@@ -14,7 +14,7 @@
 	      <li id="first" class="mr-auto p-2 d-flex flex-wrap">
 	        <img src="${pageContext.request.contextPath}/resources/files/server/icons/icon_sidemenu.svg" data-bs-toggle="offcanvas" data-bs-target="#sidemenu"
 	        aria-controls="sidemenu" class="sub"> 
-	        <a id="logo"><img src="${pageContext.request.contextPath}/resources/files/server/bannerimg/logo.png"></a>
+	        <a id="logo"><img src="${pageContext.request.contextPath}/resources/files/server/bannerimg/logo.svg"></a>
 	        
 	        <!--이 아이콘을 누르면 searchbar 로 focusing 되게 하세요-->
 	        <img src="${pageContext.request.contextPath}/resources/files/server/icons/img_searchicon.svg" class="sub" id="searchfocusbtn">

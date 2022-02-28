@@ -30,6 +30,7 @@
   		<!-- Header -->
     	<%@include file="/WEB-INF/views/layout/header.jsp" %>
 	  	
+	  	<div class="contatiner">
 		<div id="globalwrap" class="d-flex flex-column">
 		
 	  	
@@ -45,7 +46,7 @@
 		    <!-- 홈페이지 로딩 후 DB의 광고 테이블에서 활성화된 광고들을 받아와 출력할 수 있습니다. -->
 		     <div class="shadow d-flex flex-row" id="bannerarea" >
 		    	  
-			      <img src="${pageContext.request.contextPath}/resources/files/server/bannerimg/banner1.png">
+			      <img src="${pageContext.request.contextPath}/resources/files/server/bannerimg/banner1.svg">
 			      <img src="${pageContext.request.contextPath}/resources/files/server/bannerimg/banner2.png">
 			      <img src="${pageContext.request.contextPath}/resources/files/server/bannerimg/banner3.png">
 			      <img src="${pageContext.request.contextPath}/resources/files/server/bannerimg/banner4.png">
@@ -159,6 +160,7 @@
 	   
 	     
 	    
+	 </div>
 	 </div>
 	 
 	 
