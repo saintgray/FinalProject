@@ -40,20 +40,27 @@
 	<select id="selectRequestMemberByPostIdx"
  		resultType="com.alj.dream.request.domain.RequestMember">
  		
-		SELECT match_idx, post_idx, m_nm, m_photo, match_yn, m_idx
-		FROM dream.match mat join member mem
-		ON 
+		SELECT match_idx, post_idx, m_nm, m_photo, match_yn, mem.m_idx,
 		<if test='"mentor".equals(arg1)'>
-		mem.m_idx=mat.mentor_idx
+		  pr.line
+		</if>
+		FROM dream.match mat join member mem
+		
+		
+		
+		<if test='"mentor".equals(arg1)'>
+		 join profile pr
+		</if>
+		ON 
+		
+		<if test='"mentor".equals(arg1)'>
+		mem.m_idx=mat.mentor_idx AND pr.m_idx=mem.m_idx
 		</if>
 		<if test='"mentee".equals(arg1)'>
 		mem.m_idx=mat.mentee_idx
 		</if>
 		WHERE mat.post_idx=#{arg0}
 		AND mem.m_quitdate is null
-		
-		
-			
  	</select> 
  
  	
