@@ -73,7 +73,7 @@
 	
 	<!-- 요청글 작성자의 프로필 가져오기 -->
 	<select id="getWriterProfile" parameterType="int" resultType="com.alj.dream.profile.domain.ProfileRequest">
-	select m.m_nm, m.m_email, m.m_photo, prof.line, loc.loc_nm
+	select m.m_idx, m.m_nm, m.m_email, m.m_photo, prof.line, loc.loc_nm
 	from member m left join profile prof on m.m_idx=prof.m_idx
 				  left join loc on m.loc_idx=loc.loc_idx
 	where prof.profile_deldate is null
