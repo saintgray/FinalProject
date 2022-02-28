@@ -84,9 +84,8 @@ history.go(-1);
 		<c:if test="${writerProfile ne null}">
 			<table>
 				<tr>
-					<td rowspan="2"><img
-						src="${pageContext.request.contextPath}/resources/files/member/${writerProfile.m_photo}"
-						height="50"></td>
+					<td rowspan="2">
+					<a href="${pageContext.request.contextPath}/member/profile/main?m_idx=${writerProfile.m_idx}"><img src="${pageContext.request.contextPath}/resources/files/member/${writerProfile.m_photo}" height="50"></a></td>
 					<td>${writerProfile.m_nm}/ ${writerProfile.loc_nm}</td>
 				</tr>
 				<tr>
