@@ -6,9 +6,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title></title>
+<title>알려드림 : 내가 쓴 글</title>
 </head>
 <body>
+
+<div class="gw">
 
 	<%@ include file="/WEB-INF/views/defaultpageset.jsp"%>
 
@@ -18,10 +20,16 @@
 	<!-- Container -->
 	<div class="container" id="PostListArea">
 
-		타입 : ${logininfo.m_type} <br> 글 수 : ${listView.totalCount} <br>
-
-		<hr>
-
+		<div class="descript my-1 ms-0 me-1 text-start">
+		${logininfo.name} 
+		<c:if test="${logininfo.m_type eq 'mentor'}">
+	  		멘토 
+	  	</c:if>
+	  	<c:if test="${logininfo.m_type eq 'mentee'}">
+	  		멘티
+	  	</c:if>
+		님이 쓰신 글은 총 ${listView.totalCount} 건 입니다.
+		</div>
 		<div class="list-group">
 			<c:if test="${empty listView.list}">
 				등록된 요청글이 없습니다.
@@ -55,6 +63,8 @@
 		</nav>
 
 	</div>
+
+</div>
 
 <!-- Footer -->
 <%@ include file="/WEB-INF/views/layout/footer.jsp" %>

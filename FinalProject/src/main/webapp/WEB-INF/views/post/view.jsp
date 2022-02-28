@@ -14,7 +14,7 @@ history.go(-1);
 <html>
 <head>
 <meta charset="UTF-8">
-<title></title>
+<title>알려드림</title>
 <style>
 #attachedfiles img{
 	max-height:64px;
@@ -38,9 +38,15 @@ history.go(-1);
 	justify-content: center;
 	align-items: center;
 }
+#btnArea{
+	margin: 30px auto;
+	text-align: center;
+}
 </style>
 </head>
 <body>
+
+<div class="gw">
 
 <%@ include file="/WEB-INF/views/defaultpageset.jsp" %>
 <%@ include file="/WEB-INF/views/post/pageset/viewpageset.jsp"%>
@@ -73,12 +79,7 @@ history.go(-1);
 <!-- 제목 -->
 <div class="input-group mb-3">
   <span class="input-group-text">${viewRequest.cat_nm}</span>
-  <span class="form-control">${viewRequest.post_nm}</span>
-  
-  <c:if test="${viewRequest.m_idx eq idx}">
-  	<span class="form-control">문의 ${viewRequest.match_count} 건</span>
-  </c:if>
-  
+  <span class="form-control">${viewRequest.post_nm}</span>  
 </div>
 
 <!-- 프로필 영역 -->
@@ -89,9 +90,8 @@ history.go(-1);
 		<c:if test="${writerProfile ne null}">
 			<table>
 				<tr>
-					<td rowspan="2"><img
-						src="${pageContext.request.contextPath}/resources/files/member/${writerProfile.m_photo}"
-						height="50"></td>
+					<td rowspan="2">
+					<a href="${pageContext.request.contextPath}/member/profile/main?m_idx=${writerProfile.m_idx}"><img src="${pageContext.request.contextPath}/resources/files/member/${writerProfile.m_photo}" height="50"></a></td>
 					<td>${writerProfile.m_nm}/ ${writerProfile.loc_nm}</td>
 				</tr>
 				<tr>
@@ -114,7 +114,7 @@ ${viewRequest.post_content}
 
 <!-- 첨부파일 -->
 <div id="attachedfiles">
-	<c:if test="${viewRequest.fileList ne null}">
+	<c:if test="${not empty viewRequest.fileList}">
 	<ul class="list-group">
 	<c:forEach var="postFile" items="${viewRequest.fileList}">
 		<li class="list-group-item d-flex justify-content-between align-items-center"
@@ -123,7 +123,7 @@ ${viewRequest.post_content}
 		<c:if test="${postFile.file_exet ne 'pdf'}">
 		
 		<img src="${pageContext.request.contextPath}/post/display?fileName=${postFile.file_nm}.${postFile.file_exet}">
-		<span>${postFile.file_originnm}.${postFile.file_exet} (${postFile.file_size} kb)</span>
+		<span><i class="bi bi-image fs-4"></i> ${postFile.file_originnm}.${postFile.file_exet} (${postFile.file_size} kb)</span>
 		
 		</c:if>
 		
@@ -150,10 +150,19 @@ ${viewRequest.post_content}
 </c:if>
 
 <c:if test="${viewRequest.m_idx eq idx}">
-	매칭정보 : match테이블에서 가져온 정보 출력 <br>
-	${viewRequest.matchInfos}
+	<div class="descript my-1 ms-0 me-1 text-start">문의현황</div>
+	<div id="matchInfos">
 	
-	<div class="btn-group" role="group" class="col text-center">
+		<c:if test="${viewRequest.match_count eq 0}">
+		들어온 문의가 없습니다.
+		</c:if>
+		<c:if test="${viewRequest.match_count gt 0}">
+		들어온 문의는 총 ${viewRequest.match_count} 건입니다. 상세 내용은 받은제의를 확인하세요.
+		</c:if>
+	
+	</div>
+	
+	<div id="btnArea">
 		<button type="button" class="btn btn-outline-dark" onclick="location.href='${pageContext.request.contextPath}/post/edit?idx=${viewRequest.post_idx}'">수정</button>
 		<button type="button" class="btn btn-outline-dark" onclick="javascript:deletePost(${viewRequest.post_idx})">삭제</button>
 	</div>
@@ -163,6 +172,7 @@ ${viewRequest.post_content}
 
 </div>
 
+</div>
 
 <!-- Footer -->
 <%@ include file="/WEB-INF/views/layout/footer.jsp" %>

@@ -55,12 +55,16 @@ public class RegNoticeService {
 			
 			String file_nm=String.valueOf(System.nanoTime());
 			
-			File dir=new File(savePath);
+			//File dir=new File(savePath);
 			File newfile = new File(savePath, file_nm);
 			System.out.println(newfile.exists());
-			if(!dir.exists()) {
-				dir.mkdir();
+			if(!newfile.exists()) {
+				System.out.println("....");
+				
+				newfile.mkdirs();
 			}
+			System.out.println("exist()...");
+			System.out.println(newfile.exists());
 			System.out.println(newfile.getAbsolutePath());
 			file.transferTo(newfile);
 			

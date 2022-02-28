@@ -41,8 +41,8 @@
 
 	<select id="selectWriteRequestByPostIdx"
 			resultType="com.alj.dream.post.domain.PostWriteRequest">
-		select post_idx, post_nm, post_content, cat_idx, wanted, m_idx
-		from post
+		select post_idx, post_nm, post_content, p.cat_idx, c.cat_nm, wanted, m_idx
+		from post p join category c on p.cat_idx=c.cat_idx
 		where post_idx=#{idx}
 	</select>
 
@@ -68,8 +68,16 @@
 		<where>
 			post_deldate is null and (m.match_yn='N' or m.match_yn is null)
 			and p.m_idx!=#{m_idx} and wanted=#{wanted}
-			<if test="cat_idx>0">
+			<!-- <if test="cat_idx>0">
 				and cat_idx=#{cat_idx}
+			</if> -->
+
+			<if test="childrens != null">
+				AND cat_idx IN
+				<foreach collection="childrens" item="category" open="(" close=")" separator=",">
+					#{category.cat_idx}
+
+				</foreach>
 			</if>
 			<if test="loc_idx>0">
 				and loc_idx=#{loc_idx}
@@ -86,8 +94,16 @@
 					left join loc on member.loc_idx=loc.loc_idx
 		<where>
 			p.post_deldate is null and p.m_idx!=#{m_idx} and p.wanted=#{wanted}
-			<if test="cat_idx>0">
+			<!-- <if test="cat_idx>0">
 				and p.cat_idx=#{cat_idx}
+			</if> -->
+
+			<if test="childrens!=null">
+				AND c.cat_idx IN
+				<foreach collection="childrens" item="category" open="(" close=")" separator=",">
+					#{category.cat_idx}
+
+				</foreach>
 			</if>
 			<if test="loc_idx>0">
 				and member.loc_idx=#{loc_idx}

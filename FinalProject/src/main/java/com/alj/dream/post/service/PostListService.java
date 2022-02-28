@@ -9,6 +9,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.alj.dream.category.dao.CategoryDao;
+import com.alj.dream.category.domain.Category;
 import com.alj.dream.category.domain.CategoryRequested;
 import com.alj.dream.category.domain.ChildCategory;
 import com.alj.dream.interest.dao.InterestDao;
@@ -24,6 +26,7 @@ import com.alj.dream.post.domain.SearchParams;
 public class PostListService {
 
 	private PostDao dao;
+	private CategoryDao catDao;
 
 	@Autowired
 	private SqlSessionTemplate template;
@@ -58,6 +61,22 @@ public class PostListService {
 	public PostListView getSearchResult(SearchParams params) {
 		
 		dao = template.getMapper(PostDao.class);
+		catDao=template.getMapper(CategoryDao.class);
+		
+		
+		// catDao 로 부터 선택한 파라미터의 모든 하위 카테고리를 가져와서 cat_idx 리스트에 추가한다.
+
+		List<Category> allChildren =catDao.getAllChildrens(String.valueOf(params.getCat_idx()));
+
+
+
+		System.out.println(allChildren);
+		params.setChildrens(allChildren);
+
+		
+		
+		
+		
 		
 		int totalCount = dao.selectTotalCountBySearchParams(params);
 		int pageNum = params.getPageNum();

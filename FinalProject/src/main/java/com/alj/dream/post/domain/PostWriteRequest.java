@@ -10,17 +10,19 @@ public class PostWriteRequest {
 	private String post_nm;
 	private String post_content;
 	private int cat_idx;
+	private String cat_nm;
 	private String wanted;
 	private String m_idx;
 	private List<PostFileRequest> fileList;
 	
 	public PostWriteRequest() {}
 
-	public PostWriteRequest(int post_idx, String post_nm, String post_content, int cat_idx, String wanted, String m_idx) {
+	public PostWriteRequest(int post_idx, String post_nm, String post_content, int cat_idx, String cat_nm, String wanted, String m_idx) {
 		this.post_idx = post_idx;
 		this.post_nm = post_nm;
 		this.post_content = post_content;
 		this.cat_idx = cat_idx;
+		this.cat_nm = cat_nm;
 		this.wanted = wanted;
 		this.m_idx = m_idx;
 	}
@@ -68,6 +70,14 @@ public class PostWriteRequest {
 		this.cat_idx = cat_idx;
 	}
 
+	public String getCat_nm() {
+		return cat_nm;
+	}
+
+	public void setCat_nm(String cat_nm) {
+		this.cat_nm = cat_nm;
+	}
+
 	public String getWanted() {
 		return wanted;
 	}
@@ -95,7 +105,8 @@ public class PostWriteRequest {
 	@Override
 	public String toString() {
 		return "PostWriteRequest [post_idx=" + post_idx + ", post_nm=" + post_nm + ", post_content=" + post_content
-				+ ", cat_idx=" + cat_idx + ", wanted=" + wanted + ", m_idx=" + m_idx + ", fileList=" + fileList + "]";
+				+ ", cat_idx=" + cat_idx + ", cat_nm=" + cat_nm + ", wanted=" + wanted + ", m_idx=" + m_idx
+				+ ", fileList=" + fileList + "]";
 	}
 
 }
