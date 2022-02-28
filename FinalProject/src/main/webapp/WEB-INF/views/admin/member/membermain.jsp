@@ -179,17 +179,17 @@
 		</div>
 	</div>
 	<div class="d-none">
-	<div>
-		<form method="post" id="searchParameter">
-			<input type="text" name="searchType" value="${member.searchType}">
-			<input type="text" name="selectPage" value="${member.selectPage}">
-			<input type="text" name="numOfMemberPerPage" value="${member.numOfMemberPerPage}"> 
-			<input type="text" name="keyword" value="${member.keyword}"> 
-			<input type="text" name="sortType" value="${member.sortType}"> 
-			<input type="text" name="sortBy" value="${member.sortBy}">
-			<input type="text" name="blacklisted" value="${member.blacklisted}">
-		</form>
-	</div>
+		<div>
+			<form method="post" id="searchParameter">
+				<input type="text" name="searchType" value="${member.searchType}">
+				<input type="text" name="selectPage" value="${member.selectPage}">
+				<input type="text" name="numOfMemberPerPage" value="${member.numOfMemberPerPage}"> 
+				<input type="text" name="keyword" value="${member.keyword}"> 
+				<input type="text" name="sortType" value="${member.sortType}"> 
+				<input type="text" name="sortBy" value="${member.sortBy}">
+				<input type="text" name="blacklisted" value="${member.blacklisted}">
+			</form>
+		</div>
 	</div>
 	<%@ include file="/WEB-INF/views/layout/footer.jsp"%>
 </body>
