@@ -30,6 +30,7 @@
   		<!-- Header -->
     	<%@include file="/WEB-INF/views/layout/header.jsp" %>
 	  	
+	  	<div class="contatiner">
 		<div id="globalwrap" class="d-flex flex-column">
 		
 	  	
@@ -159,6 +160,7 @@
 	   
 	     
 	    
+	 </div>
 	 </div>
 	 
 	 
