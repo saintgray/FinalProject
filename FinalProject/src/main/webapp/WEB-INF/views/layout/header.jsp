@@ -14,7 +14,7 @@
 	      <li id="first" class="mr-auto p-2 d-flex flex-wrap">
 	        <img src="${pageContext.request.contextPath}/resources/files/server/icons/icon_sidemenu.svg" data-bs-toggle="offcanvas" data-bs-target="#sidemenu"
 	        aria-controls="sidemenu" class="sub"> 
-	        <a id="logo"><img src="${pageContext.request.contextPath}/resources/files/server/bannerimg/logo.png"></a>
+	        <a id="logo"><img src="${pageContext.request.contextPath}/resources/files/server/bannerimg/logo.svg"></a>
 	        
 	        <!--이 아이콘을 누르면 searchbar 로 focusing 되게 하세요-->
 	        <img src="${pageContext.request.contextPath}/resources/files/server/icons/img_searchicon.svg" class="sub" id="searchfocusbtn">
@@ -49,7 +49,11 @@
 		      				
 	      				</sec:authorize>
 	      				
-	      				<img src='${pageContext.request.contextPath}/resources/files/member/<sec:authentication property="principal.photo"/>' id="myPhoto" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expended="false">
+	      				<!-- s3 에 등록한 파일의 경우 경로는 다음에 따른다
+	      				'https://aljdreambucket.s3.ap-northeast-2.amazonaws.com/(내가 설정했던 uploadPath명)DB에 저장된 파일테이들의 file_nm 컬럼
+	      				 -->
+	      				<img src='https://aljdreambucket.s3.ap-northeast-2.amazonaws.com/member<sec:authentication property="principal.photo"/>' 
+	      					id="myPhoto" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expended="false">
 	      				
 	      				<ul class="dropdown-menu" aria-labelledby="myPhoto" id="menutab">
 							

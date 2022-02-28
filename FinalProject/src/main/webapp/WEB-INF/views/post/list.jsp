@@ -6,9 +6,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title></title>
+<title>알려드림 : 내가 쓴 글</title>
 </head>
 <body>
+
+<div class="gw">
 
 	<%@ include file="/WEB-INF/views/defaultpageset.jsp"%>
 
@@ -61,6 +63,8 @@
 		</nav>
 
 	</div>
+
+</div>
 
 <!-- Footer -->
 <%@ include file="/WEB-INF/views/layout/footer.jsp" %>

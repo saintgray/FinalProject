@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>알려드림 : 요청서 작성</title>
 <style>
 #uploadResult img{
 	max-height:64px;
@@ -14,9 +14,16 @@
 	width:auto;
 	order:1;
 }
+#btnArea{
+	margin: 30px auto;
+	text-align: center;
+}
 </style>
 </head>
 <body>
+
+<div class="gw">
+
 	<%@ include file="/WEB-INF/views/defaultpageset.jsp"%>
 	<%@ include file="/WEB-INF/views/post/pageset/writeformpageset.jsp"%>
 
@@ -90,7 +97,7 @@
 
 				<!-- 파일업로드 -->
 				<div>
-				<div class="descript my-1 ms-0 me-1">파일 첨부 | 이미지 파일과 PDF 파일만 등록할 수 있습니다.</div>
+				<div class="descript my-1 ms-0 me-1">파일 첨부 | 5mb 이하의 이미지 파일과 PDF 파일만 등록할 수 있습니다.</div>
 				<label>
 				파일 선택
 				<input type="file" name="attachFile" id="attachFile" multiple style="opacity:0;">
@@ -101,15 +108,19 @@
 					</div>
 				</div>
 				
-				<button type="reset">리셋</button>
-				<button type="button" id="submitBtn">작성</button>
-
+				<div id="btnArea">
+					<button type="reset" class="btn btn-outline-dark">리셋</button>
+					<button type="button" id="submitBtn" class="btn btn-outline-dark">작성</button>
+				</div>
+				
 			</form>
 
 		</div>
 
 	</div>
-	
+
+</div>
+
 <!-- Footer -->
 <%@ include file="/WEB-INF/views/layout/footer.jsp" %>	
 

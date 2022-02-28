@@ -2,6 +2,7 @@ package com.alj.dream.profile.domain;
 
 public class ProfileRequest {
 
+	private int m_idx;
 	private String m_nm;
 	private String m_email;
 	private String m_photo;
@@ -9,6 +10,14 @@ public class ProfileRequest {
 	private String loc_nm;
 	
 	public ProfileRequest() {}
+
+	public int getM_idx() {
+		return m_idx;
+	}
+
+	public void setM_idx(int m_idx) {
+		this.m_idx = m_idx;
+	}
 
 	public String getM_nm() {
 		return m_nm;
@@ -52,8 +61,8 @@ public class ProfileRequest {
 
 	@Override
 	public String toString() {
-		return "ProfileRequest [m_nm=" + m_nm + ", m_email=" + m_email + ", m_photo=" + m_photo + ", line=" + line
-				+ ", loc_nm=" + loc_nm + "]";
+		return "ProfileRequest [m_idx=" + m_idx + ", m_nm=" + m_nm + ", m_email=" + m_email + ", m_photo=" + m_photo
+				+ ", line=" + line + ", loc_nm=" + loc_nm + "]";
 	}
 	
 }
