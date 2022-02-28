@@ -68,10 +68,7 @@ public class PostListService {
 
 		List<Category> allChildren =catDao.getAllChildrens(String.valueOf(params.getCat_idx()));
 
-		System.out.println("allChildren >>> ");
-		System.out.println(allChildren);
-		System.out.println(allChildren.size());
-		
+
 
 		
 		params.setChildrens(allChildren);

@@ -7,7 +7,7 @@ public class SearchParams {
 
 	private int m_idx;
 	private String wanted;
-	private List<Integer> cat_idx;
+	private int cat_idx;
 	private int loc_idx;
 	private int index;
 	private int count;
@@ -19,7 +19,7 @@ public class SearchParams {
 	public SearchParams() {
 	}
 
-	public SearchParams(int m_idx, String wanted, List<Integer> cat_idx, int loc_idx) {
+	public SearchParams(int m_idx, String wanted, int cat_idx, int loc_idx) {
 		this.m_idx = m_idx;
 		this.wanted = wanted;
 		this.cat_idx = cat_idx;

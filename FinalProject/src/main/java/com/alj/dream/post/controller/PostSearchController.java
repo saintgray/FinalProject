@@ -26,7 +26,7 @@ public class PostSearchController {
 	// 검색
 	@GetMapping("/post/search")
 	public String searchResult(
-			@RequestParam(value = "cat", defaultValue = "0") List<Integer> cat_idx, 
+			@RequestParam(value = "cat", defaultValue = "0") int cat_idx, 
 			@RequestParam(value = "loc", defaultValue = "0") int loc_idx, 
 			@RequestParam(value = "p", defaultValue = "1") int pageNum,
 			Authentication authentication,
