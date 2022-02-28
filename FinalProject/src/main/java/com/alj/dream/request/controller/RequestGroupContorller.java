@@ -1,5 +1,7 @@
 package com.alj.dream.request.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.alj.dream.request.domain.RequestGroup;
 import com.alj.dream.request.service.RequestGroupService;
 
 @Controller
@@ -23,12 +26,18 @@ public class RequestGroupContorller {
 	@RequestMapping("/post/requestgroup")
 	public String getGroupPage(Model model,
 			Authentication auth) {
+		
+		
 		try {
-		model.addAttribute("requestGroup", service.getRequestGroup(auth));	// 그룹 리스트부분
+		List<RequestGroup> rg= service.getRequestGroup(auth);
+		model.addAttribute("requestGroup", rg);	
+		System.out.println("requestGroup : "+rg);
 		
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
+		
+		
 		return "post/requestgroup";
 	}
 		
