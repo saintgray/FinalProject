@@ -99,29 +99,7 @@
     	
   	          
   	          
-  	          $('#findbtn').on('click',function(){
-  	        	  
-  	        	$.ajax({
-					url:'${pageContext.request.contextPath}/category/idx',
-					type:'GET',
-					data:{name:'취미'},
-					success:function(data){
-						
-						var searchParams={
-								cat : data,
-								p : 1
-						};
-							
-						console.log(searchParams);
-						
-						const queryString = new URLSearchParams(searchParams).toString();
-							
-						location.href='${pageContext.request.contextPath}/post/search?'+ queryString;
-	
-					}
-					
-  	        	})	  
-  	        	 
+  	          $('#findbtn').on('click',function(){  	        	 
   	        	 location.href="${pageContext.request.contextPath}/post/search"
   	          })
   	          
