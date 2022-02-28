@@ -8,7 +8,7 @@
 	
 	            <!-- 1. 로고 2. 회사소개 3. 오시는 길 4. 고객센터-->
 	
-	            <img src="${pageContext.request.contextPath}/resources/files/server/bannerimg/logo.png" class="mx-4" id="logo">
+	            <img src="${pageContext.request.contextPath}/resources/files/server/bannerimg/logo.svg" class="mx-4" id="logo">
 	            <div class="f-info mx-4">
 	                
 	                <ul class="f-list">
