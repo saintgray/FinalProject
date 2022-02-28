@@ -70,7 +70,7 @@ public class PostListService {
 
 
 
-		
+		System.out.println(allChildren);
 		params.setChildrens(allChildren);
 
 		
