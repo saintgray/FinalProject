@@ -86,9 +86,10 @@
 								<tr style="background-color: rgb(210, 210, 210)">
 									<td colspan="3">
 										<div class="d-flex flex-row ps-5">
-											<i class="bi bi-arrow-return-right"></i> <span class="d-none">${item.replyInfo.reply_idx}</span>
-											<span class="mx-2"><strong>[답변]</strong> :
-												${item.qna_title}</span> <span class="mx-2">${item.replyInfo.reply_regdate}</span>
+											<i class="bi bi-arrow-return-right"></i> 
+											<span class="d-none">${item.replyInfo.reply_idx}</span>
+											<span class="mx-2 reply"><strong>[답변]</strong> : ${item.qna_title}</span> 
+											<span class="mx-2">${item.replyInfo.reply_regdate}</span>
 											<span class="mx-2">${item.replyInfo.admin_nm}</span>
 										</div>
 									</td>
@@ -155,6 +156,15 @@
 
 <script>
 	$(document).ready(function(){
+		
+		$('.reply').on('click',function(){
+			
+			var replyIdx=$(this).prev().text();
+			
+			location.href='${pageContext.request.contextPath}/reply/content?reply_idx='+replyIdx;
+			
+			
+		})
 		
 		$('#sm_qna').css('color','#FCA106');
 		

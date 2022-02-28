@@ -125,6 +125,38 @@
   	        	 location.href="${pageContext.request.contextPath}/post/search"
   	          })
   	          
+  	          
+  	          $('#catarea').on('click', '.cat-card', function(){
+  	        	  console.log($(this).children('span').text());
+  	        	  
+				  $.ajax({
+					url:'${pageContext.request.contextPath}/category/idx',
+					type:'GET',
+					data:{name:$(this).children('span').text()},
+					context:this,
+					success:function(data){
+						
+						var searchParams={
+								cat : data,
+								loc: 0,
+								p : 1
+						};
+							
+						console.log(searchParams);
+						
+						const queryString = new URLSearchParams(searchParams).toString();
+							
+						location.href='${pageContext.request.contextPath}/post/search?'+ queryString;
+	
+					} 
+					
+  	        	})
+  	        	 
+  	        	
+  	        	  	  
+  	          })
+  	          
+  	          
   	          $('#locsearcharea').on('click','.locName',function(){
   	        	  console.log($(this).prev().text());
   	        	  
@@ -216,7 +248,7 @@
   	          
   	          
   	         
-    })
+    });
     
 	  
 
