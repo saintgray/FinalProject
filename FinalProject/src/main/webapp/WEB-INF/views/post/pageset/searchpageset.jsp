@@ -3,7 +3,7 @@
 <script>
 		let cat_idx;
 		let cat_select;
-
+		
 		function resetCategory() {
 			$('#categoryInfos').html('');
 			cat_idx = 0;
@@ -194,6 +194,13 @@
 			selectCategory(30);
 			getLocations();
 			recommendList();
+			
+			$('#changeType').on("click", function(){
+				
+				// 멘토/멘티 전환하기
+				location.href="${pageContext.request.contextPath}/member/switchType";
+				
+			});
 			
 			$('#searchBtn').on("click", function(){
 				// 검색하기

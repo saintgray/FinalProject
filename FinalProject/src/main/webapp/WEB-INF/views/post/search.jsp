@@ -9,6 +9,9 @@
 <%@ include file="/WEB-INF/views/defaultpageset.jsp"%>
 <style>
 
+	#changeType{
+		cursor:pointer;
+	}
 	#searchBtn{
 		width:100px;
 		height: 75px;
@@ -42,6 +45,18 @@
 					<sec:authentication property="principal.m_type" />
 				</c:set>
 			</sec:authorize>
+	
+			<div class="d-flex justify-content-end">
+				<span id="changeType" class="pull-right">
+					<i class="bi bi-arrow-repeat mx-2"></i>
+					<c:if test="${type eq 'mentor'}">
+		      		멘티로 전환
+		      		</c:if>
+		      		<c:if test="${type eq 'mentee'}">
+		      		멘토로 전환
+		      		</c:if>
+				</span>
+			</div>
 	
 			<div class="row">
 				<!-- 분야 선택 -->
