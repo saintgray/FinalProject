@@ -56,7 +56,7 @@
 
 		<div id="searchResult" class="list-group">
 			<div class="descript mb-2">검색 결과</div>
-			<c:if test="${not empty listView}">
+			<c:if test="${not empty listView.list}">
 				<c:forEach items="${listView.list}" var="listInfo">
 
 					<a href="view?idx=${listInfo.post_idx}" class="list-group-item list-group-item-action">
@@ -71,7 +71,7 @@
 				</c:forEach>
 			</c:if>
 			
-			<c:if test="${empty listView}">
+			<c:if test="${empty listView.list}">
 				검색 결과가 없습니다.
 			</c:if>
 			
