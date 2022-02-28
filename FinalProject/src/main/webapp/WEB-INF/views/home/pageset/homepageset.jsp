@@ -56,15 +56,20 @@
   			})
   			
   			
+  			
+  			
   			$.ajax({
 				url:"${pageContext.request.contextPath}/loc/list",
 				type:"POST",
 				dataType:"json",
 				success:function(data){
+					
+					
+					
 					$(data).each(function(index, item){
 						var html='<div class="mx-3 my-2">\r\n';
-							html+='<span>'+item.loc_idx+'<span>\r\n';
-							html+='<a href="${pageContext.request.contextPath}/post/search?cat=0&loc='+item.loc_idx+'&p=1" class="loclink">'+item.loc_nm+'</a>\r\n';
+							html+='<span class="d-none">'+item.loc_idx+'</span>\r\n';
+							html+='<span class="locName btn btn-orange rounded-pill">'+item.loc_nm+'</span>\r\n';
 							html+='</div>\r\n';
 						
 						
@@ -112,18 +117,49 @@
 						const queryString = new URLSearchParams(searchParams).toString();
 							
 						location.href='${pageContext.request.contextPath}/post/search?'+ queryString;
-						
-						
-						
-						
+	
 					}
 					
-  	        	})
-					
-  	        	  
+  	        	})	  
   	        	 
   	        	 location.href="${pageContext.request.contextPath}/post/search"
   	          })
+  	          
+  	          $('#locsearcharea').on('click','.locName',function(){
+  	        	  console.log($(this).prev().text());
+  	        	  
+  	        	$.ajax({
+					url:'${pageContext.request.contextPath}/category/idx',
+					type:'GET',
+					data:{name:'취미'},
+					context:this,
+					success:function(data){
+						
+						var searchParams={
+								cat : data,
+								loc: $(this).prev().text(),
+								p : 1
+						};
+							
+						console.log(searchParams);
+						
+						const queryString = new URLSearchParams(searchParams).toString();
+							
+						location.href='${pageContext.request.contextPath}/post/search?'+ queryString;
+	
+					}
+					
+  	        	})	  
+  	        	 
+  	        	
+  	        	  	  
+  	          })
+  	          
+  	          
+  	          
+  	          
+  	          
+  	          
   	          
   	          <sec:authorize access="isAuthenticated()">
 	  	          $('#writepostbtn').on('click',function(){
