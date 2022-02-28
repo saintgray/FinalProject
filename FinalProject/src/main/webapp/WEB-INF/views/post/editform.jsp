@@ -89,8 +89,7 @@
 <textarea name="post_content" id="content">${editRequest.post_content}</textarea>
 
 <!-- 카테고리 -->
-선택된 분야 번호 : ${editRequest.cat_idx}
-<input type="hidden" name="cat_idx" value="${editRequest.cat_idx}">
+선택된 분야 : ${editRequest.cat_nm}
 
 <!-- 파일업로드 -->
 <div>
