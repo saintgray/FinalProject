@@ -81,7 +81,7 @@
 			<c:if test="${listView.totalPageCount > 0}">
 				<ul class="pagination justify-content-center">
 					<c:forEach begin="1" end="${listView.totalPageCount}" var="pnum">
-						<li class="page-item"><a class="page-link" href="searchTest?cat=${cat}&loc=${loc}&p=${pnum}">${pnum}</a></li>
+						<li class="page-item"><a class="page-link" href="search?cat=${cat}&loc=${loc}&p=${pnum}">${pnum}</a></li>
 					</c:forEach>
 				</ul>
 			</c:if>
