@@ -68,8 +68,14 @@
 		<where>
 			post_deldate is null and (m.match_yn='N' or m.match_yn is null)
 			and p.m_idx!=#{m_idx} and wanted=#{wanted}
-			<if test="cat_idx>0">
+			<!-- <if test="cat_idx>0">
 				and cat_idx=#{cat_idx}
+			</if> -->
+			<if test="cat_idx != null">
+				AND cat_idx IN
+				<foreach collection="cat_idx" item="idx" open="(" close=")" separator=",">
+					#{idx}
+				</foreach>
 			</if>
 			<if test="loc_idx>0">
 				and loc_idx=#{loc_idx}
@@ -86,8 +92,14 @@
 					left join loc on member.loc_idx=loc.loc_idx
 		<where>
 			p.post_deldate is null and p.m_idx!=#{m_idx} and p.wanted=#{wanted}
-			<if test="cat_idx>0">
+			<!-- <if test="cat_idx>0">
 				and p.cat_idx=#{cat_idx}
+			</if> -->
+			<if test="cat_idx!=null">
+				AND c.cat_idx IN
+				<foreach collection="cat_idx" item="idx" open="(" close=")" separator=",">
+					#{idx}
+				</foreach>
 			</if>
 			<if test="loc_idx>0">
 				and member.loc_idx=#{loc_idx}
