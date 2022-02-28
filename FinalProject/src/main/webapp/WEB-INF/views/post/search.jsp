@@ -104,54 +104,67 @@
 		}
 
 		function selectCategory(dom) {
-
+			
+			
+			
 			var interest = $(dom).children('option:selected').val();
-
-			$.ajax({
-				url : '${pageContext.request.contextPath}/category/list',
-				type : 'GET',
-				data : {interest : interest},
-				datatype : 'json',
-				success : function(data) {
-
-					// remove all next Siblings		
-					$(dom).parent().nextAll().remove();
-
-					if (data.length == 0) {
-
-						// 현재 선택한 interest 값을 cat_idx 에 저장한다.
-						cat_idx = interest;
-						console.log(cat_idx);
-						cat_select=true;
-
-					} else {
-
-						var html = "";
-							html += '<div class="selectarea mx-1">\r\n';
-							html += '<select onchange="selectCategory(this)">\r\n';
-							html += '<option value="">선택</option>\r\n';
-
-						$(data).each(function(index, items) {
-							console.log(items.cat_idx);
-							console.log(items.cat_nm);
-
-							html += '<option value="'+items.cat_idx+'">'+items.cat_nm+'</option>';
-
-						})
-						html += '</select>\r\n';
-						html += '</div>'
-
-						$('#categoryInfos').append(html);
-						console.log(html);
-						cat_idx = interest;
-
-						}
-
-					},
-				error : function(data) {
-					console.log(data);
-				}
-			});
+			
+			if(interest!=0){
+				
+			
+			
+			
+			
+				$.ajax({
+					url : '${pageContext.request.contextPath}/category/list',
+					type : 'GET',
+					data : {interest : interest},
+					datatype : 'json',
+					success : function(data) {
+	
+						// remove all next Siblings		
+						$(dom).parent().nextAll().remove();
+	
+						if (data.length == 0) {
+	
+							// 현재 선택한 interest 값을 cat_idx 에 저장한다.
+							cat_idx = interest;
+							console.log(cat_idx);
+							cat_select=true;
+	
+						} else {
+	
+							var html = "";
+								html += '<div class="selectarea mx-1">\r\n';
+								html += '<select onchange="selectCategory(this)">\r\n';
+								html += '<option value="0">선택</option>\r\n';
+	
+							$(data).each(function(index, items) {
+								console.log(items.cat_idx);
+								console.log(items.cat_nm);
+	
+								html += '<option value="'+items.cat_idx+'">'+items.cat_nm+'</option>';
+	
+							})
+							html += '</select>\r\n';
+							html += '</div>'
+	
+							$('#categoryInfos').append(html);
+							console.log(html);
+							cat_idx = interest;
+	
+							}
+	
+						},
+					error : function(data) {
+						console.log(data);
+					}
+				})
+			
+			}else{
+				$(dom).parent().nextAll().remove();
+				
+			}
 
 		}
 
@@ -238,6 +251,37 @@
 				}
 			});
 		}
+			
+			
+			
+			
+		function goSearch(){
+			
+			var loc_idx=0;
+			
+			console.log($('#locarea .inp_loc:checked').val());
+				
+			if($('#locarea .inp_loc:checked').val()>0){
+				loc_idx=$('#locarea .inp_loc:checked').val();
+			}
+				
+			console.log('cat_idx:', cat_idx);
+			console.log('loc_idx:', loc_idx);
+			
+			var searchParams={
+					cat : cat_idx,
+					loc : loc_idx,
+					p : 1
+			};
+				
+			console.log(searchParams);
+			
+			 const queryString = new URLSearchParams(searchParams).toString();
+				
+			 location.href=location.pathname + '?' + queryString;
+			
+			
+		}
 		
 		$(document).ready(function() {
 			selectCategory(30);
@@ -253,37 +297,42 @@
 				// 아예 분야를 선택하지 않거나 / 분야를 끝까지 선택하거나
 				// 분야 선택을 시작했지만 끝까지 가지 않았을 때
 				// cat_idx 가 undefined 가 아니고 cat_select 가 true 가 아닐 때
-				if(cat_idx!==undefined && cat_select!=true){
+				
+				
+				/* if(cat_idx!==undefined && cat_select!=true){
 					alert('분야를 끝까지 선택하거나 초기화하세요.');
 					return false;
-				}
+				} */
 				
 				if(cat_idx===undefined){
-					cat_idx=0;
+					
+					$.ajax({
+						url:'${pageContext.request.contextPath}/category/idx',
+						type:'GET',
+						data:{name:'취미'},
+						success:function(data){
+							console.log('취미 idx>>>'+data);
+							cat_idx=data;
+							
+							
+							goSearch();
+							
+							
+						},
+						error:function(data){
+							console.log('통신오류');
+							console.log(data);
+						}
+					})
+							
+				}else{
+					
+					goSearch();
+					
+					
 				}
 					
-				var loc_idx=0;
-					
-				console.log($('#locarea .inp_loc:checked').val());
-					
-				if($('#locarea .inp_loc:checked').val()>0){
-					loc_idx=$('#locarea .inp_loc:checked').val();
-				}
-					
-				console.log('cat_idx:', cat_idx);
-				console.log('loc_idx:', loc_idx);
 				
-				var searchParams={
-						cat : cat_idx,
-						loc : loc_idx,
-						p : 1
-				};
-					
-				console.log(searchParams);
-				
-				const queryString = new URLSearchParams(searchParams).toString();
-					
-				location.href=location.pathname + '?' + queryString;
 			});
 		});
 
