@@ -1,6 +1,7 @@
 package com.alj.dream.post.domain;
 
 import java.util.List;
+import com.alj.dream.category.domain.Category;
 
 public class SearchParams {
 
@@ -11,6 +12,9 @@ public class SearchParams {
 	private int index;
 	private int count;
 	private int pageNum;
+	
+	private List<Category> childrens;
+
 
 	public SearchParams() {
 	}
@@ -23,12 +27,7 @@ public class SearchParams {
 		
 	}
 
-//	public SearchParams(int m_idx, String wanted, int cat_idx, int loc_idx) {
-//		this.m_idx = m_idx;
-//		this.wanted = wanted;
-//		this.cat_idx = cat_idx;
-//		this.loc_idx = loc_idx;
-//	}
+
 
 	public int getM_idx() {
 		return m_idx;
@@ -46,27 +45,34 @@ public class SearchParams {
 		this.wanted = wanted;
 	}
 
-//	public int getCat_idx() {
-//		return cat_idx;
-//	}
-//
-//	public void setCat_idx(int cat_idx) {
-//		this.cat_idx = cat_idx;
-//	}
+
+	public int getCat_idx() {
+		return cat_idx;
+	}
+
+	public void setCat_idx(int cat_idx) {
+		this.cat_idx = cat_idx;
+	}
 	
 	
 
 	public int getLoc_idx() {
 		return loc_idx;
 	}
+	
+	
+	
 
-	public List<Integer> getCat_idx() {
-		return cat_idx;
+	
+
+	public List<Category> getChildrens() {
+		return childrens;
 	}
 
-	public void setCat_idx(List<Integer> cat_idx) {
-		this.cat_idx = cat_idx;
+	public void setChildrens(List<Category> childrens) {
+		this.childrens = childrens;
 	}
+
 
 	public void setLoc_idx(int loc_idx) {
 		this.loc_idx = loc_idx;
