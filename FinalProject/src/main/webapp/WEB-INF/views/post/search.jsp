@@ -25,7 +25,7 @@
 	}
 
 </style>
-<title>검색</title>
+<title>알려드림 : 검색</title>
 </head>
 <body>
 

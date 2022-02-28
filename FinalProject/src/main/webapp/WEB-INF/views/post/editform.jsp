@@ -25,7 +25,7 @@
 	<html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>알려드림 : 요청서 수정</title>
 <style>
 #uploadResult img {
 	max-height: 64px;
@@ -36,9 +36,16 @@
 .hide{
 	display:none;
 }
+#btnArea{
+	margin: 30px auto;
+	text-align: center;
+}
 </style>
 </head>
 <body>
+
+<div class="gw">
+
 <%@ include file="/WEB-INF/views/defaultpageset.jsp"%>
 <%@ include file="/WEB-INF/views/post/pageset/editformpageset.jsp"%>
 
@@ -99,14 +106,15 @@
 <!-- 업로드한 결과 -->
 	<div id="uploadResult">
 		<!-- 기등록 파일 리스트 - update_status : I (Include) -->
-		<c:if test="${editRequest.fileList ne null}">
+		<c:if test="${not empty editRequest.fileList}">
 			<ul class="list-group">
 				<c:forEach var="postFile" items="${editRequest.fileList}">
 					<li class="list-group-item d-flex justify-content-between align-items-center"
 							data-file_nm="${postFile.file_nm}" data-exet="${postFile.file_exet}">
 					<c:if test="${postFile.file_exet ne 'pdf'}">
 						<img src="${pageContext.request.contextPath}/post/display?fileName=${postFile.file_nm}.${postFile.file_exet}">
-						<span>${postFile.file_originnm}.${postFile.file_exet} (${postFile.file_size} kb)
+						<span><i class="bi bi-image fs-4"></i>
+						    ${postFile.file_originnm}.${postFile.file_exet} (${postFile.file_size} kb)
 							<button type="button" data-file_nm="${postFile.file_nm}"
 												  data-originnm="${postFile.file_originnm}"
 												  data-exet="${postFile.file_exet}"
@@ -134,10 +142,14 @@
 
 </div>
 
-<button type="reset">리셋</button>
-<button type="button" id="submitBtn">작성</button>
+<div id="btnArea">
+	<button type="reset" class="btn btn-outline-dark">리셋</button>
+	<button type="button" id="submitBtn" class="btn btn-outline-dark">작성</button>
+</div>
 
 </form>
+
+</div>
 
 </div>
 

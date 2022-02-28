@@ -14,7 +14,7 @@ history.go(-1);
 <html>
 <head>
 <meta charset="UTF-8">
-<title></title>
+<title>알려드림</title>
 <style>
 #attachedfiles img{
 	max-height:64px;
@@ -38,9 +38,15 @@ history.go(-1);
 	justify-content: center;
 	align-items: center;
 }
+#btnArea{
+	margin: 30px auto;
+	text-align: center;
+}
 </style>
 </head>
 <body>
+
+<div class="gw">
 
 <%@ include file="/WEB-INF/views/defaultpageset.jsp" %>
 <%@ include file="/WEB-INF/views/post/pageset/viewpageset.jsp"%>
@@ -108,7 +114,7 @@ ${viewRequest.post_content}
 
 <!-- 첨부파일 -->
 <div id="attachedfiles">
-	<c:if test="${viewRequest.fileList ne null}">
+	<c:if test="${not empty viewRequest.fileList}">
 	<ul class="list-group">
 	<c:forEach var="postFile" items="${viewRequest.fileList}">
 		<li class="list-group-item d-flex justify-content-between align-items-center"
@@ -117,7 +123,7 @@ ${viewRequest.post_content}
 		<c:if test="${postFile.file_exet ne 'pdf'}">
 		
 		<img src="${pageContext.request.contextPath}/post/display?fileName=${postFile.file_nm}.${postFile.file_exet}">
-		<span>${postFile.file_originnm}.${postFile.file_exet} (${postFile.file_size} kb)</span>
+		<span><i class="bi bi-image fs-4"></i> ${postFile.file_originnm}.${postFile.file_exet} (${postFile.file_size} kb)</span>
 		
 		</c:if>
 		
@@ -156,7 +162,7 @@ ${viewRequest.post_content}
 	
 	</div>
 	
-	<div class="btn-group" role="group" class="col text-center">
+	<div id="btnArea">
 		<button type="button" class="btn btn-outline-dark" onclick="location.href='${pageContext.request.contextPath}/post/edit?idx=${viewRequest.post_idx}'">수정</button>
 		<button type="button" class="btn btn-outline-dark" onclick="javascript:deletePost(${viewRequest.post_idx})">삭제</button>
 	</div>
@@ -166,6 +172,7 @@ ${viewRequest.post_content}
 
 </div>
 
+</div>
 
 <!-- Footer -->
 <%@ include file="/WEB-INF/views/layout/footer.jsp" %>
