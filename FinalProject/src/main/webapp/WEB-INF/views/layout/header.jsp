@@ -49,7 +49,11 @@
 		      				
 	      				</sec:authorize>
 	      				
-	      				<img src='${pageContext.request.contextPath}/resources/files/member/<sec:authentication property="principal.photo"/>' id="myPhoto" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expended="false">
+	      				<!-- s3 에 등록한 파일의 경우 경로는 다음에 따른다
+	      				'https://aljdreambucket.s3.ap-northeast-2.amazonaws.com/(내가 설정했던 uploadPath명)DB에 저장된 파일테이들의 file_nm 컬럼
+	      				 -->
+	      				<img src='https://aljdreambucket.s3.ap-northeast-2.amazonaws.com/member<sec:authentication property="principal.photo"/>' 
+	      					id="myPhoto" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expended="false">
 	      				
 	      				<ul class="dropdown-menu" aria-labelledby="myPhoto" id="menutab">
 							

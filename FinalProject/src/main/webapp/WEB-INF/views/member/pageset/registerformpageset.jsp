@@ -313,11 +313,13 @@
 						if(data=='NOTAUTHED'){
 							alert('이메일 인증이 필요합니다');
 							$('html').animate({scrollTop:$('input[name=m_email_prefix]').offset().top -50},50)
-						}else{
+						}else if(data=='REGISTERED'){
 							console.log("회원가입성공!");
 							alert('회원가입이 완료되었습니다!');
 							location.href='${pageContext.request.contextPath}/'	
-						}			
+						}else{
+							alert(data);		
+						}
 					},
 					error:function(data){
 						console.log("회원가입실패!");
