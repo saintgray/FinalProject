@@ -10,6 +10,7 @@
 <style>
 	#wrap{
 		margin-top:150px;
+		padding-bottom:10px;
 	}
 	
 	
@@ -17,19 +18,15 @@
 	#contentarea{
 		
 		border-radius: 15px;
-		background-color: #E1DEE6;
+		background-color: #E1DEE660;
 		min-height: 400px;
 		
 		padding: 20px 10px;
 	
 	}
 	
-	#contentarea::before{
-		content:'';
-		display: block;
-		outline: 1px solid #E1DEE6;
-		
-	}
+	
+	
 </style>
 <title>답변</title>
 </head>
@@ -42,11 +39,11 @@
 	
 		<div>
 			<h3><strong>[답변] : </strong>${content.qna_title}</h3>
-			<div class="text-end fs-6 fw-light">답변일 : ${content.reply_regdate} -  ${content.admin_nm}</div>
+			<div class="text-end fs-6 fw-light">답변일 : ${content.reply_regdate} -  ${content.admin_nm}</div><hr>
 		</div>
 		
 		
-		<div id="contentarea">
+		<div id="contentarea" class="shadow">
 		
 		
 		

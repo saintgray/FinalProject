@@ -91,7 +91,6 @@ public class S3Util {
 		
 	}
 
-
 	
 	public boolean deletePostFile(String bucketName, String filePath) {
 		// delete
@@ -108,6 +107,7 @@ public class S3Util {
 	        if (s3e.getStatusCode() == 404) {
 	            // i.e. 404: NoSuchKey - The specified key does not exist
 	                isDeleted = true;
+
 	        }	
 		}
 
@@ -115,7 +115,5 @@ public class S3Util {
 
 		return isDeleted;
 	}
-
-
 	
 }
