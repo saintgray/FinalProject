@@ -31,6 +31,12 @@
 	
 	</update>
 	
+	
+	<insert id="insertAdmin" parameterType="com.alj.dream.admin.domain.Admin">
+		INSERT into dream.admin(admin_email,admin_nm,admin_password)
+		VALUES
+		(#{admin_email},#{admin_nm},#{admin_password})
+	</insert>
  	
  	
 	

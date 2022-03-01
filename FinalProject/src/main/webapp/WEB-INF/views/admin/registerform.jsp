@@ -112,7 +112,36 @@ $(document).ready(function(){
 		}else{
 			
 			if(confirm('등록하시겠습니까?')){
-				console.log('등록완료');
+
+				insertdata={
+						m_email_prefix: $('#prefix').val(),
+						m_email_suffix: $('#suffix').val(),
+						admin_password:$('#pw').val()
+				}
+				
+				$.ajax({
+					url:'${pageContext.request.contextPath}/superadmin/admin/register',
+					type:'POST',
+					data:insertdata,
+					success:function(data){
+						if(data==1){
+							alert('등록완료');
+							location.href="${pageContext.request.contextPath}/superadmin/admin/register";
+						}else{
+							
+							alert('오류가 발생했습니다 잠시 후 다시 시도하세요');
+						}
+					},
+					error:function(data){
+						console.log(data);
+						alert('오류가 발생했습니다 잠시 후 다시 시도하세요');
+					}
+					
+					
+				})
+				
+				
+				
 			}
 			
 		}

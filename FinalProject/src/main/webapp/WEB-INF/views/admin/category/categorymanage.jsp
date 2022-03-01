@@ -32,6 +32,17 @@
 	    
 	    
 	}
+	
+	
+	@media(min-width:576px){
+	
+		#modal-dialog-category{
+			max-width: 620px;  
+		    margin: 1.75rem auto;
+	    }
+	    
+	    
+	}
 	#overviewBody{
 		padding:0;
 	}
