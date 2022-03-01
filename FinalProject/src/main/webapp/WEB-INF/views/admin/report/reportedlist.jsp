@@ -62,7 +62,7 @@
 					<div class="reportele d-flex flex-row">
 						<span class="d-none mat-idx">${item.match_idx}</span>
 						<span class="d-none m_report">${item.m_report}</span>
-						<img src="${pageContext.request.contextPath}/resources/files/member/${item.m_photo}" class="mx-2"/>
+						<img src="https://aljdreambucket.s3.ap-northeast-2.amazonaws.com/member${item.m_photo}" class="mx-2"/>
 						<div class="text-center">
 							<p class="my-2">${item.m_email}</p>
 							<span class="">${item.report_content}</span>

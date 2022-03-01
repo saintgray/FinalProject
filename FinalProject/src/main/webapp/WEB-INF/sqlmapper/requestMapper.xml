@@ -40,9 +40,9 @@
 	<select id="selectRequestMemberByPostIdx"
  		resultType="com.alj.dream.request.domain.RequestMember">
  		
-		SELECT match_idx, post_idx, m_nm, m_photo, match_yn, mem.m_idx,
+		SELECT match_idx, post_idx, m_nm, m_photo, match_yn, mem.m_idx
 		<if test='"mentor".equals(arg1)'>
-		  pr.line
+		  ,pr.line
 		</if>
 		FROM dream.match mat join member mem
 		

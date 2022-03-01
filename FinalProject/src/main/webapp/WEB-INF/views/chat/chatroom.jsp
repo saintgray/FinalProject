@@ -41,7 +41,7 @@
 		<div class="chatRoom-header">
 		
 			<div class="recieverName">
-				<img src="${pageContext.request.contextPath}/resources/files/member/${recieverInfo.m_photo}" class="profile_photo">
+				<img src="https://aljdreambucket.s3.ap-northeast-2.amazonaws.com/member${recieverInfo.m_photo}" class="profile_photo">
 					<!-- 상대방 프로필로 이동하기 -->
 					<c:if test="${mytype=='mentee'}">
 						<button type="button" class="btn btn-success" id="profileBtn"><a href="${pageContext.request.contextPath}/member/profile/main?m_idx=${reciever}" style="color: white">${recieverInfo.m_nm}님의 프로필 보기</a></button>
@@ -130,7 +130,7 @@
 					<!-- 상대방 메세지 창 -->
 					<c:if test="${presender!=myidx}">
 						<div class='well text_left'>
-							<span id="recieverphoto"><img src="${pageContext.request.contextPath}/resources/files/member/${recieverInfo.m_photo}" class="m_photo"></span>
+							<span id="recieverphoto"><img src="https://aljdreambucket.s3.ap-northeast-2.amazonaws.com/member${recieverInfo.m_photo}" class="m_photo"></span>
 							<span id="recievermsg" class="rounded-pill">${premessage}</span>
 							<span>${c.sent}</span>
 						</div>
@@ -244,7 +244,7 @@
 		         	<div style=" margin-bottom : 5px;">실거래를 진행한 경우에만 리뷰를 작성해주세요. 허위 또는 악의적 리뷰는 이용에 제한이 있을 수 있습니다.</div>
 		         	<br>
 		         	<div>
-		         		<span><img src="${pageContext.request.contextPath}/resources/files/member/${recieverInfo.m_photo}" class="m_photo2"></span>
+		         		<span><img src="https://aljdreambucket.s3.ap-northeast-2.amazonaws.com/member${recieverInfo.m_photo}" class="m_photo2"></span>
 		         		<span style="font-size: 1.5rem; padding-left: 8px">${recieverInfo.m_nm} 님</span>
 		         	</div>
 		         	<div>

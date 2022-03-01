@@ -56,11 +56,11 @@ location.href='${pageContext.request.contextPath}/post/requestgroup';
 								<td rowspan="3">
 									<c:if test="${mytype eq 'mentee'}">
 										<a href="${pageContext.request.contextPath}/member/profile/main?m_idx=${member.m_idx}">
-											<img src="${pageContext.request.contextPath}/resources/files/member/${member.m_photo}" class="m_photo" id="goMentorProfile">
+											<img src="https://aljdreambucket.s3.ap-northeast-2.amazonaws.com/member${member.m_photo}" class="m_photo" id="goMentorProfile">
 										</a>
 									</c:if>
 									<c:if test="${mytype eq 'mentor'}">
-										<img src="${pageContext.request.contextPath}/resources/files/member/${member.m_photo}" class="m_photo">
+										<img src="https://aljdreambucket.s3.ap-northeast-2.amazonaws.com/member${member.m_photo}" class="m_photo">
 									</c:if>
 								</td>		
 								<td>
