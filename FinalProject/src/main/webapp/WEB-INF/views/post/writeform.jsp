@@ -50,7 +50,7 @@
 					<table>
 						<tr>
 							<td rowspan="2"><img
-								src="${pageContext.request.contextPath}/resources/files/member/${writerProfile.m_photo}"
+								src="https://aljdreambucket.s3.ap-northeast-2.amazonaws.com/member${writerProfile.m_photo}"
 								height="50"></td>
 							<td>${writerProfile.m_nm}/ ${writerProfile.loc_nm}</td>
 						</tr>

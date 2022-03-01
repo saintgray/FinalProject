@@ -77,7 +77,7 @@
 			
 			<!-- 프로필 사진, 별점, 매칭수, 리뷰수 -->
 			<div id="maininfo" class="d-flex flex-wrap my-5 justify-content-center">
-				<img src="${pageContext.request.contextPath}/resources/files/member/${profile.m_photo}" id="myphoto" class="mx-5">
+				<img src="https://aljdreambucket.s3.ap-northeast-2.amazonaws.com/member${profile.m_photo}" id="myphoto" class="mx-5">
 				<div class="d-flex flex-wrap flex-column">
 					<div class="d-flex flex-wrap mb-2 justify-content-center">
 						<div class="bg_template">
@@ -216,7 +216,7 @@
 							
 							<i class="bi bi-file-earmark"></i>
 							<span class="fileName d-none">${file.file_nm}</span>
-							<a class="mx-2 fw-light" href="${pageContext.request.contextPath}/resources/files/member/profile_attachfiles/${file.file_nm}" download="${file.file_originnm}">${file.file_originnm}</a>
+							<a class="mx-2 fw-light" href="https://aljdreambucket.s3.ap-northeast-2.amazonaws.com/profile/attachfiles${file.file_nm}" download="${file.file_originnm}">${file.file_originnm}</a>
 							<c:if test="${profile.m_idx eq m_idx}">
 								<img src="${pageContext.request.contextPath}/resources/files/server/icons/icon_x.png" class="delRow me-3">
 							</c:if>

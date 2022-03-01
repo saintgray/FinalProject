@@ -111,7 +111,7 @@
 			
 								<tr class="py-2">
 									<td><img class="mx-2 m_img"
-										src="${pageContext.request.contextPath}/resources/files/member/${item.m_photo}"></td>
+										src="https://aljdreambucket.s3.ap-northeast-2.amazonaws.com/member${item.m_photo}"></td>
 									<td><span class="mx-2">${item.m_idx}</span></td>
 									<td><a class="mx-2 justify-content-center"
 										href="${pageContext.request.contextPath}/admin/member/info?m_idx=${item.m_idx}">${item.m_email}</a></td>

@@ -50,7 +50,7 @@
 						</td>
 					</tr>
 					<tr>
-						<td rowspan="2" style="width: 140px;"><img src="${pageContext.request.contextPath}/resources/files/member/${list.memberInfo.m_photo}" class="m_photo">
+						<td rowspan="2" style="width: 140px;"><img src="https://aljdreambucket.s3.ap-northeast-2.amazonaws.com/member${list.memberInfo.m_photo}" class="m_photo">
 						<td class="recievernm">${list.memberInfo.m_nm}</td>
 					</tr>
 					<tr>

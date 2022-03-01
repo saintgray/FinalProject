@@ -69,7 +69,7 @@
 									  <div class="card-body">
 										  <div class="photo-list">
 										  	<c:forEach items="${rgroup.list}" var="member" begin="0" end="3">
-										  			<span><img src="${pageContext.request.contextPath}/resources/files/member/${member.m_photo}" class="m_photo"></span>
+										  			<span><img src="https://aljdreambucket.s3.ap-northeast-2.amazonaws.com/member${member.m_photo}" class="m_photo"></span>
 										  	</c:forEach>
 										  	<c:if test="${rgroup.overfive eq 'Y'}">
 													<img src="${pageContext.request.contextPath}/resources/files/member/threedots.png" class="m_photo">

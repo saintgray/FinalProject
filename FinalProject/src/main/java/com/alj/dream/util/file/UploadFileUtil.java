@@ -77,7 +77,7 @@ public class UploadFileUtil {
 	}
 	
 	
-	public static String uploadPostFile(String uploadPath, String file_originnm, String file_exet, byte[] fileData, String contentType) {
+	public static String uploadPostFile(String uploadPath, String file_originnm, String file_exet, byte[] fileData) {
 		
 		System.out.println("UploadFileUtil : uploadPostFile");
 		S3Util s3 = new S3Util();
@@ -86,11 +86,7 @@ public class UploadFileUtil {
 		
 		String uploadedPath = uploadPath.replace(File.separatorChar,'/');
 		
-		try {			
-			s3.fileUpload(bucketName, uploadedPath+"/"+file_nm+"."+file_exet, fileData, contentType);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		s3.fileUpload(bucketName, uploadedPath+"/"+file_nm+"."+file_exet, fileData);
 		
 		return file_nm;
 	}

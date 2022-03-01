@@ -119,7 +119,6 @@
 	</select>
 	
 	<select id="selectRecommendedList"
-			parameterType="com.alj.dream.post.domain.SearchParams"
 			resultType="com.alj.dream.post.domain.PostListInfo">
 		select p.post_idx, p.post_nm, p.m_idx, c.cat_idx, c.cat_nm, member.loc_idx, loc.loc_nm, (select count(*) from dream.match m JOIN post p2 on p2.post_idx= m.post_idx and p2.post_idx=p.post_idx) as match_count
 		from post p left join category c on p.cat_idx=c.cat_idx
@@ -130,11 +129,11 @@
 			<!-- <if test="cat_idx>0">
 				and p.cat_idx=#{cat_idx}
 			</if> -->
-			<if test="arg3!=null">
-			
+
+			<if test='arg2!=null'>			
 				AND p.cat_idx IN
-				<foreach collection="arg2" item="code" open="(" separator="," close=")">
-					#{code}
+				<foreach collection="arg2" item="interest" open="(" separator="," close=")">
+					#{interest.cat_idx}
 				</foreach>
 			
 			</if>

@@ -58,31 +58,9 @@ public class ProfileService {
 			
 			// 2. 해당 유저의 고유번호를 가진 profile idx를 외래키로 하는 file_profile 의 데이터를 모두 가져온다.
 			prof.setFiles(sst.getMapper(ProfileFilesDao.class).getFiles(prof.getProfile_idx()));
-			
+			System.out.println(prof.getFiles());
 			 
-			// 개발 도중 기타 사유로 서버를 비우고(Clean) 테스트 할시 해당 경로에 파일이 없다면 리스트에서 제외한다.
-			////////////////////////////////////////////////////////////////////////
-			List<FileInfo> list=prof.getFiles();
-			//System.out.println("list>>>   "+list);
-			//System.out.println("listsize>>   "+String.valueOf(list.size()));
 			
-			for(int i=0; i<list.size(); i++) {
-				
-				File file= new File(req.getSession().getServletContext().getRealPath("/resources/files/member/profile_attachfiles"), list.get(i).getFile_nm());
-				//System.out.printf("%d 인덱스의 파일 경로입니다.>>>  %s", i, file.getPath());
-				if(!file.exists()) {
-					//System.out.println("\n파일이 없습니다");
-					list.remove(i);
-					i=-1;
-				}else {
-					//System.out.println("파일이 있습니다");
-				}
-				
-				//System.out.println(list);
-					
-			}
-			////////////////////////////////////////////////////////////////////////////////////
-			////////////////////////////////////////////////////////////////////////////////////
 			
 			
 			

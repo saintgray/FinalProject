@@ -191,7 +191,7 @@ $(document).ready(function(){
 				$('#chatBox').append(printHTML);
 			} else {
 				var printHTML = "<div class='well text_left'>";
-				printHTML += "<span id='recieverphoto'><img src='${pageContext.request.contextPath}/resources/files/member/${recieverInfo.m_photo}'class='m_photo'></span>";
+				printHTML += "<span id='recieverphoto'><img src='https://aljdreambucket.s3.ap-northeast-2.amazonaws.com/member${recieverInfo.m_photo}' class='m_photo' /></span>";
 				printHTML += "<span id='recievermsg' class='rounded-pill'>" + msgData.message +"</span>";
 				printHTML += "<span>"+msgData.sent+"</span>";
 				printHTML += "</div>";
