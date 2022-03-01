@@ -2,6 +2,7 @@ package com.alj.dream.util.s3;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.IOException;
 
 import com.amazonaws.ClientConfiguration;
 import com.amazonaws.Protocol;
@@ -11,9 +12,9 @@ import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
+import com.amazonaws.services.s3.model.AmazonS3Exception;
 import com.amazonaws.services.s3.model.Bucket;
 import com.amazonaws.services.s3.model.ObjectMetadata;
-// AWS S3
 
 // Free Secure Cloud Storage 로서 데이터를 버킷 내의 객체로 저장하는 객체 스토리지 서비스이다.
 // 객체는 해당 파일을 설명하는 모든 메타데이터이다.
@@ -73,7 +74,45 @@ public class S3Util {
 		conn.putObject(bucketName, filePath, baStream, metaData);
 		System.out.println("파일을 올렸습니다.");
 	}
+
+	// contentType 설정을 위해 contentType을 파라미터로 받는 메소드
+	public void fileUpload(String bucketName, String fileName, byte[] fileData, String contentType) throws IOException {
+		String filePath = fileName.replace(File.separatorChar, '/');
+		
+		ObjectMetadata metaData=new ObjectMetadata();
+		
+		metaData.setContentLength(fileData.length);
+		metaData.setContentType(contentType);
+		
+		ByteArrayInputStream baStream = new ByteArrayInputStream(fileData);
+				
+		System.out.println("S3 에 파일을 올립니다.");
+		conn.putObject(bucketName, filePath, baStream, metaData);
+		System.out.println("파일을 올렸습니다.");
+	}
 	
-	
+	public boolean delete(String bucketName, String filePath) {
+		// delete
+		conn.deleteObject(bucketName, filePath);
+		
+		// 삭제되었는지 확인
+		boolean isDeleted = false;
+		
+		try {
+			
+			ObjectMetadata objectMetadata = conn.getObjectMetadata(bucketName, filePath);
+		
+		} catch (AmazonS3Exception s3e) {
+	        if (s3e.getStatusCode() == 404) {
+	            // i.e. 404: NoSuchKey - The specified key does not exist
+	                isDeleted = true;
+	        }
+		}
+
+		System.out.println("util: deleteObject()");
+		
+		return isDeleted;
+	}
+
 	
 }
