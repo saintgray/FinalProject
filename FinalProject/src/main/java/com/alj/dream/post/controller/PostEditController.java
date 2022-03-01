@@ -52,7 +52,7 @@ public class PostEditController {
 		
 		Map<String, Integer> result = new HashMap<String, Integer>();
 		
-		String saveDir = request.getSession().getServletContext().getRealPath("/resources/files/post/attachfiles");
+		String saveDir = "post/attachfiles/";
 		
 		// 글 수정
 		result.put("cnt", service.editPost(wRequest, saveDir));

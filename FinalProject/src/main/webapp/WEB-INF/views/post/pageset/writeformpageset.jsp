@@ -190,7 +190,7 @@ $(document).ready(function(){
 					if(items.file_exet=='pdf'){
 						html += '<span><i class="bi bi-filetype-pdf fs-4"></i>';
 					} else {
-						html += '<img src="${pageContext.request.contextPath}/post/display?fileName='+fileName+'">\r\n<span>';
+						html += '<img src="https://aljdreambucket.s3.ap-northeast-2.amazonaws.com/post/attachfiles/'+fileName+'">\r\n<span>';
 					}
 					
 					// 파일 이름과 크기
@@ -280,7 +280,7 @@ $(document).ready(function(){
 			html+='<input type="hidden" name="fileList['+index+'].file_originnm" value="'+file_originnm+'">\r\n';
 		});
 		
-		$('#uploadResult').append(html);
+		$('#uploadList').append(html);
 		
 		var formObj = new FormData(document.getElementById('writePost'));
 		
@@ -294,6 +294,9 @@ $(document).ready(function(){
 		
 		if(!cat_idx>0){
 			alert('분야를 반드시 선택하셔야 합니다.');
+			
+			$('#uploadList').empty();
+			
 			return;
 		}
 		

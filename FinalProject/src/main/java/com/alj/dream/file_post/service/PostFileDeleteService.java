@@ -1,6 +1,5 @@
 package com.alj.dream.file_post.service;
 
-import java.io.File;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -9,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.alj.dream.file_post.dao.PostFilesDao;
 import com.alj.dream.file_post.domain.PostFileRequest;
+import com.alj.dream.util.file.UploadFileUtil;
 
 @Service
 public class PostFileDeleteService {
@@ -47,17 +47,11 @@ public class PostFileDeleteService {
 	}
 
 	// 파일 삭제
-	public int deletePostFile(String saveDir, String filename) {
+	public void deletePostFile(String saveDir, String filename) {
 		
-		// 업로드한 파일 삭제를 위한 파일객체
-		File file;
-
-		file = new File(saveDir, filename);
-		file.delete();
+		UploadFileUtil.delete(saveDir, filename);
 		
-		System.out.println("파일 삭제");
-		
-		return 1;
+		System.out.println("deleteService : 파일 삭제");
 
 	}
 	
@@ -75,8 +69,11 @@ public class PostFileDeleteService {
 		for(int i=0; i<fileList.size(); i++) {
 			PostFileRequest attachFile = fileList.get(i);
 			String fileName = attachFile.getFile_nm()+"."+attachFile.getFile_exet();
-			File file = new File(saveDir, fileName);
-			file.delete();
+			
+			deletePostFile(saveDir, fileName);
+			
+//			File file = new File(saveDir, fileName);
+//			file.delete();
 			System.out.println(fileName + " 삭제");
 		}
 		
