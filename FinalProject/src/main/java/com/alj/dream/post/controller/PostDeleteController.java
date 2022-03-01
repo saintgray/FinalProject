@@ -38,7 +38,7 @@ public class PostDeleteController {
 			
 			// 게시물 첨부파일 삭제 메소드
 			// 파일 저장 경로
-			String saveDir = request.getSession().getServletContext().getRealPath("/resources/files/post/attachfiles");
+			String saveDir = "post/attachfiles/";
 			List<PostFileRequest> fileList = fileService.selectAllFilesByPostIdx(post_idx);
 			
 			// deldate 추가

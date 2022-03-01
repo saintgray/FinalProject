@@ -127,7 +127,7 @@ $(document).ready(function(){
 					if(items.file_exet=='pdf'){
 						html += '<span><i class="bi bi-filetype-pdf fs-4"></i>';
 					} else {
-						html += '<img src="${pageContext.request.contextPath}/post/display?fileName='+fileName+'">\r\n<span>';
+						html += '<img src="https://aljdreambucket.s3.ap-northeast-2.amazonaws.com/post/attachfiles/'+fileName+'">\r\n<span>';
 					}
 					
 					// 파일 이름과 크기

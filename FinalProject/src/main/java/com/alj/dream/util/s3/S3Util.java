@@ -2,6 +2,7 @@ package com.alj.dream.util.s3;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.IOException;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 
@@ -13,9 +14,11 @@ import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
-import com.amazonaws.services.s3.event.S3EventNotification.S3Entity;
+import com.amazonaws.services.s3.model.AmazonS3Exception;
 import com.amazonaws.services.s3.model.Bucket;
 import com.amazonaws.services.s3.model.ObjectMetadata;
+import com.amazonaws.services.s3.event.S3EventNotification.S3Entity;
+
 // AWS S3
 import com.amazonaws.services.s3.model.S3ObjectInputStream;
 
@@ -106,7 +109,45 @@ public class S3Util {
 		return null;
 		
 	}
+
+	// contentType 설정을 위해 contentType을 파라미터로 받는 메소드
+	public void fileUpload(String bucketName, String fileName, byte[] fileData, String contentType) throws IOException {
+		String filePath = fileName.replace(File.separatorChar, '/');
+		
+		ObjectMetadata metaData=new ObjectMetadata();
+		
+		metaData.setContentLength(fileData.length);
+		metaData.setContentType(contentType);
+		
+		ByteArrayInputStream baStream = new ByteArrayInputStream(fileData);
+				
+		System.out.println("S3 에 파일을 올립니다.");
+		conn.putObject(bucketName, filePath, baStream, metaData);
+		System.out.println("파일을 올렸습니다.");
+	}
 	
-	
+	public boolean delete(String bucketName, String filePath) {
+		// delete
+		conn.deleteObject(bucketName, filePath);
+		
+		// 삭제되었는지 확인
+		boolean isDeleted = false;
+		
+		try {
+			
+			ObjectMetadata objectMetadata = conn.getObjectMetadata(bucketName, filePath);
+		
+		} catch (AmazonS3Exception s3e) {
+	        if (s3e.getStatusCode() == 404) {
+	            // i.e. 404: NoSuchKey - The specified key does not exist
+	                isDeleted = true;
+	        }
+		}
+
+		System.out.println("util: deleteObject()");
+		
+		return isDeleted;
+	}
+
 	
 }

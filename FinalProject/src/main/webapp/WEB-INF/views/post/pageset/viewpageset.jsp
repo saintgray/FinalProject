@@ -30,7 +30,7 @@ function deletePost(idx){
 function showImage(fileName){
 	console.log(fileName);
 	$('#imageWrapper').css("display", "flex").show();
-	$('#bigImage').html('<img src="${pageContext.request.contextPath}/post/display?fileName='+fileName+'" class="img-thumbnail">');
+	$('#bigImage').html('<img src="https://aljdreambucket.s3.ap-northeast-2.amazonaws.com/post/attachfiles/'+fileName+'" class="img-thumbnail">');
 }
 
 $(document).ready(function(){
@@ -206,13 +206,9 @@ $(document).ready(function(){
 		var fileName = file_nm+"."+exet;
 		var path = "${pageContext.request.contextPath}/resources/files/post/attachfiles/"+fileName;
 		
-		// pdf 파일의 경우 다운로드
- 		if(exet == "pdf"){
+ 		if(exet != "pdf"){
  		
- 			self.location="${pageContext.request.contextPath}/post/download?fileName="+fileName;
-
- 		} else {
- 		// 이미지의 경우 원본 출력
+ 		// 이미지의 경우 원본 크기 출력
  			showImage(fileName);
 		}
 
