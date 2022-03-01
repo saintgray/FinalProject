@@ -43,6 +43,7 @@
 
 #globalwrap {
 	margin-top: 150px;
+	margin-bottom: 50px;
 }
 
 .reply{
@@ -151,6 +152,17 @@
 
 
 					</div>
+					
+					
+					<!-- 회원일 경우 문의글 등록 가능 -->
+					
+					<sec:authorize access="hasRole('GENERAL')"> 
+					
+						<div class="my-4 d-flex justify-content-center">
+							<button type="button"  class="btn btn-general" id="qnaRegBtn">문의글 등록</button>
+						</div>
+					
+					</sec:authorize>
 
 				</div>
 
@@ -199,6 +211,14 @@
 				location.href='${pageContext.request.contextPath}/qna/list?selectPage='+selectPage+'&numOfQnaPerPage=5';	
 			}
 			
+			
+		})
+		
+		
+		
+		$('#qnaRegBtn').on('click',function(){
+			
+			location.href='${pageContext.request.contextPath}/member/qna/register';
 			
 		})
 		

@@ -31,7 +31,10 @@
 			</div>
 	<div class="container article">
 
-		<h1 align="center">제목: ${content.qna_title}</h1>
+
+		<h1 align="center">
+			<c:out value="${content.qna_title}" escapeXml="true"></c:out>	
+		</h1>
 		<hr>
 		<h6 align="right">작성자: ${content.m_nm} 이메일: ${content.m_email}</h6>
 		<h6 align="right">작성일: ${content.qna_regdate}</h6>

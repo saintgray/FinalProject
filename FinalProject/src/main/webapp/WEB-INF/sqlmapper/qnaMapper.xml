@@ -5,6 +5,13 @@
  
  <mapper namespace="com.alj.dream.qna.dao.QnaDao">
  
+ 
+ 	<insert id="insertQna" parameterType="com.alj.dream.qna.domain.QnaRegisterData">
+ 		INSERT into dream.qna(m_idx, qna_title, qna_content) 
+ 		VALUES(#{m_idx},#{qna_title},#{qna_content})
+ 	</insert>
+ 
+ 
  	<select id="getTotalNumOfQna" resultType="Integer">
  		SELECT count(*)
  		FROM qna q1
