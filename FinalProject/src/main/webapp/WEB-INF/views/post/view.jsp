@@ -91,7 +91,8 @@ history.go(-1);
 			<table>
 				<tr>
 					<td rowspan="2">
-					<a href="${pageContext.request.contextPath}/member/profile/main?m_idx=${writerProfile.m_idx}"><img src="${pageContext.request.contextPath}/resources/files/member/${writerProfile.m_photo}" height="50"></a></td>
+					<a href="${pageContext.request.contextPath}/member/profile/main?m_idx=${writerProfile.m_idx}">
+					<img src="https://aljdreambucket.s3.ap-northeast-2.amazonaws.com/member${writerProfile.m_photo}" height="50"></a></td>
 					<td>${writerProfile.m_nm}/ ${writerProfile.loc_nm}</td>
 				</tr>
 				<tr>

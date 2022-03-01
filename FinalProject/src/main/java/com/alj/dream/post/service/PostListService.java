@@ -120,13 +120,14 @@ public class PostListService {
 		List<Location> userLoc=template.getMapper(LocDao.class).getLocations(String.valueOf(m_idx));
 		int locCode=userLoc==null?0:Integer.parseInt(userLoc.get(0).getLoc_idx());
 		
-		
 		List<ChildCategory> userInterest= null;
 		userInterest=template.getMapper(InterestDao.class).getUserInterest(String.valueOf(m_idx));
 		if(userInterest.isEmpty()) {
 			userInterest=null;
 		}
 		
+		System.out.println("userInterest>>" );
+		System.out.println(userInterest);
 		// System.out.println("result>>");
 		// System.out.println(map);
 		
