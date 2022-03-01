@@ -108,7 +108,22 @@ public class S3Util {
 		conn.putObject(bucketName, filePath, baStream, metaData);
 		System.out.println("파일을 올렸습니다.");
 	}
-	
+
+	// contentType 설정을 위해 contentType을 파라미터로 받는 메소드
+	public void fileUpload(String bucketName, String fileName, byte[] fileData, String contentType) throws IOException {
+		String filePath = fileName.replace(File.separatorChar, '/');
+		
+		ObjectMetadata metaData=new ObjectMetadata();
+		
+		metaData.setContentLength(fileData.length);
+		metaData.setContentType(contentType);
+		
+		ByteArrayInputStream baStream = new ByteArrayInputStream(fileData);
+				
+		System.out.println("S3 에 파일을 올립니다.");
+		conn.putObject(bucketName, filePath, baStream, metaData);
+		System.out.println("파일을 올렸습니다.");
+	}
 
 
 	
@@ -127,6 +142,7 @@ public class S3Util {
 	        if (s3e.getStatusCode() == 404) {
 	            // i.e. 404: NoSuchKey - The specified key does not exist
 	                isDeleted = true;
+
 	        }	
 		}
 
@@ -134,7 +150,5 @@ public class S3Util {
 
 		return isDeleted;
 	}
-
-
 	
 }
