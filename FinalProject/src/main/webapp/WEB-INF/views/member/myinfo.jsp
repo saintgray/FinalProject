@@ -51,7 +51,7 @@
 					
 					<div id="profileshotarea">
 						
-						<img class="mx-3" src="${pageContext.request.contextPath}/resources/files/member/${info.m_photo}" id="myprofile">
+						<img class="mx-3" src="https://aljdreambucket.s3.ap-northeast-2.amazonaws.com/member${info.m_photo}" id="myprofile">
 						<!-- 수정 카메라 이미지가 위치/ 위치는 absolute  <img....>-->
 						<label for="editphoto">
 							<i id="cameraicon" class="fi fi-rr-camera"></i>
