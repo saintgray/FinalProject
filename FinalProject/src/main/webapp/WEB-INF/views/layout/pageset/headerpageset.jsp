@@ -39,11 +39,11 @@
         	location.href="${pageContext.request.contextPath}/myinfo"
         })
         
-        $('#chat').on('click',function(){
+        $('#chat, #oc-chat').on('click',function(){
         	location.href="${pageContext.request.contextPath}/chat/chatlist";
         	
         })
-        $('#request').on('click',function(){
+        $('#request, #oc-request').on('click',function(){
         	location.href="${pageContext.request.contextPath}/post/requestgroup";
         	
         })

@@ -80,7 +80,7 @@
 	</div>
 </div>
 
-<h1></h1>
+
 
 <%@include file="/WEB-INF/views/layout/footer.jsp" %>
 <%@include file="/WEB-INF/views/member/pageset/loginformpageset.jsp" %>

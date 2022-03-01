@@ -9,51 +9,7 @@
 <head>
 <meta charset="UTF-8">
 <%@include file="/WEB-INF/views/defaultpageset.jsp"%>
-<style>
-@media ( max-width : 750px) {
-	.subinfo {
-		display: none;
-	}
-}
-
-#listTable {
-	border-collapse: separate;
-	border-spacing: 0 30px;
-	text-align: center;
-	min-width: 600px;
-}
-
-.indexes {
-	outline: 1px solid rgb(123, 123, 123);
-	background: rgb(197, 197, 197);
-}
-
-.pageswip {
-	font-size: 30px;
-	cursor: pointer;
-}
-
-.pageNum {
-	line-height: 36px;
-}
-
-.pageNum:hover {
-	text-decoration: none;
-}
-
-#globalwrap {
-	margin-top: 150px;
-	margin-bottom: 50px;
-}
-
-.reply{
-	
-	cursor: pointer;
-}
-.reply:hover {
-	text-decoration: underline;
-}
-</style>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/qna/qnalist.css">
 <title>QNA</title>
 </head>
 <body>
@@ -176,56 +132,5 @@
 	<%@ include file="/WEB-INF/views/layout/footer.jsp"%>
 </body>
 
-<script>
-	$(document).ready(function(){
-		
-		$('.reply').on('click',function(){
-			
-			var replyIdx=$(this).prev().text();
-			
-			location.href='${pageContext.request.contextPath}/reply/content?reply_idx='+replyIdx;
-			
-			
-		})
-		
-		$('#sm_qna').css('color','#FCA106');
-		
-		
-		$('#prev').on('click',function(){
-			
-			if(${pageView.curPageIndex}>0){
-				let selectPage=${pageView.numOfPagePerPage*(pageView.curPageIndex-1)+1};
-				
-				location.href='${pageContext.request.contextPath}/qna/list?selectPage='+selectPage+'&numOfQnaPerPage=5';	
-			}
-				
-		})
-		
-		
-		$('#next').on('click',function(){
-			
-			//console.log(Math.floor(${pageView.totalPage/10}));
-			//console.log(${pageView.curPageIndex});
-			if(Math.floor(${pageView.totalPage/10}) > ${pageView.curPageIndex}){
-				let selectPage=${pageView.numOfPagePerPage*(pageView.curPageIndex+1)+1};
-				location.href='${pageContext.request.contextPath}/qna/list?selectPage='+selectPage+'&numOfQnaPerPage=5';	
-			}
-			
-			
-		})
-		
-		
-		
-		$('#qnaRegBtn').on('click',function(){
-			
-			location.href='${pageContext.request.contextPath}/member/qna/register';
-			
-		})
-		
-		
-	})
-
-
-
-</script>
+<%@include file="/WEB-INF/views/qna/pageset/qnalistpageset.jsp" %>
 </html>

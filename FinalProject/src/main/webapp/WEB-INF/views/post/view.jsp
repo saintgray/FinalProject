@@ -3,60 +3,26 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <c:if test="${viewRequest eq null}">
-<script>
-alert('해당 게시물이 존재하지 않습니다.');
-history.go(-1);
-</script>
+	<script>
+		alert('해당 게시물이 존재하지 않습니다.');
+		history.go(-1);
+	</script>
 </c:if>
 <c:if test="${viewRequest ne null}">
 
 <!DOCTYPE html>
 <html>
 <head>
+<%@ include file="/WEB-INF/views/defaultpageset.jsp" %>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/post/view.css">
 <meta charset="UTF-8">
 <title>알려드림</title>
-<style>
-#attachedfiles img{
-	max-height:64px;
-	max-width: 100px;
-	width:auto;
-	order:1;
-}
-#imageWrapper{
-	position: absolute;
-	display: none;
-	justify-content: center;
-	align-items: center;
-	top: 0%;
-	width: 100%;
-	height: 100%;
-	z-index: 100;
-}
-#bigImage{
-	position: relative;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-}
-#btnArea{
-	margin: 30px auto;
-	text-align: center;
-}
-#matchBtn{
-	width:100px;
-}
-#PostViewArea{
-    margin-top: 150px;
-    margin-bottom: 50px;
-}
-}
-</style>
 </head>
 <body>
 
 <div class="gw">
 
-<%@ include file="/WEB-INF/views/defaultpageset.jsp" %>
+
 <%@ include file="/WEB-INF/views/post/pageset/viewpageset.jsp"%>
 
 <!-- Header -->

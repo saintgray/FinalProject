@@ -94,9 +94,10 @@
 			  	 </div>
 		  	 </div>
 		  	 
-		  	 
+		  	
 		  	 <h1 class="banner mt-5">
-		  	 	
+		  	 	 
+	  	 	
 		  	 	당신의 
 		  	 	<sec:authorize access="isAnonymous()">
 	  	 		 	멘티
@@ -107,8 +108,14 @@
 	  	 		 <c:if test="${type eq 'mentee'}">
 	  	 		  멘토
 	  	 		 </c:if>
+	  	 		 <sec:authorize access="hasAnyRole('ADMIN','SUPERADMIN')">
+	  	 		 	멘티
+	  	 		 </sec:authorize>
 		  	 	를 지금 찾아보세요!
+			  	 	
+		  	 	
 		  	 </h1>
+		  	
 		  	 <div class="d-flex flex-row flex-nowrap justify-content-between mb-5" id="catarea">
 		  	 
 		  	 	<div class="d-flex flex-column cat-card mx-auto shadow">
@@ -134,17 +141,22 @@
 		  	 
 		  	
 	  	 	<h1 class="banner mt-5">
-	  	 		전국의 
-	  	 		 <sec:authorize access="isAnonymous()">
-	  	 		 	멘티
-	  	 		 </sec:authorize>
-	  	 		 <c:if test="${type eq 'mentor'}">
-	  	 		  멘티  
-	  	 		 </c:if>
-	  	 		 <c:if test="${type eq 'mentee'}">
-	  	 		  멘토
-	  	 		 </c:if>
-	  	 		 를 지금 만나보세요!
+	  	 		
+		  	 		전국의 
+		  	 		 <sec:authorize access="isAnonymous()">
+		  	 		 	멘티
+		  	 		 </sec:authorize>
+		  	 		 <c:if test="${type eq 'mentor'}">
+		  	 		  멘티  
+		  	 		 </c:if>
+		  	 		 <c:if test="${type eq 'mentee'}">
+		  	 		  멘토
+		  	 		 </c:if>
+		  	 		 <sec:authorize access="hasAnyRole('ADMIN','SUPERADMIN')">
+		  	 		 	멘티
+		  	 		 </sec:authorize>
+		  	 		 를 지금 만나보세요!
+	  	 		
 	  	 	</h1>
 	  	
 		  	<div id="locsearcharea" class="container d-flex p-2 flex-wrap mb-5 justify-content-center">

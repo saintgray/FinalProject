@@ -10,8 +10,25 @@ sock.onopen = onOpen;
 sock.onmessage = onMessage;
 sock.onclose = onClose;
 sock.onerror = onError;
+
+
+
+
+
 $(document).ready(function(){
+	// 종현 추가
+	// 채팅창의 스크롤을 맨 하단으로 내려 최신 메시지를 바로 볼 수 있도록 한다.
+	// 이 스크립트는 내가 이전 메시지를 확인하다가 메시지를 전송했을 때도 스크롤을 자동으로 내릴 수 있도록 추가해준다.
+	$('#chatBox').animate({scrollTop:$('#chatBox')[0].scrollHeight},500);
 	
+	// 종현 추가
+	// 채팅 입력후 엔터키 누르면 자동으로 전송되도록 한다.
+	$('#message').on('keydown',function(e){
+		
+		if(e.keyCode==13){
+			$('#sendBtn').trigger('click');
+		}
+	})
 	
 	var myname=$('#myname').text();
 	console.log(myname);
@@ -189,6 +206,11 @@ $(document).ready(function(){
 				printHTML += "</div>";
 	
 				$('#chatBox').append(printHTML);
+				
+				// 종현 추가
+				// 스크롤 위치 자동으로 내리기
+				$('#chatBox').animate({scrollTop:$('#chatBox')[0].scrollHeight},500);
+				
 			} else {
 				var printHTML = "<div class='well text_left'>";
 				printHTML += "<span id='recieverphoto'><img src='https://aljdreambucket.s3.ap-northeast-2.amazonaws.com/member${recieverInfo.m_photo}' class='m_photo' /></span>";

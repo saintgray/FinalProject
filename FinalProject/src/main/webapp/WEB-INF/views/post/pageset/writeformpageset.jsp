@@ -43,7 +43,7 @@ function selectCategory(dom){
 			
 				var html="";
 				html+='<div class="selectarea mx-1">\r\n';
-				html += '<select onchange="selectCategory(this)">\r\n';
+				html += '<select class="form-select" onchange="selectCategory(this)">\r\n';
 				html += '<option value="">선택</option>\r\n';
 				
 				$(data).each(function(index, items){

@@ -6,26 +6,17 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<%@ include file="/WEB-INF/views/defaultpageset.jsp"%>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/writeform.css">
 <title>알려드림 : 요청서 작성</title>
-<style>
-#uploadResult img{
-	max-height:64px;
-	max-width: 100px;
-	width:auto;
-	order:1;
-}
-#btnArea{
-	margin: 30px auto;
-	text-align: center;
-}
-</style>
+
 </head>
 <body>
 
 <div class="gw">
 
-	<%@ include file="/WEB-INF/views/defaultpageset.jsp"%>
-	<%@ include file="/WEB-INF/views/post/pageset/writeformpageset.jsp"%>
+
+	
 
 	<!-- Header -->
 	<%@ include file="/WEB-INF/views/layout/header.jsp"%>
@@ -128,5 +119,6 @@
 <%@ include file="/WEB-INF/views/layout/footer.jsp" %>	
 
 </body>
+<%@ include file="/WEB-INF/views/post/pageset/writeformpageset.jsp"%>
 
 </html>

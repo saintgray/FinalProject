@@ -34,7 +34,7 @@ $(document).ready(function(){
 							editInfo(formData);
 							/////////////
 						}else{
-								$('#myprofile').attr('src','${pageContext.request.contextPath}/resources/files/member/${info.m_photo}');
+								$('#myprofile').attr('src','https://aljdreambucket.s3.ap-northeast-2.amazonaws.com/member${info.m_photo}');
 								$('#editprofile').val('');
 						}
 					},200);
@@ -130,6 +130,8 @@ $(document).ready(function(){
 				$(this).parent().prev().addClass('u_txt_chk');
 				$(this).parent().next().removeClass('u_txt_chk');
 			}
+			
+			$('html').scrollTop(0);
 		})
 	
 		

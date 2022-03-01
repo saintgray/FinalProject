@@ -44,7 +44,7 @@
 			
 			
 			<!--  회원 정보 란 -->
-			<div class="my-auto" id="infos">
+			<div id="infos">
 				
 				
 				<div class="d-flex flex-row justify-content-center container">

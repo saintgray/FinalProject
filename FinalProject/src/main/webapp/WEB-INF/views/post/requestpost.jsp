@@ -36,7 +36,7 @@ location.href='${pageContext.request.contextPath}/post/requestgroup';
 	<!-- Header -->
 	<%@ include file="/WEB-INF/views/layout/header.jsp" %>
 	
-	<article >
+	<article>
 			<div class="post" id="rqpost">
 				<button type="button" class="btn btn-light" id="goPostBtn">
 					<a href="${pageContext.request.contextPath}/post/view?idx=${requestPost.post_idx}">작성 게시글 </a>
@@ -90,7 +90,7 @@ location.href='${pageContext.request.contextPath}/post/requestgroup';
 
 </div>
 
-  <%@include file="/WEB-INF/views/layout/footer.jsp" %>
+ <%@include file="/WEB-INF/views/layout/footer.jsp" %>
 	
 
 </body>

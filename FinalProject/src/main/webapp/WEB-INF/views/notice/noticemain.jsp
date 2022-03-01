@@ -10,42 +10,8 @@
 <head>
 <meta charset="UTF-8">
 <%@ include file="/WEB-INF/views/defaultpageset.jsp"%>
-<style>
-#listTable {
-	border-collapse: separate;
-	border-spacing: 0 30px;
-	text-align: center;
-}
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/notice/noticemain.css">
 
-@media ( max-width : 750px) {
-	.subinfo {
-		display: none;
-	}
-}
-
-#globalwrap {
-	
-	margin-top:150px;
-	
-}
-
-.indexes {
-	outline: 1px solid rgb(150, 150, 150);
-	background-color: rgb(197, 197, 197);
-}
-
-#noticesearch {
-	width: 500px;
-}
-
-.pageNum{
-	line-height: 36px;
-	
-}
-#searchBtn{
-	cursor: pointer;
-}
-</style>
 <title>공지사항</title>
 </head>
 <body>
@@ -152,54 +118,9 @@
 
 </sec:authorize>
 
+</body>
+
 
 <%@ include file="/WEB-INF/views/notice/noticepageset/noticemainpageset.jsp" %>
-
-
-</body>
-<script>
-	$(function(){
-		/* $('#searchbararea').val($('#searchParameter input[name=keyword]').val());
-		
-		$('#sortbyregdate').on('click','i',function() {
-			$('#searchParameter input[name=selectPage]').val(1);
-			$('#searchParameter input[name=sortType]').val('notice_regdate');
-			
-			if($(this).attr('id')=='sortbyasc'){
-				$('#searchParameter input[name=sortBy]').val('asc');
-			}else{
-				$('#searchParameter input[name=sortBy]').val('desc');
-			}
-			$('#searchParameter').submit();
-		})
-		
-		$('searchBtn').on('click',function(){
-			$('#searchParameter input[name=keyword]').val($('#searchbararea').val());
-			$('#searchParameter input[name=selectPage]').val(1);
-			$('#searchParameter').submit();
-		}) */
-		
-		$('#searchBtn').on('click',function(){
-			var keyword=$('#searchbararea').val();
-			location.href='${pageContext.request.contextPath}/notice?selectPage=1&numOfNoticesPerPage=5&keyword='+keyword;
-			
-		})
-		$('.pageNum').on('click',function(){
-			var keyword=$('#searchbararea').val();
-			location.href='${pageContext.request.contextPath}/notice?selectPage='+$(this).text()+'&numOfNoticesPerPage=5&keyword='+keyword;
-		})
-		
-		
-		$('#searchbararea').on('keydown',function(e){
-			if(e.keyCode==13){
-				
-				$('#searchBtn').trigger('click');
-			}
-			
-		})
-		
-		
-	})
-</script>
 
 </html>

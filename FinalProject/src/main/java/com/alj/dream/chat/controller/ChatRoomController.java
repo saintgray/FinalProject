@@ -2,6 +2,7 @@ package com.alj.dream.chat.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,10 +35,17 @@ public class ChatRoomController {
 			@RequestParam("myidx") int myidx,
 			@RequestParam("matchidx") int matchidx,
 			@RequestParam("reciever") int reciever,
-			HttpSession session
+			HttpSession session,
+			HttpServletRequest req
 			) {
 			
 		System.out.println("ChatRoomController : intoChat진입");
+		System.out.println(req.getHeader("referer"));
+		System.out.println(req.getRequestURI());
+		
+		
+		
+		
 		// 에코핸들러에서 사용하기 위해 필요한 정보들 세션에 저장.
 		session.setAttribute("myIdx", myidx);			
 		session.setAttribute("matchidx", matchidx);

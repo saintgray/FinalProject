@@ -1,5 +1,8 @@
 @charset "UTF-8";
-
+	#controlarea{
+	
+		margin-top:150px;
+	}
 	#controlarea::after{
 	    margin: 0 auto;
 		content:'';
@@ -86,4 +89,9 @@
 	#quitlink{
 		color:#FCA106;
 		cursor: pointer;
+	}
+	
+	#infos{
+	
+		margin-bottom:100px;
 	}

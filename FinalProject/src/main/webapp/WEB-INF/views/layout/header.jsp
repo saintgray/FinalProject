@@ -139,7 +139,7 @@
     <!--offcanvas area-->
     <div class="offcanvas offcanvas-start" tabindex="-1" id="sidemenu" aria-labelledby="offcanvasExampleLabel">
       <div class="offcanvas-header">
-      <a id="logo"><img src="${pageContext.request.contextPath}/resources/files/server/bannerimg/logo.png"></a>
+      <a id="logo"><img src="${pageContext.request.contextPath}/resources/files/server/bannerimg/logo.svg"></a>
         <!-- <h5 class="offcanvas-title" id="offcanvasExampleLabel">당신의 멘토를 찾아보세요!</h5> -->
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
       </div>
@@ -150,15 +150,54 @@
         		<li><h4 class="fs-5 my-2 oc-login">로그인</h4></li>
         	</sec:authorize>
         	<sec:authorize access="isAuthenticated()">
-        		<li><h4 class="fs-5 my-2 logoutbtn">로그아웃</h4></li>
-        	</sec:authorize>       
-	        <li>
-	            <h4 class="fs-5 my-2">알려드림은 어떤 서비스인가요?</h4>
-	        </li>
-            <li>
-	            <h4 class="fs-5 my-2">이용안내</h4>
-	            
-	        </li>         
+        		<li><h4 class="fs-5 my-2 logoutbtn btn btn-danger">로그아웃</h4></li>
+	        		
+	        		
+	        		
+	        		<sec:authorize access="hasRole('GENERAL')">
+	        		
+		        		<li>
+		        			<h5 class="fs-6 mb-2 mt-5" onclick="location.href='${pageContext.request.contextPath}/post/list';">
+		        				<i class="bi bi-card-list mx-2"></i>내가 쓴 글
+		        			</h5>
+		        		</li>
+		        		<li>
+		        			<h5 class="fs-6 my-2" id="oc-request">
+		        				<i class="bi bi-inbox mx-2"></i>받은 제의
+		        			</h5>
+	        			</li>
+		        		<li>
+		        			<h5 class="fs-6 changeType">
+		        				<i class="bi bi-arrow-repeat mx-2"></i>
+				        		<c:set var="type">
+				        			<sec:authentication property="principal.m_type"/>
+				        		</c:set>	
+				        		<c:if test="${type eq 'mentor'}">
+										멘티로 전환
+									</c:if>
+									<c:if test="${type eq 'mentee'}">
+										멘토로 전환
+									</c:if>
+			        		</h5>
+		        		</li>
+		        		
+		        		<li>
+		        			<h5 class="fs-6" id="oc-chat">
+		        				<i class="bi bi-chat-dots-fill mx-2"></i>채팅
+		        			</h5>
+		        		</li>
+	        		
+	        		</sec:authorize> 
+	        	
+	        	      
+		        <li>
+		            <h4 class="fs-6 mt-5 mb-2">알려드림은 어떤 서비스인가요?</h4>
+		        </li>
+	            <li>
+		            <h4 class="fs-6 my-2">이용안내</h4>
+		            
+	        	</li>
+	        </sec:authorize>         
         </ul>
         
       </div>
