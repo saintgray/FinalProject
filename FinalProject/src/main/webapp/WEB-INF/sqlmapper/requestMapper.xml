@@ -44,12 +44,10 @@
 		<if test='"mentor".equals(arg1)'>
 		  ,pr.line
 		</if>
-		FROM dream.match mat join member mem
-		
-		
+		FROM dream.match mat join dream.member mem 
 		
 		<if test='"mentor".equals(arg1)'>
-		 join profile pr
+		 join dream.profile pr
 		</if>
 		ON 
 		
@@ -62,6 +60,7 @@
 		WHERE mat.post_idx=#{arg0}
 		AND mem.m_quitdate is null
  	</select> 
+ 
  
  	
  	
