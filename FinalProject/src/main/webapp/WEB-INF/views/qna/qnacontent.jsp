@@ -9,11 +9,20 @@
 <meta charset="UTF-8">
 <%@include file="/WEB-INF/views/defaultpageset.jsp"%>
 <style>
-.article {
-	padding: 20px 40px 0;
-	border: 1px solid;
-	border-radius: 6px;
-}
+#wrap{
+		padding: 20px 40px 0;
+		padding-bottom:10px;
+	}
+
+#contentarea{
+		
+		border-radius: 15px;
+		background-color: #E1DEE660;
+		min-height: 400px;
+		
+		padding: 20px 10px;
+	
+	}
 </style>
 <title>1대1 문의내용</title>
 </head>
@@ -29,15 +38,15 @@
 			<button type="button" class="btn btn-general" id="listbtn">목록</button>
 			</sec:authorize>
 			</div>
-	<div class="container article">
+	<div class="container" id="wrap">
 
 		<h1 align="center">제목: ${content.qna_title}</h1>
-		<hr>
 		<h6 align="right">작성자: ${content.m_nm} 이메일: ${content.m_email}</h6>
 		<h6 align="right">작성일: ${content.qna_regdate}</h6>
 		<hr>
-		<h4>문의내용: ${content.qna_content}</h4>
-
+		<div id="contentarea" class="shadow">
+			<h4>${content.qna_content}</h4>
+		</div>
 	</div>
 
 	<div class="d-flex flex-row flex-wrap justify-content-end mx-5 my-4">
