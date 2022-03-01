@@ -47,7 +47,7 @@ public class PostFileUploadController {
 			byte[] fileData = multipartFile.getBytes();
 			String contentType = multipartFile.getContentType();
 			
-			file_nm = UploadFileUtil.uploadPostFile(saveDir, file_originnm, file_exet, fileData, contentType);
+			file_nm = UploadFileUtil.uploadPostFile(saveDir, file_originnm, file_exet, fileData);
 			System.out.println(file_nm);
 			
 			PostFileRequest postFile = new PostFileRequest(file_nm, 0, file_exet, file_size, file_originnm);

@@ -128,11 +128,13 @@ ${viewRequest.post_content}
 		</c:if>
 			
 		<c:if test="${postFile.file_exet eq 'pdf'}">
-			<span><i class="bi bi-filetype-pdf fs-4"></i></span>
-			<a href='https://aljdreambucket.s3.ap-northeast-2.amazonaws.com/post/attachfiles/${postFile.file_nm}.${postFile.file_exet}' 
-			   download="${postFile.file_originnm}.${postFile.file_exet}">
+			<a download="${postFile.file_originnm}.${postFile.file_exet}" 
+			   href='https://aljdreambucket.s3.ap-northeast-2.amazonaws.com/post/attachfiles/${postFile.file_nm}.${postFile.file_exet}'>
 			
-				${postFile.file_originnm}.${postFile.file_exet} (${postFile.file_size} kb)
+				<span>
+					<i class="bi bi-filetype-pdf fs-4"></i>
+					${postFile.file_originnm}.${postFile.file_exet} (${postFile.file_size} kb)
+				</span>
 			</a>
 			
 
