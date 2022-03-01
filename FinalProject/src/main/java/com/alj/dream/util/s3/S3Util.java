@@ -82,7 +82,7 @@ public class S3Util {
 		
 	}
 	
-	public void delete(String bucketName, String oldPath) {
+	public void  delete(String bucketName, String oldPath) {
 		
 		if(conn.doesObjectExist(bucketName, oldPath)) {
 			conn.deleteObject(bucketName, oldPath);
@@ -91,23 +91,22 @@ public class S3Util {
 		
 	}
 	
-	public byte[] getFile(String bucketName, String path) {
+	
+
+	// contentType 설정을 위해 contentType을 파라미터로 받는 메소드
+	public void fileUpload(String bucketName, String fileName, byte[] fileData, String contentType) throws IOException {
+		String filePath = fileName.replace(File.separatorChar, '/');
 		
+		ObjectMetadata metaData=new ObjectMetadata();
 		
+		metaData.setContentLength(fileData.length);
+		metaData.setContentType(contentType);
 		
-		try {
-			
-			S3ObjectInputStream s3is= conn.getObject(bucketName, path).getObjectContent();
-			FileOutputStream fos = new FileOutputStream(new File(path));
-			
-			
-		} catch (FileNotFoundException e) {
-			
-			e.printStackTrace();
-			
-		}
-		return null;
-		
+		ByteArrayInputStream baStream = new ByteArrayInputStream(fileData);
+				
+		System.out.println("S3 에 파일을 올립니다.");
+		conn.putObject(bucketName, filePath, baStream, metaData);
+		System.out.println("파일을 올렸습니다.");
 	}
 
 	// contentType 설정을 위해 contentType을 파라미터로 받는 메소드
@@ -125,29 +124,31 @@ public class S3Util {
 		conn.putObject(bucketName, filePath, baStream, metaData);
 		System.out.println("파일을 올렸습니다.");
 	}
+
+
 	
-	public boolean delete(String bucketName, String filePath) {
+	public boolean deletePostFile(String bucketName, String filePath) {
 		// delete
 		conn.deleteObject(bucketName, filePath);
-		
+
 		// 삭제되었는지 확인
 		boolean isDeleted = false;
-		
+
 		try {
-			
+
 			ObjectMetadata objectMetadata = conn.getObjectMetadata(bucketName, filePath);
-		
+
 		} catch (AmazonS3Exception s3e) {
 	        if (s3e.getStatusCode() == 404) {
 	            // i.e. 404: NoSuchKey - The specified key does not exist
 	                isDeleted = true;
-	        }
+
+	        }	
 		}
 
 		System.out.println("util: deleteObject()");
-		
+
 		return isDeleted;
 	}
-
 	
 }

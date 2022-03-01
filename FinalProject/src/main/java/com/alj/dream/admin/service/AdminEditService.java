@@ -15,6 +15,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.alj.dream.admin.dao.AdminDao;
 import com.alj.dream.member.domain.EditInfos;
+import com.alj.dream.util.file.DeleteFileUtil;
+import com.alj.dream.util.file.UploadFileUtil;
 
 import security.AccountDetails;
 @Service
@@ -50,7 +52,7 @@ public class AdminEditService {
 		
 		int result=0;
 		
-		File file=null;
+		// File file=null;
 		MultipartFile photo=info.getPhoto();
 		String originPhotoName=null;
 		String path=null;
@@ -62,17 +64,22 @@ public class AdminEditService {
 		
 		if(photo!=null) {
 			originPhotoName=logininfo.getPhoto();
-			newPhotoName=String.valueOf(System.nanoTime());
-			path=req.getSession().getServletContext().getRealPath("/resources/files/member");
+			// newPhotoName=String.valueOf(System.nanoTime());
+			// path=req.getSession().getServletContext().getRealPath("/resources/files/member");
+			path="member";
 			
+//			info.setM_photo(newPhotoName);
+//			
+//			
+//			file=new File(path, newPhotoName);
+//			photo.transferTo(file);
+			
+			// 이전 파일 이름으로 덮어씌운다.
+			newPhotoName=UploadFileUtil.uploadFile(path, originPhotoName, photo.getBytes());
 			info.setM_photo(newPhotoName);
 			
-			
-			file=new File(path, newPhotoName);
-			photo.transferTo(file);
-			
-			
 		}
+		
 		if(info.getM_password()!=null) {
 			info.setM_password(encoder.encode(info.getM_password()));
 		}
@@ -86,11 +93,20 @@ public class AdminEditService {
 			if(photo!=null) {
 				logininfo.setPhoto(newPhotoName);
 				
-				File lastFile= new File(path,originPhotoName);
-				if(!originPhotoName.equals("defaultprofile.png")) {
-					System.out.println(lastFile.delete());
+//				File lastFile= new File(path,originPhotoName);
+//				if(!originPhotoName.equals("defaultprofile.png")) {
+//					System.out.println(lastFile.delete());
+//				
+//				}
 				
+				// 원래 프로필 사진 파일 삭제
+				if(!originPhotoName.equals("/defaultprofile.png")) {
+					
+					DeleteFileUtil.delete("member".concat(originPhotoName));
+					
 				}
+				
+				
 			}
 			
 
@@ -105,7 +121,8 @@ public class AdminEditService {
 			
 			if(photo!=null) {
 				
-				file.delete();
+				// file.delete();
+				DeleteFileUtil.delete("member".concat(newPhotoName));
 				
 			}
 			
