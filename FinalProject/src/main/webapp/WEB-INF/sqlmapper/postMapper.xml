@@ -129,8 +129,8 @@
 			<!-- <if test="cat_idx>0">
 				and p.cat_idx=#{cat_idx}
 			</if> -->
-			<if test='arg2!=null'>
-			
+
+			<if test='arg2!=null'>			
 				AND p.cat_idx IN
 				<foreach collection="arg2" item="interest" open="(" separator="," close=")">
 					#{interest.cat_idx}

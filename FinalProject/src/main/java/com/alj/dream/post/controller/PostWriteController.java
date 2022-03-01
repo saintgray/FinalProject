@@ -33,6 +33,11 @@ public class PostWriteController {
 		int m_idx = Integer.parseInt(logininfo.getM_idx());
 		
 		ProfileRequest writerProfile = writeService.getWriterProfile(m_idx);
+		
+		if(writerProfile.getLine()==null) {
+			writerProfile=null;
+		}
+		
 		model.addAttribute("writerProfile", writerProfile);
 
 		return "post/writeform";
