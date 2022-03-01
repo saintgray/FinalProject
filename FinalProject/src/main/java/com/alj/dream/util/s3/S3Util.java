@@ -2,6 +2,8 @@ package com.alj.dream.util.s3;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 
 import com.amazonaws.ClientConfiguration;
 import com.amazonaws.Protocol;
@@ -11,9 +13,11 @@ import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
+import com.amazonaws.services.s3.event.S3EventNotification.S3Entity;
 import com.amazonaws.services.s3.model.Bucket;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 // AWS S3
+import com.amazonaws.services.s3.model.S3ObjectInputStream;
 
 // Free Secure Cloud Storage 로서 데이터를 버킷 내의 객체로 저장하는 객체 스토리지 서비스이다.
 // 객체는 해당 파일을 설명하는 모든 메타데이터이다.
@@ -72,6 +76,35 @@ public class S3Util {
 		System.out.println("S3 에 파일을 올립니다.");
 		conn.putObject(bucketName, filePath, baStream, metaData);
 		System.out.println("파일을 올렸습니다.");
+		
+	}
+	
+	public void delete(String bucketName, String oldPath) {
+		
+		if(conn.doesObjectExist(bucketName, oldPath)) {
+			conn.deleteObject(bucketName, oldPath);
+			
+		}
+		
+	}
+	
+	public byte[] getFile(String bucketName, String path) {
+		
+		
+		
+		try {
+			
+			S3ObjectInputStream s3is= conn.getObject(bucketName, path).getObjectContent();
+			FileOutputStream fos = new FileOutputStream(new File(path));
+			
+			
+		} catch (FileNotFoundException e) {
+			
+			e.printStackTrace();
+			
+		}
+		return null;
+		
 	}
 	
 	
