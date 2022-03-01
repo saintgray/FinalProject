@@ -10,8 +10,8 @@
 	<!-- HikariCP Bean -->
 	<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource"
 		p:driverClassName="com.mysql.cj.jdbc.Driver"
-		p:jdbcUrl="jdbc:mysql://localhost:3306/dream?serverTimezone=UTC"
-		p:username="alj" p:password="aljdream">
+		p:jdbcUrl="jdbc:mysql://database-op-mysql.colzvrncohgs.ap-northeast-2.rds.amazonaws.com:3306/dream?serverTimezone=UTC"
+		p:username="yoonjae" p:password="apdlfdl1!2">
 	</bean>
 	<!--  -->
 
