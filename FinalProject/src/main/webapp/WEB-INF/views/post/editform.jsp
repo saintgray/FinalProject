@@ -100,7 +100,7 @@
 
 <!-- 파일업로드 -->
 <div>
-	<div class="descript my-1 ms-0 me-1">파일 첨부</div>
+	<div class="descript my-1 ms-0 me-1">파일 첨부 | 5mb 이하의 이미지 파일과 PDF 파일만 등록할 수 있습니다.</div>
 	<label>파일 선택 <input type="file" name="attachFile" id="attachFile" multiple style="opacity: 0;"></label>
 
 <!-- 업로드한 결과 -->
@@ -112,7 +112,7 @@
 					<li class="list-group-item d-flex justify-content-between align-items-center"
 							data-file_nm="${postFile.file_nm}" data-exet="${postFile.file_exet}">
 					<c:if test="${postFile.file_exet ne 'pdf'}">
-						<img src="${pageContext.request.contextPath}/post/display?fileName=${postFile.file_nm}.${postFile.file_exet}">
+						<img src="https://aljdreambucket.s3.ap-northeast-2.amazonaws.com/post/attachfiles/${postFile.file_nm}.${postFile.file_exet}">
 						<span><i class="bi bi-image fs-4"></i>
 						    ${postFile.file_originnm}.${postFile.file_exet} (${postFile.file_size} kb)
 							<button type="button" data-file_nm="${postFile.file_nm}"

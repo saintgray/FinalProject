@@ -1,6 +1,5 @@
 package com.alj.dream.post.service;
 
-import java.io.File;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -15,11 +14,10 @@ import com.alj.dream.post.domain.PostEditRequest;
 import com.alj.dream.post.domain.PostWriteRequest;
 import com.alj.dream.profile.dao.ProfileDao;
 import com.alj.dream.profile.domain.ProfileRequest;
+import com.alj.dream.util.file.UploadFileUtil;
 
 @Service
 public class PostEditService {
-
-	private PostDao dao;
 	
 	@Autowired
 	private SqlSessionTemplate template;
@@ -52,10 +50,7 @@ public class PostEditService {
 					// 파일 삭제, db에 deldate 추가
 					String filename = attachfile.getFile_nm() + "." + attachfile.getFile_exet();
 					
-					File file;
-
-					file = new File(saveDir, filename);
-					file.delete();
+					UploadFileUtil.delete(saveDir, filename);
 					
 					System.out.println("파일 삭제");
 					

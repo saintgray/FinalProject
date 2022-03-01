@@ -15,6 +15,8 @@ import org.springframework.web.multipart.MultipartFile;
 import com.alj.dream.file_profile.dao.ProfileFilesDao;
 import com.alj.dream.file_profile.domain.FileInfo;
 import com.alj.dream.profile.domain.ProfileRegisterData;
+import com.alj.dream.util.file.DeleteFileUtil;
+import com.alj.dream.util.file.UploadFileUtil;
 
 @Service
 public class FileProfileRegisterService {
@@ -39,27 +41,30 @@ public class FileProfileRegisterService {
 	
 	
 	
-	// 첨부파일을 DB 에 등록, 서버에 첨부파일 저장
+	// 첨부파일을 DB 에 등록, S3에 첨부파일 저장
 	public int insertAttachFile(HttpServletRequest req, ProfileRegisterData data) throws IllegalStateException, IOException {
 		
 		String profile_idx=String.valueOf(data.getProfile_idx());
-		String savePath= req.getSession().getServletContext().getRealPath("/resources/files/member/profile_attachfiles");
+		//String savePath= req.getSession().getServletContext().getRealPath("/resources/files/member/profile_attachfiles");
 		
-		System.out.println(savePath);
+		String savePath="profile/attachfiles";
+		
+		
 		List<FileInfo> list = new LinkedList<FileInfo>();
 		
 		for(MultipartFile file: data.getFiles()) {
 			
-			String file_nm=String.valueOf(System.nanoTime());
 			
-			File dir=new File(savePath);
-			File newfile = new File(savePath, file_nm);
-			System.out.println(newfile.exists());
-			if(!dir.exists()) {
-				dir.mkdir();
-			}
-			System.out.println(newfile.getAbsolutePath());
-			file.transferTo(newfile);
+			String file_nm=UploadFileUtil.uploadFile(savePath, file.getOriginalFilename(), file.getBytes());
+//			String file_nm=String.valueOf(System.nanoTime());
+//			File dir=new File(savePath);
+//			File newfile = new File(savePath, file_nm);
+//			System.out.println(newfile.exists());
+//			if(!dir.exists()) {
+//				dir.mkdir();
+//			}
+//			System.out.println(newfile.getAbsolutePath());
+//			file.transferTo(newfile);
 			
 			
 			list.add(new FileInfo(file_nm,
@@ -78,10 +83,11 @@ public class FileProfileRegisterService {
 	    }catch(Exception e) {
 	    	e.printStackTrace();
 	    	for(FileInfo info : list) {
-	    		File delfile=new File(savePath,info.getFile_nm());
-	    		if(delfile.exists()) {
-	    			delfile.delete();
-	    		}
+//	    		File delfile=new File(savePath,info.getFile_nm());
+//	    		if(delfile.exists()) {
+//	    			delfile.delete();
+//	    		}
+	    		DeleteFileUtil.delete("profile/attachfiles".concat(info.getFile_nm()));
 	    	}
 	    
 	    }

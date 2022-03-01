@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.alj.dream.category.service.CategoryListService;
 import com.alj.dream.post.domain.PostListInfo;
 import com.alj.dream.post.domain.SearchParams;
 import com.alj.dream.post.service.PostListService;
@@ -22,6 +23,9 @@ public class PostSearchController {
 
 	@Autowired
 	private PostListService service;
+	
+	@Autowired
+	private CategoryListService catService;
 	
 	// 검색
 	@GetMapping("/post/search")
@@ -37,6 +41,10 @@ public class PostSearchController {
 		
 		int m_idx = Integer.parseInt(logininfo.getM_idx());
 		String wanted = logininfo.getM_type();
+		
+		if(cat_idx==0) {
+			cat_idx = Integer.parseInt(catService.getCategoryIdxByName("취미"));
+		}
 		
 		SearchParams params = new SearchParams(m_idx, wanted, cat_idx, loc_idx);
 		params.setPageNum(pageNum);

@@ -19,20 +19,13 @@ public class PostFileDeleteController {
 	@ResponseBody
 	public String deleteFile(HttpServletRequest request, String file_nm, String file_exet) {
 		
-		String saveDir = request.getSession().getServletContext().getRealPath("/resources/files/post/attachfiles");
+//		String saveDir = request.getSession().getServletContext().getRealPath("/resources/files/post/attachfiles");
+		String saveDir = "post/attachfiles/";
 		String filename = file_nm + '.' + file_exet;
-		
-		System.out.println(saveDir);
 		
 		System.out.println("삭제할 파일 : " + filename);
 		
-		int resultCnt = delService.deletePostFile(saveDir, filename);
-		
-		if(resultCnt==0) {
-			return "error";
-		}
-		
-		
+		delService.deletePostFile(saveDir, filename);
 		
 		return "deleted";
 	}
