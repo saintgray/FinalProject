@@ -44,6 +44,14 @@
 #globalwrap {
 	margin-top: 150px;
 }
+
+.reply{
+	
+	cursor: pointer;
+}
+.reply:hover {
+	text-decoration: underline;
+}
 </style>
 <title>QNA</title>
 </head>
@@ -91,6 +99,8 @@
 											<span class="mx-2 reply"><strong>[답변]</strong> : ${item.qna_title}</span> 
 											<span class="mx-2">${item.replyInfo.reply_regdate}</span>
 											<span class="mx-2">${item.replyInfo.admin_nm}</span>
+											
+											
 										</div>
 									</td>
 								</tr>
