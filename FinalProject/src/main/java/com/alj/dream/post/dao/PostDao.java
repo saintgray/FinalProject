@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.alj.dream.category.domain.ChildCategory;
 import com.alj.dream.post.domain.PostEditRequest;
 import com.alj.dream.post.domain.PostListInfo;
 import com.alj.dream.post.domain.PostViewRequest;
@@ -35,6 +36,6 @@ public interface PostDao {
 	
 	HashMap<String, Integer> selectLocInterest(int m_idx);
 	
-	List<PostListInfo> selectRecommendedList(int m_idx, String wanted, List<Integer> interests, int locCode);
+	List<PostListInfo> selectRecommendedList(int m_idx, String wanted, List<ChildCategory> userInterest, int locCode);
 
 }
