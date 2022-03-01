@@ -82,7 +82,7 @@
 
 			</div>
 	
-			<div id="recommendList" class="list-group">
+			<div id="recommendList" class="list-group my-5">
 				
 			</div>
 	

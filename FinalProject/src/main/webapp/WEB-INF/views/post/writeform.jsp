@@ -44,7 +44,7 @@
 
 		<!-- 프로필 출력 : 멘토일 때에만 -->
 		<c:if test="${type eq 'mentor'}">
-			<div class="d-flex flex-column my-3">
+			<div class="d-flex flex-column mt-3">
 				<div class="descript my-1 ms-0 me-1">프로필</div>
 				<c:if test="${writerProfile ne null}">
 					<table>
@@ -67,7 +67,7 @@
 		</c:if>
 
 		<!-- 게시글 작성 -->
-		<div>
+		<div class="my-5">
 
 			<form role="form" method="post" enctype="multipart/form-data"
 				id="writePost">

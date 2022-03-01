@@ -73,7 +73,9 @@ public class RegisterService {
 				infos.setM_email(EMailUtil.getUserEmail(email));
 				infos.setM_password(pwEncoder.encode(infos.getM_password()));		
 				infos.setM_nm(infos.getM_nm().length()==0?email.getM_email_prefix():infos.getM_nm());
-				
+				if(infos.getPhoto()==null) {
+					infos.setM_photo("/defaultprofile.png");
+				}
 				
 				// 파일을 S3에 올리는 핵심 코드 
 				if(infos.getPhoto()!=null) {

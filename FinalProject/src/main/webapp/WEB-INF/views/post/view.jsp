@@ -42,6 +42,14 @@ history.go(-1);
 	margin: 30px auto;
 	text-align: center;
 }
+#matchBtn{
+	width:100px;
+}
+#PostViewArea{
+    margin-top: 150px;
+    margin-bottom: 50px;
+}
+}
 </style>
 </head>
 <body>
@@ -155,7 +163,7 @@ ${viewRequest.post_content}
 <!-- 매칭정보/문의하기 -->
 <div class="row">
 <c:if test="${viewRequest.m_idx ne idx && viewRequest.wanted eq type}">
-<button type="button" id="matchBtn">문의하기</button>
+<button type="button" class="btn btn-warning my-5 ms-auto" id="matchBtn">문의하기</button>
 </c:if>
 
 <c:if test="${viewRequest.m_idx eq idx}">
