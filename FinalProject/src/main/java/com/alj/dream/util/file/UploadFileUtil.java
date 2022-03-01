@@ -101,7 +101,7 @@ public class UploadFileUtil {
 		String deletePath = saveDir.replace(File.separatorChar, '/') + fileName;
 		
 		// delete
-		boolean result = s3.delete(bucketName, deletePath);
+		boolean result = s3.deletePostFile(bucketName, deletePath);
 		
 		if (!result) {
 			System.out.println("파일이 삭제되지 않았습니다.");
