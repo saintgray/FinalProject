@@ -99,7 +99,7 @@ public class S3Util {
 		ObjectMetadata metaData=new ObjectMetadata();
 		
 		metaData.setContentLength(fileData.length);
-		metaData.setContentType(contentType);
+		// metaData.setContentType(contentType);
 		
 		ByteArrayInputStream baStream = new ByteArrayInputStream(fileData);
 				
