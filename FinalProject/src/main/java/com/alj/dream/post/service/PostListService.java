@@ -121,11 +121,10 @@ public class PostListService {
 		int locCode=userLoc==null?0:Integer.parseInt(userLoc.get(0).getLoc_idx());
 		
 		
-		List<ChildCategory> userInterest=template.getMapper(InterestDao.class).getUserInterest(String.valueOf(m_idx));
-		List<Integer> interests = new LinkedList<Integer>();
-		
-		for(ChildCategory item : userInterest) {
-			interests.add(new Integer(item.getCat_idx()));
+		List<ChildCategory> userInterest= null;
+		userInterest=template.getMapper(InterestDao.class).getUserInterest(String.valueOf(m_idx));
+		if(userInterest.isEmpty()) {
+			userInterest=null;
 		}
 		
 		// System.out.println("result>>");
@@ -136,7 +135,7 @@ public class PostListService {
 		// params.setIndex(0);
 		// params.setCount(5);
 		
-		return dao.selectRecommendedList(m_idx,wanted,interests,locCode);
+		return dao.selectRecommendedList(m_idx,wanted,userInterest,locCode);
 		
 	}
 
