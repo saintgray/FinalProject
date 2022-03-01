@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.alj.dream.file_profile.dao.ProfileFilesDao;
+import com.alj.dream.util.file.DeleteFileUtil;
 
 @Service
 public class DeleteFileService {
@@ -24,7 +25,7 @@ public class DeleteFileService {
 	
 	public int deleteFile(HttpServletRequest req, String file_nm) {
 		
-		String savedFolder=req.getSession().getServletContext().getRealPath("/resources/files/member/profile_attachfiles");
+//		String savedFolder=req.getSession().getServletContext().getRealPath("/resources/files/member/profile_attachfiles");
 		
 		
 		
@@ -35,10 +36,11 @@ public class DeleteFileService {
 		// + Scheduler 를 통하여 DB에는 삭제일이 업데이트 되었으나 삭제되지 않은 파일에 대해 삭제 처리
 		
 		if(resultDeleteProcessDB==1) {
-			File file = new File(savedFolder, file_nm);
-			if(file.exists()) {
-				file.delete();
-			}
+//			File file = new File(savedFolder, file_nm);
+//			if(file.exists()) {
+//				file.delete();
+//			}
+			DeleteFileUtil.delete("profile/attachfiles".concat(file_nm));
 		}
 		
 		

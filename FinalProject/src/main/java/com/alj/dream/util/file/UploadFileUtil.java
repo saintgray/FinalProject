@@ -1,6 +1,7 @@
 package com.alj.dream.util.file;
 
 import java.io.File;
+import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.Calendar;
 import java.util.UUID;
@@ -40,9 +41,6 @@ public class UploadFileUtil {
 		return uploadedFileName;
 		
 		
-		
-		
-		
 	}
 	
 	
@@ -78,5 +76,39 @@ public class UploadFileUtil {
 		}
 	}
 	
+	
+	public static String uploadPostFile(String uploadPath, String file_originnm, String file_exet, byte[] fileData, String contentType) {
+		
+		System.out.println("UploadFileUtil : uploadPostFile");
+		S3Util s3 = new S3Util();
+		
+		String file_nm = file_originnm + "_" + String.valueOf(System.nanoTime());
+		
+		String uploadedPath = uploadPath.replace(File.separatorChar,'/');
+		
+		try {			
+			s3.fileUpload(bucketName, uploadedPath+"/"+file_nm+"."+file_exet, fileData, contentType);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		return file_nm;
+	}
 
+	public static void delete(String saveDir, String fileName) {
+		S3Util s3 = new S3Util();
+		
+		String deletePath = saveDir.replace(File.separatorChar, '/') + fileName;
+		
+		// delete
+		boolean result = s3.deletePostFile(bucketName, deletePath);
+		
+		if (!result) {
+			System.out.println("파일이 삭제되지 않았습니다.");
+		} else {
+			System.out.println("파일 삭제 : " + fileName);
+		}
+		
+	}
+	
 }

@@ -18,6 +18,8 @@ import com.alj.dream.file_notice.dao.NoticeFileDao;
 import com.alj.dream.file_notice.domain.NoticeFileInfo;
 import com.alj.dream.notice.dao.NoticeDao;
 import com.alj.dream.notice.domain.NoticeRegisterData;
+import com.alj.dream.util.file.DeleteFileUtil;
+import com.alj.dream.util.file.UploadFileUtil;
 
 import security.AccountDetails;
 
@@ -46,37 +48,64 @@ public class RegNoticeService {
 		
 		// 파일을 서버에 저장
 		
-		String savePath= req.getSession().getServletContext().getRealPath("/resources/files/notice/attachfiles");
+		String savePathS3 = "notice/attachfiles";
 		
-		System.out.println(savePath);
 		List<NoticeFileInfo> list = new LinkedList<NoticeFileInfo>();
 		
-		for(MultipartFile file: data.getFiles()) {
+		if(data.getFiles()!=null || !data.getFiles().isEmpty()) {
 			
-			String file_nm=String.valueOf(System.nanoTime());
+		
 			
-			//File dir=new File(savePath);
-			File newfile = new File(savePath, file_nm);
-			System.out.println(newfile.exists());
-			if(!newfile.exists()) {
-				System.out.println("....");
+			for(MultipartFile file: data.getFiles()) {
 				
-				newfile.mkdirs();
+				String file_nm=UploadFileUtil.uploadFile(savePathS3, file.getOriginalFilename(), file.getBytes());
+				
+				
+				list.add(new NoticeFileInfo(file_nm,
+	 					String.valueOf(file.getSize()/(1024)).concat("KB"), 
+	 					file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf('.')),
+	 					file.getOriginalFilename().replaceAll(" ","_"),
+	 					data.getNotice_idx()));
+				
+				
+				
+				
 			}
-			System.out.println("exist()...");
-			System.out.println(newfile.exists());
-			System.out.println(newfile.getAbsolutePath());
-			file.transferTo(newfile);
-			
-			
-			list.add(new NoticeFileInfo(file_nm,
-					 					String.valueOf(file.getSize()/(1024)).concat("KB"), 
-					 					file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf('.')),
-					 					file.getOriginalFilename().replaceAll(" ","_"),
-					 					data.getNotice_idx()));
 			
 			
 		}
+		
+//		String savePath= req.getSession().getServletContext().getRealPath("/resources/files/notice/attachfiles");
+//		
+//		System.out.println(savePath);
+//		List<NoticeFileInfo> list = new LinkedList<NoticeFileInfo>();
+//		
+//		for(MultipartFile file: data.getFiles()) {
+//			
+//			String file_nm=String.valueOf(System.nanoTime());
+//			
+//			//File dir=new File(savePath);
+//			File newfile = new File(savePath, file_nm);
+//			System.out.println(newfile.exists());
+//			if(!newfile.exists()) {
+//				System.out.println("....");
+//				
+//				newfile.mkdirs();
+//			}
+//			System.out.println("exist()...");
+//			System.out.println(newfile.exists());
+//			System.out.println(newfile.getAbsolutePath());
+//			file.transferTo(newfile);
+//			
+//			
+//			list.add(new NoticeFileInfo(file_nm,
+//					 					String.valueOf(file.getSize()/(1024)).concat("KB"), 
+//					 					file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf('.')),
+//					 					file.getOriginalFilename().replaceAll(" ","_"),
+//					 					data.getNotice_idx()));
+//			
+//			
+//		}
 		
 		
 		
@@ -91,10 +120,12 @@ public class RegNoticeService {
 	    }catch(Exception e) {
 	    	e.printStackTrace();
 	    	for(NoticeFileInfo info : list) {
-	    		File delfile=new File(savePath,info.getFile_nm());
-	    		if(delfile.exists()) {
-	    			delfile.delete();
-	    		}
+//	    		File delfile=new File(savePath,info.getFile_nm());
+//	    		if(delfile.exists()) {
+//	    			delfile.delete();
+//	    		}
+	    		
+	    		DeleteFileUtil.delete(savePathS3.concat(info.getFile_nm()));
 	    	}
 	    
 	    }

@@ -76,7 +76,7 @@
 					
 						<i class="bi bi-file-earmark"></i>
 						<span class="fileName d-none">${file.file_nm}</span>
-						<a href='${pageContext.request.contextPath}/resources/files/notice/attachfiles/${file.file_nm}' download="${file.file_originnm}" class="mx-2">${file.file_originnm}</a>
+						<a href="https://aljdreambucket.s3.ap-northeast-2.amazonaws.com/notice/attachfiles${file.file_nm}" download="${file.file_originnm}" class="mx-2">${file.file_originnm}</a>
 						
 					</div>
 				</c:forEach>

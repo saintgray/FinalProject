@@ -106,6 +106,9 @@
 					<div id="uploadResult">
 						
 					</div>
+					<!-- 업로드 파일 정보 저장하는 div -->
+					<div id="uploadList">
+					</div>
 				</div>
 				
 				<div id="btnArea">

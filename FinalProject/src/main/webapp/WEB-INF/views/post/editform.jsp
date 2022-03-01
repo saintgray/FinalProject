@@ -112,7 +112,7 @@
 					<li class="list-group-item d-flex justify-content-between align-items-center"
 							data-file_nm="${postFile.file_nm}" data-exet="${postFile.file_exet}">
 					<c:if test="${postFile.file_exet ne 'pdf'}">
-						<img src="${pageContext.request.contextPath}/post/display?fileName=${postFile.file_nm}.${postFile.file_exet}">
+						<img src="https://aljdreambucket.s3.ap-northeast-2.amazonaws.com/post/attachfiles/${postFile.file_nm}.${postFile.file_exet}">
 						<span><i class="bi bi-image fs-4"></i>
 						    ${postFile.file_originnm}.${postFile.file_exet} (${postFile.file_size} kb)
 							<button type="button" data-file_nm="${postFile.file_nm}"
