@@ -7,7 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <%@ include file="/WEB-INF/views/defaultpageset.jsp"%>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/writeform.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/post/writeform.css">
 <title>알려드림 : 요청서 작성</title>
 
 </head>
@@ -63,6 +63,15 @@
 			<form role="form" method="post" enctype="multipart/form-data"
 				id="writePost">
 
+				<!-- 분야 선택 -->
+				<div class="d-flex flex-row my-3">
+					<div class="descript my-1 ms-0 me-1">분야 선택</div>
+					<button type="button" class="btn btn-grey fs-6" onclick="resetCategory()">초기화</button>
+				</div>
+				<!-- 카테고리 selectbox -->
+				<div id="categoryInfos" class="d-flex flex-row flex-wrap  mb-5 mt-1">
+				</div>
+
 				<!-- 제목 -->
 				<div class="input-group mb-3">
 					<span class="input-group-text" id="inputGroup-sizing-default">제목</span>
@@ -72,15 +81,6 @@
 				<!-- 내용 -->
 				<div>
 				<textarea name="post_content" id="content"></textarea>
-				</div>
-
-				<!-- 분야 선택 -->
-				<div class="d-flex flex-row my-3">
-					<div class="descript my-1 ms-0 me-1">분야 선택</div>
-					<button type="button" class="btn btn-grey fs-6" onclick="resetCategory()">초기화</button>
-				</div>
-				<!-- 카테고리 selectbox -->
-				<div id="categoryInfos" class="d-flex flex-row flex-wrap  mb-5 mt-1">
 				</div>
 
 				<input type="hidden" name="wanted" value="${type eq 'mentor'?'mentee':'mentor'}">
