@@ -86,6 +86,9 @@
 <input type="hidden" name="wanted" value="${type eq 'mentor'?'mentee':'mentor'}">
 <input type="hidden" name="post_idx" value="${editRequest.post_idx}">
 
+<!-- 카테고리 -->
+선택된 분야 : ${editRequest.cat_nm}
+
 <!-- 제목 -->
 <div class="input-group mb-3">
 	<span class="input-group-text" id="inputGroup-sizing-default">제목</span>
@@ -95,13 +98,13 @@
 <!-- 내용 -->
 <textarea name="post_content" id="content">${editRequest.post_content}</textarea>
 
-<!-- 카테고리 -->
-선택된 분야 : ${editRequest.cat_nm}
-
 <!-- 파일업로드 -->
 <div>
 	<div class="descript my-1 ms-0 me-1">파일 첨부 | 5mb 이하의 이미지 파일과 PDF 파일만 등록할 수 있습니다.</div>
-	<label>파일 선택 <input type="file" name="attachFile" id="attachFile" multiple style="opacity: 0;"></label>
+	<label>
+		파일 선택
+		<input type="file" name="attachFile" id="attachFile" multiple style="opacity:0;">
+	</label>
 
 <!-- 업로드한 결과 -->
 	<div id="uploadResult">
