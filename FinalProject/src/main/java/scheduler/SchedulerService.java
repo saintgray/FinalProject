@@ -13,6 +13,7 @@ import com.alj.dream.file_post.dao.PostFilesDao;
 import com.alj.dream.file_post.domain.PostFileRequest;
 import com.alj.dream.file_profile.dao.ProfileFilesDao;
 import com.alj.dream.member.dao.MemberDao;
+import com.alj.dream.util.file.DeleteFileUtil;
 
 @Component
 @EnableScheduling
@@ -52,16 +53,18 @@ public class SchedulerService{
 		
 		// filenm=PK
 		for(String filenm : list) {
-			File file=new File(serverPath.profileFilesPath,filenm);
+			// File file=new File(serverPath.profileFilesPath,filenm);
 			
-			System.out.println(file.exists());
+			// System.out.println(file.exists());
 			
 			// 2. 컨텍스트경로/resources/files/member/profile_attachfiles 경로 내에 해당 파일이 있으면
 			// 	  = 삭제된 파일인데 서버에 존재한다면 >> 삭제한다.
-			if(file.exists()) {
-				file.delete();
-			}
-			///////////////////////////////	
+//			if(file.exists()) {
+//				file.delete();
+//			}
+			///////////////////////////////
+			
+			DeleteFileUtil.delete("profile".concat(filenm));
 		}		
 	}
 	
@@ -85,17 +88,19 @@ public class SchedulerService{
 		
 		// db에는 deldate가 추가되었으나 서버에 아직 파일이 남아있는 경우 삭제
 		for(PostFileRequest deletedFile : list) {
-			File file = new File(serverPath.postFilesPath, deletedFile.getFileName());
 			
-			System.out.println("존재여부: " + file.exists());
+			// 종현 수정
+			// File file = new File(serverPath.postFilesPath, deletedFile.getFileName());
 			
-			if(file.exists()) {
-				file.delete();
-				
-				System.out.println("삭제 후 존재여부: " + file.exists());
-			}
+			// System.out.println("존재여부: " + file.exists());
 			
-			System.out.println("---------------");
+//			if(file.exists()) {
+//				file.delete();
+//				
+//				System.out.println("삭제 후 존재여부: " + file.exists());
+//			}
+			
+			DeleteFileUtil.delete("post/attachfiles/".concat(deletedFile.getFileName()));
 		}
 		
 		// 글작성이 정상적으로 완료되지 않아 db에 존재하지 않으나 서버에 파일이 남아있는 경우
