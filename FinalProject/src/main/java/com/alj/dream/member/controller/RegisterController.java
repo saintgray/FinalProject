@@ -1,6 +1,8 @@
 package com.alj.dream.member.controller;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -42,7 +44,7 @@ public class RegisterController {
 
 	@PostMapping
 	@ResponseBody
-	public String registerMember(HttpServletRequest req, Emailinfos email, RegisterInfo infos, @CookieValue(value="authed", required=false) String authed) {
+	public String registerMember(HttpServletRequest req, Emailinfos email, RegisterInfo infos, @CookieValue(value="authed", required=false) String authed, HttpServletResponse resp) {
 		
 
 
@@ -61,6 +63,11 @@ public class RegisterController {
 				if (insertResult == 1) {
 					
 					result = "REGISTERED";
+					Cookie expiredCookie=new Cookie("authed", "N");
+					expiredCookie.setMaxAge(0);
+					resp.addCookie(expiredCookie);
+					
+					
 				} else {
 					result = "정상적으로 등록되지 않았습니다. 잠시 후 다시 시도하세요";
 				}

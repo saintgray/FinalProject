@@ -67,7 +67,6 @@
 						 <!-- 로그아웃시 remember-me 쿠키를 삭제하여 데이터베이스의 persistent_logins 내 해당 유저의 로그인 기록도 없앤다 -->				 
 	</security:http>
 	
-	
 	<security:authentication-manager>
 		
 		
