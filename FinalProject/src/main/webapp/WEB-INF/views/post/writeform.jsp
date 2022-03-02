@@ -63,6 +63,15 @@
 			<form role="form" method="post" enctype="multipart/form-data"
 				id="writePost">
 
+				<!-- 분야 선택 -->
+				<div class="d-flex flex-row my-3">
+					<div class="descript my-1 ms-0 me-1">분야 선택</div>
+					<button type="button" class="btn btn-grey fs-6" onclick="resetCategory()">초기화</button>
+				</div>
+				<!-- 카테고리 selectbox -->
+				<div id="categoryInfos" class="d-flex flex-row flex-wrap  mb-5 mt-1">
+				</div>
+
 				<!-- 제목 -->
 				<div class="input-group mb-3">
 					<span class="input-group-text" id="inputGroup-sizing-default">제목</span>
@@ -74,15 +83,6 @@
 				<textarea name="post_content" id="content"></textarea>
 				</div>
 
-				<!-- 분야 선택 -->
-				<div class="d-flex flex-row my-3">
-					<div class="descript my-1 ms-0 me-1">분야 선택</div>
-					<button type="button" class="btn btn-grey fs-6" onclick="resetCategory()">초기화</button>
-				</div>
-				<!-- 카테고리 selectbox -->
-				<div id="categoryInfos" class="d-flex flex-row flex-wrap  mb-5 mt-1">
-				</div>
-
 				<input type="hidden" name="wanted" value="${type eq 'mentor'?'mentee':'mentor'}">
 				<input type="hidden" name="m_idx" value="${idx}">
 
@@ -90,7 +90,7 @@
 				<div>
 				<div class="descript my-1 ms-0 me-1">파일 첨부 | 5mb 이하의 이미지 파일과 PDF 파일만 등록할 수 있습니다.</div>
 				<label>
-				파일 선택
+				<button class="btn btn-outline-dark">파일 선택</button>
 				<input type="file" name="attachFile" id="attachFile" multiple style="opacity:0;">
 				</label>
 					<!-- 업로드한 결과 -->
