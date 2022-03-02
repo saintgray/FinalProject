@@ -88,7 +88,7 @@
 					<div>
 						<div class="descript my-4">프로필 사진</div>
 						<div class="d-flex flex-row justify-content-around" id="profilearea">
-							<img src="${pageContext.request.contextPath}/resources/files/member/defaultprofile.png" id="preview">
+							<img src="https://aljdreambucket.s3.ap-northeast-2.amazonaws.com/member/defaultprofile.png" id="preview">
 							<div id="insertedProfile">
 								<label for="myprofile" class="btn btn-general">	
 									사진등록

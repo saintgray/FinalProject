@@ -110,7 +110,7 @@
 			
 		})
 		
-		$('#pw, #repw').on('focusout',function(){
+		/* $('#pw, #repw').on('focusout',function(){
 			console.log($(this).val().indexOf(" "));
 			if(haveWhiteSpaceIn($(this))){
 				showWarningMsg($(this),'공백은 포함할 수 없습니다');
@@ -120,7 +120,7 @@
 				removeInserted(this);
 			}
 			
-		})
+		}) */
 		
 		
 		$('input[name=m_email_prefix], input[name=m_email_suffix]').on('focusout',function(){
@@ -219,8 +219,8 @@
 			
 			if(!(selectedFile.type.match("image/*"))){
 				alert('이미지만 등록하실 수 있습니다.');
-				$('#myprofile').val("");
-				$('#preview').attr('src','${pageContext.request.contextPath}/resources/files/member/defaultprofile.png');
+				//$('#myprofile').val("");
+				//$('#preview').attr('src','https://aljdreambucket.s3.ap-northeast-2.amazonaws.com/member/defaultprofile.png');
 				
 				 
 				
@@ -247,7 +247,7 @@
 			// 그 form 태그 내의 요소 중 0번지 (input=file) 요소를 reset 한다
 			$('#myprofile').val("");
 			//$('#myprofile').wrap('<form>').parent('form').get(0).reset();
-			$('#preview').attr('src','${pageContext.request.contextPath}/resources/files/member/defaultprofile.png');
+			$('#preview').attr('src','https://aljdreambucket.s3.ap-northeast-2.amazonaws.com/member/defaultprofile.png');
 			
 			
 		})
@@ -275,21 +275,35 @@
 			if(emptyValue($('#pw'))){
 				showWarningMsg($('#pw'),'*필수 입력사항입니다');
 				$('html').animate({scrollTop: $('#pw').offset().top}, 50);
+			}else if($('#pw').val().trim().length<8){
+				showWarningMsg($('#pw'),'*비밀번호는 8자리 이상이어야 합니다');
+				$('html').animate({scrollTop: $('#pw').offset().top}, 50);
+			}else if(haveWhiteSpaceIn($('#pw'))){
+				showWarningMsg($('#pw'),'*공백은 포함할 수 없습니다');
+				$('html').animate({scrollTop: $('#pw').offset().top}, 50);
 			}else if(!passwordMatches()){
 				showWarningMsg($('#repw'),'비밀번호가 일치하지 않습니다');
 				$('html').animate({scrollTop: $('#repw').offset().top}, 50);
 			}else if(!fullWriteEmail($('input[name=m_email_prefix]'),$('input[name=m_email_suffix]'))){
 				showWarningMsg($('input[name=m_email_prefix]'),'이메일을 입력하세요');
 				$('html').animate({scrollTop: $('input[name=m_email_prefix]').offset().top}, 50);
-			}else{
-				
+			}
+			
+			
+			
+			else{
+				console.log('데이터를 넣습니다');
 				var formData =new FormData();
 				formData.append('m_email_prefix',$('input[name=m_email_prefix]').val());
 				formData.append('m_email_suffix',$('input[name=m_email_suffix]').val());
 				formData.append('m_password',$('#pw').val());
 				formData.append('m_nm',$('#m_nm').val().trim());
 				formData.append('m_adyn','${adyn}');
-				formData.append('loc_idx',$('#locarea .inp_loc:checked').val());
+				
+				if($('#locarea .inp_loc:checked').length!=0){
+					formData.append('loc_idx',$('#locarea .inp_loc:checked').val());	
+				}
+				
 				$('#userinterestselect input[name=interest]').each(function(index, item){
 					formData.append('interest',item.defaultValue);	
 				})
@@ -298,7 +312,7 @@
 				if($('#myprofile').val()){
 					formData.append('photo',$('#myprofile')[0].files[0]);
 				}
-				console.log(formData);
+				
 				
 				$.ajax({
 					url:"${pageContext.request.contextPath}/register",
@@ -312,17 +326,18 @@
 						
 						if(data=='NOTAUTHED'){
 							alert('이메일 인증이 필요합니다');
-							$('html').animate({scrollTop:$('input[name=m_email_prefix]').offset().top -50},50)
+							$('html').animate({scrollTop:$('input[name=m_email_prefix]').offset().top -50},50);
 						}else if(data=='REGISTERED'){
 							console.log("회원가입성공!");
 							alert('회원가입이 완료되었습니다!');
-							location.href='${pageContext.request.contextPath}/'	
+							location.href='${pageContext.request.contextPath}/';
 						}else{
 							alert(data);		
 						}
 					},
 					error:function(data){
 						console.log("회원가입실패!");
+						console.log(data);
 					}
 				})
 				
