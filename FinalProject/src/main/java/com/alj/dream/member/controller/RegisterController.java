@@ -42,14 +42,17 @@ public class RegisterController {
 
 	@PostMapping
 	@ResponseBody
-	public String registerMember(HttpServletRequest req, Emailinfos email, RegisterInfo infos, @CookieValue("authed") String authed) {
+	public String registerMember(HttpServletRequest req, Emailinfos email, RegisterInfo infos, @CookieValue(value="authed", required=false) String authed) {
 		
 
 
 		String result = null;
+		
+		System.out.println("authed>>>");
+		System.out.println(authed);
 
 		
-		if (authed.equals("N")) {
+		if (authed==null || authed.equals("N")) {
 			result = "NOTAUTHED";
 		} else {
 

@@ -73,6 +73,8 @@ public class RegisterService {
 				infos.setM_email(EMailUtil.getUserEmail(email));
 				infos.setM_password(pwEncoder.encode(infos.getM_password()));		
 				infos.setM_nm(infos.getM_nm().length()==0?email.getM_email_prefix():infos.getM_nm());
+				infos.setLoc_idx(infos.getLoc_idx()==null?"0":infos.getLoc_idx());
+				
 				if(infos.getPhoto()==null) {
 					infos.setM_photo("/defaultprofile.png");
 				}
