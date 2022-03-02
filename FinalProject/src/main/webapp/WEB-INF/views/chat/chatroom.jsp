@@ -88,7 +88,7 @@
 						<!-- 매칭 전 -->
 						<!-- 보이는 조건 : 매칭여부 N & 매칭날짜가null이어야함(작동)-->
 							<button type="button" disabled="true" style="background-color : #FFD601; border: 1px solid #FFD601"
-							class="${not(match.match_yn eq 'N' && match.match_date eq null)? 'hide': ''} btn btn-primary">매칭 전</button>
+							class="${not(match.match_yn eq 'N')? 'hide': ''} btn btn-primary">매칭 전</button>
 						
 						<!-- 매칭 중 -->
 						<!-- 보이는 조건 : 매칭여부 Y && 매칭날짜가 현재보다 3일이후 -->

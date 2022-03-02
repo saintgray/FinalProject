@@ -19,18 +19,17 @@ public class ReportController {
 	// 하루 신고횟수확인
 		@RequestMapping(value="/report/maxrprt", method=RequestMethod.POST)
 		@ResponseBody
-		public int chkReport(
-				@RequestParam("myidx")int myidx,
-				@RequestParam("matchidx")int matchidx
+		public int chkmaxReport(
+				@RequestParam("myidx")int myidx
 				) {
 
 
-			System.out.println("ReportInsertController : chkReport메소드진입");
+			System.out.println("ReportInsertController : chkmaxReport메소드진입");
 
-			int resultCnt = service.chkReport(myidx,matchidx);
+			int resultCnt = service.chkReport(myidx);
 
 
-			System.out.println("ReportInsertController : insertReport메소드 resultCnt리턴 전");
+			System.out.println("ReportInsertController : insertmaxReport메소드 resultCnt리턴 전");
 			return resultCnt;
 
 		}

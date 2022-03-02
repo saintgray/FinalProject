@@ -44,7 +44,7 @@
 	 	from 
 	 		report 
 	 	where 
-	 		m_report = 1 and match_idx=1 and  datediff(current_date ,DATE_FORMAT(report_date, '%Y-%m-%d'))=0
+	 		m_report = #{param1} and  datediff(current_date ,DATE_FORMAT(report_date, '%Y-%m-%d'))=0
  	</select> 
 		 
 </mapper>

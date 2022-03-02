@@ -345,6 +345,7 @@ $(document).ready(function(){
 	 	if(!${ableRprt eq 'Y'}){
 			 alert('신고는 한 채팅방에 한번만 가능합니다. 기타 문의는 알려드림 이메일 admin1@aljdream.com으로 접수바랍니다.');
 		}else{
+			console.log('하루최대치전');
 			chkTodayRprt(content);
 		}
 	});
@@ -357,12 +358,11 @@ $(document).ready(function(){
 	
 	// 하루 신고 최대치를 넘지않았는지 확인
 	function chkTodayRprt(content){
-		
+		console.log('하루최대치');
 		$.ajax({
 			url : '${pageContext.request.contextPath}/report/maxrprt',
 			type : 'post',
 			data : {
-				matchidx : ${matchidx},
 				myidx : ${myidx}
 			},
 			success : function(data){
@@ -371,7 +371,7 @@ $(document).ready(function(){
 					reporting(content);
 				}else{
 					$('#reportForm').modal('hide');	
-					alert('하루에 신고 가능한 횟수(5회)를 초과히였습니다.');
+					alert('신고는 하루 최대 5번까지만 가능합니다.');
 				}
 			}, 
 			error : function(){

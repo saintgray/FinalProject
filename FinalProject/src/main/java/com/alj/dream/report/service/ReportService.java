@@ -18,18 +18,18 @@ public class ReportService {
 
 
 	// 하루 신고횟수 확인
-	public int chkReport(int myidx, int matchidx) {
+	public int chkReport(int myidx) {
 
 		dao = template.getMapper(ReportDao.class);
 
-		int todayRprt = dao.todayReportByMyidx(myidx, matchidx);	
+		int todayRprt = dao.todayReportByMyidx(myidx);	
 		int resultCnt = 0;
 
-		// 오늘 이회원의 신고횟수가 하루에 다섯번 이상이라면 더이상의 신고는 불가능하다.
+		// 오늘 이회원의 신고횟수가 하루에 다섯번 이상이라면 (6번부터)더이상의 신고는 불가능하다.
 
-
+		System.out.println("오늘 신고횟수 : "+todayRprt);
 	
-		if (todayRprt <6){ 
+		if (todayRprt <5){ 
 			resultCnt = 1;  //신고해도 괜찮은사람
 		}else{
 			resultCnt = 0;   //신고해도 안괜찮은 사람 

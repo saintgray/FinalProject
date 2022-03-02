@@ -57,14 +57,15 @@ $(document).ready(function(){
 				type : 'post',
 				data : {myidx : myidx},
 				success : function(data){
-					if(data != null){
+					console.log(data);
+					if(!data.length==0){
 						console.log("멘토확인");
 						$('#requestYN').modal('show');
-					}else if(data == null){
+					}else if(data.length==0){
 
 						// 프로필작성하기로 보내기
 						alert('작성된 프로필이 없습니다. 프로필을 먼저 등록해주세요!');
-						location.href = '${pageContext.request.contextPath}/member/profile/profilemain';
+						location.href = '${pageContext.request.contextPath}/member/profile/main';
 					}
 				}
 			})
