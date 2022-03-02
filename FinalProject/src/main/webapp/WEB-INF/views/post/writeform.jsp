@@ -24,12 +24,12 @@
 	<!-- Container -->
 	<div class="container">
 
-		<sec:authorize access="isAuthenticated()">
-			<c:set var="idx">
-				<sec:authentication property="principal.m_idx" />
-			</c:set>
+ 		<sec:authorize access="isAuthenticated()">
 			<c:set var="type">
 				<sec:authentication property="principal.m_type" />
+			</c:set>
+			<c:set var="idx">
+				<sec:authentication property="principal.m_idx" />
 			</c:set>
 		</sec:authorize>
 
@@ -52,7 +52,13 @@
 				</c:if>
 
 				<c:if test="${writerProfile eq null}">
-				글쓴이의 프로필 정보가 없습니다. 프로필 등록이 필요합니다.
+				<script>
+					if(confirm('프로필을 먼저 작성해야 합니다. 작성하시겠습니까?')){
+						location.href="${pageContext.request.contextPath}/member/profile/register";	
+					} else{
+						location.href="${pageContext.request.contextPath}";
+					}
+				</script>
 				</c:if>
 			</div>
 		</c:if>
