@@ -59,6 +59,9 @@
 		</if>
 		WHERE mat.post_idx=#{arg0}
 		AND mem.m_quitdate is null
+		<if test='"mentor".equals(arg1)'>
+		AND pr.profile_deldate is null
+		</if>
  	</select> 
  
  
