@@ -163,6 +163,45 @@ $(document).ready(function(){
 		sock.send(JSON.stringify(msg));
 	};
 	
+
+	// 리뷰 등록시
+	 $('#regReview').on('click',function(){
+		 
+		if(!($('input[name=stars]:checked').length > 0)) {
+			
+			// 별점이 체크되지않았다면 $('#rate').prop('checked')
+		    console.log(stars);
+		  alert('리뷰작성시 별점은 필수입니다. 확인해주세요!');
+		}
+		var stars = $('#rate:checked').val();
+		var comment = $('#comment').val();
+		console.log('별점 : '+stars);
+		console.log('후기 : '+comment);
+		$.ajax({
+			url : '${pageContext.request.contextPath}/review/regreview',
+			type : 'POST',
+			data : {
+				rating : stars,
+				comment : comment,
+				matchidx : ${matchidx}
+			},
+			success : function(data){
+				if(data==1){
+					alert('리뷰가 등록되었습니다');
+					document.getElementById("reviewing").disabled = true;
+				}else{
+					//에러있을때
+					alert('오류입니다.');
+				}
+			}, 
+			error : function(){
+				console.log('비동기통신 오류');
+			}
+		})	
+		
+	});
+	
+	
 	// 메세지 받을 때
 	function onMessage(evt) { 
 		console.log('onMessage');
@@ -267,7 +306,7 @@ $(document).ready(function(){
 		<!-- 후기등록 조건 : ableRv(작성가능여부)Y -->
 		
 		if(!((${match.match_yn eq 'Y'}) && (${unmatchYN eq 'N'}))){
-			alert('후기 등록은 매칭한 상태이어야하고, 매칭일 3일이 지나고부터 가능합니다.');
+			alert('후기 등록은 매칭 후 매칭일 3일이 지나고부터 가능합니다.');
 		}else if(!${ableRv eq'Y'}){
 			alert('이미 후기를 등록한 매칭입니다. 후기 등록은 한번만 가능합니다.');
 		}else{
@@ -282,38 +321,6 @@ $(document).ready(function(){
 		});
 	
 	
-	// 리뷰 등록시
-	 $('#regReview').on('click',function(){
-		var stars = $('#rate:checked').val();
-		if(!$('#rate').prop('checked')) {
-		    // 별점이 체크되지않았다면
-		  alert('리뷰작성시 별점은 필수입니다. 확인해주세요!');
-		}
-		console.log(rating);
-		var comment = $('#comment').val();
-		console.log(comment);
-		$.ajax({
-			url : '${pageContext.request.contextPath}/review/regreview',
-			type : 'POST',
-			data : {
-				rating : stars,
-				comment : comment,
-				matchidx : ${matchidx}
-			},
-			success : function(data){
-				if(data==1){
-					alert('리뷰가 등록되었습니다');
-					document.getElementById("reviewing").disabled = true;
-				}else{
-					//에러있을때
-					alert('오류입니다.');
-				}
-			}, 
-			error : function(){
-				console.log('비동기통신 오류');
-			}
-		})
-	});
 	
 	// 신고접수하기 눌렀을 때
 	function showConfirmRprt(){

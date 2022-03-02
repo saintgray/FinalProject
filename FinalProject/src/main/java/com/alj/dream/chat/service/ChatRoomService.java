@@ -69,6 +69,11 @@ public class ChatRoomService {
 					// 확인용메세지가 없는 일반메세지로 저장.
 					chatlist.get(i).setMessage(msg);
 					System.out.println(sysmsgYN + " : " + chatlist.get(i).getMessage());
+				}else {
+					sysmsgYN="N";
+					chatlist.get(i).setSysmsgYN(sysmsgYN);
+					System.out.println(sysmsgYN+" : "+chatlist.get(i).getMessage());
+					
 				}
 			}else {
 				sysmsgYN="N";

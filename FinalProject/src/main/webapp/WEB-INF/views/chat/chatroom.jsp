@@ -81,7 +81,7 @@
 							class="${not(match.match_yn eq 'Y' && unmatchYN eq'N')? 'hide': ''} btn btn-primary">매칭 완료</button>
 						
 						<!-- 후기쓰기 -->
-							<button type="button" disabled="${mytype eq 'mentor'?'true':'false'}" style="background-color : #FFD601; border: 1px solid #FFD601"
+							<button type="button" style="background-color : #FFD601; border: 1px solid #FFD601"
 							class="btn btn-primary" onclick="review()" id="reviewing">후기 쓰기</button>
 					</c:if>
 					<c:if test="${mytype eq 'mentor'}">
@@ -282,7 +282,7 @@
 						</form>
 		         	</div>
 		         	<div>
-						<textarea class="form-control" rows="3" id="comment" name="text" placeholder="${recieverInfo.m_nm}님과의 후기를 작성해주세요.">
+						<textarea class="form-control" rows="3" id="comment" name="text" placeholder="${recieverInfo.m_nm}님에 대한 리뷰를 작성해주세요.">
 						</textarea>
 					</div>
 		      </div>
