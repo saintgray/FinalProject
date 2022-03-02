@@ -102,7 +102,7 @@
 <div>
 	<div class="descript my-1 ms-0 me-1">파일 첨부 | 5mb 이하의 이미지 파일과 PDF 파일만 등록할 수 있습니다.</div>
 	<label>
-		<button class="btn btn-outline-dark">파일 선택</button>
+		파일 선택
 		<input type="file" name="attachFile" id="attachFile" multiple style="opacity:0;">
 	</label>
 
